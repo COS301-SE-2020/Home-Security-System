@@ -1,7 +1,7 @@
 # Argus - Home-Security-System
 <img src="Sigma_Logo.png" width=300/>
 
-Argus is a home security system  capable of instantly identifying threats on multiple video feedsaround the home of a user while notifying the user of identified threats.
+Argus is a home security system  capable of instantly identifying threats on multiple video feeds around the home of a user while notifying the user of identified threats.
 
 ## Documents
 | Document                         	| Link                                                                                        	|
