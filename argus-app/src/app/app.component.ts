@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'argus-app';
+  title:string = 'argus-app';
+  header:string = 'Notification test page';
 }
