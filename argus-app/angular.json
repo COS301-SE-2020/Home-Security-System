@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "argus-app"
+    }
+  },
+  "defaultProject": "argus-app",
+  "cli": {
+    "analytics": "cc50bb45-e1fd-48b6-9058-a1ea634cd828"
+  }
 }
