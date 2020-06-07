@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Argus Edit User Profile</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="images/icons/Argus.png" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <!-- <link rel="stylesheet" type="text/css" href="css/util.css"> -->
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!--===============================================================================================-->
+    <script src="js/main.js"></script>
+    <!--===============================================================================================-->
+</head>
+
+<body>
+
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <form class="login100-form validate-form">
+                    <span class="login100-form-title p-b-26 ">
+						Edit a users profile on
+                        <img src="images/Argus.png " style="height: 60px; margin-left: auto; margin-right: auto;"> <br>
+                        <img src="images/devider.png " style="height: 7px; width: 200px; margin-left: auto; margin-right: auto;">
+					</span>
+                    </span>
+
+                    <div class="wrap-input100-last" data-validate="Add a profile picture">
+                        <b> User picture </b>
+                        <p style="padding-top: 20px;">
+                            <input class="input100 " type="file" name="userPic" accept="image/jpeg, image/png" id="userPic" onchange="updateProfilePic(event)">
+                            <img id="profilePicDisplay" src="images/blank.png " width="100px ">
+                            <img id="output" width="250px ">
+                        </p>
+                        <span class="focus-input100 "></span>
+                    </div>
+
+                    <div class="container-login100-form-btn ">
+                        <div class="wrap-login100-form-btn ">
+                            <div class="login100-form-bgbtn "></div>
+                            <button class="login100-form-btn " onclick="checkUserImage(), mockAdd()">
+								Save Changes
+							</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
