@@ -1,6 +1,7 @@
 function sendNotification(){
   alert("Testing");
 }
+
 function toggle(){
   var checked = document.getElementById('toggleBtn').checked;
   if(checked){
