@@ -1,12 +1,16 @@
-<h1> {{header}} </h1>
-<button onclick="sendNotification()" id="localNotificationBtn">Send notification</button>
-<br>
-<br>
-<button onclick="sendEmail()" id="emailNotification">Send an email notification</button>
-<br>
-<br>
-<label>
-    <input type="checkbox" id="toggleBtn" onclick="toggle()">
-    Disable Notifications
-</label>
-<router-outlet></router-outlet>
+<header>
+    <div class="container">
+      <nav>
+        <ul>
+          <li><a href="#" routerLink="/notifications">Notification</a></li>
+          <li><a href="#" routerLink="/Person/list-people">Person Profile</a></li>
+          <li><a href="#" routerLink="/Vehicle/list-vehicles">Vehicle Profile</a></li>
+          <li><a href="#" routerLink="/User/list-users">Users List</a></li>
+        </ul>
+      </nav>
+    </div>
+</header>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
