@@ -1,0 +1,72 @@
+<body>
+
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <form class="login100-form validate-form">
+                    <span class="login100-form-title p-b-26 ">
+                    Add a new user to
+                    <img src="assets/Images/Argus.png " style="height: 60px; margin-left: auto; margin-right: auto;"> <br>
+                    <img src="assets/Images/devider.png " style="height: 7px; width: 200px; margin-left: auto; margin-right: auto;">
+                  </span>
+
+                    <div class="wrap-input100" data-validate="Enter name and surname ">
+                        <b> Name and surname </b>
+                        <input class="input100 " type="text" name="name">
+                        <span class="focus-input100 "></span>
+                    </div>
+
+                    <div class="wrap-input100" data-validate="Enter username ">
+                        <b> Username </b>
+                        <input class="input100 " type="text" name="username">
+                        <span class="focus-input100 "></span>
+                    </div>
+
+                    <div class="wrap-input100" data-validate="Valid email is: a@b.c ">
+                        <b> Email </b>
+                        <input class="input100" type="text" id="input" name="input" onchange="ValidateEmail()">
+                        <span class="focus-input100 "></span>
+                    </div>
+
+                    <div class="wrap-input100" data-validate="Enter password ">
+                        <b> Password </b>
+                        <img src="assets/Images/hidePass.png" id="passEye" onclick="showPassword()" style="height: 12px; padding-left: 150px; "> <br>
+                        <input class="input100 " type='password' id="pass">
+                        <span class="focus-input100 "></span>
+                    </div>
+
+                    <div class="wrap-input100" data-validate="Enter user type ">
+                        <b> Choose a User role </b><br><br>
+                        <input type="radio" id="basic" name="userType" value="basic" checked>
+                        <label for="male"><i>Basic</i></label><br>
+                        <input type="radio" id="advanced" name="userType" value="advanced">
+                        <label for="female"><i>Advanced</i></label><br>
+                        <input type="radio" id="admin" name="userType" value="admin">
+                        <label for="other"><i>Admin</i></label>
+                    </div>
+
+                    <div class="wrap-input100-last" data-validate="Add a profile picture">
+                        <b> Profile picture </b>
+                        <p style="padding-top: 20px;">
+                            <input class="input100 " type="file" name="profilePic" accept="image/jpeg, image/png" id="profilePic" onchange="updateProfilePic(event)">
+                            <img id="profilePicDisplay" src="assets/Images/profile.jpg " width="80px ">
+                            <img id="output" width="150px ">
+                        </p>
+                        <span class="focus-input100 "></span>
+                    </div>
+
+                    <div class="container-login100-form-btn ">
+                        <div class="wrap-login100-form-btn ">
+                            <div class="login100-form-bgbtn "></div>
+                            <button class="login100-form-btn " onclick="checkProfileImage(), CheckPassword(), mockAdd() ">
+                            Add User
+                          </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+<router-outlet></router-outlet>
