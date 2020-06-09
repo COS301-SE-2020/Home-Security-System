@@ -1,15 +1,43 @@
+<div style="padding-left: 30px; padding-top: 90px">
+	<h1>User Account List</h1>
+	<br>
+</div>
+
 <div class="container">
-			<h1>User Account List</h1>
 
-			<br>
-
-			<span>
-				<button type="button" class="fa fa-plus"></button>
-
-				<button type="submit" class="fa fa-trash"></button>
+			<!--
+			<span style="padding-left:30px;">
+				<button type="button" class="fa fa-plus"> <b> Add </b> </button>
 			</span>
 
+			<span style="padding-left:30px;">
+				<button type="submit" class="fa fa-trash"> <b> Delete </b> </button>
+			</span>
+			-->
+
+			<div class="container-login100-form-btn " style="padding-left: 30px;width: 230px;">
+			<div class="wrap-login100-form-btn">
+				<div class="login100-form-bgbtn "></div>
+				<button class="login100-form-btn" >
+				Add
+			</button>
+			</div>
+			</div>
 			<br>
+
+			<div class="container-login100-form-btn " style="padding-left: 30px;width: 230px;">
+				<div class="wrap-login100-form-btn">
+					<div class="login100-form-bgbtn "></div>
+					<button class="login100-form-btn" >
+					Delete
+				</button>
+				</div>
+			</div>
+
+			<br>
+			<br>
+
+			<hr>
 
 			<div class="container">
 				<div class="row">
@@ -19,7 +47,7 @@
 								<table class='table table-striped'>
 									<thead class='header'>
 										<tr>
-											<th></th>
+											<th>Users</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -30,7 +58,7 @@
 											<td>
 												<form action='' method='post'>
 													<input type='hidden' name='project_id' value='1'>
-													<button type='submit' class='fa fa-pencil'></button>
+													<button type='submit' class='fa fa-pencil'>Edit</button>
 												</form>
 											</td>
 											<td>
