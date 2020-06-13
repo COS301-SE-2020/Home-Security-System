@@ -1,0 +1,42 @@
+/*
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  display: inline;
+}
+header {
+    background-color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    display: flex;
+    align-items: center;
+}
+
+header * {
+    display: inline;
+}
+
+nav li{
+  color: black;
+  padding:20px;
+}
+nav li a:hover{
+  padding:20px;
+  text-decoration: none;
+  color:white ;
+  background-color:gold;
+}
+a{
+  padding:20px;
+  text-decoration: none;
+  color: black;
+  text-align: center;
+}
+*/

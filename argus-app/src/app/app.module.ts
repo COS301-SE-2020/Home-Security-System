@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+//added
+import { Routes, RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +21,17 @@ import { FooterComponent } from './footer/footer.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { LicensePlatesComponent } from './license-plates/license-plates.component';
+
+const appRoutes: Routes =[
+  {path: 'notifications', component: NotificationsComponent },
+  {path: 'people', component: ListPeopleComponent },
+  {path: 'vehicle', component: ListVehiclesComponent },
+  {path: 'users', component: ListUsersComponent },
+  {path: 'addp', component: AddPersonComponent },
+  {path: 'addv', component: AddVehicleComponent },
+  {path: 'editp', component: UpdatePersonComponent },
+  {path: 'editv', component: UpdateVehicleComponent }
+];
 
 @NgModule({
   declarations: [
@@ -43,6 +56,7 @@ import { LicensePlatesComponent } from './license-plates/license-plates.componen
   imports: [
     BrowserModule,
     AppRoutingModule
+    RouterModule.forRoot(appRoutes),
   ],
   providers: [],
   bootstrap: [AppComponent]

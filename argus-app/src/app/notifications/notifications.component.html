@@ -1,14 +1,44 @@
-<button onclick="sendNotification()" id="localNotificationBtn">
-  Send notification
-</button>
-<br />
-<br />
-<button onclick="sendEmail()" id="emailNotification">
-  Send an email notification
-</button>
-<br />
-<br />
-<label>
-  <input type="checkbox" id="toggleBtn" onclick="toggle()" />
-  Disable Notifications
+  <!-- 
+  <h1> Notification test page </h1>
+
+  <button onclick="sendNotification()" id="localNotificationBtn">Send notification</button>
+  <br>
+  <br>
+  <button onclick="sendEmail()" id="emailNotification">Send an email notification</button>
+  <br>
+  <br>
+  <label>
+      <input type="checkbox" id="toggleBtn" onclick="toggle()">
+      Disable Notifications
+  </label>
+  -->
+
+<div style="padding-left: 30px; padding-top: 90px">
+  <h1> Notification test page </h1>
+  <br>
+</div>
+<div class="container-login100-form-btn " style="padding-left: 30px;width: 230px;">
+    <div class="wrap-login100-form-btn">
+        <div class="login100-form-bgbtn "></div>
+        <button class="login100-form-btn" id="localNotificationBtn" onclick="sendNotification()">
+        Send notification
+      </button>
+    </div>
+</div>
+<br>
+
+<div class="container-login100-form-btn " style="padding-left: 30px; width: 230px;">
+    <div class="wrap-login100-form-btn">
+        <div class="login100-form-bgbtn "></div>
+        <button class="login100-form-btn" id="emailNotification" onclick="sendEmail()">
+        Send an email notification
+      </button>
+    </div>
+</div>
+<br>
+
+<label style="padding-left: 35px;">
+    <input type="checkbox" id="toggleBtn" onclick="toggle()">
+    Disable Notifications
 </label>
+<router-outlet></router-outlet>
