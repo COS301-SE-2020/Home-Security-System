@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 //added
 import { Routes, RouterModule } from '@angular/router';
+import {WebcamModule} from 'ngx-webcam';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,6 +22,10 @@ import { FooterComponent } from './footer/footer.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { LicensePlatesComponent } from './license-plates/license-plates.component';
+import { AddUserComponent } from './add-user/add-user.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
+import { LoginComponent } from './login/login.component';
+import { LiveFeedComponent } from './live-feed/live-feed.component';
 
 const appRoutes: Routes =[
   {path: 'notifications', component: NotificationsComponent },
@@ -51,11 +56,16 @@ const appRoutes: Routes =[
     FooterComponent,
     DashboardComponent,
     UserProfileComponent,
-    LicensePlatesComponent
+    LicensePlatesComponent,
+    AddUserComponent,
+    EditUserComponent,
+    LoginComponent,
+    LiveFeedComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    WebcamModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [],
