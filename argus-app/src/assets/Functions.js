@@ -14,7 +14,6 @@ function toggle(){
   }
 
 }
-
 function sendEmail() {
   Email.send({
     Host: "smtp.gmail.com",
@@ -29,3 +28,4 @@ function sendEmail() {
     alert("mail sent successfully")
   });
 }
+

@@ -5,17 +5,23 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ListUsersComponent } from './Users/list-users.component';
+import { ListVehiclesComponent } from './Vehicles/list-vehicles.component';
+import { ListPeopleComponent } from './Person/list-people.component';
+import { UpdatePersonComponent } from './Person/update-person.component';
+import { UpdateVehicleComponent } from './Vehicles/update-vehicle.component';
+import { AddVehicleComponent } from './Vehicles/add-vehicle.component';
+import { AddPersonComponent } from './Person/add-person.component';
+import { SideNavComponent } from './side-nav/side-nav.component';
+import { TopBarComponent } from './top-bar/top-bar.component';
 import { NotificationsComponent } from './notifications/notifications.component';
-import { ListPeopleComponent } from './Person/list-people/list-people.component';
-import { ListVehiclesComponent } from './Vehicle/list-vehicles/list-vehicles.component';
-import { ListUsersComponent } from './User/list-users/list-users.component';
-import { AddPersonComponent } from './Person/add-person/add-person.component';
-import { UpdatePersonComponent } from './Person/update-person/update-person.component';
-import { AddVehicleComponent } from './Vehicle/add-vehicle/add-vehicle.component';
-import { UpdateVehicleComponent } from './Vehicle/update-vehicle/update-vehicle.component';
+import { WhiteListComponent } from './white-list/white-list.component';
+import { BlackListComponent } from './black-list/black-list.component';
+import { FooterComponent } from './footer/footer.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { LicensePlatesComponent } from './license-plates/license-plates.component';
 
-
-//added
 const appRoutes: Routes =[
   {path: 'notifications', component: NotificationsComponent },
   {path: 'people', component: ListPeopleComponent },
@@ -30,13 +36,27 @@ const appRoutes: Routes =[
 @NgModule({
   declarations: [
     AppComponent,
-    NotificationsComponent
+    ListUsersComponent,
+    ListVehiclesComponent,
+    ListPeopleComponent,
+    UpdatePersonComponent,
+    UpdateVehicleComponent,
+    AddVehicleComponent,
+    AddPersonComponent,
+    SideNavComponent,
+    TopBarComponent,
+    NotificationsComponent,
+    WhiteListComponent,
+    BlackListComponent,
+    FooterComponent,
+    DashboardComponent,
+    UserProfileComponent,
+    LicensePlatesComponent
   ],
   imports: [
     BrowserModule,
-    //added
-    RouterModule.forRoot(appRoutes),
     AppRoutingModule
+    RouterModule.forRoot(appRoutes),
   ],
   providers: [],
   bootstrap: [AppComponent]
