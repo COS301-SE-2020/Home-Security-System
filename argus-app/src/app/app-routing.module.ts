@@ -9,6 +9,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { LoginComponent } from './login/login.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
+import { LiveFeedComponent } from './live-feed/live-feed.component';
 
 const routes: Routes = [
     { path: 'dashboard', component: DashboardComponent, data: {title: 'Dashboard | Argus'}},
@@ -18,7 +19,8 @@ const routes: Routes = [
     { path: 'notifications', component: NotificationsComponent, data: {title: 'Notifications | Argus'}},
     { path: 'login', component: LoginComponent, data: {title: 'Login | Argus'}},
     { path: 'add-user', component: AddUserComponent, data: {title: 'Add User | Argus'}},
-    { path: 'edit-user', component: EditUserComponent, data: {title: 'Edit User | Argus'}}
+    { path: 'edit-user', component: EditUserComponent, data: {title: 'Edit User | Argus'}},
+    { path: 'live-feed', component: LiveFeedComponent, data: {title: 'Live Feed | Argus'}}
 ];
 
 @NgModule({
