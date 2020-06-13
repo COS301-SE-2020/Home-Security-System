@@ -21,6 +21,9 @@ import { FooterComponent } from './footer/footer.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { LicensePlatesComponent } from './license-plates/license-plates.component';
+import { AddUserComponent } from './add-user/add-user.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
+import { LoginComponent } from './login/login.component';
 
 const appRoutes: Routes =[
   {path: 'notifications', component: NotificationsComponent },
@@ -51,7 +54,10 @@ const appRoutes: Routes =[
     FooterComponent,
     DashboardComponent,
     UserProfileComponent,
-    LicensePlatesComponent
+    LicensePlatesComponent,
+    AddUserComponent,
+    EditUserComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
