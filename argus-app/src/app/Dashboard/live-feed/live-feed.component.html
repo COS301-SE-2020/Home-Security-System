@@ -1,0 +1,12 @@
+<div id="app">
+  <div>
+    <webcam [width]="640" [height]="480" [imageQuality]="0.92" *ngIf="showCam"></webcam>
+  </div>
+  <div><button id="tog" (click)="toggleCam();">Toggle Camera</button></div>
+  <canvas #canvas id="canvas" width="640" height="480"></canvas>
+  <ul>
+    <li *ngFor="let c of captures">
+      <img src="{{ c }}" height="50" />
+    </li>
+  </ul>
+</div>

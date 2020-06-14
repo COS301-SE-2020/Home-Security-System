@@ -3,11 +3,9 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header card-header-primary">
-          <h4 class="card-title">User List</h4>
-          <p class="card-category">All users for your system</p>
-
-          <a class="btn btn-secondary btn-md btn-sm" [routerLink]="['/add-user']">Add</a>
-
+          <h4 class="card-title">Black List</h4>
+          <p class="card-category">All people not allowed on your property</p>
+          <a class="btn btn-secondary btn-md btn-sm" [routerLink]="['/add-person']">Add</a>
         </div>
         <div class="card-body">
           <div class="table-responsive">
@@ -15,12 +13,6 @@
               <thead class="text-primary">
               <th>
                 ID
-              </th>
-              <th>
-                Name
-              </th>
-              <th>
-                Role
               </th>
               <th>
                 Picture
@@ -35,16 +27,10 @@
                   1
                 </td>
                 <td>
-                  User 1
+                  <img src="./assets/Images/blacklist/AB.jpg" class="listPic">
                 </td>
                 <td>
-                  Basic
-                </td>
-                <td>
-                  <img src="./assets/Images/blank.jpg" class="listPic">
-                </td>
-                <td>
-                  <a [routerLink]="['/edit-user']">Edit</a>
+                  <a [routerLink]="['/edit-person']">Edit</a>
                   <a [routerLink]="['/']">Delete</a>
                 </td>
               </tr>
@@ -53,16 +39,10 @@
                   2
                 </td>
                 <td>
-                  User 2
+                  <img src="./assets/Images/blacklist/BC.jpg" class="listPic">
                 </td>
                 <td>
-                  Basic
-                </td>
-                <td>
-                  <img src="./assets/Images/blank.jpg" class="listPic">
-                </td>
-                <td>
-                  <a [routerLink]="['/edit-user']">Edit</a>
+                  <a [routerLink]="['/edit-person']">Edit</a>
                   <a [routerLink]="['/']">Delete</a>
                 </td>
               </tr>
@@ -71,16 +51,10 @@
                   3
                 </td>
                 <td>
-                  User 3
+                  <img src="./assets/Images/blacklist/JM.jpg" class="listPic">
                 </td>
                 <td>
-                  Advanced
-                </td>
-                <td>
-                  <img src="./assets/Images/blank.jpg" class="listPic">
-                </td>
-                <td>
-                  <a [routerLink]="['/edit-user']">Edit</a>
+                  <a [routerLink]="['/edit-person']">Edit</a>
                   <a [routerLink]="['/']">Delete</a>
                 </td>
               </tr>
@@ -89,16 +63,10 @@
                   4
                 </td>
                 <td>
-                  User 4
+                  <img src="./assets/Images/blacklist/RDJ.jpg" class="listPic">
                 </td>
                 <td>
-                  Basic
-                </td>
-                <td>
-                  <img src="./assets/Images/blank.jpg" class="listPic">
-                </td>
-                <td>
-                  <a [routerLink]="['/edit-user']">Edit</a>
+                  <a [routerLink]="['/edit-person']">Edit</a>
                   <a [routerLink]="['/']">Delete</a>
                 </td>
               </tr>
@@ -107,16 +75,10 @@
                   5
                 </td>
                 <td>
-                  User 5
+                  <img src="./assets/Images/blacklist/SLJ.jpg" class="listPic">
                 </td>
                 <td>
-                  Admin
-                </td>
-                <td>
-                  <img src="./assets/Images/blank.jpg" class="listPic">
-                </td>
-                <td>
-                  <a [routerLink]="['/edit-user']">Edit</a>
+                  <a [routerLink]="['/edit-person']">Edit</a>
                   <a [routerLink]="['/']">Delete</a>
                 </td>
               </tr>
@@ -125,16 +87,10 @@
                   6
                 </td>
                 <td>
-                  User 6
+                  <img class="listPic" src="./assets/Images/blacklist/WS.jpg" />
                 </td>
                 <td>
-                  Advanced
-                </td>
-                <td>
-                  <img src="./assets/Images/blank.jpg" class="listPic">
-                </td>
-                <td>
-                  <a [routerLink]="['/edit-user']">Edit</a>
+                  <a [routerLink]="['/edit-person']">Edit</a>
                   <a [routerLink]="['/']">Delete</a>
                 </td>
               </tr>
@@ -146,4 +102,3 @@
     </div>
   </div>
 </div>
-

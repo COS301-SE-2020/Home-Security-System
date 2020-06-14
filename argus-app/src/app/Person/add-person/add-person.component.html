@@ -1,35 +1,39 @@
-<div style="padding-left: 30px; padding-top: 90px">
-	<h1>Add Person Profile</h1>
-	<br>
-</div>
 
-<div class="container">
+  <div class="limiter">
+  <div class="container-login100">
+    <div class="wrap-login100">
+      <form class="login100-form validate-form">
+        <span class="login100-form-title p-b-26 ">
+          Add Person profile on
+          <img src="/assets/Images/Argus.png" style="height: 60px; margin-left: auto; margin-right: auto;"> <br>
+          <img src="/assets/Images/devider.png" style="height: 7px; width: 200px; margin-left: auto; margin-right: auto;">
+        </span>
 
-			<img src='../assets/Images/blank.jpg' alt='Profile Photo'>
+          <div class="wrap-input100-last" data-validate="Add a profile picture">
+            <b> Person Picture </b>
+            <p style="padding-top: 20px;">
+              <input class="input100 " type="file" name="userPic" accept="image/jpeg, image/png" id="userPic" onchange="updateProfilePic(event)">
+              <img id="profilePicDisplay" src="/assets/Images/blank.jpg" width="200px ">
+              <img id="output" width="250px ">
+            </p>
+            <span class="focus-input100 "></span>
+          </div>
 
-			<br>
+        <div class="wrap-input100" data-validate="Enter user type ">
+          <b> Choose identification </b><br><br>
+          <input type="radio" id="white-listed" name="white-listed" value="white-listed" checked>
+          <label for="white-listed"><i>White-listed</i></label><br>
+          <input type="radio" id="grey-listed" name="grey-listed" value="grey-listed">
+          <label for="grey-listed"><i>Grey-listed</i></label><br>
+          <input type="radio" id="black-listed" name="black-listed" value="black-listed">
+          <label for="black-listed"><i>Black-listed</i></label>
+        </div>
 
-			<span>
-				<form action='' method='' enctype='multipart/form-data'>
-					<div class='form-group'>
-						<input type='file' name='pic' id='pic'><br>
-						<input type='hidden' name='user_id' value='1'>
-						<input type='submit' name='uploadImage' value='Upload Image'>
-					</div>
-				</form>
-				<input type="button" id="camera" name="camera" value="Camera">
-			</span>
-
-			<br>
-
-			<input type="radio" id="white" name="listed" value="White-Listed">
-			<label for="white">White-Listed</label><br>
-			<input type="radio" id="grey" name="listed" value="Grey-Listed">
-			<label for="grey">Grey-Listed</label><br>
-			<input type="radio" id="black" name="listed" value="Black-Listed">
-			<label for="black">Black-Listed</label>
-
-			<br>
-
-			<input type="submit" id="save" name="save" value="Done">
-		</div>
+  <div class="container-login100-form-btn ">
+    <div class="wrap-login100-form-btn ">
+      <div class="login100-form-bgbtn "></div>
+      <button class="login100-form-btn " onclick="checkUserImage(), mockAdd()">
+        Save Changes
+      </button>
+    </div>
+  </div>
