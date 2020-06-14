@@ -26,6 +26,8 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { LoginComponent } from './login/login.component';
 import { LiveFeedComponent } from './live-feed/live-feed.component';
+import { GreyListComponent } from './grey-list/grey-list.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 const appRoutes: Routes =[
   {path: 'notifications', component: NotificationsComponent },
@@ -60,7 +62,9 @@ const appRoutes: Routes =[
     AddUserComponent,
     EditUserComponent,
     LoginComponent,
-    LiveFeedComponent
+    LiveFeedComponent,
+    GreyListComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,
