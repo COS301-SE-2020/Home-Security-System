@@ -16,11 +16,43 @@ Argus is a home security system  capable of instantly identifying threats on mul
 <img src="https://github.com/BritneyChu.png" width = 200/>
 
 <details><summary>Expand details</summary>
+<div class="right">
 
-- __Interests__: 
-- __Skills__: 
-- __Previous work experience__: 
-- __Attitudes__: 
+**Interests:**
+    - Programming       - Project management        - Business
+    
+    - System analysis   - Website design
+
+
+**Skills:**
+    - Systems Architecture              - Machine Virtualisation software
+    
+    - XAMPP with APACHE and FileZilla   - PHPmyAdmin           
+    
+    - Draw.io                           - C++, Java, Delphi
+    
+    - HTML, CSS and Bootsrap            - PHP, Javascript with AJAX and ES6  
+    
+    - XML, and XML schema creation      - Low-level Assembly Language(x86)
+    
+    - Python                            - Android
+
+**Previous work experience:**
+
+* **Creator of Delphi single-task programs**  
+Merensky High School, Limpopo
+
+* **Tutoring**  
+Milky Way Tutors, Computer Science
+
+**Attitudes:**
+
+    - Adventurous        - Team-driven       - Passionate
+    
+    - Creative           - Experimental      - Logical
+    
+    - Artistic           - Amiable
+</div>
 
 </details>
 
