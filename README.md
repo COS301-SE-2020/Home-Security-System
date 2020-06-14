@@ -18,9 +18,32 @@ Argus is a home security system  capable of instantly identifying threats on mul
 <details><summary>Expand details</summary>
 
 - __Interests__: 
+
+    - Programming       - Team management        - Gaming
+    - System analysis   - Website design
+
 - __Skills__: 
+
+    - Systems Architecture              - Machine Virtualisation software
+    - XAMPP with APACHE and FileZilla   - PHPmyAdmin           
+    - Draw.io                           - C++, Java, Delphi
+    - HTML, CSS and Bootsrap            - PHP, Javascript with AJAX and ES6  
+    - XML, and XML schema creation      - Low-level Assembly Language(x86)
+    - Python                            - Android
+    
 - __Previous work experience__: 
+
+* **Creator of Delphi single-task programs**  
+Merensky High School, Limpopo
+
+* **Tutoring**  
+Milky Way Tutors, Computer Science
+
 - __Attitudes__: 
+
+    - Adventurous        - Team-driven       - Passionate
+    - Creative           - Experimental      - Logical
+    - Artistic           - Amiable
 
 </details>
 
