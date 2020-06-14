@@ -11,7 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { LiveFeedComponent } from './live-feed/live-feed.component';
-
+import { UserListComponent } from './user-list/user-list.component';
 const routes: Routes = [
     { path: 'dashboard', component: DashboardComponent, data: {title: 'Dashboard | Argus'}},
     { path: 'user-profile', component: UserProfileComponent, data: {title: 'User Profile | Argus'}},
