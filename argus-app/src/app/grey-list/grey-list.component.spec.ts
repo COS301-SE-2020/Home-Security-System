@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UpdateVehicleComponent } from './update-vehicle.component';
+import { GreyListComponent } from './grey-list.component';
 
-describe('UpdateVehicleComponent', () => {
-  let component: UpdateVehicleComponent;
-  let fixture: ComponentFixture<UpdateVehicleComponent>;
+describe('GreyListComponent', () => {
+  let component: GreyListComponent;
+  let fixture: ComponentFixture<GreyListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UpdateVehicleComponent ]
+      declarations: [ GreyListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UpdateVehicleComponent);
+    fixture = TestBed.createComponent(GreyListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
