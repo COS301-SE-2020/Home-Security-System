@@ -18,8 +18,6 @@ Argus is a home security system  capable of instantly identifying threats on mul
 <details><summary>Expand details</summary>
 <div class="right">
 
-**Current Position:** Version 2 member, main Neural network creator and tester
-
 **Interests:**
 
     - Artificial intelligence        - VR        - Machine Learning
@@ -44,10 +42,8 @@ Slavefreetrade, Switzerland
     - Ambitious     - Dedicated     - Easy-going
 
 **Links to other profiles:**
-
-[![linkdin](LandingPage_Images/linkdinIcon.jpg)](https://www.linkedin.com/in/jason-lutz-36058b159) [![github](LandingPage_Images/githubicon.jpg)](https://github.com/jay-lutz) [![gitPages](LandingPage_Images/gh_io.jpg)](https://jay-lutz.github.io/)</div>
-
 </div>
+
 </details>
 
 ### Brad Zietsman (u15228194) [GitHub Profile](https://github.com/Bradford-700), [CV](https://bradford-700.github.io/online-cv), [LinkedIn](https://www.linkedin.com/in/brad-zietsman/)
