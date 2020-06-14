@@ -6,7 +6,8 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
   styleUrls: ['./live-feed.component.css']
 })
 export class LiveFeedComponent implements OnInit {
-
+  title = 'argus-app';
+  
   @ViewChild('video')
   public webcam: ElementRef;
 
@@ -23,4 +24,3 @@ export class LiveFeedComponent implements OnInit {
   }
 
 }
-
