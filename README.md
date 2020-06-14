@@ -19,29 +19,39 @@ Argus is a home security system  capable of instantly identifying threats on mul
 <div class="right">
 
 **Interests:**
+    - Programming       - Project management        - Business
+    
+    - System analysis   - Website design
 
-    - Artificial intelligence        - VR        - Machine Learning
 
 **Skills:**
-
-    - Adobe XD                  - Landbot.io    - Draw.io   
+    - Systems Architecture              - Machine Virtualisation software
     
-    - PHP                       - C++           - SQL
+    - XAMPP with APACHE and FileZilla   - PHPmyAdmin           
     
-    - Intel x86 Assembly        - Kotlin        - JSON
+    - Draw.io                           - C++, Java, Delphi
     
-    - XML                       - Android
+    - HTML, CSS and Bootsrap            - PHP, Javascript with AJAX and ES6  
+    
+    - XML, and XML schema creation      - Low-level Assembly Language(x86)
+    
+    - Python                            - Android
 
 **Previous work experience:**
 
-* **Volunteer in IT** NGO  
-Slavefreetrade, Switzerland
+* **Creator of Delphi single-task programs**  
+Merensky High School, Limpopo
+
+* **Tutoring**  
+Milky Way Tutors, Computer Science
 
 **Attitudes:**
 
-    - Ambitious     - Dedicated     - Easy-going
-
-**Links to other profiles:**
+    - Adventurous        - Team-driven       - Passionate
+    
+    - Creative           - Experimental      - Logical
+    
+    - Artistic           - Amiable
 </div>
 
 </details>
