@@ -30,10 +30,10 @@ Argus is a home security system  capable of instantly identifying threats on mul
 
 <details><summary>Expand details</summary>
 
-- __Interests__: 
-- __Skills__: 
-- __Previous work experience__:
-- __Attitudes__:
+- __Interests__: Dancing, Fishing, Gaming, Gambling, Gym, Photography, Snooker.
+- __Skills__: C++, C#, Java, x86 Assembly, JavaScript, PHP, HTNL/CSS, MySQL, Postgre, MongoDB, Neo4j.
+- __Previous work experience__: Tutor for COS212 at the University of Pretoria.
+- __Attitudes__: Confident, Attention to Detail, Hard Worker.
 
 </details>
 
