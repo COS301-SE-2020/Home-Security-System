@@ -3,11 +3,11 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-primary">
-            <h4 class="card-title">White List</h4>
-            <p class="card-category">All people allowed on your property</p>
-            <button class="btn btn-secondary btn-md btn-sm">
-              Add
-            </button>
+            <h4 class="card-title">User List</h4>
+            <p class="card-category">All users for your system</p>
+
+            <a class="btn btn-secondary btn-md btn-sm" [routerLink]="['/add-user']">Add</a>
+
           </div>
           <div class="card-body">
             <div class="table-responsive">
@@ -22,6 +22,9 @@
                   <th>
                     Picture
                   </th>
+                  <th>
+                    Modify
+                  </th>
                 </thead>
                 <tbody>
                   <tr>
@@ -29,10 +32,14 @@
                       1
                     </td>
                     <td>
-                      Daniel Craig
+                      User 1
                     </td>
                     <td>
-                        <img src="assets/Images/whitelist/DC.jpg" class="listPic">
+                        <img src="assets/Images/blank.jpg" class="listPic">
+                    </td>
+                    <td>
+                        <a [routerLink]="['/edit-user']">Edit</a>
+                        <a [routerLink]="['/']">Delete</a>
                     </td>
                   </tr>
                   <tr>
@@ -40,10 +47,14 @@
                       2
                     </td>
                     <td>
-                      Denzel Washington
+                      User 2
                     </td>
                     <td>
-                        <img src="assets/Images/whitelist/DW.jpg" class="listPic">
+                        <img src="assets/Images/blank.jpg" class="listPic">
+                    </td>
+                    <td>
+                        <a [routerLink]="['/edit-user']">Edit</a>
+                        <a [routerLink]="['/']">Delete</a>
                     </td>
                   </tr>
                   <tr>
@@ -51,10 +62,14 @@
                       3
                     </td>
                     <td>
-                      Jennifer Lopez
+                      User 3
                     </td>
                     <td>
-                        <img src="assets/Images/whitelist/JL.jpg" class="listPic">
+                        <img src="assets/Images/blank.jpg" class="listPic">
+                    </td>
+                    <td>
+                        <a [routerLink]="['/edit-user']">Edit</a>
+                        <a [routerLink]="['/']">Delete</a>
                     </td>
                   </tr>
                   <tr>
@@ -62,10 +77,14 @@
                       4
                     </td>
                     <td>
-                        Linda Cardellini
+                        User 4
                     </td>
                     <td>
-                        <img src="assets/Images/whitelist/LC.jpg" class="listPic">
+                        <img src="assets/Images/blank.jpg" class="listPic">
+                    </td>
+                    <td>
+                        <a [routerLink]="['/edit-user']">Edit</a>
+                        <a [routerLink]="['/']">Delete</a>
                     </td>
                   </tr>
                   <tr>
@@ -73,10 +92,14 @@
                       5
                     </td>
                     <td>
-                      Octavia Spencer
+                      User 5
                     </td>
                     <td>
-                        <img src="assets/Images/whitelist/OS.jpg" class="listPic">
+                        <img src="assets/Images/blank.jpg" class="listPic">
+                    </td>
+                    <td>
+                        <a [routerLink]="['/edit-user']">Edit</a>
+                        <a [routerLink]="['/']">Delete</a>
                     </td>
                   </tr>
                   <tr>
@@ -84,10 +107,14 @@
                       6
                     </td>
                     <td>
-                      Steve Carell
+                      User 6
                     </td>
                     <td>
-                        <img src="assets/Images/whitelist/SC.jpg" class="listPic">
+                        <img src="assets/Images/blank.jpg" class="listPic">
+                    </td>
+                    <td>
+                        <a [routerLink]="['/edit-user']">Edit</a>
+                        <a [routerLink]="['/']">Delete</a>
                     </td>
                   </tr>
                 </tbody>
