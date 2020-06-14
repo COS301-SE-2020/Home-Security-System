@@ -6,7 +6,7 @@ Argus is a home security system  capable of instantly identifying threats on mul
 ## Documents
 | Document                         	| Link                                                                                        	|
 |----------------------------------	|---------------------------------------------------------------------------------------------	|
-| SRS                              	| [Software Requirements Specification](LINK TO SRS)                                      	    |
+| SRS                              	| [Software Requirements Specification](https://www.overleaf.com/read/cfwptxcxzcsy)                                      	    |
 | Project management tool (ClickUp) | [ClickUp](https://app.clickup.com/2535636/v/l/s/2669690)                                      |
 
 ## Group Members
@@ -88,10 +88,10 @@ Milky Way Tutors, Computer Science
 
 <details><summary>Expand details</summary>
 
-- __Interests__: 
-- __Skills__: 
-- __Previous work experience__:
-- __Attitudes__:
+- __Interests__: Gaming, Gym, Virtual Reality, Guitar
+- __Skills__: Python, Java, C++, Javascript, HTML, x86 Assembly
+- __Previous work experience__: Volunteer work developing chat bots
+- __Attitudes__: Positive, Dedicated, Relaxed, Determined
 
 </details>
 
