@@ -56,10 +56,10 @@ Argus is a home security system  capable of instantly identifying threats on mul
 
 <details><summary>Expand details</summary>
 
-- __Interests__: 
-- __Skills__: 
-- __Previous work experience__:
-- __Attitudes__:
+- __Interests__: Gaming, Gym, Virtual Reality, Guitar
+- __Skills__: Python, Java, C++, Javascript, HTML, x86 Assembly
+- __Previous work experience__: Volunteer work developing chat bots
+- __Attitudes__: Positive, Dedicated, Relaxed, Determined
 
 </details>
 
