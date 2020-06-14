@@ -7,7 +7,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 })
 export class LiveFeedComponent implements OnInit {
   title = 'argus-app';
-  
+
   @ViewChild('video')
   public webcam: ElementRef;
 
@@ -16,11 +16,17 @@ export class LiveFeedComponent implements OnInit {
 
   public captures: Array<any>;
 
+  public showCam = true;
+
   public constructor() {
     this.captures = [];
   }
 
   ngOnInit(): void {
+  }
+
+  public toggleCam(): void {
+    this.showCam = !this.showCam;
   }
 
 }
