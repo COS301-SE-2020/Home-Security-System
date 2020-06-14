@@ -32,12 +32,12 @@ describe('LiveFeedComponent', () => {
     expect(app.title).toEqual('argus-app');
   });
   */
-
+/*
   it('should render title', () => {
     fixture = TestBed.createComponent(LiveFeedComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('.content span').textContent).toContain('argus-app app is running!');
   });
+  */
 });
-
