@@ -16,35 +16,38 @@ Argus is a home security system  capable of instantly identifying threats on mul
 <img src="https://github.com/BritneyChu.png" width = 200/>
 
 <details><summary>Expand details</summary>
+<div class="right">
 
-- __Interests__: 
+**Current Position:** Version 2 member, main Neural network creator and tester
 
-    - Programming       - Team management        - Gaming
-    - System analysis   - Website design
+**Interests:**
 
-- __Skills__: 
+    - Artificial intelligence        - VR        - Machine Learning
 
-    - Systems Architecture              - Machine Virtualisation software
-    - XAMPP with APACHE and FileZilla   - PHPmyAdmin           
-    - Draw.io                           - C++, Java, Delphi
-    - HTML, CSS and Bootsrap            - PHP, Javascript with AJAX and ES6  
-    - XML, and XML schema creation      - Low-level Assembly Language(x86)
-    - Python                            - Android
+**Skills:**
+
+    - Adobe XD                  - Landbot.io    - Draw.io   
     
-- __Previous work experience__: 
+    - PHP                       - C++           - SQL
+    
+    - Intel x86 Assembly        - Kotlin        - JSON
+    
+    - XML                       - Android
 
-* **Creator of Delphi single-task programs**  
-Merensky High School, Limpopo
+**Previous work experience:**
 
-* **Tutoring**  
-Milky Way Tutors, Computer Science
+* **Volunteer in IT** NGO  
+Slavefreetrade, Switzerland
 
-- __Attitudes__: 
+**Attitudes:**
 
-    - Adventurous        - Team-driven       - Passionate
-    - Creative           - Experimental      - Logical
-    - Artistic           - Amiable
+    - Ambitious     - Dedicated     - Easy-going
 
+**Links to other profiles:**
+
+[![linkdin](LandingPage_Images/linkdinIcon.jpg)](https://www.linkedin.com/in/jason-lutz-36058b159) [![github](LandingPage_Images/githubicon.jpg)](https://github.com/jay-lutz) [![gitPages](LandingPage_Images/gh_io.jpg)](https://jay-lutz.github.io/)</div>
+
+</div>
 </details>
 
 ### Brad Zietsman (u15228194) [GitHub Profile](https://github.com/Bradford-700), [CV](https://bradford-700.github.io/online-cv), [LinkedIn](https://www.linkedin.com/in/brad-zietsman/)
