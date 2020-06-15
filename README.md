@@ -6,7 +6,7 @@ Argus is a home security system  capable of instantly identifying threats on mul
 ## Documents
 | Document                         	| Link                                                                                        	|
 |----------------------------------	|---------------------------------------------------------------------------------------------	|
-| SRS                              	| [Software Requirements Specification](Documentation/Sigma__SRS_document.pdf)                  |
+| SRS                              	| [Software Requirements Specification](/Documentation/Sigma___SRS_document.pdf)                  |
 | Project management tool (ClickUp) | [ClickUp](https://app.clickup.com/2535636/v/l/s/2669690)                                      |
 
 ## Repository Layout
