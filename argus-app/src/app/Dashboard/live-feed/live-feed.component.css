@@ -20,3 +20,16 @@ li {
     display: inline;
     padding: 5px;
 }
+
+.snapshot {
+  text-align: center;
+}
+
+img {
+  max-width: 800px;
+  max-height: 800px;
+}
+
+button {
+  border-style: solid;
+}
