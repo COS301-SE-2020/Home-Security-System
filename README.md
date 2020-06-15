@@ -9,6 +9,16 @@ Argus is a home security system  capable of instantly identifying threats on mul
 | SRS                              	| [Software Requirements Specification](https://www.overleaf.com/read/cfwptxcxzcsy)                                      	    |
 | Project management tool (ClickUp) | [ClickUp](https://app.clickup.com/2535636/v/l/s/2669690)                                      |
 
+## Repository Layout
+This is how the branches will be laid out
+```
+master 
+└── demo1
+    └──── notification
+    └──── web-app-struc
+    └──── camera_feed
+    └──── web_dash
+```
 ## Group Members
 
 ### Britney Chu - Team Leader (u18176951) [GitHub Profile](https://github.com/BritneyChu), [CV](https://britneychu.github.io/), [LinkedIn](https://www.linkedin.com/in/britney-chu-ab434a1a3/)
