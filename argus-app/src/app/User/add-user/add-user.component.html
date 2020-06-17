@@ -4,7 +4,8 @@
       <form class="login100-form validate-form">
         <span class="login100-form-title p-b-26 ">
           Add a new user to
-          <img src="/assets/Images/Argus.png " style="height: 60px; margin-left: auto; margin-right: auto;"> <br>
+          <!--Can't use inline styling-->
+          <img src="/assets/Images/Argus.png " style="height: 60px; margin-left: auto; margin-right: auto;"><br>
           <img src="/assets/Images/devider.png " style="height: 7px; width: 200px; margin-left: auto; margin-right: auto;">
         </span>
 
@@ -46,18 +47,18 @@
 
         <div class="wrap-input100-last" data-validate="Add a profile picture">
           <b> Profile picture </b>
-          <p style="padding-top: 20px;">
+          <p style="padding-top: 20px;"><!--Can't use inline styling-->
             <input class="input100 " type="file" name="profilePic" accept="image/jpeg, image/png" id="profilePic" onchange="updateProfilePic(event)">
-            <img id="profilePicDisplay" src="/assets/Images/profile.jpg " width="80px ">
-            <img id="output" width="150px ">
+            <img id="profilePicDisplay" src="/assets/Images/profile.jpg" width="80px"><!--Can't use inline styling-->
+            <img id="output" width="150px">
           </p>
           <span class="focus-input100 "></span>
         </div>
 
-        <div class="container-login100-form-btn ">
-          <div class="wrap-login100-form-btn ">
-            <div class="login100-form-bgbtn "></div>
-            <button class="login100-form-btn " onclick="checkProfileImage(), CheckPassword(), mockAdd() ">
+        <div class="container-login100-form-btn">
+          <div class="wrap-login100-form-btn">
+            <div class="login100-form-bgbtn"></div>
+            <button class="login100-form-btn" onclick="checkProfileImage(), CheckPassword(), mockAdd()">
               Add User
             </button>
           </div>

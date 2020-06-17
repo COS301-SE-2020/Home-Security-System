@@ -1,5 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
+.cursive
+{
+  font-family: 'Tangerine', sans-serif;
+}
+
 .center
 {
   text-align: center;
@@ -15666,7 +15671,7 @@ iframe {
   }
 
   .footer {
-    padding: 0.9375rem 0;
+    padding: 15px;
     text-align: center;
     display: -webkit-flex;
     /* Safari */
@@ -15686,7 +15691,7 @@ iframe {
 
   .footer ul li a {
     color: inherit;
-    padding: 0.9375rem;
+    padding: 15px;
     font-weight: 500;
     font-size: 12px;
     text-transform: uppercase;
@@ -20294,6 +20299,7 @@ iframe {
     border-radius: 50%;
     background-size: cover;
     background-position: center center;
+    background-image: url(/assets/Images/faces/JS.jpg);
   }
 
   .image-cropper {

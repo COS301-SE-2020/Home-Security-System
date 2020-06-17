@@ -28,8 +28,9 @@
                             "src/styles.css"
                         ],
                         "scripts": [
-                            "src/assets/Functions.js",
-                            "src/assets/js/main.js"
+                            "src/assets/js/Start.js",
+                            "src/assets/js/Main.js",
+                            "src/assets/js/Functions.js"
                         ]
                     },
                     "configurations": {
