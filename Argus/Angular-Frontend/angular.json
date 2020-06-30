@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "argus-app": {
+        "Angular-Frontend": {
             "projectType": "application",
             "schematics": {},
             "root": "",
@@ -13,7 +13,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "outputPath": "dist/argus-app",
+                        "outputPath": "dist/Angular-Frontend",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
@@ -64,18 +64,18 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "argus-app:build"
+                        "browserTarget": "Angular-Frontend:build"
                     },
                     "configurations": {
                         "production": {
-                            "browserTarget": "argus-app:build:production"
+                            "browserTarget": "Angular-Frontend:build:production"
                         }
                     }
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "argus-app:build"
+                        "browserTarget": "Angular-Frontend:build"
                     }
                 },
                 "test": {
@@ -112,18 +112,18 @@
                     "builder": "@angular-devkit/build-angular:protractor",
                     "options": {
                         "protractorConfig": "e2e/protractor.conf.js",
-                        "devServerTarget": "argus-app:serve"
+                        "devServerTarget": "Angular-Frontend:serve"
                     },
                     "configurations": {
                         "production": {
-                            "devServerTarget": "argus-app:serve:production"
+                            "devServerTarget": "Angular-Frontend:serve:production"
                         }
                     }
                 }
             }
         }
     },
-    "defaultProject": "argus-app",
+    "defaultProject": "Angular-Frontend",
     "cli": {
         "analytics": "d045e364-1ad1-421b-94af-a10ae515edfc"
     }
