@@ -22,6 +22,7 @@ import { AddVehicleComponent } from './Vehicle/add-vehicle/add-vehicle.component
 import { EditVehicleComponent } from './Vehicle/edit-vehicle/edit-vehicle.component';
 import { PeopleWhiteComponent } from './White-list/people-white/people-white.component';
 import { VehiclesWhiteComponent } from './White-list/vehicles-white/vehicles-white.component';
+import { NotificationComponent } from './Dashboard/notification/notification.component';
 
 const routes: Routes = [
     { path: 'dashboard', component: DashboardComponent, data: {title: 'Dashboard | Argus'}},
@@ -36,7 +37,8 @@ const routes: Routes = [
     { path: 'edit-person', component: UpdatePersonComponent, data: {title: 'Edit Person | Argus'}},
     { path: 'settings', component: SettingsComponent, data: {title: 'Notifications | Argus'}},
     { path: 'login', component: LoginComponent, data: {title: 'Login | Argus'}},
-    { path: 'live-feed', component: LiveFeedComponent, data: {title: 'Live Feed | Argus'}}
+    { path: 'live-feed', component: LiveFeedComponent, data: {title: 'Live Feed | Argus'}},
+    { path: 'notification', component: NotificationComponent, data: {title: 'Notifications | Argus'}}
 ];
 
 @NgModule({

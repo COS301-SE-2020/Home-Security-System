@@ -10,7 +10,7 @@ import { TitleService } from './title.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'Angular-Frontend';
+  title = 'argus-app';
 
   constructor(private titleService: Title, private router: Router,
     private activatedRoute: ActivatedRoute) {}

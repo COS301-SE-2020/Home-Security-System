@@ -1,6 +1,7 @@
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-//added
+// added
 import { Routes, RouterModule } from '@angular/router';
 import {WebcamModule} from 'ngx-webcam';
 import { AppRoutingModule } from './app-routing.module';
@@ -27,6 +28,7 @@ import { AddVehicleComponent } from './Vehicle/add-vehicle/add-vehicle.component
 import { EditVehicleComponent } from './Vehicle/edit-vehicle/edit-vehicle.component';
 import { PeopleWhiteComponent } from './White-list/people-white/people-white.component';
 import { VehiclesWhiteComponent } from './White-list/vehicles-white/vehicles-white.component';
+import { NotificationComponent } from './Dashboard/notification/notification.component';
 
 const appRoutes: Routes =[];
 
@@ -54,6 +56,7 @@ const appRoutes: Routes =[];
     EditVehicleComponent,
     PeopleWhiteComponent,
     VehiclesWhiteComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,
