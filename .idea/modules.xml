@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Home-Security-System.iml" filepath="$PROJECT_DIR$/.idea/Home-Security-System.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Argus/Spring-Backend/Spring-Backend.iml" filepath="$PROJECT_DIR$/Argus/Spring-Backend/Spring-Backend.iml" />
     </modules>
   </component>
 </project>
