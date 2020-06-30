@@ -1,3 +1,56 @@
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title">Notifications</h4>
+                    <p class="card-category">A history of all the notifications sent to you</p>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                      <table id ="notificationsTable">
+                        <thead class="text-primary">
+                        <tr>
+                          <th>Date-Time</th>
+                          <th>Notification</th>
+                          <th>Notification Type</th>
+                          <th>Delete</th>
+                        </tr>
+                        </thead>
+                      </table>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="container-login100-form-btn " style="padding-left: 30px;width: 230px;"><!--Can't use inline styling-->
+  <div class="wrap-login100-form-btn">
+    <div class="login100-form-bgbtn "></div>
+    <button class="login100-form-btn" id="localNotificationBtn" onclick="sendNotification();addCell('Local')">
+      Send notification
+    </button>
+  </div>
+</div>
+<br>
+
+<div class="container-login100-form-btn " style="padding-left: 30px; width: 230px;"><!--Can't use inline styling-->
+  <div class="wrap-login100-form-btn">
+    <div class="login100-form-bgbtn "></div>
+    <button class="login100-form-btn" id="emailNotification" onclick="sendEmail();addCell('Email')">
+      Send an email notification
+    </button>
+  </div>
+</div>
+<br>
+
+<label style="padding-left: 35px;"><!--Can't use inline styling-->
+  <input type="checkbox" id="toggleBtn" onclick="toggle()">
+  Disable Notifications
+</label>
+<!--
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
@@ -92,3 +145,4 @@
         </div>
     </div>
 </div>
+-->
