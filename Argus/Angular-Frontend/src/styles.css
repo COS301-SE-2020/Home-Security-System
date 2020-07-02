@@ -19418,8 +19418,8 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 .image-cropper {
     margin: -50px auto 0;
     float: right;
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     position: relative;
     overflow: hidden;
     border-radius: 50%;
@@ -19428,8 +19428,8 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 .userPic {
     object-fit: cover;
     margin: 0 auto;
-    height: 100px;
-    width: 100px;
+    height: 150px;
+    width: 150px;
     transition: .5s ease;
     backface-visibility: hidden;
     opacity: 1;
