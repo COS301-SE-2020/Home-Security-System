@@ -44,14 +44,21 @@ function addCell(type){
   var row = table.insertRow();
   var btn = document.createElement("button");
 
-  btn.setAttribute('class', 'DeleteButton'+tot);
+  btn.setAttribute('class', 'DeleteButton');
+  btn.setAttribute('id', tot+1);
   btn.innerHTML = "Delete";
 
-  btn.onclick = function(totVal){
-    totVal = tot;
+  btn.onclick = function(){
+    var toDel = btn.getAttribute("id");
     var table = document.getElementById('notificationsTable');
-    table.deleteRow(totVal);
-    tot -= 1;
+    table.deleteRow(toDel);
+    tot = table.rows.length - 1;
+
+    for(var i = 1; i < table.rows.length; i++){
+      table.rows[i].cells[3].children[0].setAttribute('id', i);
+      //alert(table.rows[i].cells[3].children[0].getAttribute("id"));
+    }
+
   }
 
   var cell1 = row.insertCell(0);
