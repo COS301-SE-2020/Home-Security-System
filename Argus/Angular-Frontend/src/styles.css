@@ -19464,3 +19464,367 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
     width: 75px;
     border-radius: 50%;
 }
+
+
+/*************************
+      LOGIN STYLES
+**************************/
+.loginBG {
+  width: 100%;
+  height: 100%;
+  background: url(assets/Images/loginBG.jpg) no-repeat center;
+  background-size: cover;
+  filter: blur(5px);
+  transform: scale(1.1);
+  overflow: hidden;
+  position: fixed;
+}
+
+.loginCover {
+  background-color: #D4AF37;
+  width: 100%;
+  height: 100%;
+  background-size: 100%;
+  opacity: 0.3;
+}
+
+.loginImg {
+  display: block;
+  margin: auto;
+  width: 75%;
+  height: auto;
+  padding: 10%;
+}
+
+#login-button {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 30px;
+  margin: auto;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: #303030;
+  overflow: hidden;
+  opacity: 1;
+  box-shadow: 10px 10px 30px #000;
+  color: #D4AF37;
+  font-size: 200%;
+  text-align: center;
+}
+
+#login-button:hover {
+  background: #404040;
+  transition-duration: 0.75s;
+  box-shadow: 15px 15px 40px #000;
+}
+
+/* Login container */
+#loginContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: fit-content;
+  max-width: 90%;
+  height: fit-content;
+  border-radius: 5px;
+  background: #303030;
+  box-shadow: 10px 10px 30px #000;
+  display: none;
+  padding: 20px;
+  text-align: center;
+}
+
+.loginLogo {
+  padding: 15px 0;
+  margin: 0;
+  display: block;
+  position: relative;
+  z-index: 4;
+}
+
+.loginLogo:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 15px;
+  height: 1px;
+  width: calc(100% - 30px);
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), #d4af37, rgba(0, 0, 0, 0));
+}
+.login-close-btn {
+  position: absolute;
+  color: white;
+  top: 10px;
+  right: 10px;
+
+  cursor: pointer;
+  text-align: center;
+  -webkit-transition: all 2s ease-in-out;
+  -moz-transition: all 2s ease-in-out;
+  -o-transition: all 2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.login-close-btn:hover {
+  opacity: 0.9;
+  color: red;
+}
+
+/* Heading */
+.loginHead {
+  position: relative;
+  margin-top: 2px;
+  text-align: center;
+  color: #D4AF37;
+  font-size: 200%;
+}
+
+.loginFields {
+  display: block;
+}
+
+/* Inputs */
+.loginInputs {
+  position: relative;
+  width: 100%;
+  display: block;
+  margin: 9px auto;
+  font-size: 17px;
+  color: #fff;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  background: rgba(3, 3, 3, .1);
+  -webkit-transition: all 2s ease-in-out;
+  -moz-transition: all 2s ease-in-out;
+  -o-transition: all 2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.loginInputs:focus {
+  outline: none;
+  box-shadow: 3px 3px 10px #333;
+  background: rgba(3, 3, 3, .18);
+}
+
+.loginPassword {
+  display: block;
+}
+
+[id*="passwordVisibility"] {
+  float: right;
+  margin-right: 10px;
+  margin-top: -40px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Link */
+.loginButton {
+  text-align: center;
+  padding: 4px 8px;
+  background: #D4AF37;
+  color: black;
+
+  position: relative;
+  width: 100%;
+  display: block;
+  margin: 9px auto;
+  font-size: 100%;
+  border-radius: 6px;
+  border: none;
+  -webkit-transition: all 2s ease-in-out;
+  -moz-transition: all 2s ease-in-out;
+  -o-transition: all 2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.loginButton:hover {
+  color: black;
+  background: #dec047;
+  box-shadow: 3px 3px 10px #333;
+}
+
+#remember-container {
+  position: relative;
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+/* The container */
+.checkContainer {
+  display: block;
+  position: absolute;
+  left: 0;
+  padding-left: 25px;
+  cursor: pointer;
+  color: rgba(255, 255, 255, .6);
+}
+
+.checkContainer:hover {
+  color: rgba(255, 255, 255, .9);
+}
+
+/* Hide the browser's default checkbox */
+.checkContainer input {
+  position: relative;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: rgba(3, 3, 3, .2);
+  border-radius: 5px;
+}
+
+/* On mouse-over, add a grey background color */
+.checkContainer:hover input ~ .checkmark {
+  background-color: rgba(3, 3, 3, .1);
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkContainer input:checked ~ .checkmark {
+  background-color: #D4AF37;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  margin-right: 0;
+}
+
+/* Show the checkmark when checked */
+.checkContainer input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkContainer .checkmark:after {
+  left: 8px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid darkgreen;
+  border-width: 0 3px 3px 0;
+  border-radius: 5px;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+#forgotten {
+  top: 0;
+  right: 0;
+  position: absolute;
+  font-size: 14px;
+  color: rgba(255, 255, 255, .6);
+  cursor: pointer;
+  -webkit-transition: all 2s ease-in-out;
+  -moz-transition: all 2s ease-in-out;
+  -o-transition: all 2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+#forgotten:hover {
+  color: rgba(255, 255, 255, .9);
+}
+
+/*Forgotten Container*/
+#forgotten-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: fit-content;
+  max-width: 90%;
+  height: fit-content;
+  border-radius: 5px;
+  background: #303030;
+  display: none;
+  padding: 20px;
+  text-align: center;
+}
+
+.forgotExplain{
+  color: #E8E8E8;
+}
+
+#resetContainer
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: fit-content;
+  max-width: 90%;
+  height: fit-content;
+  border-radius: 5px;
+  background: #303030;
+  box-shadow: 10px 10px 30px #000;
+  padding: 20px;
+  text-align: center;
+}
+
+/* The message box is shown when the user clicks on the password field */
+#passCheckMsg {
+  display:none;
+  position: relative;
+  margin-top: 10px;
+  color: white;
+  font-size: 14px;
+  text-align: left;
+}
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+  color: #D4AF37;
+}
+
+.valid:before {
+  position: relative;
+  margin-right: 10px;
+  content: "✔";
+}
+
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+  color: #ff4d3d;
+}
+
+.invalid:before {
+  position: relative;
+  margin-right: 10px;
+  content: "✖";
+}
+
+#passNoMatch{
+  text-align: left;
+  display: none;
+}
+
+#passMatch{
+  text-align: left;
+  display: none;
+}

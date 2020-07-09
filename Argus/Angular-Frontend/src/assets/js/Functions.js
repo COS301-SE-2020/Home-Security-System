@@ -112,3 +112,131 @@ function deleteRow(){
 
 }
 */
+
+
+//LOGIN FUNCTIONS
+
+function loginSlide() {
+
+  $('#login-button').fadeOut("slow", function () {
+    $("#loginContainer").fadeIn();
+    TweenMax.from("#login-button", .4, {scale: 0, ease: Sine.easeInOut});
+    TweenMax.to("#loginContainer", .4, {scale: 1, ease: Sine.easeInOut});
+  });
+}
+
+function closeLogin() {
+  $(".login-close-btn").click(function () {
+    TweenMax.from("#loginContainer", .4, {scale: 1, ease: Sine.easeInOut});
+    TweenMax.to("#loginContainer", .4, {left: "0px", scale: 0, ease: Sine.easeInOut});
+    $("#loginContainer, #forgotten-container").fadeOut(800, function () {
+      $("#login-button").fadeIn(800);
+    });
+  });
+}
+
+function forgot() {
+  /* Forgotten Password */
+  $('#forgotten').click(function () {
+    $("#loginContainer").fadeOut(function () {
+      $("#forgotten-container").fadeIn();
+    });
+  });
+}
+
+function showPassword(input) {
+  var id = "passwordField" + input;
+  var iconID = "passwordVisibility" + input;
+  var x = document.getElementById(id);
+  var icon = document.getElementById(iconID);
+
+  if (x.type === "password") {
+    x.type = "text";
+    icon.innerHTML = "visibility";
+  } else {
+    x.type = "password";
+    icon.innerHTML = "visibility_off";
+  }
+}
+
+//Password Checker
+function passwordChecker() {
+  var myInput = document.getElementById("passwordField1");
+  var letter = document.getElementById("letter");
+  var capital = document.getElementById("capital");
+  var number = document.getElementById("number");
+  var length = document.getElementById("length");
+
+// When the user clicks on the password field, show the message box
+  document.getElementById("passCheckMsg").style.display = "block";
+
+// When the user clicks outside of the password field, hide the message box
+  myInput.onblur = function () {
+    document.getElementById("passCheckMsg").style.display = "none";
+  }
+
+// When the user starts to type something inside the password field
+  myInput.onkeyup = function () {
+    // Validate lowercase letters
+    var lowerCaseLetters = /[a-z]/g;
+    if (myInput.value.match(lowerCaseLetters)) {
+      letter.classList.remove("invalid");
+      letter.classList.add("valid");
+    } else {
+      letter.classList.remove("valid");
+      letter.classList.add("invalid");
+    }
+
+    // Validate capital letters
+    var upperCaseLetters = /[A-Z]/g;
+    if (myInput.value.match(upperCaseLetters)) {
+      capital.classList.remove("invalid");
+      capital.classList.add("valid");
+    } else {
+      capital.classList.remove("valid");
+      capital.classList.add("invalid");
+    }
+
+    // Validate numbers
+    var numbers = /[0-9]/g;
+    if (myInput.value.match(numbers)) {
+      number.classList.remove("invalid");
+      number.classList.add("valid");
+    } else {
+      number.classList.remove("valid");
+      number.classList.add("invalid");
+    }
+
+    // Validate length
+    if (myInput.value.length >= 8) {
+      length.classList.remove("invalid");
+      length.classList.add("valid");
+    } else {
+      length.classList.remove("valid");
+      length.classList.add("invalid");
+    }
+  }
+}
+
+function passwordConfirm() {
+  var password = document.getElementById("passwordField1");
+  var confirm = document.getElementById("passwordField2");
+
+  var match = document.getElementById("passMatch");
+  var noMatch = document.getElementById("passNoMatch");
+
+  confirm.onkeyup = function () {
+    if(password.value === "" || confirm.value === "")
+      noMatch.style.display = "block";
+
+    if (password.value !== confirm.value) {
+      noMatch.style.display = "block";
+      match.style.display = "none";
+    }
+    else{
+      match.style.display = "block";
+      noMatch.style.display = "none";
+    }
+  }
+}
+

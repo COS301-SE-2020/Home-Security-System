@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {WebcamImage, WebcamUtil} from "ngx-webcam";
 import {Observable, Subject} from "rxjs";
+import {TitleService} from '../../title.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -34,7 +35,10 @@ export class DashboardComponent implements OnInit
     this.camImg = img;
   }
 
+  constructor(private appService: TitleService) { }
+
   ngOnInit(): void {
+    this.appService.setTitle('Dashboard');
   }
 
   public toggleCam(): void {

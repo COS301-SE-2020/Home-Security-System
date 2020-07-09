@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {TitleService} from '../../title.service';
 
 @Component({
   selector: 'app-people-grey',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PeopleGreyComponent implements OnInit {
 
-  constructor() { }
+  constructor(private appService: TitleService) { }
 
   ngOnInit(): void {
+    this.appService.setTitle('Grey List');
   }
 
 }
