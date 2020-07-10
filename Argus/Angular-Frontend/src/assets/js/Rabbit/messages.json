@@ -1,1 +1,18 @@
-{"message":["Local message sent","Testing the email system","Local message sent","Testing the email system"]}
+{
+  "message": [
+    "Email message sent",
+    "Local message sent",
+    "Local message sent",
+    "Email message sent",
+    "Local message sent"
+  ],
+  "local": [
+    "Local message sent",
+    "Local message sent",
+    "Local message sent"
+  ],
+  "email": [
+    "Email message sent",
+    "Email message sent"
+  ]
+}
