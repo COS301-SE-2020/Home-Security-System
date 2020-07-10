@@ -13,32 +13,29 @@ export class AppComponent implements OnInit {
   title = 'Angular-Frontend';
 
   constructor(private titleService: Title, private router: Router,
-    private activatedRoute: ActivatedRoute) {}
+              private activatedRoute: ActivatedRoute) {}
 
   setDocTitle(title: string) {
-     console.log('current title:::::' + this.titleService.getTitle());
-     this.titleService.setTitle(title);
+    this.titleService.setTitle(title);
   }
 
   ngOnInit() {
     const appTitle = this.titleService.getTitle();
     this.router
       .events.pipe(
-        filter(event => event instanceof NavigationEnd),
-        map(() => {
-          let child = this.activatedRoute.firstChild;
-          console.log(child.firstChild)
-          console.log(child.snapshot.data['title'])
-          while (child.firstChild) {
-            child = child.firstChild;
-          }
-          if (child.snapshot.data['title']) {
-            return child.snapshot.data['title'];
-          }
-          return appTitle;
-        })
-      ).subscribe((ttl: string) => {
-        this.titleService.setTitle(ttl);
-      });
+      filter(event => event instanceof NavigationEnd),
+      map(() => {
+        let child = this.activatedRoute.firstChild;
+        while (child.firstChild) {
+          child = child.firstChild;
+        }
+        if (child.snapshot.data.title) {
+          return child.snapshot.data.title;
+        }
+        return appTitle;
+      })
+    ).subscribe((ttl: string) => {
+      this.titleService.setTitle(ttl);
+    });
   }
 }

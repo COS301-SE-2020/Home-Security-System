@@ -1,59 +1,47 @@
 <div class="sidebar" data-color="argus">
-  <div class="logo">
-    <a class="simple-text" [routerLink]="['/dashboard']">
-      <img src="assets/Images/ArgusLogo.png" width="50%">
-    </a>
-  </div>
-  <div class="sidebar-wrapper">
-    <ul class="nav">
-      <li class="nav-item active">
-        <a class="nav-link" [routerLink]="['/dashboard']">
-          <i class="material-icons">dashboard</i>
-          <p>Dashboard</p>
+    <div class="logo">
+        <a class="simple-text" [routerLink]="['/dashboard']">
+            <img src="assets/Images/ArgusLogo.png" width="50%">
         </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/user-list']">
-          <i class="material-icons">person</i>
-          <p>Users List</p>
-        </a>
-      </li>
-      <li class="nav-item ">
-        <a class="nav-link" [routerLink]="['/people-white']">
-          <i class="material-icons">visibility</i>
-          <p>White List</p>
-        </a>
-      </li>
-      <li class="nav-item ">
-        <a class="nav-link" [routerLink]="['/people-grey']">
-          <i class="material-icons">priority_high</i>
-          <p>Grey List</p>
-        </a>
-      </li>
-      <li class="nav-item ">
-        <a class="nav-link" [routerLink]="['/people-black']">
-          <i class="material-icons">visibility_off</i>
-          <p>Black List</p>
-        </a>
-      </li>
-      <li class="nav-item ">
-        <a class="nav-link" [routerLink]="['/settings']">
-          <i class="material-icons">notifications</i>
-          <p>Notifications</p>
-        </a>
-      </li>
-      <li class="nav-item ">
-        <a class="nav-link" [routerLink]="['/live-feed']">
-          <i class="material-icons">camera</i>
-          <p>Live Feed</p>
-        </a>
-      </li>
-      <li class="nav-item ">
-        <a class="nav-link" [routerLink]="['/login']">
-          <i class="material-icons">login</i>
-          <p>Login</p>
-        </a>
-      </li>
-    </ul>
-  </div>
+    </div>
+    <div class="sidebar-wrapper">
+        <ul class="nav">
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['/dashboard']">
+                    <i class="material-icons">dashboard</i>
+                    <p>Dashboard</p>
+                </a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['/user-list']">
+                    <i class="material-icons">person</i>
+                    <p>Users List</p>
+                </a>
+            </li>
+            <li class="nav-item " routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['/people-white']">
+                    <i class="material-icons">visibility</i>
+                    <p>White List</p>
+                </a>
+            </li>
+            <li class="nav-item " routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['/people-grey']">
+                    <i class="material-icons">priority_high</i>
+                    <p>Grey List</p>
+                </a>
+            </li>
+            <li class="nav-item " routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['/people-black']">
+                    <i class="material-icons">visibility_off</i>
+                    <p>Black List</p>
+                </a>
+            </li>
+            <li class="nav-item " routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['/login']">
+                    <i class="material-icons">login</i>
+                    <p>Login</p>
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>

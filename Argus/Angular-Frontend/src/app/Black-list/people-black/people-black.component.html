@@ -1,104 +1,146 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-header card-header-primary">
-          <h4 class="card-title">Black List</h4>
-          <p class="card-category">All people not allowed on your property</p>
-          <a class="btn btn-secondary btn-md btn-sm" [routerLink]="['/add-person']">Add</a>
+<div class="container">
+    <div class="modal fade" id="editModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+                    <h4 class="modal-title">Change persons current status</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body">
+                        <form>
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <div class="form-group">
+                                    <h5 class="text-primary">Status:</h5>
+                                    <!-- <label class="bmd-label-floating">First Name</label> -->
+                                    <div class="wrap-input100" data-validate="Status">
+                                        <input type="radio" id="whiteList" name="status" value="white">
+                                        <label for="white"><i>White listed</i></label><br>
+
+                                        <input type="radio" id="blackList" name="status" value="black" checked>
+                                        <label for="black"><i>Black listed</i></label><br>
+
+                                        <input type="radio" id="greyList" name="status" value="grey">
+                                        <label for="grey"><i>Grey listed</i></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal" onclick="saveChanges()">Save Changes</button>
+                </div>
+            </div>
+
         </div>
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table">
-              <thead class="text-primary">
-                <th>
-                  ID
-                </th>
-                <th>
-                  Picture
-                </th>
-                <th>
-                  Modify
-                </th>
-              </thead>
-              <tbody>
-              <tr>
-                <td>
-                  1
-                </td>
-                <td>
-                  <img src="./assets/Images/blacklist/AB.jpg" class="listPic">
-                </td>
-                <td>
-                  <a [routerLink]="['/edit-person']">Edit</a>
-                  <a [routerLink]="['/']">Delete</a>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  2
-                </td>
-                <td>
-                  <img src="./assets/Images/blacklist/BC.jpg" class="listPic">
-                </td>
-                <td>
-                  <a [routerLink]="['/edit-person']">Edit</a>
-                  <a [routerLink]="['/']">Delete</a>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  3
-                </td>
-                <td>
-                  <img src="./assets/Images/blacklist/JM.jpg" class="listPic">
-                </td>
-                <td>
-                  <a [routerLink]="['/edit-person']">Edit</a>
-                  <a [routerLink]="['/']">Delete</a>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  4
-                </td>
-                <td>
-                  <img src="./assets/Images/blacklist/RDJ.jpg" class="listPic">
-                </td>
-                <td>
-                  <a [routerLink]="['/edit-person']">Edit</a>
-                  <a [routerLink]="['/']">Delete</a>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  5
-                </td>
-                <td>
-                  <img src="./assets/Images/blacklist/SLJ.jpg" class="listPic">
-                </td>
-                <td>
-                  <a [routerLink]="['/edit-person']">Edit</a>
-                  <a [routerLink]="['/']">Delete</a>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  6
-                </td>
-                <td>
-                  <img src="./assets/Images/blacklist/WS.jpg" class="listPic">
-                </td>
-                <td>
-                  <a [routerLink]="['/edit-person']">Edit</a>
-                  <a [routerLink]="['/']">Delete</a>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
+
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title">Black List</h4>
+                    <p class="card-category">All people not allowed on your property</p>
+                    <a class="btn btn-secondary btn-md btn-sm" [routerLink]="['/add-person']">Add</a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="text-primary">
+                                <th>
+                                    ID
+                                </th>
+                                <th>
+                                    Picture
+                                </th>
+                                <th>
+                                    Modify
+                                </th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        1
+                                    </td>
+                                    <td>
+                                        <img src="./assets/Images/blacklist/AB.jpg" class="listPic">
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-primary" data-toggle="modal" data-target="#editModal">Edit</a>
+                                        <a class="btn btn-primary" [routerLink]="['/']">Delete</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        2
+                                    </td>
+                                    <td>
+                                        <img src="./assets/Images/blacklist/BC.jpg" class="listPic">
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-primary" data-toggle="modal" data-target="#editModal">Edit</a>
+                                        <a class="btn btn-primary" [routerLink]="['/']">Delete</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        3
+                                    </td>
+                                    <td>
+                                        <img src="./assets/Images/blacklist/JM.jpg" class="listPic">
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-primary" data-toggle="modal" data-target="#editModal">Edit</a>
+                                        <a class="btn btn-primary" [routerLink]="['/']">Delete</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        4
+                                    </td>
+                                    <td>
+                                        <img src="./assets/Images/blacklist/RDJ.jpg" class="listPic">
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-primary" data-toggle="modal" data-target="#editModal">Edit</a>
+                                        <a class="btn btn-primary" [routerLink]="['/']">Delete</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        5
+                                    </td>
+                                    <td>
+                                        <img src="./assets/Images/blacklist/SLJ.jpg" class="listPic">
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-primary" data-toggle="modal" data-target="#editModal">Edit</a>
+                                        <a class="btn btn-primary" [routerLink]="['/']">Delete</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        6
+                                    </td>
+                                    <td>
+                                        <img src="./assets/Images/blacklist/WS.jpg" class="listPic">
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-primary" data-toggle="modal" data-target="#editModal">Edit</a>
+                                        <a class="btn btn-primary" [routerLink]="['/']">Delete</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

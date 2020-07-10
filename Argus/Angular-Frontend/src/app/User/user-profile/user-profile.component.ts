@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {TitleService} from '../../title.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -7,9 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserProfileComponent implements OnInit {
 
-  constructor() { }
+  constructor(private appService: TitleService) { }
 
   ngOnInit(): void {
+    this.appService.setTitle('User Profile');
   }
-
 }

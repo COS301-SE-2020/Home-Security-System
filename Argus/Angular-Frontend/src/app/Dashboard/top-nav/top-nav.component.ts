@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {TitleService} from '../../title.service';
 
 @Component({
   selector: 'app-top-nav',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopNavComponent implements OnInit {
 
-  constructor() { }
+  title: String;
+
+  constructor(private appService: TitleService) { }
 
   ngOnInit(): void {
+    this.appService.getTitle().subscribe(appTitle => this.title = appTitle);
   }
 
 }
