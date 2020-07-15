@@ -1,0 +1,15 @@
+language: java
+jdk:
+    - openjdk8
+
+# Deploy the app on Heroku
+deploy:
+  provider: heroku
+  api_key:
+    secure: "SHA256:X4Hs8YjYzThAXQ799MJXAb+myfbSh+MlRJCkBahC+mI chubr@DESKTOP-N1KIF7V"
+  app: Argus-app
+
+# Test & Build SpringBoot app
+script:
+  - mvn test
+  - mvn clean package
