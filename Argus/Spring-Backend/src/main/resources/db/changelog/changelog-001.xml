@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet author="Sigma" id="001">
+        <sql>
+            CREATE SEQUENCE photoID_seq START 1;
+        </sql>
+        <sql>
+            CREATE SEQUENCE notificationID_seq START 1;
+        </sql>
+        <sql>
+            CREATE SEQUENCE userID_seq START 1;
+        </sql>
+        <sql>
+            CREATE SEQUENCE personID_seq START 1;
+        </sql>
+        <sql>
+            CREATE SEQUENCE vehicleID_seq START 1;
+        </sql>
+    </changeSet>
+</databaseChangeLog>

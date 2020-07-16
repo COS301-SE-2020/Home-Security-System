@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet author="Sigma" id="005">
+        <sql>
+            INSERT INTO photo_table(image)
+            VALUES('11111111111111111111111111111111001111111111001111111111000111110011111000111111000001111000011110000011100000001110000111000000011000000000000000000000000100000000000000000000000000000000000000000000000000001000000000000000000000000110000110001000010001100001110011111111001111111100111110011111110011111110011111111111111111111111111111');
+        </sql>
+        <sql>
+            INSERT INTO user_table(fname,lname,email,username,userPass,userRole)
+            VALUES('Team','Sigma','SigmaCOS301@gmail.com','Sigma','cos301sigma!','Admin');
+        </sql>
+    </changeSet>
+</databaseChangeLog>
