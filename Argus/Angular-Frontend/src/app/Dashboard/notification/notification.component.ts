@@ -43,14 +43,31 @@ export class NotificationComponent implements OnInit {
 
   }
   ReadDB(): void{
-    let users = this.db.database.ref('users/-MCIKAXWtOexVlx9uDJJ');
+    let users = this.db.database.ref('users');
     users.orderByValue().on('value', function(snapshot): void {
       snapshot.forEach(function(data): void {
         console.log('The ' + data.key.toString() + ' values are ' + data.val());
+        //values of the object
+        let obj = data.val();
+        console.log(Object.values(obj));
       });
+
     });
   }
+  DeleteDB(): void{
+    let users = this.db.database.ref('users/-MCMQb7U-agStju-r1zi');
+    users.remove()
+      .then(function() {
+        console.log('Remove succeeded.');
+      })
+      .catch(function(error) {
+        console.log('Remove failed: ' + error.message);
+      });
+  }
 
+  UpdateDB(): void{
+
+  }
 
     //console.log(this.firestore.collection('users').snapshotChanges());
     //this.items = this.db.database.ref('users');
