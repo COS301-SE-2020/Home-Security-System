@@ -32,7 +32,7 @@ import { PeopleWhiteComponent } from './White-list/people-white/people-white.com
 import { VehiclesWhiteComponent } from './White-list/vehicles-white/vehicles-white.component';
 import { NotificationComponent } from './Dashboard/notification/notification.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import {environment} from "../environments/environment";
+import {environment} from '../environments/environment';
 
 const appRoutes: Routes =[];
 
