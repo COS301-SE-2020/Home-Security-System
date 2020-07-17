@@ -34,7 +34,7 @@ import { NotificationComponent } from './Dashboard/notification/notification.com
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import {environment} from '../environments/environment';
 
-const appRoutes: Routes =[];
+const appRoutes: Routes = [];
 
 @NgModule({
   declarations: [

@@ -58,7 +58,7 @@ export class NotificationComponent implements OnInit {
       vehicle_id: 0
     }];
     const user = {
-      name : 'Shaun',
+      name : 'Shaun2',
       surname : 'Vermeulen',
       username: 'ShaunV',
       email: 'sigmacos301@gmail.com',
@@ -88,19 +88,7 @@ export class NotificationComponent implements OnInit {
         console.log(obj.surname);
       }
     });
-    /*
-    let users = this.db.database.ref('users');
-    users.orderByValue().on('value', function(snapshot): void {
-      snapshot.forEach(function(data): void {
-        console.log('The ' + data.key.toString() + ' values are ' + data.val());
-        //values of the object
-        let obj = data.val();
-        //specific value
-        console.log(obj.name);
-      });
 
-    });
-     */
   }
   DeleteDB(): void{
     let users = this.db.database.ref('users/-MCNM_KQcI7SQHOg5t4A');
@@ -117,66 +105,62 @@ export class NotificationComponent implements OnInit {
     var adaNameRef = this.db.database.ref('users/-MCNM_KQcI7SQHOg5t4A');
     adaNameRef.update({ name: 'Ada', surname: 'Lovelace' });
   }
-  /*
+
   ReadDBNotiications(): void{
 
-    let inc = 1;
+    let inc = 0;
     const usersL = this.db.database.ref('users');
-    usersL.orderByValue().on('value', function(snapshot): void {
-      snapshot.forEach(function(data): void {
+    usersL.orderByValue().on('value', (snapshot) => {
+      snapshot.forEach((data) => {
         const objs = data.val();
-        for (let i = 0; i < objs.notifications.length; i++){
+        if (objs.name === 'Shaun'){
+          for (let i = 0; i < objs.notifications.length; i++){
 
-          console.log(objs.notifications[i].at_date_time);
-          console.log(objs.notifications[i].message);
-          const table = document.getElementById('notificationsTable');
-          const row = table.insertRow();
+            console.log(objs.notifications[i].at_date_time);
+            console.log(objs.notifications[i].message);
+            const table = document.getElementById('notificationsTable') as HTMLTableElement;
+            const row = table.insertRow();
 
-          var btn = document.createElement('button');
+            const btn = document.createElement('button');
 
-          btn.setAttribute('class', 'DeleteButton');
-          btn.setAttribute('id', inc);
-          inc += 1;
-          btn.innerHTML = "Dismiss";
+            btn.setAttribute('class', 'DeleteButton');
+            btn.setAttribute('id', inc.toString());
+            inc += 1;
+            btn.innerHTML = 'Dismiss';
 
-          btn.onclick = function() {
-            var toDel = btn.getAttribute('id');
-            var table = document.getElementById('notificationsTable');
-            table.deleteRow(toDel);
-            tot = table.rows.length - 1;
+            btn.onclick = function() {
+              const toDel = btn.getAttribute('id');
+              let table = document.getElementById('notificationsTable') as HTMLTableElement;
+              table.deleteRow(parseInt(toDel));
+              let tot = table.rows.length - 1;
 
-            for (var i = 1; i < table.rows.length; i++) {
-              table.rows[i].cells[3].children[0].setAttribute('id', i);
-              //alert(table.rows[i].cells[3].children[0].getAttribute("id"));
+              for (let id = 1; i < table.rows.length; i++) {
+                table.rows[i].cells[3].children[0].setAttribute('id', i.toString());
+              }
             }
+            const c1 = row.insertCell(0);
+            const c2 = row.insertCell(1);
+            const c3 = row.insertCell(2);
+            const c4 = row.insertCell(3);
+            c1.style.border = '1px solid #dddddd';
+            c1.style.background = '#F9F5F4';
+            c2.style.border = '1px solid #dddddd';
+            c2.style.background = '#F9F5F4';
+            c3.style.border = '1px solid #dddddd';
+            c3.style.background = '#F9F5F4';
+            c4.style.border = '1px solid #dddddd';
+            c4.style.background = '#F9F5F4';
+            c1.innerHTML = objs.notifications[i].at_date_time;
+            c2.innerHTML = objs.notifications[i].message;
+            c3.innerHTML = objs.notifications[i].notificationType;
+            c4.appendChild(btn);
           }
-
-          const c1 = row.insertCell(0);
-          const c2 = row.insertCell(1);
-          const c3 = row.insertCell(2);
-          const c4 = row.insertCell(3);
-          c1.style.border = "1px solid #dddddd";
-          c1.style.background = "#F9F5F4";
-          c2.style.border = "1px solid #dddddd";
-          c2.style.background = "#F9F5F4";
-          c3.style.border = "1px solid #dddddd";
-          c3.style.background = "#F9F5F4";
-          c4.style.border = "1px solid #dddddd";
-          c4.style.background = "#F9F5F4";
-          c1.innerHTML = objs.notifications[i].at_date_time;
-          c2.innerHTML = objs.notifications[i].message;
-          c3.innerHTML = objs.notifications[i].notificationType;
-          c4.appendChild(btn);
         }
-
-        //c4.innerHTML = objs.notifications.length;
-
       });
 
     });
   }
 
-   */
 
   ngOnInit() {
   }
