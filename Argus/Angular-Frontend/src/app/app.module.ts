@@ -6,6 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import {WebcamModule} from 'ngx-webcam';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 import { LiveFeedComponent } from './Dashboard/live-feed/live-feed.component';
 import { PeopleBlackComponent } from './Black-list/people-black/people-black.component';
@@ -30,6 +32,7 @@ import { PeopleWhiteComponent } from './White-list/people-white/people-white.com
 import { VehiclesWhiteComponent } from './White-list/vehicles-white/vehicles-white.component';
 import { NotificationComponent } from './Dashboard/notification/notification.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import {environment} from '../environments/environment';
 
 const appRoutes: Routes =[];
 
@@ -64,6 +67,8 @@ const appRoutes: Routes =[];
     BrowserModule,
     AppRoutingModule,
     WebcamModule,
+    AngularFireModule.initializeApp(environment.firebase, 'anotherTest'),
+    AngularFireDatabaseModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [],
