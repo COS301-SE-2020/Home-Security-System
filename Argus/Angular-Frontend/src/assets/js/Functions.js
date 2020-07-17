@@ -46,7 +46,7 @@ function addCell(type){
 
   btn.setAttribute('class', 'DeleteButton');
   btn.setAttribute('id', tot+1);
-  btn.innerHTML = "Delete";
+  btn.innerHTML = "Dismiss";
 
   btn.onclick = function(){
     var toDel = btn.getAttribute("id");
