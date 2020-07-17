@@ -6,6 +6,14 @@ import { Routes, RouterModule } from '@angular/router';
 import {WebcamModule} from 'ngx-webcam';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+// @ts-ignore
+import { AngularFireModule } from 'angularfire2';
+// @ts-ignore
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+// @ts-ignore
+// import {HttpClientModule} from '@angular/common/http';
+// @ts-ignore
+// import {FormsModule} from "@angular/forms";
 
 import { LiveFeedComponent } from './Dashboard/live-feed/live-feed.component';
 import { PeopleBlackComponent } from './Black-list/people-black/people-black.component';
@@ -31,8 +39,7 @@ import { VehiclesWhiteComponent } from './White-list/vehicles-white/vehicles-whi
 import { NotificationComponent } from './Dashboard/notification/notification.component';
 import { ResetPasswordComponent } from './Dashboard/reset-password/reset-password.component';
 
-// import {HttpClientModule} from '@angular/common/http';
-// import {FormsModule} from "@angular/forms";
+import {environment} from '../environments/environment';
 
 const appRoutes: Routes = [];
 
@@ -67,7 +74,9 @@ const appRoutes: Routes = [];
     BrowserModule,
     AppRoutingModule,
     WebcamModule,
-    RouterModule.forRoot(appRoutes),
+    AngularFireModule.initializeApp(environment.firebase, 'anotherTest'),
+    AngularFireDatabaseModule,
+    RouterModule.forRoot(appRoutes)
     // HttpClientModule,
     // FormsModule
   ],
