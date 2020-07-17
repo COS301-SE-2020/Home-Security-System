@@ -11,7 +11,8 @@ public class PersonToPersonDTO implements Converter<Person, PersonDTO> {
     public PersonDTO convert(Person x) {
         PersonDTO dto = new PersonDTO();
         dto.setPersonId(x.getPersonId());
-        dto.setFullName(x.getFullName());
+        dto.setName(x.getName());
+        dto.setSurname(x.getSurname());
         dto.setListed(x.getListed());
         dto.setDate(x.getDate());
         dto.setImage(x.getImage());

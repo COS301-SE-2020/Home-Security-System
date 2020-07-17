@@ -32,10 +32,10 @@ public class NotificationServiceImpl implements NotificationService{
     }
 
     @Override
-    public void createNotification(Notification x) { this.repo.save(x); }
+    public Notification createNotification(Notification x) { return this.repo.save(x); }
 
     @Override
-    public void updateNotification(Notification x) { this.repo.save(x); }
+    public Notification updateNotification(Notification x) { return this.repo.save(x); }
 
     @Override
     public void deleteAllNotifications() {

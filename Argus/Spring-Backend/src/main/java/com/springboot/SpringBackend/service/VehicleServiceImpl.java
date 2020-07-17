@@ -36,20 +36,20 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public void createVehicle(Vehicle x) {
-        this.repo.save(x);
+    public Vehicle createVehicle(Vehicle x) {
+        return this.repo.save(x);
     }
 
     //@Override
-    //public void createVehicleForm(VehicleDTO dto) { this.createVehicle(dtoToVehicle.convert(dto)); }
+    //public Vehicle createVehicleForm(VehicleDTO dto) { return this.createVehicle(dtoToVehicle.convert(dto)); }
 
     @Override
-    public void updateVehicle(Vehicle x) {
-        this.repo.save(x);
+    public Vehicle updateVehicle(Vehicle x) {
+        return this.repo.save(x);
     }
 
     //@Override
-    //public void updateVehicleForm(VehicleDTO dto) { this.updateVehicle(dtoToVehicle.convert(dto)); }
+    //public Vehicle updateVehicleForm(VehicleDTO dto) { return this.updateVehicle(dtoToVehicle.convert(dto)); }
 
     @Override
     public void deleteVehicle(Vehicle x) {

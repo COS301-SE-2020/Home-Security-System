@@ -15,6 +15,7 @@ public class UserDTOToUser implements Converter<UserDTO, User> {
             x.setUserId(dto.getUserId());
         }
         x.setName(dto.getName());
+        x.setSurname(dto.getSurname());
         x.setEmail(dto.getEmail());
         x.setUsername(dto.getUsername());
         x.setPassword(dto.getPassword());

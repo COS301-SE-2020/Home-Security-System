@@ -36,16 +36,16 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void createUser(User user) { this.repo.save(user); }
+    public User createUser(User user) { return this.repo.save(user); }
 
     //@Override
-    //public void createUserForm(UserDTO dto) { this.createUser(dtoToUser.convert(dto)); }
+    //public User createUserForm(UserDTO dto) { return this.createUser(dtoToUser.convert(dto)); }
 
     @Override
-    public void updateUser(User user) { this.repo.save(user); }
+    public User updateUser(User user) { return this.repo.save(user); }
 
     //@Override
-    //public void updateUserForm(UserDTO dto) { this.updateUser(dtoToUser.convert(dto)); }
+    //public User updateUserForm(UserDTO dto) { return this.updateUser(dtoToUser.convert(dto)); }
 
     @Override
     public void deleteUser(User user) {

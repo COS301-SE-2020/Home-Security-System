@@ -70,8 +70,8 @@ CREATE TABLE vehicle_table(
     listed listType NOT NULL DEFAULT 'Grey',
     licenseNo TEXT NOT NULL,
     created DATE NOT NULL DEFAULT CURRENT_DATE,
-    photo_id INT NOT NULL DEFAULT 1 REFERENCES photo_table(photo_id),
     deletionDate DATE,
+    photo_id INT NOT NULL DEFAULT 1 REFERENCES photo_table(photo_id),
     PRIMARY KEY (vehicle_id)
 );
 

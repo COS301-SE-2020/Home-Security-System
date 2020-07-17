@@ -12,7 +12,8 @@ public class UserDTO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private Long id;
-	private String fullname;
+	private String fname;
+	private String lname;
 	private String email;
 	private String username;
 	private String userPass;
@@ -24,8 +25,9 @@ public class UserDTO implements Serializable{
 
 	public UserDTO() { }
 
-	public UserDTO(String name, String email, String username, String pass, String role, Image id) {
-		this.fullname = name;
+	public UserDTO(String name, String surname, String email, String username, String pass, String role, Image id) {
+		this.fname = name;
+		this.lname = surname;
 		this.email = email;
 		this.username = username;
 		this.userPass = pass;
@@ -46,8 +48,9 @@ public class UserDTO implements Serializable{
 		this.profilePhoto = id;
 	}
 
-	public UserDTO(String name, String email, String username, String pass, String role) {
-		this.fullname = name;
+	public UserDTO(String name, String surname, String email, String username, String pass, String role) {
+		this.fname = name;
+		this.lname = surname;
 		this.email = email;
 		this.username = username;
 		this.userPass = pass;
@@ -74,10 +77,17 @@ public class UserDTO implements Serializable{
 	}
 
 	public String getName() {
-		return this.fullname;
+		return this.fname;
 	}
 	public void setName(String name) {
-		this.fullname = name;
+		this.fname = name;
+	}
+
+	public String getSurname() {
+		return this.lname;
+	}
+	public void setSurname(String surname) {
+		this.lname = surname;
 	}
 
 	public String getEmail() {
@@ -133,7 +143,7 @@ public class UserDTO implements Serializable{
 
 	@Override
 	public String toString() {
-		return "User [user_ID=" + id + ", fullname=" + fullname +
+		return "User [user_ID=" + id + ", fname=" + fname + ", lname=" + lname +
 				", email=" + email + ", username=" + username +
 				", userPass=" + userPass + ", userRole=" + userRole +
 				", profilePhoto=" + profilePhoto.getImageId() +

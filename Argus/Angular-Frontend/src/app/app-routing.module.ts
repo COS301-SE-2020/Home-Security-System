@@ -23,7 +23,7 @@ import {EditVehicleComponent} from './Vehicle/edit-vehicle/edit-vehicle.componen
 import {PeopleWhiteComponent} from './White-list/people-white/people-white.component';
 import {VehiclesWhiteComponent} from './White-list/vehicles-white/vehicles-white.component';
 import {NotificationComponent} from './Dashboard/notification/notification.component';
-import {ResetPasswordComponent} from './reset-password/reset-password.component';
+import {ResetPasswordComponent} from './Dashboard/reset-password/reset-password.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},

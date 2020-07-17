@@ -21,8 +21,11 @@ public class User{
     @Column(name = "user_id", nullable = false)
     private Long id;
 
-    @Column(name = "fullname", nullable = false)
-    private String fullname;
+    @Column(name = "fname", nullable = false)
+    private String fname;
+
+    @Column(name = "lname", nullable = false)
+    private String lname;
 
     @Column(name = "email", nullable = false)
     private String email;
@@ -49,8 +52,9 @@ public class User{
 
     public User() { }
 
-    public User(String name, String email, String username, String password, String role, Image id) {
-        this.fullname = name;
+    public User(String name, String surname, String email, String username, String password, String role, Image id) {
+        this.fname = name;
+        this.lname = surname;
         this.email = email;
         this.username = username;
         this.userPass = password;
@@ -71,8 +75,9 @@ public class User{
         this.profilePhoto = id;
     }
 
-    public User(String name, String email, String username, String password, String role) {
-        this.fullname = name;
+    public User(String name, String surname, String email, String username, String password, String role) {
+        this.fname = name;
+        this.lname = surname;
         this.email = email;
         this.username = username;
         this.userPass = password;
@@ -98,8 +103,11 @@ public class User{
         this.id = id;
     }
 
-    public String getName() {return this.fullname;}
-    public void setName(String name) {this.fullname = name;}
+    public String getName() {return this.fname;}
+    public void setName(String name) {this.fname = name;}
+
+    public String getSurname() {return this.lname;}
+    public void setSurname(String name) {this.lname = name;}
 
     public String getEmail() {
         return this.email;
@@ -157,7 +165,7 @@ public class User{
 
     @Override
     public String toString() {
-        return "User [user_id=" + id + ", fullname=" + fullname +
+        return "User [user_id=" + id + ", fname=" + fname + ", lname=" + lname +
                 ", email=" + email + ", username=" + username +
                 ", userPass=" + userPass + ", userRole=" + userRole +
                 ", profilePhoto=" + profilePhoto.getImageId() +

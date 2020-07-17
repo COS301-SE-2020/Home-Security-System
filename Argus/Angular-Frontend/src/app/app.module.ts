@@ -29,9 +29,12 @@ import { EditVehicleComponent } from './Vehicle/edit-vehicle/edit-vehicle.compon
 import { PeopleWhiteComponent } from './White-list/people-white/people-white.component';
 import { VehiclesWhiteComponent } from './White-list/vehicles-white/vehicles-white.component';
 import { NotificationComponent } from './Dashboard/notification/notification.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ResetPasswordComponent } from './Dashboard/reset-password/reset-password.component';
 
-const appRoutes: Routes =[];
+// import {HttpClientModule} from '@angular/common/http';
+// import {FormsModule} from "@angular/forms";
+
+const appRoutes: Routes = [];
 
 @NgModule({
   declarations: [
@@ -64,9 +67,13 @@ const appRoutes: Routes =[];
     BrowserModule,
     AppRoutingModule,
     WebcamModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    // HttpClientModule,
+    // FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+

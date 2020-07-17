@@ -13,6 +13,7 @@ public class UserToUserDTO implements Converter<User, UserDTO>{
         UserDTO dto = new UserDTO();
         dto.setUserId(x.getUserId());
         dto.setName(x.getName());
+        dto.setSurname(x.getSurname());
         dto.setEmail(x.getEmail());
         dto.setUsername(x.getUsername());
         dto.setPassword(x.getPassword());

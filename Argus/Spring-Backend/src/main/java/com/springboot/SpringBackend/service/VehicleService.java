@@ -11,13 +11,13 @@ public interface VehicleService {
 
     Optional<Vehicle> getVehicleByID(Long id);
 
-    void createVehicle(Vehicle x);
+    Vehicle createVehicle(Vehicle x);
 
-    //void createVehicleForm(VehicleDTO dto);
+    //Vehicle createVehicleForm(VehicleDTO dto);
 
-    void updateVehicle(Vehicle x);
+    Vehicle updateVehicle(Vehicle x);
 
-    //void updateVehicleForm(VehicleDTO dto);
+    //Vehicle updateVehicleForm(VehicleDTO dto);
 
     void deleteVehicle(Vehicle x);
 

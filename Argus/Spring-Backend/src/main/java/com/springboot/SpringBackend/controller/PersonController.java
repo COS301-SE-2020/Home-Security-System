@@ -33,8 +33,8 @@ public class PersonController {
 
     @GetMapping("/persons")
     public List<PersonDTO> getAllPersons() {
-        List<Person> employees = service.listAllPeople();
-        return employees.stream()
+        List<Person> list = service.listAllPeople();
+        return list.stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
@@ -57,7 +57,8 @@ public class PersonController {
                 .orElseThrow(() -> new ResourceNotFoundException("Person not found for this id :: " + pid));
 
         x.setPersonId(personDetails.getPersonId());
-        x.setFullName(personDetails.getFullName());
+        x.setName(personDetails.getName());
+        x.setSurname(personDetails.getSurname());
         x.setListed(personDetails.getListed());
         x.setDate(personDetails.getDate());
         x.setImage(personDetails.getImage());

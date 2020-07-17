@@ -10,9 +10,9 @@ public interface NotificationService {
 
     Optional<Notification> getNotificationById(Long id);
 
-    void createNotification(Notification x);
+    Notification createNotification(Notification x);
 
-    void updateNotification(Notification x);
+    Notification updateNotification(Notification x);
 
     void deleteAllNotifications();
 

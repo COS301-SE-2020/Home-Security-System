@@ -11,9 +11,9 @@ public interface ImageService {
 
     Optional<Image> getImageById(Long id);
 
-    void createImage(Image x);
+    Image createImage(Image x);
 
-    void updateImage(Image x);
+    Image updateImage(Image x);
 
     void deleteImage(Image x);
 

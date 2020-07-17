@@ -11,13 +11,13 @@ public interface UserService {
 
     Optional<User> getUserById(Long id);
 
-    void createUser(User user);
+    User createUser(User user);
 
-    void updateUser(User user);
+    User updateUser(User user);
 
-    //void createUserForm(UserDTO dto);
+    //User createUserForm(UserDTO dto);
 
-    //void updateUserForm(UserDTO dto);
+    //User updateUserForm(UserDTO dto);
 
     void deleteUser(User user);
 

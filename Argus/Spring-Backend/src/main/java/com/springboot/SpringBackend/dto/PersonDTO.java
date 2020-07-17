@@ -15,7 +15,8 @@ public class PersonDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private Long id;
-    private String fullname;
+    private String fname;
+    private String lname;
     private personType listed;
     private String created;
     private String deletionDate;
@@ -25,8 +26,9 @@ public class PersonDTO implements Serializable {
 
     public PersonDTO() { }
 
-    public PersonDTO(String name, String listed, Image img) {
-        this.fullname = name;
+    public PersonDTO(String name, String surname, String listed, Image img) {
+        this.fname = name;
+        this.lname = surname;
 
         if(listed.equalsIgnoreCase("White"))
         {
@@ -45,8 +47,9 @@ public class PersonDTO implements Serializable {
         this.personImg = img;
     }
 
-    public PersonDTO(String name, Image img) {
-        this.fullname = name;
+    public PersonDTO(String name, String surname, Image img) {
+        this.fname = name;
+        this.lname = surname;
         this.listed = personType.Grey;
         this.created = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         this.personImg = img;
@@ -59,11 +62,18 @@ public class PersonDTO implements Serializable {
         this.id = id;
     }
 
-    public String getFullName() {
-        return this.fullname;
+    public String getName() {
+        return this.fname;
     }
-    public void setFullName(String name) {
-        this.fullname = name;
+    public void setName(String name) {
+        this.fname = name;
+    }
+
+    public String getSurname() {
+        return this.lname;
+    }
+    public void setSurname(String surname) {
+        this.lname = surname;
     }
 
     public String getListed() { return this.listed.toString(); }
@@ -102,9 +112,8 @@ public class PersonDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "Person [person_ID=" + id + ", fullname=" + fullname +
-                ", listed=" + listed + ", created=" + created +
-                ", photo_ID=" + personImg.getImageId() +
-                ", deletionDate=" + deletionDate + "]";
+        return "Person [person_ID=" + id + ", fname=" + fname +
+                ", lname=" + lname + ", listed=" + listed + ", created=" + created +
+                ", photo_ID=" + personImg.getImageId() + ", deletionDate=" + deletionDate + "]";
     }
 }

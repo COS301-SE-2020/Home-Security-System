@@ -28,9 +28,11 @@ public class Person implements Serializable {
     @Column(name = "person_id", nullable = false)
     private Long id;
 
-    @Column(name = "fullname", nullable = true)
+    @Column(name = "fname", nullable = false)
+    private String fname;
 
-    private String fullname;
+    @Column(name = "lname", nullable = false)
+    private String lname;
 
     @Column(name = "listed", nullable = false)
     private personType listed;
@@ -55,8 +57,9 @@ public class Person implements Serializable {
 
     public Person() { }
 
-    public Person(String name, String listed, Image img) {
-        this.fullname = name;
+    public Person(String name, String surname, String listed, Image img) {
+        this.fname = name;
+        this.lname = surname;
 
         if(listed.equalsIgnoreCase("White"))
         {
@@ -75,8 +78,9 @@ public class Person implements Serializable {
         this.personImg = img;
     }
 
-    public Person(String name, Image img) {
-        this.fullname = name;
+    public Person(String name, String surname, Image img) {
+        this.fname = name;
+        this.lname = surname;
         this.listed = personType.Grey;
         this.created = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         this.personImg = img;
@@ -89,11 +93,18 @@ public class Person implements Serializable {
         this.id = id;
     }
 
-    public String getFullName() {
-        return this.fullname;
+    public String getName() {
+        return this.fname;
     }
-    public void setFullName(String name) {
-        this.fullname = name;
+    public void setName(String name) {
+        this.fname = name;
+    }
+
+    public String getSurname() {
+        return this.lname;
+    }
+    public void setSurname(String name) {
+        this.lname = name;
     }
 
     public String getListed() { return this.listed.toString(); }
@@ -136,9 +147,8 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return "Person [person_id=" + id + ", fullname=" + fullname +
-                ", listed=" + listed + ", created=" + created +
-                ", photo_id=" + personImg.getImageId() +
-                ", deletionDate=" + deletionDate + "]";
+        return "Person [person_id=" + id + ", fname=" + fname +
+                ", lname=" + lname + ", listed=" + listed + ", created=" + created +
+                ", photo_id=" + personImg.getImageId() + ", deletionDate=" + deletionDate + "]";
     }
 }

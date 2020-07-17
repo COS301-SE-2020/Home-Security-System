@@ -28,10 +28,10 @@ public class ImageServiceImpl implements ImageService{
     public Optional<Image> getImageById(Long id) { return this.repo.findById(id); }
 
     @Override
-    public void createImage(Image x) { this.repo.save(x); }
+    public Image createImage(Image x) { return this.repo.save(x); }
 
     @Override
-    public void updateImage(Image x) { this.repo.save(x); }
+    public Image updateImage(Image x) { return this.repo.save(x); }
 
     @Override
     public void deleteImage(Image x) { this.repo.delete(x); }
