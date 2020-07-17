@@ -108,7 +108,7 @@ export class NotificationComponent implements OnInit {
 
   ReadDBNotiications(): void{
 
-    let inc = 0;
+    let inc = 1;
     const usersL = this.db.database.ref('users');
     usersL.orderByValue().on('value', (snapshot) => {
       snapshot.forEach((data) => {
