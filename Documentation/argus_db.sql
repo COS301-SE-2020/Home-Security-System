@@ -54,9 +54,9 @@ CREATE TABLE notification_table(
 );
 
 CREATE TABLE notification_table(
-    notification_id INT NOT NULL REFERENCES notification_table('notification_id'),
+    notification_id INT NOT NULL REFERENCES notification_table(notification_id),
     user_id INT NOT NULL REFERENCES user_table(user_id),
-    PRIMARY KEY (notification_id,user_id)
+    PRIMARY KEY (notification_id, user_id)
 );
 
 CREATE TABLE person_table(
