@@ -49,9 +49,14 @@ CREATE TABLE notification_table(
     onDate DATE NOT NULL DEFAULT CURRENT_DATE,
     atTime TIME NOT NULL DEFAULT CURRENT_TIME,
     photo_id INT REFERENCES photo_Table(photo_id),
-    user_id INT NOT NULL REFERENCES user_table(user_id),
     deletionDate DATE,
     PRIMARY KEY (notification_id)
+);
+
+CREATE TABLE notification_table(
+    notification_id INT NOT NULL REFERENCES notification_table('notification_id'),
+    user_id INT NOT NULL REFERENCES user_table(user_id),
+    PRIMARY KEY (notification_id,user_id)
 );
 
 CREATE TABLE person_table(
@@ -70,15 +75,14 @@ CREATE TABLE vehicle_table(
     listed listType NOT NULL DEFAULT 'Grey',
     licenseNo TEXT NOT NULL,
     created DATE NOT NULL DEFAULT CURRENT_DATE,
-    deletionDate DATE,
     photo_id INT NOT NULL DEFAULT 1 REFERENCES photo_table(photo_id),
+    deletionDate DATE,
     PRIMARY KEY (vehicle_id)
 );
 
 CREATE TABLE personvehicle_table(
     person_id INT NOT NULL REFERENCES person_table(person_id),
     vehicle_id INT NOT NULL REFERENCES vehicle_table(vehicle_id),
-    deletionDate DATE,
     PRIMARY KEY (person_id, vehicle_id)
 );
 
