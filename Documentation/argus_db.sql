@@ -53,7 +53,7 @@ CREATE TABLE notification_table(
     PRIMARY KEY (notification_id)
 );
 
-CREATE TABLE notification_table(
+CREATE TABLE usernotification_table(
     notification_id INT NOT NULL REFERENCES notification_table(notification_id),
     user_id INT NOT NULL REFERENCES user_table(user_id),
     PRIMARY KEY (notification_id, user_id)
