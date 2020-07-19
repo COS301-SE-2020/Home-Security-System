@@ -75,7 +75,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal" onclick="saveChanges()">Save Changes</button>
+                    <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal" onclick="saveChanges()" (click) = "UpdateDB();">Save Changes</button>
                 </div>
             </div>
 
@@ -85,7 +85,7 @@
 </div>
 
 
-<div (click) =" AddDB(); ReadDB(); " >
+<div > <!-- (click) =" AddDB(); ReadDB(); FillTable();" -->
     <h3><u>User Settings</u></h3>
     <div class="content">
         <div class="container-fluid">
@@ -141,7 +141,7 @@
                                     </div>
                                 </div>
 
-                                <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#changeModal">Change</a>
+                                <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#changeModal" >Change</a>
 
 
                             </form>
@@ -150,6 +150,22 @@
                 </div>
             </div>
         </div>
+
+      <!-- ================================================================================== -->
+
+      <!-- <div class="table-responsive">
+        <table id ="valuesTable">
+          <thead class="text-primary">
+          <tr>
+            <th>Attribute</th>
+            <th>Value</th>
+
+          </tr>
+          </thead>
+        </table>
+      </div> -->
+
+      <!-- ================================================================================== -->
     </div>
 
 </div>
