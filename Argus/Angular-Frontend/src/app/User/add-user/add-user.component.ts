@@ -17,7 +17,7 @@ export class AddUserComponent implements OnInit {
 
   public AddDB(): void {
     const addName =  document.getElementById('name') as HTMLDataElement;
-    const addSurname = document.getElementById('name') as HTMLDataElement;
+    const addSurname = document.getElementById('surname') as HTMLDataElement;
     const addUsername = document.getElementById('username') as HTMLDataElement;
     const addEmail = document.getElementById('input') as HTMLDataElement;
 
