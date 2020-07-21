@@ -2,6 +2,7 @@ import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
 
 import { Component, OnInit } from '@angular/core';
 import {TitleService} from '../../title.service';
+import {snapshotChanges} from '@angular/fire/database';
 
 @Component({
   selector: 'app-user-profile',
@@ -20,116 +21,89 @@ export class UserProfileComponent implements OnInit
 
 
   ReadDB(): void {
-    let uL = this.db.database.ref('users');
+    const uL = this.db.database.ref('users');
     let obj = null;
-    uL.orderByValue().on('value', function (snapshot): void {
-      snapshot.forEach(function (data): void {
-        if (data.val().name === 'testAdd') {
+    uL.orderByValue().on('value', function(snapshot): void {
+      snapshot.forEach(function(data): void {
+        if (data.val().uniqueId === '123') {
           obj = data.val();
         }
       });
       if (obj === null) {
         console.log('error');
       } else {
-        let userName = document.getElementById('firstName') as HTMLDataElement;
+        const userName = document.getElementById('firstName') as HTMLDataElement;
         userName.value = obj.name;
 
-        let userSurname = document.getElementById('lastName') as HTMLDataElement;
+        const userSurname = document.getElementById('lastName') as HTMLDataElement;
         userSurname.value = obj.surname;
 
-        let userEmail = document.getElementById('email') as HTMLDataElement;
+        const userEmail = document.getElementById('email') as HTMLDataElement;
         userEmail.value = obj.email;
 
-        let userUsername = document.getElementById('username') as HTMLDataElement;
+        const userUsername = document.getElementById('username') as HTMLDataElement;
         userUsername.value = obj.username;
 
 
 
-        let userNameDisplay = document.getElementById('firstNameDisplay') as HTMLDataElement;
+        const userNameDisplay = document.getElementById('firstNameDisplay') as HTMLDataElement;
         userNameDisplay.value = obj.name;
 
-        let userSurnameDisplay = document.getElementById('lastNameDisplay') as HTMLDataElement;
+        const userSurnameDisplay = document.getElementById('lastNameDisplay') as HTMLDataElement;
         userSurnameDisplay.value = obj.surname;
 
-        let userEmailDisplay = document.getElementById('emailDisplay') as HTMLDataElement;
+        const userEmailDisplay = document.getElementById('emailDisplay') as HTMLDataElement;
         userEmailDisplay.value = obj.email;
 
-        let userUsernameDisplay = document.getElementById('usernameDisplay') as HTMLDataElement;
+        const userUsernameDisplay = document.getElementById('usernameDisplay') as HTMLDataElement;
         userUsernameDisplay.value = obj.username;
-
-        // console.log(userName);
-        // console.log(userSurname);
-        // console.log(userUsername);
-        // console.log(userEmail);
-
       }
     });
   }
 
   UpdateDB(): void {
-    let uL = this.db.database.ref('users');
+    const uL = this.db.database.ref('users');
     let obj = null;
 
-    let userName = document.getElementById('firstName') as HTMLDataElement;
-    let userSurname = document.getElementById('lastName') as HTMLDataElement;
-    let userEmail = document.getElementById('email') as HTMLDataElement;
-    let userUsername = document.getElementById('username') as HTMLDataElement;
+    const userName = document.getElementById('firstName') as HTMLDataElement;
+    const userSurname = document.getElementById('lastName') as HTMLDataElement;
+    const userEmail = document.getElementById('email') as HTMLDataElement;
+    const userUsername = document.getElementById('username') as HTMLDataElement;
 
-    uL.orderByValue().on('value', function (snapshot): void {
-      snapshot.forEach(function (data): void {
-        if (data.val().name === 'testAdd') {
+    uL.orderByValue().on('value', function(snapshot): void {
+      snapshot.forEach(function(data): void {
+        if (data.val().uniqueId === '123') {
           obj = data.val();
         }
       });
-      if (obj === null) {
-        console.log('error');
-      } else {
-        if ( userName.value === obj.name ) {
-          console.log('userName did not change' );
-        }
-        else {
-          console.log('userName did change' );
-        }
-
-        if ( userSurname.value === obj.surname ) {
-          console.log('userSurname did not change' );
-        }
-        else {
-          console.log('userSurname did change' );
-        }
-
-        if ( userEmail.value === obj.email ) {
-          console.log('userEmail did not change' );
-        }
-        else {
-          console.log('userEmail did change' );
-        }
-
-        if ( userUsername.value === obj.username) {
-          console.log('userUsername did not change' );
-        }
-        else {
-          console.log('userUsername did change' );
-        }
-      }
     });
-    const newUser = {
-      name : userName.value,
-      surname : userSurname.value,
-      username: userUsername.value,
-      email: userEmail.value
-    };
-    // this.usersList.update(obj, newUser);
-    this.usersList.update('realtime-update', newUser);
+    this.usersList.update( '-MCg3fS2bK-gEEgGC5ZX' , { name: userName.value , surname: userSurname.value , username: userUsername.value , email : userEmail.value } );
+  }
+
+  UpdatePic(): void {
+    const uL = this.db.database.ref('users');
+    let obj = null;
+
+    const profilePic = document.getElementById('userPic') as HTMLDataElement;
+
+    uL.orderByValue().on('value', function(snapshot): void {
+      snapshot.forEach(function(data): void {
+        if (data.val().uniqueId === '123') {
+          obj = data.val();
+        }
+      });
+    });
+    this.usersList.update( '-MCg3fS2bK-gEEgGC5ZX' , { profilePicture: profilePic.value } );
   }
 
   public AddDB(): void {
     const user = {
-      name : 'Johann',
-      surname : 'Stadler',
-      username: 'Stads',
-      email: 'sigmacos301@gmail.com',
-      role: 'Advanced',
+      uniqueId : '123',
+      name : 'update',
+      surname : 'tester',
+      username: 'UD',
+      email: 'update@email.com',
+      role: 'Basic',
       password: '1234password',
       profilePicture: ''
     };
@@ -141,7 +115,7 @@ export class UserProfileComponent implements OnInit
 
   FillTable(): void{
 
-    let inc = 0;
+    const inc = 0;
     const usersL = this.db.database.ref('users');
     usersL.orderByValue().on('value', (snapshot) => {
       snapshot.forEach((data) => {
