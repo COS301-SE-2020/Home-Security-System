@@ -1,6 +1,6 @@
 import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
 
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-add-user',
@@ -16,22 +16,22 @@ export class AddUserComponent implements OnInit {
   }
 
   public AddDB(): void {
-    const addName =  document.getElementById('name') as HTMLDataElement;
+    const addName = document.getElementById('name') as HTMLDataElement;
     const addSurname = document.getElementById('name') as HTMLDataElement;
     const addUsername = document.getElementById('username') as HTMLDataElement;
     const addEmail = document.getElementById('input') as HTMLDataElement;
     const addRole = 'Unknown';
     const addPassword = document.getElementById('pass') as HTMLDataElement;
-    const addProfilePicture = '';
+    const addProfilePicture = document.getElementById('profilePic') as HTMLDataElement;
 
     const user = {
-      name : addName.value,
-      surname : addSurname.value,
+      name: addName.value,
+      surname: addSurname.value,
       username: addUsername.value,
       email: addEmail.value,
       role: addRole,
       password: addPassword.value,
-      profilePicture: addProfilePicture
+      profilePicture: atob(addProfilePicture)
     };
     this.usersList.push(user);
   }
