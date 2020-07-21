@@ -1,6 +1,7 @@
 import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
 
 import {Component, OnInit} from '@angular/core';
+import {TitleService} from "../../title.service";
 
 @Component({
   selector: 'app-add-user',
@@ -11,7 +12,7 @@ export class AddUserComponent implements OnInit {
 
   public usersList: AngularFireList<any>;
 
-  constructor(private db: AngularFireDatabase) {
+  constructor(private appService: TitleService, private db: AngularFireDatabase) {
     this.usersList = db.list('/users');
   }
 
@@ -37,6 +38,7 @@ export class AddUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.appService.setTitle('Add User');
   }
 
 }

@@ -25,28 +25,26 @@ export class ListUsersComponent implements OnInit {
         const objs = data.val();
         if (objs.name != null) {
           const table = document.getElementById('userListTable') as HTMLTableElement;
-          const row = table.insertRow();
+          const tableBody = document.getElementById('userTableBody') as HTMLTableElement;
+          const row = tableBody.insertRow();
 
-          const c1 = row.insertCell(0);
-          const c2 = row.insertCell(1);
-          const c3 = row.insertCell(2);
-          const c4 = row.insertCell(3);
-          c1.style.border = '1px solid #dddddd';
-          c1.style.background = '#F9F5F4';
-          c2.style.border = '1px solid #dddddd';
-          c2.style.background = '#F9F5F4';
-          c3.style.border = '1px solid #dddddd';
-          c3.style.background = '#F9F5F4';
-          c4.style.border = '1px solid #dddddd';
-          c4.style.background = '#F9F5F4';
-          c1.innerHTML = objs.name;
-          c2.innerHTML = objs.surname;
-          c3.innerHTML = objs.role;
+          const c0 = row.insertCell(0);
+          const c1 = row.insertCell(1);
+          const c2 = row.insertCell(2);
+          const c3 = row.insertCell(3);
+          const c4 = row.insertCell(2);
+
+          // <a class="btn btn-primary" [routerLink]="['/edit-user']">Edit</a>
+          //   <a class="btn btn-primary" [routerLink]="['/']">Delete</a>
+
+          c0.innerHTML = String(0);
+          c1.innerHTML = objs.name + ' ' + objs.surname;
+          c2.innerHTML = objs.role;
+
           const image = new Image();
-          image.src = objs.profilePicture;
-          c4.appendChild(image);
-          //c4.appendChild(btn);
-
+          image.src = objs.profilePicture
+          image.setAttribute('class', 'listPic');
+          c3.appendChild(image);
         }
       });
 

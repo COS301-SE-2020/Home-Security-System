@@ -84,28 +84,28 @@ export class UserProfileComponent implements OnInit
       if (obj === null) {
         console.log('error');
       } else {
-        if( userName.value === obj.name ) {
+        if ( userName.value === obj.name ) {
           console.log('userName did not change' );
         }
         else {
           console.log('userName did change' );
         }
 
-        if( userSurname.value === obj.surname ) {
+        if ( userSurname.value === obj.surname ) {
           console.log('userSurname did not change' );
         }
         else {
           console.log('userSurname did change' );
         }
 
-        if( userEmail.value === obj.email ) {
+        if ( userEmail.value === obj.email ) {
           console.log('userEmail did not change' );
         }
         else {
           console.log('userEmail did change' );
         }
 
-        if( userUsername.value === obj.username) {
+        if ( userUsername.value === obj.username) {
           console.log('userUsername did not change' );
         }
         else {
