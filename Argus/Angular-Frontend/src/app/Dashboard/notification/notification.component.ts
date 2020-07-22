@@ -144,12 +144,16 @@ export class NotificationComponent implements OnInit {
             const c4 = row.insertCell(3);
             c1.style.border = '1px solid #dddddd';
             c1.style.background = '#F9F5F4';
+            c1.style.color = '#000000';
             c2.style.border = '1px solid #dddddd';
             c2.style.background = '#F9F5F4';
+            c2.style.color = '#000000';
             c3.style.border = '1px solid #dddddd';
             c3.style.background = '#F9F5F4';
+            c3.style.color = '#000000';
             c4.style.border = '1px solid #dddddd';
             c4.style.background = '#F9F5F4';
+            c4.style.color = '#000000';
             c1.innerHTML = objs.notifications[i].at_date_time;
             c2.innerHTML = objs.notifications[i].message;
             c3.innerHTML = objs.notifications[i].notificationType;
@@ -163,6 +167,7 @@ export class NotificationComponent implements OnInit {
 
 
   ngOnInit() {
+    this.ReadDBNotiications();
   }
 
 }
