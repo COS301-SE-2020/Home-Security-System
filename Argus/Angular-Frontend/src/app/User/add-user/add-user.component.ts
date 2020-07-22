@@ -37,6 +37,18 @@ export class AddUserComponent implements OnInit {
       }
     }
 
+    // --------------------------------------------------------------------
+
+    function generateId()
+    {
+      const name =  document.getElementById('name') as HTMLDataElement;
+      const surname = document.getElementById('surname') as HTMLDataElement;
+      const username = document.getElementById('username') as HTMLDataElement;
+      const email = document.getElementById('input') as HTMLDataElement;
+    }
+
+    // --------------------------------------------------------------------
+
     const getRole = returnUserVal();
 
     const addPassword = document.getElementById('pass') as HTMLDataElement;
