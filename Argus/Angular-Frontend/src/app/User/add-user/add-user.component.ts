@@ -62,6 +62,8 @@ export class AddUserComponent implements OnInit {
     stringDay += d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
     addDateUser = stringDay;
 
+    const usersL = this.db.database.ref('users');
+
     const people = [{
       id: 0,
       name: 'test',
