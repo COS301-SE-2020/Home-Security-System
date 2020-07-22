@@ -18,7 +18,7 @@ export class ListUsersComponent implements OnInit {
 
   FillTable(): void {
 
-    let inc = 0;
+    let rowNum = 2;
     const usersL = this.db.database.ref('users');
     usersL.orderByValue().on('value', (snapshot) => {
       snapshot.forEach((data) => {
@@ -32,12 +32,9 @@ export class ListUsersComponent implements OnInit {
           const c1 = row.insertCell(1);
           const c2 = row.insertCell(2);
           const c3 = row.insertCell(3);
-          const c4 = row.insertCell(2);
+          const c4 = row.insertCell(4);
 
-          // <a class="btn btn-primary" [routerLink]="['/edit-user']">Edit</a>
-          //   <a class="btn btn-primary" [routerLink]="['/']">Delete</a>
-
-          c0.innerHTML = String(0);
+          c0.innerHTML = String(rowNum);
           c1.innerHTML = objs.name + ' ' + objs.surname;
           c2.innerHTML = objs.role;
 
@@ -45,6 +42,12 @@ export class ListUsersComponent implements OnInit {
           image.src = objs.profilePicture
           image.setAttribute('class', 'listPic');
           c3.appendChild(image);
+
+          const button1 = '<a class="btn btn-primary" [routerLink]="[\'/edit-user\']">Edit</a>';
+          const button2 =  '<a class="btn btn-primary" [routerLink]="[\'/\']">Delete</a>';
+          c4.innerHTML = button1 + button2;
+
+          rowNum++; // Row number increment
         }
       });
 
@@ -55,5 +58,4 @@ export class ListUsersComponent implements OnInit {
     this.appService.setTitle('User List');
     this.FillTable();
   }
-
 }
