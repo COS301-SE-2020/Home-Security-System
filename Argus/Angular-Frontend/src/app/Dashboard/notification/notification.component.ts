@@ -106,6 +106,36 @@ export class NotificationComponent implements OnInit {
     adaNameRef.update({ name: 'Ada', surname: 'Lovelace' });
   }
 
+  AddNotification(type, messageN): void{
+    const usersL = this.db.database.ref('users');
+    let uID = '';
+    let d = new Date();
+    let notificationsArray = [];
+    usersL.orderByValue().on('value', (snapshot) => {
+      snapshot.forEach((data) => {
+        const objs = data.val();
+        const inDate = d.getDay() + '/' + d.getMonth() + '/' + d.getFullYear() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+        const newNot = {
+          at_date_time : inDate,
+          exp_date_time : '',
+          message : messageN,
+          notificationType : type,
+          imageTaken : '',
+          hide : false
+        };
+        if (objs.name === 'Shaun') {
+          uID = data.key.toString();
+          notificationsArray = [];
+          notificationsArray = objs.notifications;
+          notificationsArray.push(newNot);
+        }
+      });
+    });
+    if (uID !== ''){
+      this.db.database.ref('users').child(uID).update({notifications: notificationsArray});
+    }
+  }
+
   ReadDBNotiications(): void{
 
     let inc = 0;
