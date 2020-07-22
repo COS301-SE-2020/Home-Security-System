@@ -29,13 +29,13 @@ export class AddUserComponent implements OnInit {
       const isAdvanced = document.getElementById('advanced') as HTMLInputElement;
       const isBasic = document.getElementById('basic') as HTMLInputElement;
 
-      if( isAdmin.checked === true) {
+      if ( isAdmin.checked === true) {
         return 'Admin';
       }
-      else if( isAdvanced.checked === true) {
+      else if ( isAdvanced.checked === true) {
         return 'Advanced';
       }
-      else if( isBasic.checked === true) {
+      else if ( isBasic.checked === true) {
         return 'Basic';
       }
     }
