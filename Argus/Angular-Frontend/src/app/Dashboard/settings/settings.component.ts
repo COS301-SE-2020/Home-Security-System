@@ -87,25 +87,8 @@ export class SettingsComponent implements OnInit
     this.usersList.update( '-MCnFvdHyMQGBNi1w-Ci' , { notificationsLocal: locals , notificationsEmail: emails } );
   }
 
-  public AddDB(): void {
-    const user = {
-      uniqueId : '321',
-      name : 'settingTest',
-      surname : 'seter',
-      username: 'choices',
-      email: 'settings@email.com',
-      role: 'Basic',
-      password: '1234password',
-      notificationsEmail : 'yes',
-      notificationsLocal : 'no'
-    };
-    this.usersList.push(user);
-
-  }
-
   ngOnInit(): void {
     this.appService.setTitle('Settings');
-    // this.AddDB();
     this.ReadDB();
   }
 }

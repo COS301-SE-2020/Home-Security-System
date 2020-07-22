@@ -19412,7 +19412,7 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
     border-radius: 50%;
     background-size: cover;
     background-position: center center;
-    background-image: url(/assets/Images/faces/JS.jpg);
+    /* background-image: url(/assets/Images/faces/JS.jpg); */
 }
 
 .image-cropper {

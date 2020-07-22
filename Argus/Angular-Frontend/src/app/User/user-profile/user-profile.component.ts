@@ -25,7 +25,7 @@ export class UserProfileComponent implements OnInit
     let obj = null;
     uL.orderByValue().on('value', function(snapshot): void {
       snapshot.forEach(function(data): void {
-        if (data.val().uniqueId === '123') {
+        if (data.val().u_id === '657870656e6461626c657340676d61696c2e636f6d') {
           obj = data.val();
         }
       });
@@ -57,6 +57,9 @@ export class UserProfileComponent implements OnInit
 
         const userUsernameDisplay = document.getElementById('usernameDisplay') as HTMLDataElement;
         userUsernameDisplay.value = obj.username;
+
+        const userImageDisplay = document.getElementById('userPic') as HTMLImageElement;
+        userImageDisplay.src = obj.profilePicture;
       }
     });
   }
@@ -77,7 +80,7 @@ export class UserProfileComponent implements OnInit
         }
       });
     });
-    this.usersList.update( '-MCg3fS2bK-gEEgGC5ZX' , { name: userName.value , surname: userSurname.value , username: userUsername.value , email : userEmail.value } );
+    this.usersList.update( '-MCq_y_DVbLLfbF5M61-' , { name: userName.value , surname: userSurname.value , username: userUsername.value , email : userEmail.value } );
   }
 
   UpdatePic(): void {
@@ -93,22 +96,7 @@ export class UserProfileComponent implements OnInit
         }
       });
     });
-    this.usersList.update( '-MCg3fS2bK-gEEgGC5ZX' , { profilePicture: profilePic.value } );
-  }
-
-  public AddDB(): void {
-    const user = {
-      uniqueId : '123',
-      name : 'update',
-      surname : 'tester',
-      username: 'UD',
-      email: 'update@email.com',
-      role: 'Basic',
-      password: '1234password',
-      profilePicture: ''
-    };
-    this.usersList.push(user);
-
+    this.usersList.update( '-MCq_y_DVbLLfbF5M61-' , { profilePicture: profilePic.value } );
   }
 
   /* ======================================================== */
@@ -144,7 +132,6 @@ export class UserProfileComponent implements OnInit
 
   ngOnInit(): void {
     this.appService.setTitle('User Profile');
-    // this.AddDB();
     this.ReadDB();
     // this.FillTable();
   }
