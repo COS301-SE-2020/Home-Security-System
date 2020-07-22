@@ -19,7 +19,6 @@ export class UserProfileComponent implements OnInit
 
   /* ======================================================== */
 
-
   ReadDB(): void {
     const uL = this.db.database.ref('users');
     let obj = null;
@@ -64,6 +63,8 @@ export class UserProfileComponent implements OnInit
     });
   }
 
+  /* ======================================================== */
+
   UpdateDB(): void {
     const uL = this.db.database.ref('users');
     let obj = null;
@@ -75,13 +76,15 @@ export class UserProfileComponent implements OnInit
 
     uL.orderByValue().on('value', function(snapshot): void {
       snapshot.forEach(function(data): void {
-        if (data.val().uniqueId === '123') {
+        if (data.val().u_id === '657870656e6461626c657340676d61696c2e636f6d') {
           obj = data.val();
         }
       });
     });
-    this.usersList.update( '-MCq_y_DVbLLfbF5M61-' , { name: userName.value , surname: userSurname.value , username: userUsername.value , email : userEmail.value } );
+    this.usersList.update( '-MCrv1BVhvLBPV4RxlqD' , { name: userName.value , surname: userSurname.value , username: userUsername.value , email : userEmail.value } );
   }
+
+  /* ======================================================== */
 
   UpdatePic(): void {
     const uL = this.db.database.ref('users');
@@ -91,18 +94,17 @@ export class UserProfileComponent implements OnInit
 
     uL.orderByValue().on('value', function(snapshot): void {
       snapshot.forEach(function(data): void {
-        if (data.val().uniqueId === '123') {
+        if (data.val().u_id === '657870656e6461626c657340676d61696c2e636f6d') {
           obj = data.val();
         }
       });
     });
-    this.usersList.update( '-MCq_y_DVbLLfbF5M61-' , { profilePicture: profilePic.value } );
+    this.usersList.update( '-MCrv1BVhvLBPV4RxlqD' , { profilePicture: profilePic.value } );
   }
 
   /* ======================================================== */
 
   FillTable(): void{
-
     const inc = 0;
     const usersL = this.db.database.ref('users');
     usersL.orderByValue().on('value', (snapshot) => {
@@ -122,7 +124,6 @@ export class UserProfileComponent implements OnInit
             c1.innerHTML = objs.name;
             c2.innerHTML = objs.surname;
           }
-
       });
 
     });
@@ -133,6 +134,5 @@ export class UserProfileComponent implements OnInit
   ngOnInit(): void {
     this.appService.setTitle('User Profile');
     this.ReadDB();
-    // this.FillTable();
   }
 }
