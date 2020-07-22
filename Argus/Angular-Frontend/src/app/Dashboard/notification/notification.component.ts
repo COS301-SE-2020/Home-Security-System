@@ -102,19 +102,30 @@ export class NotificationComponent implements OnInit {
   }
 
   UpdateDB(): void{
-    var adaNameRef = this.db.database.ref('users/-MCNM_KQcI7SQHOg5t4A');
+    const adaNameRef = this.db.database.ref('users/-MCNM_KQcI7SQHOg5t4A');
     adaNameRef.update({ name: 'Ada', surname: 'Lovelace' });
   }
 
+  clearTable(): void{
+    const table = document.getElementById('notificationsTable') as HTMLTableElement;
+    const rows = table.rows.length;
+    console.log('len: ' + rows);
+    for (let i = 1; i < rows; i++){
+      table.deleteRow(1);
+    }
+  }
+
   AddNotification(type, messageN): void{
+    this.clearTable();
     const usersL = this.db.database.ref('users');
     let uID = '';
-    let d = new Date();
+    const d = new Date();
     let notificationsArray = [];
     usersL.orderByValue().on('value', (snapshot) => {
       snapshot.forEach((data) => {
         const objs = data.val();
-        const inDate = d.getDay() + '/' + d.getMonth() + '/' + d.getFullYear() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+        let inDate = d.getDay() + '/' + d.getMonth() + '/' + d.getFullYear() + ' ' ;
+        inDate += + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
         const newNot = {
           at_date_time : inDate,
           exp_date_time : '',
@@ -135,6 +146,9 @@ export class NotificationComponent implements OnInit {
       this.db.database.ref('users').child(uID).update({notifications: notificationsArray});
     }
   }
+  public hideNotification(uid, notNumb): void{
+    this.db.database.ref('users').child(uid).child('notifications').child(notNumb).update({hide: true});
+  }
 
   ReadDBNotiications(): void{
 
@@ -145,49 +159,51 @@ export class NotificationComponent implements OnInit {
         const objs = data.val();
         if (objs.name === 'Shaun'){
           for (let i = 0; i < objs.notifications.length; i++){
+            if (!(objs.notifications[i].hide)){
+              //console.log(objs.notifications[i].at_date_time);
+              //console.log(objs.notifications[i].message);
+              const table = document.getElementById('notificationsTable') as HTMLTableElement;
+              const row = table.insertRow();
 
-            console.log(objs.notifications[i].at_date_time);
-            console.log(objs.notifications[i].message);
-            const table = document.getElementById('notificationsTable') as HTMLTableElement;
-            const row = table.insertRow();
+              const btn = document.createElement('button');
 
-            const btn = document.createElement('button');
+              btn.setAttribute('class', 'DeleteButton');
+              btn.setAttribute('id', (i + 1).toString());
+              inc += 1;
+              btn.innerHTML = 'Dismiss';
 
-            btn.setAttribute('class', 'DeleteButton');
-            btn.setAttribute('id', inc.toString());
-            inc += 1;
-            btn.innerHTML = 'Dismiss';
+              btn.onclick = function() {
+                let uid = data.key.toString();
+                const toDel = btn.getAttribute('id');
+                let table = document.getElementById('notificationsTable') as HTMLTableElement;
+                table.deleteRow(parseInt(toDel));
+                let tot = table.rows.length - 1;
 
-            btn.onclick = function() {
-              const toDel = btn.getAttribute('id');
-              let table = document.getElementById('notificationsTable') as HTMLTableElement;
-              table.deleteRow(parseInt(toDel));
-              let tot = table.rows.length - 1;
-
-              for (let id = 1; i < table.rows.length; i++) {
-                table.rows[i].cells[3].children[0].setAttribute('id', i.toString());
-              }
+                for (let id = 0; id < table.rows.length; id++) {
+                  table.rows[id + 1].cells[3].children[0].setAttribute('id', (id + 1).toString());
+                }
+              };
+              const c1 = row.insertCell(0);
+              const c2 = row.insertCell(1);
+              const c3 = row.insertCell(2);
+              const c4 = row.insertCell(3);
+              c1.style.border = '1px solid #dddddd';
+              c1.style.background = '#F9F5F4';
+              c1.style.color = '#000000';
+              c2.style.border = '1px solid #dddddd';
+              c2.style.background = '#F9F5F4';
+              c2.style.color = '#000000';
+              c3.style.border = '1px solid #dddddd';
+              c3.style.background = '#F9F5F4';
+              c3.style.color = '#000000';
+              c4.style.border = '1px solid #dddddd';
+              c4.style.background = '#F9F5F4';
+              c4.style.color = '#000000';
+              c1.innerHTML = objs.notifications[i].at_date_time;
+              c2.innerHTML = objs.notifications[i].message;
+              c3.innerHTML = objs.notifications[i].notificationType;
+              c4.appendChild(btn);
             }
-            const c1 = row.insertCell(0);
-            const c2 = row.insertCell(1);
-            const c3 = row.insertCell(2);
-            const c4 = row.insertCell(3);
-            c1.style.border = '1px solid #dddddd';
-            c1.style.background = '#F9F5F4';
-            c1.style.color = '#000000';
-            c2.style.border = '1px solid #dddddd';
-            c2.style.background = '#F9F5F4';
-            c2.style.color = '#000000';
-            c3.style.border = '1px solid #dddddd';
-            c3.style.background = '#F9F5F4';
-            c3.style.color = '#000000';
-            c4.style.border = '1px solid #dddddd';
-            c4.style.background = '#F9F5F4';
-            c4.style.color = '#000000';
-            c1.innerHTML = objs.notifications[i].at_date_time;
-            c2.innerHTML = objs.notifications[i].message;
-            c3.innerHTML = objs.notifications[i].notificationType;
-            c4.appendChild(btn);
           }
         }
       });
@@ -197,6 +213,7 @@ export class NotificationComponent implements OnInit {
 
 
   ngOnInit() {
+    this.clearTable();
     this.ReadDBNotiications();
   }
 
