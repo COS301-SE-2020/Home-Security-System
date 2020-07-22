@@ -9,25 +9,22 @@ import {AngularFireDatabase} from 'angularfire2/database';
 })
 export class PeopleWhiteComponent implements OnInit {
 
-  constructor(private appService: TitleService, private db: AngularFireDatabase) { }
+  constructor(private appService: TitleService, private db: AngularFireDatabase) {
+  }
 
   ngOnInit(): void {
     this.appService.setTitle('White List');
     this.populateList();
   }
 
-  populateList(): void{
+  populateList(): void {
     const usersL = this.db.database.ref('users');
     usersL.orderByValue().on('value', (snapshot) => {
       snapshot.forEach((data) => {
         const objs = data.val();
-        if (objs.name === 'John') {
-          let isEmpty = true;
-          //console.log('Length: ' + objs.person.length);
+        if (objs.name === 'BrettName') {
           for (let i = 0; i < objs.person.length; i++) {
-            console.log('In here');
             if (objs.person[i].listedType === 'White') {
-              isEmpty = true;
               const whiteBody = document.getElementById('whiteBody') as HTMLTableElement;
               const row = whiteBody.insertRow();
 
@@ -46,14 +43,9 @@ export class PeopleWhiteComponent implements OnInit {
               const button2 = '<a class="btn btn-primary" [routerLink]="[\'/\']">Delete</a>';
               c2.innerHTML = button1 + button2;
             }
-
-            if (isEmpty) {
-              // Output empty list
-            }
           }
         }
       });
-
     });
   }
 }
