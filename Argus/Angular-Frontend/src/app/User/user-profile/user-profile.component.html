@@ -17,7 +17,7 @@
                     <img id="output" width="150px">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal" onclick="saveChanges()">Update</button>
+                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal" onclick="saveChanges()" (click)="UpdateDB();">Update</button>
                 </div>
             </div>
 
@@ -44,14 +44,14 @@
                                     <div class="form-group">
                                         <h5 class="text-primary">First Name</h5>
                                         <!-- <label class="bmd-label-floating">First Name</label> -->
-                                        <input id="firstName" type="text" class="form-control" name="fname" placeholder="John" value="John">
+                                        <input id="firstName" type="text" class="form-control" name="fname">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6">
                                     <div class="form-group">
                                         <h5 class="text-primary">Last Name</h5>
                                         <!-- <label class="bmd-label-floating">Last Name</label> -->
-                                        <input id="lastName" type="text" class="form-control" name="lname" placeholder="Doe" value="Doe">
+                                        <input id="lastName" type="text" class="form-control" name="lname">
                                     </div>
                                 </div>
                             </div>
@@ -60,14 +60,14 @@
                                     <div class="form-group">
                                         <h5 class="text-primary">Username</h5>
                                         <!-- <label class="bmd-label-floating">Username</label> -->
-                                        <input id="username" type="text" class="form-control" name="username" placeholder="JDoe123" value="JDoe123">
+                                        <input id="username" type="text" class="form-control" name="username">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6">
                                     <div class="form-group">
                                         <h5 class="text-primary">Email</h5>
                                         <!-- <label class="bmd-label-floating">Email address</label> -->
-                                        <input id="email" type="email" class="form-control" name="email" placeholder="jdoe123@email.com" value="jdoe123@email.com">
+                                        <input id="email" type="email" class="form-control" name="email">
                                     </div>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal" onclick="saveChanges()">Save Changes</button>
+                    <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal" onclick="saveChanges()" (click)="UpdateDB();">Save Changes</button>
                 </div>
             </div>
 
@@ -86,18 +86,22 @@
 
 
 <div>
-    <h3><u>User Settings</u></h3>
+    <!-- (click) =" AddDB(); ReadDB(); FillTable();" -->
     <div class="content">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
+                      <div class="card-header card-header-primary" >
+                        <h4 class="card-title"><u>User Settings</u></h4>
+                        <p class="card-category">If you want to reinvent yourself, here is your chance.</p>
                         <div class="image-cropper">
-                            <img class="userPic" src="/assets/Images/faces/JS.jpg">
-                            <div class="middle">
-                                <a class="btn btn-primary" data-toggle="modal" data-target="#myModal">Change</a>
-                            </div>
+                          <img class="userPic" id="userPic" > <!-- src="/assets/Images/faces/JS.jpg"> -->
+                          <div class="middle">
+                            <a class="btn btn-primary" data-toggle="modal" data-target="#myModal">Change</a>
+                          </div>
                         </div>
+                      </div>
                         <div class="card-body">
                             <form>
                                 <div class="row">
@@ -105,9 +109,8 @@
                                         <div class="form-group">
                                             <h5 class="text-primary"><b>First Name</b></h5>
                                             <!-- <label class="bmd-label-floating">First Name</label> -->
-                                            <div id="firstName">
-                                                John
-                                            </div>
+                                            <output id="firstNameDisplay">
+                                          </output>
                                         </div>
                                     </div>
                                 </div>
@@ -116,9 +119,8 @@
                                         <div class="form-group">
                                             <h5 class="text-primary"><b>Last Name</b></h5>
                                             <!-- <label class="bmd-label-floating">Last Name</label> -->
-                                            <div id="lastName">
-                                                Doe
-                                            </div>
+                                            <output id="lastNameDisplay">
+                                          </output>
                                         </div>
                                     </div>
                                 </div>
@@ -127,9 +129,8 @@
                                         <div class="form-group">
                                             <h5 class="text-primary"><b>Username</b></h5>
                                             <!-- <label class="bmd-label-floating">Username</label> -->
-                                            <div id="username">
-                                                JDoe123
-                                            </div>
+                                            <output id="usernameDisplay">
+                                          </output>
                                         </div>
                                     </div>
                                 </div>
@@ -138,9 +139,8 @@
                                         <div class="form-group">
                                             <h5 class="text-primary"><b>Email</b></h5>
                                             <!-- <label class="bmd-label-floating">Email address</label> -->
-                                            <div id="email">
-                                                jdoe123@email.com
-                                            </div>
+                                            <output id="emailDisplay">
+                                          </output>
                                         </div>
                                     </div>
                                 </div>
@@ -154,6 +154,22 @@
                 </div>
             </div>
         </div>
+
+        <!-- ================================================================================== -->
+
+        <!-- <div class="table-responsive">
+      <table id ="valuesTable">
+        <thead class="text-primary">
+        <tr>
+          <th>Attribute</th>
+          <th>Value</th>
+
+        </tr>
+        </thead>
+      </table>
+    </div> -->
+
+        <!-- ================================================================================== -->
     </div>
 
 </div>

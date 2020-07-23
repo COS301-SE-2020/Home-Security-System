@@ -2,42 +2,47 @@
   <div class="container-login100">
     <div class="wrap-login100">
       <form class="login100-form validate-form">
-        <span class="login100-form-title p-b-26 ">
-          Add Person profile on
-          <!--Can't use inline styling-->
-          <img src="/assets/Images/Argus.png" style="height: 60px; margin-left: auto; margin-right: auto;"> <br>
-          <img src="/assets/Images/devider.png" style="height: 7px; width: 200px; margin-left: auto; margin-right: auto;">
+                <span class="login100-form-title p-b-26 ">
+          Add a new person
         </span>
 
-          <div class="wrap-input100-last" data-validate="Add a profile picture">
-            <b> Person Picture </b>
-            <p style="padding-top: 20px;"><!--Can't use inline styling-->
-              <input class="input100 " type="file" name="userPic" accept="image/jpeg, image/png" id="userPic" onchange="updateProfilePic(event)">
-              <img id="profilePicDisplay" src="/assets/Images/blank.jpg" width="200px"><!--Can't use inline styling-->
-              <img id="output" width="250px">
-            </p>
-            <span class="focus-input100 "></span>
-          </div>
+        <div class="wrap-input100" data-validate="Enter name and surname ">
+          <b> Name </b>
+          <input class="input100 " type="text" name="name" id="name">
+          <span class="focus-input100 "></span>
+        </div>
 
         <div class="wrap-input100" data-validate="Enter user type ">
-          <b> Choose identification </b><br><br>
-          <input type="radio" id="white-listed" name="white-listed" value="white-listed" checked>
-          <label for="white-listed"><i>White-listed</i></label><br>
-          <input type="radio" id="grey-listed" name="grey-listed" value="grey-listed">
-          <label for="grey-listed"><i>Grey-listed</i></label><br>
-          <input type="radio" id="black-listed" name="black-listed" value="black-listed">
-          <label for="black-listed"><i>Black-listed</i></label>
+          <b> Choose a User role </b><br><br>
+          <input type="radio" id="whiteList" name="userType" value="whiteList" checked>
+          <label for="whiteList"><i> White List</i></label><br>
+          <input type="radio" id="blackList" name="userType" value="blackList">
+          <label for="blackList"><i> Black List</i></label><br>
+        </div>
+
+        <div class="wrap-input100-last" data-validate="Add a profile picture">
+          <b> Person picture </b>
+          <p style="padding-top: 20px;">
+            <!--Can't use inline styling-->
+            <input class="input100 " type="file" name="profilePic" accept="image/jpeg, image/png" id="profilePic"
+                   onchange="updateProfilePic(event)">
+            <img id="profilePicDisplay" src="/assets/Images/profile.jpg" width="80px">
+            <!--Can't use inline styling-->
+            <img id="output" width="150px">
+          </p>
+          <span class="focus-input100 "></span>
         </div>
 
         <div class="container-login100-form-btn">
           <div class="wrap-login100-form-btn">
             <div class="login100-form-bgbtn"></div>
-            <button class="login100-form-btn" onclick="checkUserImage(), mockAdd()">
-              Save Changes
+            <button class="login100-form-btn" (click)="addPerson();">
+              <!-- onclick="checkProfileImage(), CheckPassword(), mockAdd()" -->
+              Add Person
             </button>
           </div>
         </div>
       </form>
     </div>
   </div>
-  </div>
+</div>

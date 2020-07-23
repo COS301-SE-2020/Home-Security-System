@@ -7,46 +7,34 @@
 
     <h3><u> Notification Settings </u></h3>
     <table>
+      <tr>
+        <td> <label class="labelStyle">Email notifications</label> </td>
 
-    <tr>
-      <td>
-        <label class="labelStyle">Email notifications</label>
-      </td>
+        <td>
+          <label class="switch">
+          <input id="emailSlider" type="checkbox" checked (change)="UpdateDB();">
+          <span class="slider round"></span>
+          </label>
+        </td>
+      </tr>
 
-      <td>
-        <label class="switch">
-        <input type="checkbox" checked>
-        <span class="slider round"></span>
-        </label>
-      </td>
+      <tr>
+        <td> <label class="labelStyle">Local notifications</label> </td>
 
-    </tr>
-
-    <tr>
-
-      <td>
-        <label class="labelStyle">Local notifications</label>
-      </td>
-
-      <td>
-        <label class="switch">
-        <input type="checkbox" checked>
-        <span class="slider round"></span>
-        </label>
-      </td>
-
-    </tr>
+        <td>
+          <label class="switch">
+          <input id="localSlider" type="checkbox" checked (change)="UpdateDB();">
+          <span class="slider round"></span>
+          </label>
+        </td>
+      </tr>
     </table>
 
-    <h3><u> Theme Settings </u></h3>
+    <!-- <h3><u> Theme Settings </u></h3>
 
     <table>
-
     <tr>
-
-      <td>
-        <label class="labelStyle">Dark mode</label>
-      </td>
+      <td> <label class="labelStyle">Dark mode</label> </td>
 
       <td>
         <label class="switch">
@@ -57,6 +45,6 @@
 
     </tr>
 
-    </table>
+    </table> -->
 
 </div>

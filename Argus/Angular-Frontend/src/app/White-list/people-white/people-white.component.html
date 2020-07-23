@@ -55,9 +55,6 @@
                         <table class="table">
                             <thead class="text-primary">
                                 <th>
-                                    ID
-                                </th>
-                                <th>
                                     Name
                                 </th>
                                 <th>
@@ -67,97 +64,19 @@
                                     Modify
                                 </th>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        1
-                                    </td>
-                                    <td>
-                                        Daniel Craig
-                                    </td>
-                                    <td>
-                                        <img src="./assets/Images/whitelist/DC.jpg" class="listPic">
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-primary" data-toggle="modal" data-target="#editModal">Edit</a>
-                                        <a class="btn btn-primary" [routerLink]="['/']">Delete</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        2
-                                    </td>
-                                    <td>
-                                        Denzel Washington
-                                    </td>
-                                    <td>
-                                        <img src="./assets/Images/whitelist/DW.jpg" class="listPic">
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-primary" data-toggle="modal" data-target="#editModal">Edit</a>
-                                        <a class="btn btn-primary" [routerLink]="['/']">Delete</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        3
-                                    </td>
-                                    <td>
-                                        Jennifer Lopez
-                                    </td>
-                                    <td>
-                                        <img src="./assets/Images/whitelist/JL.jpg" class="listPic">
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-primary" data-toggle="modal" data-target="#editModal">Edit</a>
-                                        <a class="btn btn-primary" [routerLink]="['/']">Delete</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        4
-                                    </td>
-                                    <td>
-                                        Linda Cardellini
-                                    </td>
-                                    <td>
-                                        <img src="./assets/Images/whitelist/LC.jpg" class="listPic">
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-primary" data-toggle="modal" data-target="#editModal">Edit</a>
-                                        <a class="btn btn-primary" [routerLink]="['/']">Delete</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        5
-                                    </td>
-                                    <td>
-                                        Octavia Spencer
-                                    </td>
-                                    <td>
-                                        <img src="./assets/Images/whitelist/OS.jpg" class="listPic">
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-primary" data-toggle="modal" data-target="#editModal">Edit</a>
-                                        <a class="btn btn-primary" [routerLink]="['/']">Delete</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        6
-                                    </td>
-                                    <td>
-                                        Steve Carell
-                                    </td>
-                                    <td>
-                                        <img src="./assets/Images/whitelist/SC.jpg" class="listPic">
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-primary" data-toggle="modal" data-target="#editModal">Edit</a>
-                                        <a class="btn btn-primary" [routerLink]="['/']">Delete</a>
-                                    </td>
-                                </tr>
+                            <tbody id="whiteBody">
+<!--                                <tr>-->
+<!--                                    <td>-->
+<!--                                        Daniel Craig-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <img src="./assets/Images/whitelist/DC.jpg" class="listPic">-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <a class="btn btn-primary" data-toggle="modal" data-target="#editModal">Edit</a>-->
+<!--                                        <a class="btn btn-primary" [routerLink]="['/']">Delete</a>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
                             </tbody>
                         </table>
                     </div>
