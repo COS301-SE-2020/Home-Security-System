@@ -32,10 +32,10 @@ export class PeopleWhiteComponent implements OnInit {
               const c1 = row.insertCell(1);
               const c2 = row.insertCell(2);
 
-              c0.innerHTML = objs.name;
+              c0.innerHTML = objs.person[i].name;
 
               const image = new Image();
-              image.src = objs.photo;
+              image.src = objs.person[i].photo;
               image.setAttribute('class', 'listPic');
               c1.appendChild(image);
 

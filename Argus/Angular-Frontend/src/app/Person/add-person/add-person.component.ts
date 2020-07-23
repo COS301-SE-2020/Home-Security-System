@@ -18,7 +18,7 @@ export class AddPersonComponent implements OnInit {
     this.appService.setTitle('Add Person');
   }
 
-  AddPerson(): void{
+  addPerson(): void{
     const addName = document.getElementById('name') as HTMLDataElement;
 
     function returnUserVal() {
@@ -37,7 +37,7 @@ export class AddPersonComponent implements OnInit {
 
     const usersL = this.db.database.ref('users');
     let uID = '';
-    const d = new Date();
+    let d = new Date();
     let personArray = [];
     usersL.orderByValue().on('value', (snapshot) => {
       snapshot.forEach((data) => {
@@ -53,7 +53,7 @@ export class AddPersonComponent implements OnInit {
         if (objs.name === 'BrettName') {
           uID = data.key.toString();
           personArray = [];
-          personArray = objs.notifications;
+          personArray = objs.person;
           personArray.push(newPerson);
         }
       });
