@@ -23,6 +23,11 @@ describe('NotificationComponent', () => {
     fixture.detectChanges();
   });
   /*
+  it('saves an item to Firebase', () => {
+
+  });
+   */
+  /*
   it('if it runs, should expect surnames ',  () => {
 
     const notComp = new NotificationComponent();
