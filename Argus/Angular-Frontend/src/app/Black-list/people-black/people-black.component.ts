@@ -22,7 +22,7 @@ export class PeopleBlackComponent implements OnInit {
     usersL.orderByValue().on('value', (snapshot) => {
       snapshot.forEach((data) => {
         const objs = data.val();
-        if (objs.name === 'BrettName') {
+        if (objs.name === 'Shaun') {
           for (let i = 0; i < objs.person.length; i++) {
             if (objs.person[i].listedType === 'Black') {
               const blackBody = document.getElementById('blackBody') as HTMLTableElement;

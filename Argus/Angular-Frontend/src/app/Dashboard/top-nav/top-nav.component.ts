@@ -23,7 +23,7 @@ export class TopNavComponent implements OnInit {
     let obj = null;
     uL.orderByValue().on('value', function(snapshot): void {
       snapshot.forEach(function(data): void {
-        if (data.val().u_id === '657870656e6461626c657340676d61696c2e636f6d') {
+        if (data.val().u_id === '7531363037383632354074756b732e636f2e7a61') {
           obj = data.val();
         }
       });

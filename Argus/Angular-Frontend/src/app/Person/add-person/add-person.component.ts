@@ -50,7 +50,7 @@ export class AddPersonComponent implements OnInit {
           name: addName.value,
           photo: addPhoto
         };
-        if (objs.name === 'BrettName') {
+        if (objs.name === 'Shaun') {
           uID = data.key.toString();
           personArray = [];
           personArray = objs.person;

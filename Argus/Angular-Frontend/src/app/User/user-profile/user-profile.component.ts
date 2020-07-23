@@ -24,7 +24,7 @@ export class UserProfileComponent implements OnInit
     let obj = null;
     uL.orderByValue().on('value', function(snapshot): void {
       snapshot.forEach(function(data): void {
-        if (data.val().u_id === '657870656e6461626c657340676d61696c2e636f6d') {
+        if (data.val().u_id === '7531363037383632354074756b732e636f2e7a61') {
           obj = data.val();
         }
       });
@@ -76,12 +76,12 @@ export class UserProfileComponent implements OnInit
 
     uL.orderByValue().on('value', function(snapshot): void {
       snapshot.forEach(function(data): void {
-        if (data.val().u_id === '657870656e6461626c657340676d61696c2e636f6d') {
+        if (data.val().u_id === '7531363037383632354074756b732e636f2e7a61') {
           obj = data.val();
         }
       });
     });
-    this.usersList.update( '-MCrv1BVhvLBPV4RxlqD' , { name: userName.value , surname: userSurname.value , username: userUsername.value , email : userEmail.value } );
+    this.usersList.update( '-MCul6_O1LNL0mQKKdo3' , { name: userName.value , surname: userSurname.value , username: userUsername.value , email : userEmail.value } );
   }
 
   /* ======================================================== */
@@ -94,12 +94,12 @@ export class UserProfileComponent implements OnInit
 
     uL.orderByValue().on('value', function(snapshot): void {
       snapshot.forEach(function(data): void {
-        if (data.val().u_id === '657870656e6461626c657340676d61696c2e636f6d') {
+        if (data.val().u_id === '7531363037383632354074756b732e636f2e7a61') {
           obj = data.val();
         }
       });
     });
-    this.usersList.update( '-MCrv1BVhvLBPV4RxlqD' , { profilePicture: profilePic.value } );
+    this.usersList.update( '-MCul6_O1LNL0mQKKdo3' , { profilePicture: profilePic.value } );
   }
 
   /* ======================================================== */
