@@ -6,8 +6,13 @@ Argus is a home security system  capable of instantly identifying threats on mul
 ## Documents
 | Document                         	| Link                                                                                        	|
 |----------------------------------	|---------------------------------------------------------------------------------------------	|
-| SRS                              	| [Software Requirements Specification](/Documentation/Sigma___SRS_document.pdf)                  |
+| SRS                              	| [Software Requirements Specification](/Documentation/Sigma___SRS_document.pdf)                |
 | Project management tool (ClickUp) | [ClickUp](https://app.clickup.com/2535636/v/l/s/2669690)                                      |
+
+<img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Software Requirements Specification](/Documentation/Sigma___SRS_document.pdf)
+<img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [User Manual](/Documentation/Argus_User_Manual.pdf)
+<img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Coding Standards]()
+<img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Project Management Tool (ClickUp)](https://app.clickup.com/2535636/v/l/s/2669690)
 
 ## Repository Layout
 This is how the branches will be laid out
