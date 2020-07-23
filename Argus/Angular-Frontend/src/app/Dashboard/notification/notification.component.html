@@ -39,7 +39,7 @@
 <div class="container-login100-form-btn " style="position: center; width: 200px;margin-left: auto; margin-right: auto"><!--Can't use inline styling-->
   <div class="wrap-login100-form-btn">
     <div class="login100-form-bgbtn "></div>
-    <button class="login100-form-btn" id="emailNotification" onclick="sendEmail('Testing email');AddNotification('Email', 'Testing email messages')">
+    <button class="login100-form-btn" id="emailNotification" (click)="AddNotification('Email', 'Testing email messages')" onclick="sendEmail('Testing email')">
       Send an email notification
     </button>
   </div>
