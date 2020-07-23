@@ -18,7 +18,7 @@ export class ListUsersComponent implements OnInit {
 
   FillTable(): void {
 
-    let rowNum = 2;
+    let rowNum = 1;
     const usersL = this.db.database.ref('users');
     usersL.orderByValue().on('value', (snapshot) => {
       snapshot.forEach((data) => {
