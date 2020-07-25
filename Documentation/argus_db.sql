@@ -91,4 +91,4 @@ CREATE TABLE PersonVehicle(
 -- Insert
 
 INSERT INTO Users(fname,lname,email,username,userPass,userRole) 
-VALUES('Team','Sigma','SigmaCOS301@gmail.com','Sigma','cos301sigma!','Admin');
+VALUES('Team','Sigma','SigmaCOS301@gmail.com','Sigma','COS301Sigma!','Admin');
