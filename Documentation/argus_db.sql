@@ -39,7 +39,8 @@ CREATE TABLE Users(
     userPass TEXT NOT NULL,
     userRole roleType NOT NULL,
     image_id INT REFERENCES Image(image_id),
-    notify BOOLEAN NOT NULL DEFAULT true,
+    notifyEmail BOOLEAN NOT NULL DEFAULT true,
+    notifyLocal BOOLEAN NOT NULL DEFAULT true,
     deletionDate DATE,
     PRIMARY KEY (user_id)
 );
