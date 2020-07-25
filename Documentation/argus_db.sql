@@ -38,7 +38,7 @@ CREATE TABLE Users(
     username TEXT NOT NULL,
     userPass TEXT NOT NULL,
     userRole roleType NOT NULL,
-    profilePhoto INT NOT NULL REFERENCES Image(image_id),
+    image_id INT REFERENCES Image(image_id),
     notify BOOLEAN NOT NULL DEFAULT true,
     deletionDate DATE,
     PRIMARY KEY (user_id)
@@ -86,3 +86,8 @@ CREATE TABLE PersonVehicle(
     vehicle_id INT NOT NULL REFERENCES Vehicle(vehicle_id),
     PRIMARY KEY (person_id, vehicle_id)
 );
+
+-- Insert
+
+INSERT INTO Users(fname,lname,email,username,userPass,userRole) 
+VALUES('Team','Sigma','SigmaCOS301@gmail.com','Sigma','cos301sigma!','Admin');
