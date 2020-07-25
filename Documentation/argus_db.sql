@@ -25,7 +25,7 @@ CREATE TYPE listType AS ENUM('White', 'Grey', 'Black');
 
 CREATE TABLE Image(
     image_id INT NOT NULL DEFAULT nextval('imageID_seq'),
-    image bytea NOT NULL,
+    photo bytea NOT NULL,
     deletionDate DATE,
     PRIMARY KEY (image_id)
 );
