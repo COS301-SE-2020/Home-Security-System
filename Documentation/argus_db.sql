@@ -30,7 +30,7 @@ CREATE TABLE Image(
     PRIMARY KEY (image_id)
 );
 
-CREATE TABLE User(
+CREATE TABLE Users(
     user_id INT NOT NULL DEFAULT nextval('userID_seq'),
     fname TEXT NOT NULL,
     lname TEXT NOT NULL,
@@ -56,7 +56,7 @@ CREATE TABLE Notification(
 
 CREATE TABLE UserNotification(
     notification_id INT NOT NULL REFERENCES Notification(notification_id),
-    user_id INT NOT NULL REFERENCES User(user_id),
+    user_id INT NOT NULL REFERENCES Users(user_id),
     PRIMARY KEY (notification_id, user_id)
 );
 
