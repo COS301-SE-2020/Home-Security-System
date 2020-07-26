@@ -32,13 +32,13 @@ CREATE TABLE Image(
 
 CREATE TABLE Users(
     user_id INT NOT NULL DEFAULT nextval('userID_seq'),
+    profilePhoto INT REFERENCES Image(image_id),
     fname TEXT NOT NULL,
     lname TEXT NOT NULL,
     email TEXT NOT NULL,
     username TEXT NOT NULL,
     userPass TEXT NOT NULL,
     userRole roleType NOT NULL,
-    image_id INT REFERENCES Image(image_id),
     notifyEmail BOOLEAN NOT NULL DEFAULT true,
     notifyLocal BOOLEAN NOT NULL DEFAULT true,
     deletionDate DATE,
@@ -47,10 +47,10 @@ CREATE TABLE Users(
 
 CREATE TABLE Notification(
     notification_id INT NOT NULL DEFAULT nextval('notificationID_seq'),
+    image_id INT REFERENCES Image(image_id),
     message TEXT NOT NULL,
     onDate DATE NOT NULL DEFAULT CURRENT_DATE,
     atTime TIME NOT NULL DEFAULT CURRENT_TIME,
-    image_id INT REFERENCES Image(image_id),
     deletionDate DATE,
     PRIMARY KEY (notification_id)
 );
@@ -63,21 +63,21 @@ CREATE TABLE UserNotification(
 
 CREATE TABLE Person(
     person_id INT NOT NULL DEFAULT nextval('personID_seq'),
+    image_id INT REFERENCES Image(image_id),
     fname TEXT NOT NULL,
     lname TEXT NOT NULL,
     listed listType NOT NULL DEFAULT 'Grey',
     created DATE NOT NULL DEFAULT CURRENT_DATE,
-    image_id INT NOT NULL REFERENCES Image(image_id),
     deletionDate DATE,
     PRIMARY KEY (person_id)
 );
 
 CREATE TABLE Vehicle(
     vehicle_id INT NOT NULL DEFAULT nextval('vehicleID_seq'),
+    image_id INT REFERENCES Image(image_id),
     listed listType NOT NULL DEFAULT 'Grey',
     licenseNo TEXT NOT NULL,
     created DATE NOT NULL DEFAULT CURRENT_DATE,
-    image_id INT NOT NULL REFERENCES Image(image_id),
     deletionDate DATE,
     PRIMARY KEY (vehicle_id)
 );
