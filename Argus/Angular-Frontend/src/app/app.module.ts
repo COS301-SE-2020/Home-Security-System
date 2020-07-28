@@ -7,10 +7,6 @@ import {WebcamModule} from 'ngx-webcam';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 // @ts-ignore
-import { AngularFireModule } from 'angularfire2';
-// @ts-ignore
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-// @ts-ignore
 // import {HttpClientModule} from '@angular/common/http';
 // @ts-ignore
 // import {FormsModule} from "@angular/forms";
@@ -74,8 +70,6 @@ const appRoutes: Routes = [];
     BrowserModule,
     AppRoutingModule,
     WebcamModule,
-    AngularFireModule.initializeApp(environment.firebase, 'anotherTest'),
-    AngularFireDatabaseModule,
     RouterModule.forRoot(appRoutes)
     // HttpClientModule,
     // FormsModule

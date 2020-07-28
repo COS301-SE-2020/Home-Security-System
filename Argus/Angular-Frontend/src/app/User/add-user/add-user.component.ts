@@ -1,5 +1,3 @@
-import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
-
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -9,10 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddUserComponent implements OnInit {
 
-  public usersList: AngularFireList<any>;
 
-  constructor(private db: AngularFireDatabase) {
-    this.usersList = db.list('/users');
+  constructor() {
   }
 
   public AddDB(): void {
@@ -42,8 +38,7 @@ export class AddUserComponent implements OnInit {
 
     // --------------------------------------------------------------------
 
-    function generateId()
-    {
+    function generateId() {
       const email = document.getElementById('input') as HTMLDataElement;
 
       let result = '';
@@ -66,54 +61,6 @@ export class AddUserComponent implements OnInit {
     let stringDay = d.getDay() + '/' + d.getMonth() + '/' + d.getFullYear() + ' ';
     stringDay += d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
     addDateUser = stringDay;
-
-    const usersL = this.db.database.ref('users');
-
-    const people = [{
-      id: 0,
-      name: 'test',
-      surname: 'Tester',
-      date_created: addDateUser,
-      photo: '',
-      listedType: 'White'
-    }];
-    const vehicles = [{
-      licence: '123 WER GP',
-      licenceType: 'Grey',
-      photoOfLicence: '',
-      vehicle_id: 0
-    }];
-    const notificationsUser = [
-      {
-      at_date_time: addDateUser,
-      exp_date_time: '',
-      hide: false,
-      imageTaken: '',
-      message: 'User successfully created',
-      notificationType: 'Email'
-      }
-    ];
-    const notSettings = {
-      local: true,
-      email: true
-    };
-
-    const user = {
-      u_id: addUserId,
-      name : addName.value,
-      surname : addSurname.value,
-      username: addUsername.value,
-      email: addEmail.value,
-      role: getRole,
-      password: addPassword.value,
-      profilePicture: addProfilePicture,
-      date_deleted: addDateDeleted,
-      person: people,
-      vehicle: vehicles,
-      notifications: notificationsUser,
-      notificationSettings: notSettings
-    };
-    this.usersList.push(user);
     generateId();
   }
 
