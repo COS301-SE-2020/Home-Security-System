@@ -5,13 +5,15 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 /*@JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id",
         scope = Person.class)*/
-@Table(name = "notification_table")
+@Table(name = "notification")
 public class Notification implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -19,33 +21,33 @@ public class Notification implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "notification_id", nullable = false)
     private Long id;
+    //@Column(name = "image_id", nullable = true)
+    @OneToOne(targetEntity = Image.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_id", referencedColumnName = "image_id")
+    private Image notificationImg;
     @Column(name = "message", nullable = false)
     private String message;
-    @Column(name = "onDate", nullable = false)
-    private String onDate;
-    @Column(name = "atTime", nullable = false)
-    private String atTime;
-    @Column(name = "deletionDate", nullable = true)
-    private String deletionDate = "";
+    @Column(name = "ondate", nullable = false)
+    private LocalDate onDate;
+    @Column(name = "attime", nullable = false)
+    private LocalTime atTime;
+    @Column(name = "notificationdeleted", nullable = true)
+    private LocalDate notificationDeleted;
 
-    //@Column(name = "photo_id", nullable = true)
-    @OneToOne(targetEntity = Image.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "photo_id", referencedColumnName = "photo_id")
-    private Image notificationImg;
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable = false)
+    private Users user;
 
-    //@Column(name = "user_id", nullable = false)
-    @OneToOne(targetEntity = User.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    private User user;
+    //@ManyToMany(mappedBy = "notificationList")
+    //private List<Users> userList = new ArrayList<>();
 
     public Notification() {}
 
-    public Notification(String msg, Image img, User u) {
-        this.message = msg;
-        onDate =LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        atTime = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"));
+    public Notification(Image img, String msg) {
         this.notificationImg = img;
-        this.user = u;
+        this.message = msg;
+        onDate = LocalDate.now();
+        atTime = LocalTime.now();
     }
 
     public long getNotificationId() {
@@ -55,6 +57,13 @@ public class Notification implements Serializable {
         this.id = id;
     }
 
+    public Image getNotificationImg() { return this.notificationImg; }
+    public void setNotificationImg(Image img) {
+        if (img != null) {
+            this.notificationImg = img;
+        }
+    }
+
     public String getMessage() {
         return this.message;
     }
@@ -62,45 +71,19 @@ public class Notification implements Serializable {
         this.message = msg;
     }
 
-    public String getOnDate() { return this.onDate; }
-    public void setOnDate(String date) { this.onDate = date; }
+    public LocalDate getOnDate() { return this.onDate; }
+    public void setOnDate() { this.onDate = LocalDate.now(); }
 
-    public String getAtTime() {
+    public LocalTime getAtTime() {
         return this.atTime;
     }
-    public void setAtTime(String time) {
-        this.atTime = time;
-    }
+    public void setAtTime() { this.atTime = LocalTime.now();}
 
-    public Long getImageById() { return this.notificationImg.getImageId(); }
-    public Image getImage() { return this.notificationImg; }
-    public void setImage(Image img) {
-        if (img != null) {
-            this.notificationImg = img;
-        }
+    public LocalDate getNotificationDeleted() {
+        return this.notificationDeleted;
     }
+    public void setNotificationDeleted() { this.notificationDeleted = LocalDate.now(); }
 
-    public Long getUserById() { return this.user.getUserId(); }
-    public User getUser() { return this.user; }
-    public void setUser(User u) {
-        if (u != null) {
-            this.user = u;
-        }
-    }
-
-    public String getDeletionDate() {
-        return this.deletionDate;
-    }
-    public void setDeletionDate(String date) {
-        this.deletionDate = date;
-    }
-
-    @Override
-    public String toString() {
-        return "Person [notification_id=" + id + ", message=" + message +
-                ", onDate=" + onDate + ", atTime=" + atTime +
-                ", photo_id=" + notificationImg.getImageId() +
-                ", user_id=" + user.getUserId() +
-                ", deletionDate=" + deletionDate + "]";
-    }
+    public Users getUser() { return this.user; }
+    public void setUser(Users x) { this.user = x; }
 }

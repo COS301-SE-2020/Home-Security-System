@@ -2,32 +2,29 @@ package com.springboot.SpringBackend.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
 /*@JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id",
         scope = Person.class)*/
-@Table(name = "photo_table")
+@Table(name = "Image")
 public class Image implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.AUTO, generator = "photoID_seq")
-    //@SequenceGenerator(name = "photoID_seq", sequenceName = "photoID_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "photo_id", nullable = false)
+    @Column(name = "image_id", nullable = false)
     private Long id;
-
-    @Column(name = "image", nullable = false)
-    private String image;
-
-    @Column(name = "deletionDate", nullable = true)
-    private String deletionDate = "";
-
+    @Column(name = "photo", nullable = false)
+    private String photo;
+    //@JsonIgnore
+    @Column(name = "imagedeleted", nullable = true)
+    private LocalDate imageDeleted;
 
     @OneToOne(mappedBy = "profilePhoto", fetch = FetchType.LAZY)
-    private User user;
+    private Users user;
     @OneToOne(mappedBy = "personImg", fetch = FetchType.LAZY)
     private Person person;
     @OneToOne(mappedBy = "vehicleImg", fetch = FetchType.LAZY)
@@ -36,9 +33,8 @@ public class Image implements Serializable {
     private Notification notification;
 
     public Image() { }
-
     public Image(String img) {
-        this.image = img;
+        this.photo = img;
     }
 
     public Long getImageId() {
@@ -48,22 +44,17 @@ public class Image implements Serializable {
         this.id = id;
     }
 
-    public String getImage() {
-        return this.image;
+    public String getPhoto() {
+        return this.photo;
     }
-    public void setImage(String img) {
-        this.image = img;
-    }
-
-    public String getDeletionDate() {
-        return this.deletionDate;
-    }
-    public void setDeletionDate(String date) {
-        this.deletionDate = date;
+    public void setPhoto(String img) {
+        this.photo = img;
     }
 
-    @Override
-    public String toString() {
-        return "Image [photo_ID=" + id + ", image=" + image + ", deletionDate=" + deletionDate + "]";
+    public LocalDate getImageDeleted() {
+        return this.imageDeleted;
+    }
+    public void setImageDeleted() {
+        this.imageDeleted = LocalDate.now();
     }
 }

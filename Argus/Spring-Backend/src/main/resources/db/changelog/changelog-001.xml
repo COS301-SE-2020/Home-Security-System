@@ -7,7 +7,7 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <changeSet author="Sigma" id="001">
         <sql>
-            CREATE SEQUENCE photoID_seq START 1;
+            CREATE SEQUENCE imageID_seq START 1;
         </sql>
         <sql>
             CREATE SEQUENCE notificationID_seq START 1;

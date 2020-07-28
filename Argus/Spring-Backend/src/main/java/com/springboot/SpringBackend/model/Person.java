@@ -1,13 +1,10 @@
 package com.springboot.SpringBackend.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-//import io.swagger.annotations.ApiModelProperty;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,7 +12,7 @@ import java.util.List;
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id",
         scope = Person.class)*/
-@Table(name = "person_table")
+@Table(name = "person")
 public class Person implements Serializable {
     public enum personType {
         White, Grey, Black;
@@ -27,63 +24,61 @@ public class Person implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "person_id", nullable = false)
     private Long id;
-
+    //@Column(name = "image_id", nullable = false)
+    @OneToOne(targetEntity = Image.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_id", referencedColumnName = "image_id")
+    private Image personImg;
     @Column(name = "fname", nullable = false)
     private String fname;
-
     @Column(name = "lname", nullable = false)
     private String lname;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "personlisted", nullable = false)
+    private personType personListed;
+    @Column(name = "personcreated", nullable = false)
+    private LocalDate personCreated;
+    @Column(name = "persondeleted", nullable = true)
+    private LocalDate personDeleted;
 
-    @Column(name = "listed", nullable = false)
-    private personType listed;
+    @OneToMany(mappedBy="person")
+    private List<Vehicle> vehicleList;
 
-    @Column(name = "created", nullable = false)
-    private String created;
-
-    @Column(name = "deletionDate", nullable = true)
-    private String deletionDate = "";
-
-    //@Column(name = "photo_id", nullable = false)
-    @OneToOne(targetEntity = Image.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "photo_id", referencedColumnName = "photo_id")
-    private Image personImg;
-
-    //@ManyToMany(cascade = CascadeType.ALL)
-    //@JoinTable(name = "personvehicle_Table",
-    //        joinColumns = { @JoinColumn(name = "person_id", referencedColumnName = "person_id") },
-    //        inverseJoinColumns = { @JoinColumn(name = "vehicle_id", referencedColumnName = "vehicle_id") })
-    @OneToMany(mappedBy = "personvehicle")
-    private List<PersonVehicle> vehicleList;
+    /*
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "PersonVehicle",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "vehicle_id"))
+    private List<Vehicle> vehicleList = new ArrayList<>();
+    */
 
     public Person() { }
-
-    public Person(String name, String surname, String listed, Image img) {
+    public Person(Image img, String name, String surname, String listed) {
+        this.personImg = img;
         this.fname = name;
         this.lname = surname;
 
         if(listed.equalsIgnoreCase("White"))
         {
-            this.listed = personType.White;
+            this.personListed = personType.White;
         }
         else if(listed.equalsIgnoreCase("Black"))
         {
-            this.listed = personType.Black;
+            this.personListed = personType.Black;
         }
         else
         {
-            this.listed = personType.Grey;
+            this.personListed = personType.Grey;
         }
 
-        this.created = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        this.personImg = img;
+        this.personCreated = LocalDate.now();
     }
 
-    public Person(String name, String surname, Image img) {
+    public Person(Image img, String name, String surname) {
+        this.personImg = img;
         this.fname = name;
         this.lname = surname;
-        this.listed = personType.Grey;
-        this.created = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        this.personImg = img;
+        this.personListed = personType.Grey;
+        this.personCreated = LocalDate.now();
     }
 
     public Long getPersonId() {
@@ -93,62 +88,53 @@ public class Person implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return this.fname;
-    }
-    public void setName(String name) {
-        this.fname = name;
-    }
-
-    public String getSurname() {
-        return this.lname;
-    }
-    public void setSurname(String name) {
-        this.lname = name;
-    }
-
-    public String getListed() { return this.listed.toString(); }
-    public void setListed(String listed) {
-        if(listed.equalsIgnoreCase("White"))
-        {
-            this.listed = personType.White;
-        }
-        else if(listed.equalsIgnoreCase("Black"))
-        {
-            this.listed = personType.Black;
-        }
-        else
-        {
-            this.listed = personType.Grey;
-        }
-    }
-
-    public String getDate() {
-        return this.created;
-    }
-    public void setDate(String date) {
-        this.created = date;
-    }
-
-    public Long getImageById() { return this.personImg.getImageId(); }
-    public Image getImage() { return this.personImg; }
-    public void setImage(Image img) {
+    public Image getPersonImg() { return this.personImg; }
+    public void setPersonImg(Image img) {
         if (img != null) {
             this.personImg = img;
         }
     }
 
-    public String getDeletionDate() {
-        return this.deletionDate;
+    public String getFname() {
+        return this.fname;
     }
-    public void setDeletionDate(String date) {
-        this.deletionDate = date;
+    public void setFname(String name) {
+        this.fname = name;
     }
 
-    @Override
-    public String toString() {
-        return "Person [person_id=" + id + ", fname=" + fname +
-                ", lname=" + lname + ", listed=" + listed + ", created=" + created +
-                ", photo_id=" + personImg.getImageId() + ", deletionDate=" + deletionDate + "]";
+    public String getLname() {
+        return this.lname;
     }
+    public void setLname(String name) {
+        this.lname = name;
+    }
+
+    public String getPersonListed() { return this.personListed.toString(); }
+    public void setPersonListed(String listed) {
+        if(listed.equalsIgnoreCase("White"))
+        {
+            this.personListed = personType.White;
+        }
+        else if(listed.equalsIgnoreCase("Black"))
+        {
+            this.personListed = personType.Black;
+        }
+        else
+        {
+            this.personListed = personType.Grey;
+        }
+    }
+
+    public LocalDate getPersonCreated() {
+        return this.personCreated;
+    }
+    public void setPersonCreated(LocalDate date) { this.personCreated = date; }
+
+    public LocalDate getPersonDeleted() {
+        return this.personDeleted;
+    }
+    public void setPersonDeleted() { this.personDeleted = LocalDate.now(); }
+
+    public List<Vehicle> getVehicleList() { return this.vehicleList; }
+    public void setVehicleList(List<Vehicle> list) {this.vehicleList = list;}
 }

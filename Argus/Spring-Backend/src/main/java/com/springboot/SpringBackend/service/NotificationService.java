@@ -14,9 +14,7 @@ public interface NotificationService {
 
     Notification updateNotification(Notification x);
 
-    void deleteAllNotifications();
-
     void deleteNotification(Notification x);
 
-    void deleteNotificationById(Long id);
+    void deleteAllNotifications();
 }

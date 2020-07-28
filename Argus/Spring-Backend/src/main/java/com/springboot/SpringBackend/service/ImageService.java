@@ -17,5 +17,5 @@ public interface ImageService {
 
     void deleteImage(Image x);
 
-    void deleteImageById(Long id);
+    void deleteAllImages();
 }

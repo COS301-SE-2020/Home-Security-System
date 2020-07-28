@@ -15,7 +15,7 @@ export class TopNavComponent implements OnInit {
   ReadDB(): void {}
 
   ngOnInit(): void {
-    this.appService.getTitle().subscribe(appTitle => this.title = appTitle);
+    //this.appService.getTitle().subscribe(appTitle => title = appTitle);
     this.ReadDB();
   }
 

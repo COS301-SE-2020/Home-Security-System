@@ -4,14 +4,16 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 /*@JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id",
         scope = Person.class)*/
-@Table(name = "vehicle_table")
+@Table(name = "vehicle")
 public class Vehicle {
     public enum vehicleType implements Serializable {
         White, Grey, Black;
@@ -23,53 +25,54 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "vehicle_id", nullable = false)
     private Long id;
-
-    @Column(name = "listed", nullable = false)
-    private vehicleType listed;
-
-    @Column(name = "licenseNo", nullable = false)
-    private String licenseNo;
-
-    @Column(name = "created", nullable = false)
-    private String created;
-
-    @Column(name = "deletionDate", nullable = true)
-    private String deletionDate = "";
-
-    //@Column(name = "photo_ID", nullable = false)
+    //@Column(name = "image_id", nullable = false)
     @OneToOne(targetEntity = Image.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "photo_id", referencedColumnName = "photo_id")
+    @JoinColumn(name = "image_id", referencedColumnName = "image_id")
     private Image vehicleImg;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "vehiclelisted", nullable = false)
+    private vehicleType vehicleListed;
+    @Column(name = "licenseno", nullable = false)
+    private String licenseNo;
+    @Column(name = "vehiclecreated", nullable = false)
+    private LocalDate vehicleCreated;
+    @Column(name = "vehicledeleted", nullable = true)
+    private LocalDate vehicleDeleted;
 
-    @OneToMany(mappedBy = "vehicleperson")
-    private List<PersonVehicle> personList;
+    @ManyToOne
+    @JoinColumn(name="person_id", nullable = false)
+    private Person person;
+
+    //@ManyToMany(mappedBy = "vehicleList")
+    //private List<Person> personList = new ArrayList<>();
 
     public Vehicle() { }
 
-    public Vehicle(String listed, String licenseNo, Image img) {
+    public Vehicle( Image img, String listed, String licenseNo) {
+        this.vehicleImg = img;
+
         if(listed.equalsIgnoreCase("White"))
         {
-            this.listed = vehicleType.White;
+            this.vehicleListed = vehicleType.White;
         }
         else if(listed.equalsIgnoreCase("Black"))
         {
-            this.listed = vehicleType.Black;
+            this.vehicleListed = vehicleType.Black;
         }
         else
         {
-            this.listed = vehicleType.Grey;
+            this.vehicleListed = vehicleType.Grey;
         }
 
         this.licenseNo = licenseNo;
-        this.created = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        this.vehicleImg = img;
+        this.vehicleCreated = LocalDate.now();
     }
 
-    public Vehicle(String licenseNo, Image img) {
-        this.listed = vehicleType.Grey;
-        this.licenseNo = licenseNo;
-        this.created = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    public Vehicle(Image img, String licenseNo) {
         this.vehicleImg = img;
+        this.vehicleListed = vehicleType.Grey;
+        this.licenseNo = licenseNo;
+        this.vehicleCreated = LocalDate.now();
     }
 
     public Long getVehicleId() {
@@ -79,21 +82,30 @@ public class Vehicle {
         this.id = id;
     }
 
-    public String getListed() {
-        return this.listed.toString();
+    public Image getVehicleImg() {
+        return this.vehicleImg;
     }
-    public void setListed(String listed) {
+    public void setVehicleImg(Image img) {
+        if (img != null) {
+            this.vehicleImg = img;
+        }
+    }
+
+    public String getVehicleListed() {
+        return this.vehicleListed.toString();
+    }
+    public void setVehicleListed(String listed) {
         if(listed.equalsIgnoreCase("White"))
         {
-            this.listed = vehicleType.White;
+            this.vehicleListed = vehicleType.White;
         }
         else if(listed.equalsIgnoreCase("Black"))
         {
-            this.listed = vehicleType.Black;
+            this.vehicleListed = vehicleType.Black;
         }
         else
         {
-            this.listed = vehicleType.Grey;
+            this.vehicleListed = vehicleType.Grey;
         }
     }
 
@@ -104,35 +116,18 @@ public class Vehicle {
         this.licenseNo = licenseNo;
     }
 
-    public String getCreated() {
-        return this.created;
+    public LocalDate getVehicleCreated() {
+        return this.vehicleCreated;
     }
-    public void setCreated(String date) {
-        this.created = date;
+    public void setVehicleCreated(LocalDate date) { this.vehicleCreated = date; }
+
+    public LocalDate getVehicleDeleted() {
+        return this.vehicleDeleted;
+    }
+    public void setVehicleDeleted() {
+        this.vehicleDeleted = LocalDate.now();
     }
 
-    public Long getPhotoById() { return this.vehicleImg.getImageId(); }
-    public Image getPhoto() {
-        return this.vehicleImg;
-    }
-    public void setPhoto(Image img) {
-        if (img != null) {
-            this.vehicleImg = img;
-        }
-    }
-
-    public String getDeletionDate() {
-        return this.deletionDate;
-    }
-    public void setDeletionDate(String date) {
-        this.deletionDate = date;
-    }
-
-    @Override
-    public String toString() {
-        return "Vehicle [vehicle_IDid=" + id + ", listed=" + listed +
-                ", licenseNo=" + licenseNo + ", created=" + created +
-                ", photo_ID=" + vehicleImg.getImageId() +
-                ", deletionDate=" + deletionDate + "]";
-    }
+    public Person getPerson() { return this.person; }
+    public void setPerson(Person x) { this.person = x; }
 }

@@ -1,20 +1,54 @@
 package com.springboot.SpringBackend.controller;
 
+import com.springboot.SpringBackend.exception.ResourceNotFoundException;
+import com.springboot.SpringBackend.model.Image;
 import com.springboot.SpringBackend.service.ImageService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "http://localhost:4200")
+import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ImageController {
+    private final ImageService service;
 
-    //@Autowired
-    //private ImageService service;
+    @Autowired
+    public ImageController(ImageService service) {
+        this.service = service;
+    }
 
-    //@Autowired
-    //private ModelMapper modelMapper;
+    @GetMapping("/images")
+    public List<Image> getAllImages() {
+        return service.listAllImages();
+    }
+
+    @GetMapping("/images/{id}")
+    public ResponseEntity<Image> getUserById(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
+        Image x = service.getImageById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Image not found for this id :: " + id));
+        return ResponseEntity.ok().body(x);
+    }
+
+    @PostMapping("/images")
+    public Image addImage(@Valid @RequestBody Image x) {
+        return service.createImage(x);
+    }
+
+    @DeleteMapping("/images/{id}")
+    public Map<String, Boolean> deleteImage(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
+        Image x = service.getImageById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Image not found for this id :: " + id));
+
+        service.deleteImage(x);
+
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return response;
+    }
 }

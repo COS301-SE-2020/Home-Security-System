@@ -2,6 +2,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 // added
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import {WebcamModule} from 'ngx-webcam';
 import { AppRoutingModule } from './app-routing.module';
@@ -34,6 +36,11 @@ import { PeopleWhiteComponent } from './White-list/people-white/people-white.com
 import { VehiclesWhiteComponent } from './White-list/vehicles-white/vehicles-white.component';
 import { NotificationComponent } from './Dashboard/notification/notification.component';
 import { ResetPasswordComponent } from './Dashboard/reset-password/reset-password.component';
+
+import { NotificationService } from './model/notification.service';
+import { UsersService } from './model/users.service';
+import { PersonService } from './model/person.service';
+import { VehicleService } from './model/vehicle.service';
 
 import {environment} from '../environments/environment';
 
@@ -70,11 +77,14 @@ const appRoutes: Routes = [];
     BrowserModule,
     AppRoutingModule,
     WebcamModule,
-    RouterModule.forRoot(appRoutes)
-    // HttpClientModule,
-    // FormsModule
+    RouterModule.forRoot(appRoutes),
+    HttpClientModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [NotificationService,
+    UsersService,
+    PersonService,
+    VehicleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,5 @@
 package com.springboot.SpringBackend.service;
 
-import com.springboot.SpringBackend.dao.ImageDAO;
 import com.springboot.SpringBackend.model.Image;
 import com.springboot.SpringBackend.repository.ImageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ public class ImageServiceImpl implements ImageService{
     }
 
     @Override
-    public List<Image> listAllImages() { return (List<Image>) this.repo.findAll(); }
+    public List<Image> listAllImages() { return this.repo.findAll(); }
 
     @Override
     public Optional<Image> getImageById(Long id) { return this.repo.findById(id); }
@@ -37,53 +36,5 @@ public class ImageServiceImpl implements ImageService{
     public void deleteImage(Image x) { this.repo.delete(x); }
 
     @Override
-    public void deleteImageById(Long id) { this.repo.deleteById(id); }
-
-	/*
-    @Autowired
-    private static ImageDAO dao;
-
-    @Autowired
-    public ImageService() {
-		dao = new ImageDAO();
-	}
-
-	public ImageDAO getImageDao() {
-		return dao;
-	}
-
-    @Override
-    public List<Image> listAllImages() {
-		List<Image> list = dao.findAllImgs();
-		return list;
-	}
-
-    @Override
-    public Image getImageById(Long id) {
-		Image x = dao.getImgById(id);
-		return x;
-	}
-
-    @Override
-    public Image createImage(Image x) {
-		dao.createImg(x);
-		return x;
-	}
-
-    @Override
-    public Image updateImage(Image x) {
-		dao.updateImg(x);
-		return x;
-	}
-
-    @Override
-    public void deleteImage(Image x) {
-		dao.deleteImg(x);
-    }
-
-    @Override
-    public void deleteImageById(Long id) {
-		dao.deleteImgById(id);
-	}
-	*/
+    public void deleteAllImages() { this.repo.deleteAll(); }
 }

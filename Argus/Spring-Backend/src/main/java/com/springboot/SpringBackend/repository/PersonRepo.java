@@ -1,5 +1,6 @@
 package com.springboot.SpringBackend.repository;
 
+import com.springboot.SpringBackend.model.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -11,4 +12,8 @@ import java.util.List;
 
 @Repository
 //public interface PersonRepo extends CrudRepository<Person, Long> { }
-public interface PersonRepo extends JpaRepository<Person, Long>{ }
+public interface PersonRepo extends JpaRepository<Person, Long>{
+    //List<Person> findUserByName(String name);
+    //List<Person> findUserBySurname(String name);
+    //List<Person> findUserByFullName(String name);
+}

@@ -18,6 +18,18 @@
                                 <th> Modify </th>
                             </thead>
                             <tbody id="userTableBody">
+                            <ng-container *ngFor="let user of users | async">
+                              <tr>
+                                <td>{{user.id}}</td>
+                                <td>{{user.name}}&nbsp;{{user.surname}}</td>
+                                <td>{{user.userRole}}</td>
+                                <td>{{user.profilePhoto.photo}}</td>
+                                <td>
+                                  <button (click)="updateUser(user.id)">Update</button>
+                                  <button (click)="removeUser(user.id)">Delete</button>
+                                </td>
+                              </tr>
+                            </ng-container>
                             </tbody>
                         </table>
                     </div>
