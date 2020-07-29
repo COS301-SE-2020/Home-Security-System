@@ -1,5 +1,7 @@
 package com.springboot.SpringBackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -13,6 +15,11 @@ import java.util.Set;
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id",
         scope = Person.class)*/
+@JsonIgnoreProperties(
+        value = {"vehicleCreated", "vehicleDeleted", "person"},
+        allowGetters = true,
+        allowSetters = true
+)
 @Table(name = "vehicle")
 public class Vehicle {
     public enum vehicleType implements Serializable {
@@ -38,7 +45,6 @@ public class Vehicle {
     private LocalDate vehicleCreated;
     @Column(name = "vehicledeleted", nullable = true)
     private LocalDate vehicleDeleted;
-
     @ManyToOne
     @JoinColumn(name="person_id", nullable = false)
     private Person person;
@@ -48,7 +54,7 @@ public class Vehicle {
 
     public Vehicle() { }
 
-    public Vehicle( Image img, String listed, String licenseNo) {
+    public Vehicle(Image img, String listed, String licenseNo) {
         this.vehicleImg = img;
 
         if(listed.equalsIgnoreCase("White"))
@@ -73,6 +79,35 @@ public class Vehicle {
         this.vehicleListed = vehicleType.Grey;
         this.licenseNo = licenseNo;
         this.vehicleCreated = LocalDate.now();
+    }
+
+    public Vehicle(Image img, String listed, String licenseNo, Person p) {
+        this.vehicleImg = img;
+
+        if(listed.equalsIgnoreCase("White"))
+        {
+            this.vehicleListed = vehicleType.White;
+        }
+        else if(listed.equalsIgnoreCase("Black"))
+        {
+            this.vehicleListed = vehicleType.Black;
+        }
+        else
+        {
+            this.vehicleListed = vehicleType.Grey;
+        }
+
+        this.licenseNo = licenseNo;
+        this.vehicleCreated = LocalDate.now();
+        this.person = p;
+    }
+
+    public Vehicle(Image img, String licenseNo, Person p) {
+        this.vehicleImg = img;
+        this.vehicleListed = vehicleType.Grey;
+        this.licenseNo = licenseNo;
+        this.vehicleCreated = LocalDate.now();
+        this.person = p;
     }
 
     public Long getVehicleId() {

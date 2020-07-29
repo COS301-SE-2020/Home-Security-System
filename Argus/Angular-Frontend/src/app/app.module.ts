@@ -8,10 +8,6 @@ import { Routes, RouterModule } from '@angular/router';
 import {WebcamModule} from 'ngx-webcam';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-// @ts-ignore
-// import {HttpClientModule} from '@angular/common/http';
-// @ts-ignore
-// import {FormsModule} from "@angular/forms";
 
 import { LiveFeedComponent } from './Dashboard/live-feed/live-feed.component';
 import { PeopleBlackComponent } from './Black-list/people-black/people-black.component';

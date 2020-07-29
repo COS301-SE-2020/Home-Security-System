@@ -1,5 +1,8 @@
 package com.springboot.SpringBackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -12,6 +15,11 @@ import java.util.List;
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id",
         scope = Person.class)*/
+@JsonIgnoreProperties(
+        value = {"personCreated", "personDeleted", "vehicleList"},
+        allowGetters = true,
+        allowSetters = true
+)
 @Table(name = "person")
 public class Person implements Serializable {
     public enum personType {
@@ -39,7 +47,6 @@ public class Person implements Serializable {
     private LocalDate personCreated;
     @Column(name = "persondeleted", nullable = true)
     private LocalDate personDeleted;
-
     @OneToMany(mappedBy="person")
     private List<Vehicle> vehicleList;
 

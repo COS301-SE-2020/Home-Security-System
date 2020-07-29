@@ -1,5 +1,8 @@
 package com.springboot.SpringBackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -12,6 +15,11 @@ import java.util.Set;
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id",
         scope = Person.class)*/
+@JsonIgnoreProperties(
+        value = {"notifyEmail", "notifyLocal", "userDeleted", "notificationList"},
+        allowGetters = true,
+        allowSetters = true
+)
 @Table(name = "users")
 public class Users{
     public enum UserRole implements Serializable {
@@ -47,7 +55,6 @@ public class Users{
     private Boolean notifyLocal = true;
     @Column(name = "userdeleted", nullable = true)
     private LocalDate userDeleted;
-
     @OneToMany(mappedBy="user")
     private List<Notification> notificationList;
 

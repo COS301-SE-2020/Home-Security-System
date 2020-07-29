@@ -17,13 +17,13 @@
                                     <!-- <label class="bmd-label-floating">First Name</label> -->
                                     <div class="wrap-input100" data-validate="Status">
                                         <input type="radio" id="whiteList" name="status" value="white">
-                                        <label for="white"><i>White listed</i></label><br>
+                                        <label for="whiteList"><i>White listed</i></label><br>
 
                                         <input type="radio" id="blackList" name="status" value="black" checked>
-                                        <label for="black"><i>Black listed</i></label><br>
+                                        <label for="blackList"><i>Black listed</i></label><br>
 
                                         <input type="radio" id="greyList" name="status" value="grey">
-                                        <label for="grey"><i>Grey listed</i></label>
+                                        <label for="greyList"><i>Grey listed</i></label>
                                     </div>
                                 </div>
                             </div>
@@ -54,17 +54,38 @@
                         <table class="table">
                             <thead class="text-primary">
                                 <th>
-                                    Alias
+                                  Picture
                                 </th>
                                 <th>
-                                    Picture
+                                    Alias
                                 </th>
                                 <th>
                                     Modify
                                 </th>
                             </thead>
                             <tbody id="blackBody">
-
+<!--                                <tr>-->
+<!--                                    <td>-->
+<!--                                        <img src="./assets/Images/whitelist/DC.jpg" class="listPic">-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        Daniel Craig-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <a class="btn btn-primary" data-toggle="modal" data-target="#editModal">Edit</a>-->
+<!--                                        <a class="btn btn-primary" [routerLink]="['/']">Delete</a>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+                                <ng-container *ngFor="let p of person | async">
+                                  <tr>
+                                    <td><img src="{{p.personImg.photo}}" class="listPic"></td>
+                                    <td>{{p.fname}}&nbsp;{{p.lname}}</td>
+                                    <td>
+                                      <a class="btn btn-primary" (click)="updatePerson(p.id)">Edit</a>
+                                      <a class="btn btn-primary" (click)="removePerson(p.id)">Delete</a>
+                                    </td>
+                                  </tr>
+                               </ng-container>
                             </tbody>
                         </table>
                     </div>

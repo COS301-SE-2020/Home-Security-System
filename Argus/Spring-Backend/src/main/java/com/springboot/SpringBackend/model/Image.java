@@ -1,5 +1,7 @@
 package com.springboot.SpringBackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -9,6 +11,11 @@ import java.time.LocalDate;
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id",
         scope = Person.class)*/
+@JsonIgnoreProperties(
+        value = {"imageDeleted"},
+        allowGetters = true,
+        allowSetters = true
+)
 @Table(name = "Image")
 public class Image implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -19,7 +26,6 @@ public class Image implements Serializable {
     private Long id;
     @Column(name = "photo", nullable = false)
     private String photo;
-    //@JsonIgnore
     @Column(name = "imagedeleted", nullable = true)
     private LocalDate imageDeleted;
 

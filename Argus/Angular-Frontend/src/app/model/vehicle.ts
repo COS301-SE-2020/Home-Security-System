@@ -1,4 +1,5 @@
 import {Image} from './image';
+import {Person} from "./person";
 
 export interface Vehicle {
   id: number;
@@ -7,4 +8,5 @@ export interface Vehicle {
   licenceNo: string;
   vehicleCreated: string;
   vehicleDeleted: string;
+  person: Person;
 }

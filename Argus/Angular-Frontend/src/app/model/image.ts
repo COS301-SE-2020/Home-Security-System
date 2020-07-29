@@ -1,5 +1,5 @@
 export interface Image {
   id: number;
-  photo: object;
-  imageDeleted: string;
+  photo: any;
+  imageDeleted: any;
 }

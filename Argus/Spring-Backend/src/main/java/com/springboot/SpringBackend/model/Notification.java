@@ -1,5 +1,8 @@
 package com.springboot.SpringBackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -13,6 +16,11 @@ import java.util.List;
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id",
         scope = Person.class)*/
+@JsonIgnoreProperties(
+        value = {"onDate", "atTime", "notificationDeleted"},
+        allowGetters = true,
+        allowSetters = true
+)
 @Table(name = "notification")
 public class Notification implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -33,7 +41,6 @@ public class Notification implements Serializable {
     private LocalTime atTime;
     @Column(name = "notificationdeleted", nullable = true)
     private LocalDate notificationDeleted;
-
     @ManyToOne
     @JoinColumn(name="user_id", nullable = false)
     private Users user;
@@ -48,6 +55,14 @@ public class Notification implements Serializable {
         this.message = msg;
         onDate = LocalDate.now();
         atTime = LocalTime.now();
+    }
+
+    public Notification(Image img, String msg, Users u) {
+        this.notificationImg = img;
+        this.message = msg;
+        onDate = LocalDate.now();
+        atTime = LocalTime.now();
+        this.user = u;
     }
 
     public long getNotificationId() {

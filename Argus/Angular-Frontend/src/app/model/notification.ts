@@ -1,11 +1,19 @@
 import {Image} from './image';
+import {Users} from './users';
 
-export interface Notification {
+export class Notification {
   id: number;
   notificationImg: Image;
-  user_id: number;
   message: string;
-  onDate: string;
-  atTime: string;
-  notificationDeleted: string;
+  onDate: any;
+  atTime: any;
+  notificationDeleted: any;
+  user: Users;
+
+  constructor(id: number, img: Image, msg: string, u: Users) {
+    this.id = id;
+    this.notificationImg = img;
+    this.message = msg;
+    this.user = u;
+  }
 }

@@ -17,8 +17,6 @@ export class ListUsersComponent implements OnInit {
   constructor(private usersService: UsersService, private appService: TitleService, private router: Router) {
   }
 
-  FillTable(): void {
-  }
   reloadData() {
     this.users = this.usersService.getAllUsers();
   }
@@ -35,6 +33,10 @@ export class ListUsersComponent implements OnInit {
 
   updateUser(id: number){
     this.router.navigate(['edit-user', id]);
+  }
+
+  viewUser(id: number){
+    this.router.navigate(['view-user', id]);
   }
 
   ngOnInit(): void {

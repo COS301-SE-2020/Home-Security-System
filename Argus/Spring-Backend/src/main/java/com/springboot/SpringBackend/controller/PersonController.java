@@ -53,7 +53,6 @@ public class PersonController {
         x.setFname(details.getFname());
         x.setLname(details.getLname());
         x.setPersonListed(details.getPersonListed());
-        x.setPersonCreated(details.getPersonCreated());
         final Person updatedPerson = service.updatePerson(x);
         return ResponseEntity.ok(updatedPerson);
     }
