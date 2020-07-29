@@ -11,8 +11,17 @@ export class Users {
   userRole: string;
   notifyLocal: boolean;
   notifyEmail: boolean;
-  userDeleted: string;
+  userDeleted: any;
 
-  constructor() {
+  constructor(id: number, img: Image, fname: string, lname: string, email: string,
+              uname: string, pass: string , role: string) {
+    this.id = id;
+    this.profilePhoto = img;
+    this.name = fname;
+    this.surname = lname;
+    this.email = email;
+    this.username = uname;
+    this.userPass = pass;
+    this.userRole = role;
   }
 }
