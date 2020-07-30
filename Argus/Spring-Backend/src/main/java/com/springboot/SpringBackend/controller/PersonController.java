@@ -50,8 +50,13 @@ public class PersonController {
         if(details.getPersonImg() != null) {
             x.setPersonImg(details.getPersonImg());
         }
-        x.setFname(details.getFname());
-        x.setLname(details.getLname());
+        if(details.getFname() != "") {
+            x.setFname(details.getFname());
+        }
+        if(details.getLname() != "")
+        {
+            x.setLname(details.getLname());
+        }
         x.setPersonListed(details.getPersonListed());
         final Person updatedPerson = service.updatePerson(x);
         return ResponseEntity.ok(updatedPerson);

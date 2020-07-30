@@ -34,10 +34,8 @@
                     <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal" onclick="saveChanges()">Save Changes</button>
                 </div>
             </div>
-
         </div>
     </div>
-
 </div>
 
 <div class="container-fluid">
@@ -54,7 +52,7 @@
                         <table class="table">
                             <thead class="text-primary">
                                 <th>
-                                  Picture
+                                    Picture
                                 </th>
                                 <th>
                                     Alias
@@ -64,25 +62,14 @@
                                 </th>
                             </thead>
                             <tbody id="blackBody">
-<!--                                <tr>-->
-<!--                                    <td>-->
-<!--                                        <img src="./assets/Images/whitelist/DC.jpg" class="listPic">-->
-<!--                                    </td>-->
-<!--                                    <td>-->
-<!--                                        Daniel Craig-->
-<!--                                    </td>-->
-<!--                                    <td>-->
-<!--                                        <a class="btn btn-primary" data-toggle="modal" data-target="#editModal">Edit</a>-->
-<!--                                        <a class="btn btn-primary" [routerLink]="['/']">Delete</a>-->
-<!--                                    </td>-->
-<!--                                </tr>-->
                                 <ng-container *ngFor="let p of person | async">
-                                  <tr>
-                                    <td><img src="{{p.personImg.photo}}" class="listPic"></td>
+                                  <tr *ngIf="p.personListed == 'Black'">
+                                    <td><img src="{{p.personImg}}" class="listPic"></td>
                                     <td>{{p.fname}}&nbsp;{{p.lname}}</td>
                                     <td>
-                                      <a class="btn btn-primary" (click)="updatePerson(p.id)">Edit</a>
-                                      <a class="btn btn-primary" (click)="removePerson(p.id)">Delete</a>
+<!--                                  <a class="btn btn-primary" data-toggle="modal" data-target="#editModal">Edit</a>-->
+                                      <a class="btn btn-primary" (click)="updatePerson(p.personId)">Edit</a>
+                                      <a class="btn btn-primary" (click)="removePerson(p.personId)">Delete</a>
                                     </td>
                                   </tr>
                                </ng-container>

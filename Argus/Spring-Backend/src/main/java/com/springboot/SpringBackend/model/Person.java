@@ -32,13 +32,12 @@ public class Person implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "person_id", nullable = false)
     private Long id;
-    //@Column(name = "image_id", nullable = false)
-    @OneToOne(targetEntity = Image.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "image_id", referencedColumnName = "image_id")
+    @ManyToOne
+    @JoinColumn(name="image_id", nullable = false)
     private Image personImg;
-    @Column(name = "fname", nullable = false)
+    @Column(name = "fname", nullable = true)
     private String fname;
-    @Column(name = "lname", nullable = false)
+    @Column(name = "lname", nullable = true)
     private String lname;
     @Enumerated(EnumType.STRING)
     @Column(name = "personlisted", nullable = false)

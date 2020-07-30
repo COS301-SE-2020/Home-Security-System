@@ -53,8 +53,8 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
             CREATE TABLE Person(
             person_id INT NOT NULL DEFAULT nextval('personID_seq'),
             image_id INT NOT NULL REFERENCES Image(image_id),
-            fname TEXT NOT NULL,
-            lname TEXT NOT NULL,
+            fname TEXT,
+            lname TEXT,
             personListed listType NOT NULL DEFAULT 'Grey',
             personCreated DATE NOT NULL DEFAULT CURRENT_DATE,
             personDeleted DATE,

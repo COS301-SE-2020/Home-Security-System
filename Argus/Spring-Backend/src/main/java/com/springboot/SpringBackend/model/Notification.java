@@ -29,9 +29,8 @@ public class Notification implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "notification_id", nullable = false)
     private Long id;
-    //@Column(name = "image_id", nullable = true)
-    @OneToOne(targetEntity = Image.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "image_id", referencedColumnName = "image_id")
+    @ManyToOne
+    @JoinColumn(name="image_id", nullable = false)
     private Image notificationImg;
     @Column(name = "message", nullable = false)
     private String message;

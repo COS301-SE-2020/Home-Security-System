@@ -1,10 +1,10 @@
 export class Image {
-  id: number;
-  photo: any;
+  imageId: number;
+  photo: string;
   imageDeleted: any;
 
-  constructor(id: number, img: Image) {
-    this.id = id;
+  /*constructor(id: number, img: Image) {
+    this.imageId = id;
     this.photo = img;
-  }
+  }*/
 }

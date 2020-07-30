@@ -1,7 +1,7 @@
 import {Image} from './image';
 
 export class Users {
-  id: number;
+  userId: number;
   profilePhoto: Image;
   name: string;
   surname: string;
@@ -13,9 +13,9 @@ export class Users {
   notifyEmail: boolean;
   userDeleted: any;
 
-  constructor(id: number, img: Image, fname: string, lname: string, email: string,
+  /*constructor(id: number, img: Image, fname: string, lname: string, email: string,
               uname: string, pass: string , role: string) {
-    this.id = id;
+    this.userId = id;
     this.profilePhoto = img;
     this.name = fname;
     this.surname = lname;
@@ -23,5 +23,5 @@ export class Users {
     this.username = uname;
     this.userPass = pass;
     this.userRole = role;
-  }
+  }*/
 }

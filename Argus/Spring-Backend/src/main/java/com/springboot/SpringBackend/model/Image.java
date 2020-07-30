@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 /*@JsonIdentityInfo(
@@ -29,14 +30,14 @@ public class Image implements Serializable {
     @Column(name = "imagedeleted", nullable = true)
     private LocalDate imageDeleted;
 
-    @OneToOne(mappedBy = "profilePhoto", fetch = FetchType.LAZY)
-    private Users user;
-    @OneToOne(mappedBy = "personImg", fetch = FetchType.LAZY)
-    private Person person;
-    @OneToOne(mappedBy = "vehicleImg", fetch = FetchType.LAZY)
-    private Vehicle vehicle;
-    @OneToOne(mappedBy = "notificationImg", fetch = FetchType.LAZY)
-    private Notification notification;
+    @OneToMany(mappedBy="profilePhoto")
+    private List<Users> users;
+    @OneToMany(mappedBy="personImg")
+    private List<Person> people;
+    @OneToMany(mappedBy="vehicleImg")
+    private List<Vehicle> vehicles;
+    @OneToMany(mappedBy="notificationImg")
+    private List<Notification> notifications;
 
     public Image() { }
     public Image(String img) {

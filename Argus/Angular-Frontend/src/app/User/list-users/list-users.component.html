@@ -20,13 +20,13 @@
                             <tbody id="userTableBody">
                             <ng-container *ngFor="let user of users | async">
                               <tr>
-                                <td>{{user.id}}</td>
-                                <td><img src="{{user.profilePhoto.photo}}" class="listPic"></td>
+                                <td>{{user.userId}}</td>
+                                <td><img src="{{user.profilePhoto}}" class="listPic"></td>
                                 <td>{{user.name}}&nbsp;{{user.surname}}</td>
                                 <td>{{user.userRole}}</td>
                                 <td>
-                                  <a class="btn btn-primary" (click)="updateUser(user.id)">Edit</a>
-                                  <a class="btn btn-primary" (click)="removeUser(user.id)">Delete</a>
+                                  <a class="btn btn-primary" (click)="updateUser(user.userId)">Edit</a>
+                                  <a class="btn btn-primary" (click)="removeUser(user.userId)">Delete</a>
                                 </td>
                               </tr>
                             </ng-container>

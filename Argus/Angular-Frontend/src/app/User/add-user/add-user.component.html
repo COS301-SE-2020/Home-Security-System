@@ -1,35 +1,33 @@
-<div class="limiter">
+<!--<div class="limiter">
   <div class="container-login100">
     <div class="wrap-login100">
-      <form class="login100-form validate-form">
-                <span class="login100-form-title p-b-26 ">
-          Add a new user to
-                  <!--Can't use inline styling-->
+      <form class="login100-form validate-form" [hidden]="submitted">
+          <span class="login100-form-title p-b-26 ">
+            Add a new user to
           <img src="/assets/Images/Argus.png " style="height: 60px; margin-left: auto; margin-right: auto;"><br>
-          <img src="/assets/Images/devider.png "
-               style="height: 7px; width: 200px; margin-left: auto; margin-right: auto;">
+          <img src="/assets/Images/devider.png " style="height: 7px; width: 200px; margin-left: auto; margin-right: auto;">
         </span>
 
         <div class="wrap-input100" data-validate="Enter name and surname ">
           <b> Name </b>
-          <input class="input100 " type="text" name="name" id="name">
+          <input class="input100 " type="text" required [(ngModel)]="user.name" name="name" id="name">
           <span class="focus-input100 "></span>
         </div>
         <div class="wrap-input100" data-validate="Enter name and surname ">
           <b> Surname </b>
-          <input class="input100 " type="text" name="name" id="surname">
+          <input class="input100 " type="text" required [(ngModel)]="user.surname" name="name" id="surname">
           <span class="focus-input100 "></span>
         </div>
         <div class="wrap-input100" data-validate="Enter username ">
           <b> Username </b>
-          <input class="input100 " type="text" name="username" id="username">
+          <input class="input100 " type="text" required [(ngModel)]="user.username" name="username" id="username">
           <span class="focus-input100 "></span>
         </div>
 
         <div class="wrap-input100" data-validate="Valid email is: a@b.c ">
           <b> Email </b>
-          <input class="input100" type="text" id="input" name="input">
-          <!--onchange="ValidateEmail()" -->
+          <input class="input100" type="text" id="input" required [(ngModel)]="user.email" name="input">
+          onchange="ValidateEmail()"
           <span class="focus-input100 "></span>
         </div>
 
@@ -37,7 +35,7 @@
           <b> Password </b>
           <img src="/assets/Images/hidePass.png" id="passEye" onclick="showPassword()"
                style="height: 12px; padding-left: 150px; "> <br>
-          <input class="input100 " type='password' id="pass">
+          <input class="input100 " type='password' required [(ngModel)]="user.userPass" id="pass">
           <span class="focus-input100 "></span>
         </div>
 
@@ -54,11 +52,9 @@
         <div class="wrap-input100-last" data-validate="Add a profile picture">
           <b> Profile picture </b>
           <p style="padding-top: 20px;">
-            <!--Can't use inline styling-->
             <input class="input100 " type="file" name="profilePic" accept="image/jpeg, image/png" id="profilePic"
                    onchange="updateProfilePic(event)">
             <img id="profilePicDisplay" src="/assets/Images/profile.jpg" width="80px">
-            <!--Can't use inline styling-->
             <img id="output" width="150px">
           </p>
           <span class="focus-input100 "></span>
@@ -68,7 +64,7 @@
           <div class="wrap-login100-form-btn">
             <div class="login100-form-bgbtn"></div>
             <button class="login100-form-btn" (click)="AddDB();">
-              <!-- onclick="checkProfileImage(), CheckPassword(), mockAdd()" -->
+              onclick="checkProfileImage(), CheckPassword(), mockAdd()"
               Add User
             </button>
           </div>
@@ -76,4 +72,42 @@
       </form>
     </div>
   </div>
+</div>-->
+<h3>Create User</h3>
+<div [hidden]="submitted" style="width: 400px;">
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input type="text" class="form-control" id="firstName" required [(ngModel)]="user.name" name="firstName">
+    </div><br>
+
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input type="text" class="form-control" id="lastName" required [(ngModel)]="user.surname" name="lastName">
+    </div><br>
+
+    <div class="form-group">
+      <label for="emailId">Email</label>
+      <input type="text" class="form-control" id="emailId" required [(ngModel)]="user.email" name="emailId">
+    </div><br>
+
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" class="form-control" id="username" required [(ngModel)]="user.username" name="username">
+    </div><br>
+
+    <div class="form-group">
+      <label for="pass">Password</label>
+      <input type="text" class="form-control" id="pass" required [(ngModel)]="user.userPass" name="pass">
+    </div><br>
+
+    <div class="form-group">
+      <label for="role">Role</label>
+      <input type="text" class="form-control" id="role" required [(ngModel)]="user.userRole" name="role">
+    </div><br>
+
+    <button type="submit" class="btn btn-success">Submit</button>
+  </form>
 </div>
+
+

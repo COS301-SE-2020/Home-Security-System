@@ -32,9 +32,8 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "vehicle_id", nullable = false)
     private Long id;
-    //@Column(name = "image_id", nullable = false)
-    @OneToOne(targetEntity = Image.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "image_id", referencedColumnName = "image_id")
+    @ManyToOne
+    @JoinColumn(name="image_id", nullable = false)
     private Image vehicleImg;
     @Enumerated(EnumType.STRING)
     @Column(name = "vehiclelisted", nullable = false)

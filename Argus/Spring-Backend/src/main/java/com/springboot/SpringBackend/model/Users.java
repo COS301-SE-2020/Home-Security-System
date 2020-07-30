@@ -33,8 +33,8 @@ public class Users{
     @Column(name = "user_id", nullable = false)
     private Long id;
     //@Column(name = "profilePhoto", nullable = true)
-    @OneToOne(targetEntity = Image.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "profilephoto", referencedColumnName = "image_id")
+    @ManyToOne
+    @JoinColumn(name="profilephoto", nullable = false)
     private Image profilePhoto;
     @Column(name = "name", nullable = false)
     private String name;
