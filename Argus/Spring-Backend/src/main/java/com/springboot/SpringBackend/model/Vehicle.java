@@ -1,5 +1,6 @@
 package com.springboot.SpringBackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -46,6 +47,7 @@ public class Vehicle {
     private LocalDate vehicleDeleted;
     @ManyToOne
     @JoinColumn(name="person_id", nullable = false)
+    @JsonIgnore
     private Person person;
 
     //@ManyToMany(mappedBy = "vehicleList")

@@ -2,6 +2,7 @@ package com.springboot.SpringBackend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -22,6 +23,8 @@ import java.util.List;
 )
 @Table(name = "person")
 public class Person implements Serializable {
+
+
     public enum personType {
         White, Grey, Black;
     }
@@ -47,6 +50,7 @@ public class Person implements Serializable {
     @Column(name = "persondeleted", nullable = true)
     private LocalDate personDeleted;
     @OneToMany(mappedBy="person")
+    @BatchSize(size = 1000)
     private List<Vehicle> vehicleList;
 
     /*

@@ -2,6 +2,7 @@ package com.springboot.SpringBackend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -22,6 +23,8 @@ import java.util.Set;
 )
 @Table(name = "users")
 public class Users{
+
+
     public enum UserRole implements Serializable {
         Admin, Advanced, Basic;
     }
@@ -55,7 +58,8 @@ public class Users{
     private Boolean notifyLocal = true;
     @Column(name = "userdeleted", nullable = true)
     private LocalDate userDeleted;
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+    @BatchSize(size = 1000)
     private List<Notification> notificationList;
 
     /*

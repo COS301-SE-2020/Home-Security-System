@@ -17,7 +17,7 @@ import java.util.List;
         property = "id",
         scope = Person.class)*/
 @JsonIgnoreProperties(
-        value = {"onDate", "atTime", "notificationDeleted"},
+        value = {"onDate", "atTime", "notificationDeleted", "user"},
         allowGetters = true,
         allowSetters = true
 )
@@ -42,6 +42,7 @@ public class Notification implements Serializable {
     private LocalDate notificationDeleted;
     @ManyToOne
     @JoinColumn(name="user_id", nullable = false)
+    @JsonIgnore
     private Users user;
 
     //@ManyToMany(mappedBy = "notificationList")
