@@ -23,7 +23,7 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
             email TEXT NOT NULL,
             username TEXT NOT NULL,
             userPass TEXT NOT NULL,
-            userRole roleType NOT NULL,
+            userRole TEXT NOT NULL,
             notifyEmail BOOLEAN NOT NULL DEFAULT true,
             notifyLocal BOOLEAN NOT NULL DEFAULT true,
             userDeleted DATE,
@@ -55,7 +55,7 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
             image_id INT NOT NULL REFERENCES Image(image_id),
             fname TEXT,
             lname TEXT,
-            personListed listType NOT NULL DEFAULT 'Grey',
+            personListed TEXT NOT NULL DEFAULT 'Grey',
             personCreated DATE NOT NULL DEFAULT CURRENT_DATE,
             personDeleted DATE,
             PRIMARY KEY (person_id)
@@ -65,7 +65,7 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
             CREATE TABLE Vehicle(
             vehicle_id INT NOT NULL DEFAULT nextval('vehicleID_seq'),
             image_id INT NOT NULL REFERENCES Image(image_id),
-            vehicleListed listType NOT NULL DEFAULT 'Grey',
+            vehicleListed TEXT NOT NULL DEFAULT 'Grey',
             licenseNo TEXT NOT NULL,
             vehicleCreated DATE NOT NULL DEFAULT CURRENT_DATE,
             vehicleDeleted DATE,

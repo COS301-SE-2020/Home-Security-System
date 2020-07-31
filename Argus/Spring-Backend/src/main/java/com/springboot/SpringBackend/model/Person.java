@@ -17,7 +17,7 @@ import java.util.List;
         property = "id",
         scope = Person.class)*/
 @JsonIgnoreProperties(
-        value = {"personCreated", "personDeleted", "vehicleList"},
+        value = {"personCreated", "vehicleList"},
         allowGetters = true,
         allowSetters = true
 )

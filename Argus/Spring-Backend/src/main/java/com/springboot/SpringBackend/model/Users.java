@@ -17,14 +17,12 @@ import java.util.Set;
         property = "id",
         scope = Person.class)*/
 @JsonIgnoreProperties(
-        value = {"notifyEmail", "notifyLocal", "userDeleted", "notificationList"},
+        value = {"notificationList"},
         allowGetters = true,
         allowSetters = true
 )
 @Table(name = "users")
 public class Users{
-
-
     public enum UserRole implements Serializable {
         Admin, Advanced, Basic;
     }
@@ -37,7 +35,7 @@ public class Users{
     private Long id;
     //@Column(name = "profilePhoto", nullable = true)
     @ManyToOne
-    @JoinColumn(name="profilephoto", nullable = false)
+    @JoinColumn(name="profilephoto", nullable = true)
     private Image profilePhoto;
     @Column(name = "name", nullable = false)
     private String name;
@@ -51,6 +49,7 @@ public class Users{
     private String userPass;
     @Enumerated(EnumType.STRING)
     @Column(name = "userrole", nullable = false)
+    //private String userRole;
     private UserRole userRole;
     @Column(name = "notifyemail", nullable = false)
     private Boolean notifyEmail = true;
@@ -71,6 +70,7 @@ public class Users{
      */
 
     public Users() { }
+
     public Users(Image id, String name, String surname, String email, String username, String password, String role) {
         this.profilePhoto = id;
         this.name = name;
@@ -161,9 +161,7 @@ public class Users{
         this.userPass = pass;
     }
 
-    public String getUserRole() {
-        return this.userRole.toString();
-    }
+    public String getUserRole() { return this.userRole.toString(); }
     public void setUserRole(String role) {
         if(role.equalsIgnoreCase("Admin"))
         {

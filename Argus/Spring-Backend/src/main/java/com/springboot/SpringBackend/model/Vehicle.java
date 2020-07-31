@@ -17,7 +17,7 @@ import java.util.Set;
         property = "id",
         scope = Person.class)*/
 @JsonIgnoreProperties(
-        value = {"vehicleCreated", "vehicleDeleted", "person"},
+        value = {"vehicleCreated"},
         allowGetters = true,
         allowSetters = true
 )
@@ -47,7 +47,6 @@ public class Vehicle {
     private LocalDate vehicleDeleted;
     @ManyToOne
     @JoinColumn(name="person_id", nullable = false)
-    @JsonIgnore
     private Person person;
 
     //@ManyToMany(mappedBy = "vehicleList")

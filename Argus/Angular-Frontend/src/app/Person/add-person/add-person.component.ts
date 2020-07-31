@@ -30,8 +30,8 @@ export class AddPersonComponent implements OnInit {
   }
 
   addPerson(): void{
-    //Find user by ID first
-    /*
+    // Find user by ID first
+
     this.users = this.usersService.getUserById(1);
     this.usersService.getUserById(1)
       .subscribe(
@@ -39,7 +39,7 @@ export class AddPersonComponent implements OnInit {
           console.log(data);
         },
         error => console.log(error));
-    */
+
 
     const addName = document.getElementById('name') as HTMLInputElement;
     const addSurname = document.getElementById('Surname') as HTMLInputElement;
@@ -73,6 +73,7 @@ export class AddPersonComponent implements OnInit {
     this.personService.addPerson(this.newPerson)
       .subscribe(data => console.log(data), error => console.log(error));
   }
+
   deletePerson(personId: number): void {
     this.personService.deletePerson(personId)
       .subscribe(

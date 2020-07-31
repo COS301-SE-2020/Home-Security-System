@@ -13,9 +13,7 @@ import java.util.List;
         property = "id",
         scope = Person.class)*/
 @JsonIgnoreProperties(
-        value = {"imageDeleted"},
-        allowGetters = true,
-        allowSetters = true
+        value = {"users", "people", "vehicles", "notifications"}
 )
 @Table(name = "Image")
 public class Image implements Serializable {

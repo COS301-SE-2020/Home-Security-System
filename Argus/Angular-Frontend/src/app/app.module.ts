@@ -2,7 +2,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 // added
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { FormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import {WebcamModule} from 'ngx-webcam';
@@ -39,6 +39,7 @@ import { PersonService } from './model/person.service';
 import { VehicleService } from './model/vehicle.service';
 
 import {environment} from '../environments/environment';
+// import {AuthInterceptor} from './model/auth.interceptor';
 
 const appRoutes: Routes = [];
 
@@ -81,7 +82,13 @@ const appRoutes: Routes = [];
   providers: [NotificationService,
     UsersService,
     PersonService,
-    VehicleService],
+    VehicleService,
+    /*AuthService,
+    {
+     provide: HTTP_INTERCEPTORS,
+     useClass: AuthInterceptor,
+     multi: true
+    }*/],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

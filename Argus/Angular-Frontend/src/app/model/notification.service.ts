@@ -7,7 +7,7 @@ import { catchError, retry } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class NotificationService {
-  private baseUrl = 'http://localhost:8080/springboot/api/notification';
+  private baseUrl = 'http://localhost:8080/springboot/api/notifications';
 
   constructor(private http: HttpClient) { }
 

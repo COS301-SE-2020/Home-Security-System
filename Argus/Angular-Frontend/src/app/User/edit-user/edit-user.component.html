@@ -1,16 +1,16 @@
-<div class="limiter">
+<!--<div class="limiter">
   <div class="container-login100">
     <div class="wrap-login100">
       <form class="login100-form validate-form">
                     <span class="login100-form-title p-b-26 ">
                     Edit a users profile on
-                    <img src="/assets/Images/Argus.png" style="height: 60px; margin-left: auto; margin-right: auto;"> <br><!--Can't use inline styling-->
-                    <img src="/assets/Images/devider.png" style="height: 7px; width: 200px; margin-left: auto; margin-right: auto;"><!--Can't use inline styling-->
+                    <img src="/assets/Images/Argus.png" style="height: 60px; margin-left: auto; margin-right: auto;"> <br>//Can't use inline styling
+                    <img src="/assets/Images/devider.png" style="height: 7px; width: 200px; margin-left: auto; margin-right: auto;">//Can't use inline styling
                   </span>
 
         <div class="wrap-input100-last" data-validate="Add a profile picture">
           <b> User picture </b>
-          <p style="padding-top: 20px;"><!--Can't use inline styling-->
+          <p style="padding-top: 20px;">//Can't use inline styling
             <input class="input100 " type="file" name="userPic" accept="image/jpeg, image/png" id="userPic" onchange="updateProfilePic(event)">
             <img id="profilePicDisplay" src="/assets/Images/blank.png " width="100px ">
             <img id="output" width="250px ">
@@ -29,4 +29,36 @@
       </form>
     </div>
   </div>
+</div>-->
+
+<h3>Update User</h3>
+<div style="width: 400px;">
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">First Name</label>
+      <input type="text" class="form-control" id="name" required [(ngModel)]="user.name" name="name">
+    </div><br>
+
+    <div class="form-group">
+      <label for="surname">Last Name</label>
+      <input type="text" class="form-control" id="surname" required [(ngModel)]="user.surname" name="surname">
+    </div><br>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="text" class="form-control" id="email" required [(ngModel)]="user.email" name="email">
+    </div><br>
+
+    <div class="form-group">
+      <label for="pass">Password</label>
+      <input type="text" class="form-control" id="pass" required [(ngModel)]="user.userPass" name="pass">
+    </div><br>
+
+    <div class="form-group">
+      <label for="role">Role</label>
+      <input type="text" class="form-control" id="role" required [(ngModel)]="user.userRole" name="role">
+    </div><br>
+
+    <button type="submit" class="btn btn-success">Submit</button>
+  </form>
 </div>

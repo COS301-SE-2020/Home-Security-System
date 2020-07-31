@@ -16,11 +16,6 @@ import java.util.List;
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id",
         scope = Person.class)*/
-@JsonIgnoreProperties(
-        value = {"onDate", "atTime", "notificationDeleted", "user"},
-        allowGetters = true,
-        allowSetters = true
-)
 @Table(name = "notification")
 public class Notification implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -42,7 +37,6 @@ public class Notification implements Serializable {
     private LocalDate notificationDeleted;
     @ManyToOne
     @JoinColumn(name="user_id", nullable = false)
-    @JsonIgnore
     private Users user;
 
     //@ManyToMany(mappedBy = "notificationList")
@@ -99,6 +93,7 @@ public class Notification implements Serializable {
     }
     public void setNotificationDeleted() { this.notificationDeleted = LocalDate.now(); }
 
+    public Long getUserById() { return this.user.getUserId(); }
     public Users getUser() { return this.user; }
     public void setUser(Users x) { this.user = x; }
 }

@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {AppComponent} from '../../app.component';
-import {from} from 'rxjs';
+import {from, Observable} from 'rxjs';
+import {Notification} from '../../model/notification';
+import {NotificationService} from '../../model/notification.service';
+import {TitleService} from '../../title.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-notification',
@@ -10,41 +14,33 @@ import {from} from 'rxjs';
 
 
 export class NotificationComponent implements OnInit {
-  public userDetail;
-  public d = new Date();
-  public t = this.d.getTime();
+  notification: Observable<Notification[]>;
 
-  constructor() {}
-
-  public AddDB(): void {}
-
-  ReadDB(): void{}
-
-  DeleteDB(): void{}
-
-  UpdateDB(): void{}
-
-  clearTable(): void{
-    const table = document.getElementById('notificationsTable') as HTMLTableElement;
-    const rows = table.rows.length;
-    console.log('len: ' + rows);
-    for (let i = 1; i < rows; i++){
-      table.deleteRow(1);
-    }
+  constructor(private notificationService: NotificationService, private appService: TitleService) {
   }
 
-  AddNotification(type, messageN): void{
-    this.clearTable();
-  }
-  public hideNotification(uid, notNumb): void{
-  }
-
-  ReadDBNotiications(): void{}
-
-
-  ngOnInit() {
-    this.clearTable();
-    this.ReadDBNotiications();
+  reloadData() {
+    this.notification = this.notificationService.getNotificationList();
+    this.notificationService.getNotificationList()
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => console.log(error));
   }
 
+  removeNotification(id: number) {
+    this.notificationService.deleteNotification(id)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.reloadData();
+        },
+        error => console.log(error));
+  }
+
+  ngOnInit(): void {
+    this.appService.setTitle('Black List');
+    this.reloadData();
+  }
 }
