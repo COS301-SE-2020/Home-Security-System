@@ -1,24 +1,14 @@
 package com.springboot.SpringBackend.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-/*@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id",
-        scope = Person.class)*/
 @Table(name = "notification")
 public class Notification implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -693058768293344103L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,10 +24,10 @@ public class Notification implements Serializable {
     @Column(name = "attime", nullable = false)
     private LocalTime atTime;
     @Column(name = "notificationdeleted", nullable = true)
-    private LocalDate notificationDeleted;
+    private LocalDate notificationDeleted = null;
     @ManyToOne
     @JoinColumn(name="user_id", nullable = false)
-    private Users user;
+    private User user;
 
     //@ManyToMany(mappedBy = "notificationList")
     //private List<Users> userList = new ArrayList<>();
@@ -51,7 +41,7 @@ public class Notification implements Serializable {
         atTime = LocalTime.now();
     }
 
-    public Notification(Image img, String msg, Users u) {
+    public Notification(Image img, String msg, User u) {
         this.notificationImg = img;
         this.message = msg;
         onDate = LocalDate.now();
@@ -66,6 +56,7 @@ public class Notification implements Serializable {
         this.id = id;
     }
 
+    public Long getNotificationImgId() { return this.notificationImg.getImageId(); }
     public Image getNotificationImg() { return this.notificationImg; }
     public void setNotificationImg(Image img) {
         if (img != null) {
@@ -89,11 +80,14 @@ public class Notification implements Serializable {
     public void setAtTime() { this.atTime = LocalTime.now();}
 
     public LocalDate getNotificationDeleted() {
-        return this.notificationDeleted;
+        if(notificationDeleted != null) {
+            return this.notificationDeleted;
+        }
+        return null;
     }
     public void setNotificationDeleted() { this.notificationDeleted = LocalDate.now(); }
 
     public Long getUserById() { return this.user.getUserId(); }
-    public Users getUser() { return this.user; }
-    public void setUser(Users x) { this.user = x; }
+    public User getUser() { return this.user; }
+    public void setUser(User x) { this.user = x; }
 }

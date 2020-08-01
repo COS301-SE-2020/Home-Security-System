@@ -28,7 +28,7 @@ export class VehicleService {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }
 
-  getAllVehicles(): Observable<any> {
+  getVehicleList(): Observable<any> {
     return this.http.get(`${this.baseUrl}`);
   }
 

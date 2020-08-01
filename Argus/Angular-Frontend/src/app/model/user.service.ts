@@ -6,7 +6,7 @@ import { catchError, retry } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class UsersService {
+export class UserService {
 
   private baseUrl = 'http://localhost:8080/springboot/api/users';
 
@@ -28,7 +28,7 @@ export class UsersService {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }
 
-  getAllUsers(): Observable<any> {
+  getUserList(): Observable<any> {
     return this.http.get(`${this.baseUrl}`);
   }
 

@@ -25,7 +25,7 @@ public class ImageController {
 
     @GetMapping("/images")
     public List<Image> getAllImages() {
-        return service.listAllImages();
+        return service.getAllImages();
     }
 
     @GetMapping("/images/{id}")

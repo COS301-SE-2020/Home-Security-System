@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UsersService } from '../../model/users.service';
-import { Users } from '../../model/users';
+import { UserService } from '../../model/user.service';
+import { User } from '../../model/user';
 import { Router } from '@angular/router';
 import {TitleService} from '../../title.service';
 
@@ -12,14 +12,14 @@ import {TitleService} from '../../title.service';
   styleUrls: ['./list-users.component.css']
 })
 export class ListUsersComponent implements OnInit {
-  users: Observable<Users[]>;
+  users: Observable<User[]>;
 
-  constructor(private usersService: UsersService, private appService: TitleService, private router: Router) {
+  constructor(private userService: UserService, private appService: TitleService, private router: Router) {
   }
 
   reloadData() {
-    this.users = this.usersService.getAllUsers();
-    this.usersService.getAllUsers()
+    this.users = this.userService.getUserList();
+    this.userService.getUserList()
       .subscribe(
         data => {
           console.log(data);
@@ -28,7 +28,7 @@ export class ListUsersComponent implements OnInit {
   }
 
   removeUser(id: number) {
-    this.usersService.deleteUser(id)
+    this.userService.deleteUser(id)
       .subscribe(
         data => {
           console.log(data);

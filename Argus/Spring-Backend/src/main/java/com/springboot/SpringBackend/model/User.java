@@ -1,7 +1,6 @@
 package com.springboot.SpringBackend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
@@ -9,25 +8,15 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
-/*@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id",
-        scope = Person.class)*/
-@JsonIgnoreProperties(
-        value = {"notificationList"},
-        allowGetters = true,
-        allowSetters = true
-)
-@Table(name = "users")
-public class Users{
-    public enum UserRole implements Serializable {
-        Admin, Advanced, Basic;
-    }
+@Table(name = "argususer")
+public class User implements Serializable {
+    private static final long serialVersionUID = -2292162305534844772L;
 
-    private static final long serialVersionUID = 1L;
+    /*public enum UserRole {
+        Admin, Advanced, Basic;
+    }*/
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -47,19 +36,20 @@ public class Users{
     private String username;
     @Column(name = "userpass", nullable = false)
     private String userPass;
-    @Enumerated(EnumType.STRING)
+    //@Enumerated(EnumType.STRING)
     @Column(name = "userrole", nullable = false)
-    //private String userRole;
-    private UserRole userRole;
+    //private UserRole userRole;
+    private String userRole;
     @Column(name = "notifyemail", nullable = false)
-    private Boolean notifyEmail = true;
+    private Boolean notifyEmail;
     @Column(name = "notifylocal", nullable = false)
-    private Boolean notifyLocal = true;
+    private Boolean notifyLocal;
     @Column(name = "userdeleted", nullable = true)
-    private LocalDate userDeleted;
-    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+    private LocalDate userDeleted = null;
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @BatchSize(size = 1000)
-    private List<Notification> notificationList;
+    @JsonIgnore
+    private List<Notification> notificationList = new ArrayList<>();
 
     /*
     @ManyToMany(cascade = CascadeType.ALL)
@@ -69,9 +59,9 @@ public class Users{
     private List<Notification> notificationList = new ArrayList<>();
      */
 
-    public Users() { }
+    public User() { }
 
-    public Users(Image id, String name, String surname, String email, String username, String password, String role) {
+    public User(Image id, String name, String surname, String email, String username, String password, String role) {
         this.profilePhoto = id;
         this.name = name;
         this.surname = surname;
@@ -81,22 +71,25 @@ public class Users{
 
         if(role.equalsIgnoreCase("Admin"))
         {
-            this.userRole = UserRole.Admin;
+            //this.userRole = UserRole.Admin;
+            this.userRole = "Admin";
         }
         else if(role.equalsIgnoreCase("Advanced"))
         {
-            this.userRole = UserRole.Advanced;
+            //this.userRole = UserRole.Advanced;
+            this.userRole = "Advanced";
         }
         else
         {
-            this.userRole = UserRole.Basic;
+            //this.userRole = UserRole.Basic;
+            this.userRole = "Basic";
         }
 
         this.notifyEmail = true;
         this.notifyLocal = true;
     }
 
-    public Users(String name, String surname, String email, String username, String password, String role) {
+    public User(String name, String surname, String email, String username, String password, String role) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -105,15 +98,18 @@ public class Users{
 
         if(role.equalsIgnoreCase("Admin"))
         {
-            this.userRole = UserRole.Admin;
+            //this.userRole = UserRole.Admin;
+            this.userRole = "Admin";
         }
         else if(role.equalsIgnoreCase("Advanced"))
         {
-            this.userRole = UserRole.Advanced;
+            //this.userRole = UserRole.Advanced;
+            this.userRole = "Advanced";
         }
         else
         {
-            this.userRole = UserRole.Basic;
+            //this.userRole = UserRole.Basic;
+            this.userRole = "Basic";
         }
 
         this.notifyEmail = true;
@@ -127,7 +123,21 @@ public class Users{
         this.id = id;
     }
 
-    public Image getProfilePhoto() { return this.profilePhoto; }
+
+    public Long getProfilePhotoId() {
+        if (profilePhoto != null)
+        {
+            return this.profilePhoto.getImageId();
+        }
+        return null;
+    }
+    public Image getProfilePhoto() {
+        if (profilePhoto != null)
+        {
+            return this.profilePhoto;
+        }
+        return null;
+    }
     public void setProfilePhoto(Image photo) {
         if (photo != null) {
             this.profilePhoto = photo;
@@ -165,15 +175,18 @@ public class Users{
     public void setUserRole(String role) {
         if(role.equalsIgnoreCase("Admin"))
         {
-            this.userRole = UserRole.Admin;
+            //this.userRole = UserRole.Admin;
+            this.userRole = role;
         }
         else if(role.equalsIgnoreCase("Advanced"))
         {
-            this.userRole = UserRole.Advanced;
+            //this.userRole = UserRole.Advanced;
+            this.userRole = role;
         }
         else
         {
-            this.userRole = UserRole.Basic;
+            //this.userRole = UserRole.Basic;
+            this.userRole = role;
         }
     }
 
@@ -192,7 +205,10 @@ public class Users{
     }
 
     public LocalDate getUserDeleted() {
-        return this.userDeleted;
+        if(userDeleted != null) {
+            return this.userDeleted;
+        }
+        return null;
     }
     public void setUserDeleted() {
         this.userDeleted = LocalDate.now();

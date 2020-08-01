@@ -21,7 +21,7 @@ public class NotificationServiceImpl implements NotificationService{
     }
 
     @Override
-    public List<Notification> listAllEvents() {
+    public List<Notification> getAllNotifications() {
         return (List<Notification>) this.repo.findAll();
     }
 

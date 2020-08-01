@@ -15,7 +15,7 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
             );
         </sql>
         <sql>
-            CREATE TABLE Users(
+            CREATE TABLE ArgusUser(
             user_id INT NOT NULL DEFAULT nextval('userID_seq'),
             profilePhoto INT REFERENCES Image(image_id),
             name TEXT NOT NULL,
@@ -38,14 +38,14 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
             onDate DATE NOT NULL DEFAULT CURRENT_DATE,
             atTime TIME NOT NULL DEFAULT CURRENT_TIME,
             notificationDeleted DATE,
-            user_id INT NOT NULL REFERENCES Users(user_id),
+            user_id INT NOT NULL REFERENCES ArgusUser(user_id),
             PRIMARY KEY (notification_id)
             );
         </sql>
         <!--<sql>
             CREATE TABLE UserNotification(
             notification_id INT NOT NULL REFERENCES Notification(notification_id),
-            user_id INT NOT NULL REFERENCES Users(user_id),
+            user_id INT NOT NULL REFERENCES ArgusUser(user_id),
             PRIMARY KEY (notification_id, user_id)
             );
         </sql>-->

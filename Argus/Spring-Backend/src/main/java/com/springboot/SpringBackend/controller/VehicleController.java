@@ -25,7 +25,7 @@ public class VehicleController {
 
     @GetMapping("/vehicles")
     public List<Vehicle> getAllVehicle() {
-        return service.listAllVehicles();
+        return service.getAllVehicles();
     }
 
     @GetMapping("/vehicles/{id}")
@@ -44,7 +44,7 @@ public class VehicleController {
     public ResponseEntity<Vehicle> editVehicle(@PathVariable(value = "id") Long id,
                                           @Valid @RequestBody Vehicle details) throws ResourceNotFoundException {
         Vehicle x = service.getVehicleById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Vehicle not found for this id :: " + id));
 
         x.setVehicleId(details.getVehicleId());
         if(details.getVehicleImg() != null) {

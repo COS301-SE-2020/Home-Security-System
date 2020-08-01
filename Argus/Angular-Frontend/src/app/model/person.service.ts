@@ -27,7 +27,7 @@ export class PersonService {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }
 
-  getPeopleList(): Observable<any> {
+  getPersonList(): Observable<any> {
     return this.http.get(`${this.baseUrl}`);
   }
 

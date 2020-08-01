@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface VehicleService {
-    List<Vehicle> listAllVehicles();
+    List<Vehicle> getAllVehicles();
 
     Optional<Vehicle> getVehicleById(Long id);
 

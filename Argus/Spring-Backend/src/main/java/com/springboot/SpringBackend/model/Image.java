@@ -1,6 +1,6 @@
 package com.springboot.SpringBackend.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,16 +8,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-/*@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id",
-        scope = Person.class)*/
-@JsonIgnoreProperties(
-        value = {"users", "people", "vehicles", "notifications"}
-)
 @Table(name = "Image")
 public class Image implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -8366923365418680409L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,16 +21,21 @@ public class Image implements Serializable {
     @Column(name = "imagedeleted", nullable = true)
     private LocalDate imageDeleted;
 
-    @OneToMany(mappedBy="profilePhoto")
-    private List<Users> users;
-    @OneToMany(mappedBy="personImg")
+    @JsonIgnore
+    @OneToMany(mappedBy="profilePhoto", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<User> users;
+    @JsonIgnore
+    @OneToMany(mappedBy="personImg", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Person> people;
-    @OneToMany(mappedBy="vehicleImg")
+    @JsonIgnore
+    @OneToMany(mappedBy="vehicleImg", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Vehicle> vehicles;
-    @OneToMany(mappedBy="notificationImg")
-    private List<Notification> notifications;
+    @JsonIgnore
+    @OneToMany(mappedBy="notificationImg", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Notification> notifications = null;
 
     public Image() { }
+
     public Image(String img) {
         this.photo = img;
     }
@@ -57,7 +55,10 @@ public class Image implements Serializable {
     }
 
     public LocalDate getImageDeleted() {
-        return this.imageDeleted;
+        if(imageDeleted != null) {
+            return this.imageDeleted;
+        }
+        return null;
     }
     public void setImageDeleted() {
         this.imageDeleted = LocalDate.now();

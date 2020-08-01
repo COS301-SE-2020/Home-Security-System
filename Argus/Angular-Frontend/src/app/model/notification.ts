@@ -1,5 +1,5 @@
 import {Image} from './image';
-import {Users} from './users';
+import {User} from './user';
 
 export class Notification {
   notificationId: number;
@@ -8,9 +8,9 @@ export class Notification {
   onDate: any;
   atTime: any;
   notificationDeleted: any;
-  user: Users;
+  user: User;
 
-  /*constructor(id: number, img: Image, msg: string, u: Users) {
+  /*constructor(id: number, img: Image, msg: string, u: ArgusUser) {
     this.notificationId = id;
     this.notificationImg = img;
     this.message = msg;

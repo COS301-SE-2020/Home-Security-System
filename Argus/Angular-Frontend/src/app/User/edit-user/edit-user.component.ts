@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {UsersService} from '../../model/users.service';
-import {Users} from '../../model/users';
+import {UserService} from '../../model/user.service';
+import {User} from '../../model/user';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
@@ -10,15 +10,15 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class EditUserComponent implements OnInit {
   id: number;
-  user: Users;
+  user: User;
 
   constructor(private route: ActivatedRoute, private router: Router,
-              private userService: UsersService) { }
+              private userService: UserService) { }
 
   ngOnInit() {
-    this.user = new Users();
+    this.user = new User();
 
-    this.id = this.route.snapshot.params['userId'];
+    this.id = this.route.snapshot.params.id;
 
     this.userService.getUserById(this.id)
       .subscribe(data => {
@@ -30,7 +30,7 @@ export class EditUserComponent implements OnInit {
   updateUser() {
     this.userService.updateUser(this.id, this.user)
       .subscribe(data => console.log(data), error => console.log(error));
-    this.user = new Users();
+    this.user = new User();
     this.gotoList();
   }
 
