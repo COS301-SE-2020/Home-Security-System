@@ -5,7 +5,8 @@
           <span class="login100-form-title p-b-26 ">
             Add a new user to
           <img src="/assets/Images/Argus.png " style="height: 60px; margin-left: auto; margin-right: auto;"><br>
-          <img src="/assets/Images/devider.png " style="height: 7px; width: 200px; margin-left: auto; margin-right: auto;">
+          <img src="/assets/Images/devider.png "
+               style="height: 7px; width: 200px; margin-left: auto; margin-right: auto;">
         </span>
 
         <div class="wrap-input100" data-validate="Enter name and surname ">
@@ -27,7 +28,7 @@
         <div class="wrap-input100" data-validate="Valid email is: a@b.c ">
           <b> Email </b>
           <input class="input100" type="text" id="input" required [(ngModel)]="user.email" name="input">
-          onchange="ValidateEmail()"
+          <!--          onchange="ValidateEmail()"-->
           <span class="focus-input100 "></span>
         </div>
 
@@ -51,20 +52,19 @@
 
         <div class="wrap-input100-last" data-validate="Add a profile picture">
           <b> Profile picture </b>
-          <p style="padding-top: 20px;">
-            <input class="input100 " type="file" name="profilePic" accept="image/jpeg, image/png" id="profilePic"
-                   onchange="updateProfilePic(event)">
-            <img id="profilePicDisplay" src="/assets/Images/profile.jpg" width="80px">
-            <img id="output" width="150px">
-          </p>
+          <input class="input100 " type="file" name="profilePic" accept="image/jpeg, image/png" id="profilePic"
+                 onchange="updateProfilePic(event)">
+          <a class="btn btn-primary login100-form-btn" data-toggle="modal" data-target="#myModal">Take a picture</a>
+          <img id="profilePicDisplay" src="/assets/Images/profile.jpg" width="80px">
+          <img id="output" width="150px">
           <span class="focus-input100 "></span>
         </div>
 
         <div class="container-login100-form-btn">
           <div class="wrap-login100-form-btn">
             <div class="login100-form-bgbtn"></div>
-            <button class="login100-form-btn" >
-              onclick="checkProfileImage(), CheckPassword(), mockAdd()"
+            <button class="login100-form-btn">
+              <!--              onclick="checkProfileImage(), CheckPassword(), mockAdd()"-->
               Add User
             </button>
           </div>
@@ -73,42 +73,43 @@
     </div>
   </div>
 </div>
-<!--
-<h3>Create User</h3>
-<div [hidden]="submitted" style="width: 400px;">
-  <form (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="firstName">First Name</label>
-      <input type="text" class="form-control" id="firstName" required [(ngModel)]="user.name" name="firstName">
-    </div><br>
 
-    <div class="form-group">
-      <label for="lastName">Last Name</label>
-      <input type="text" class="form-control" id="lastName" required [(ngModel)]="user.surname" name="lastName">
-    </div><br>
+<div class="container">
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Take a picture</h4>
+          <i class="material-icons login-close-btn" data-dismiss="modal">close</i>
+        </div>
+        <div class="modal-body">
+          <div id="app">
+            <div>
+              <webcam [width]="640" [height]="480" [imageQuality]="0.92" [trigger]="triggerObservable"
+                      *ngIf="showCam"
+                      (imageCapture)="handleShot($event)">
+              </webcam>
+            </div>
+            <div>
 
-    <div class="form-group">
-      <label for="emailId">Email</label>
-      <input type="text" class="form-control" id="emailId" required [(ngModel)]="user.email" name="emailId">
-    </div><br>
-
-    <div class="form-group">
-      <label for="username">Username</label>
-      <input type="text" class="form-control" id="username" required [(ngModel)]="user.username" name="username">
-    </div><br>
-
-    <div class="form-group">
-      <label for="pass">Password</label>
-      <input type="text" class="form-control" id="pass" required [(ngModel)]="user.userPass" name="pass">
-    </div><br>
-
-    <div class="form-group">
-      <label for="role">Role</label>
-      <input type="text" class="form-control" id="role" required [(ngModel)]="user.userRole" name="role">
-    </div><br>
-
-    <button type="submit" class="btn btn-success">Submit</button>
-  </form>
+              <button class="btn btn-primary" (click)="trigger_s();"
+                      onclick="sendNotification('Snapshot taken');sendEmail('Camera detected a person')">Snap
+              </button>
+            </div>
+            <div class="snapshot" *ngIf="camImg">
+              <h2>Snapshot:</h2>
+              <img width="50px" [src]="camImg.imageAsDataUrl"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary pull-right" data-dismiss="modal" onclick="saveChanges()">
+        Confirm
+      </button>
+    </div>
+  </div>
 </div>
--->
 
