@@ -1,14 +1,14 @@
 "use strict";
 export class Session{
-  createSession(email, passw, id){
+  createSession(email, passw, id, role){
     let newUser = {};
 
     newUser.email = email;
     newUser.userPass = passw;
     newUser.id = id;
+    newUser.userRole = role;
 
     sessionStorage.setItem('userDetails', JSON.stringify(newUser));
-    //alert(this.retrieveUserInfo());
   }
 
   deleteSession(){

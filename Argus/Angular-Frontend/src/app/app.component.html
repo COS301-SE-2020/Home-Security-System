@@ -1,14 +1,15 @@
- <div class="main-panel">
-    <div id="sideNav">
-      <app-side-nav></app-side-nav>
-    </div>
+<!--{{loginPageDisplay()}} -->
 
-    <div id="topNav">
+<div id="displayType">
+
+    <div id="navBars">
+      <app-side-nav></app-side-nav>
       <app-top-nav></app-top-nav>
     </div>
 
     <div class="content">
       <router-outlet></router-outlet>
+      <app-footer></app-footer>
     </div>
-    <app-footer></app-footer>
+
  </div>
