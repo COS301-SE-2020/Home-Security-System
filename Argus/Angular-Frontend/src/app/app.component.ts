@@ -63,10 +63,12 @@ export class AppComponent implements OnInit {
         if ( this.isLoginPage() === true)
         {
           document.getElementById('navBars').style.visibility = 'hidden';
+          document.getElementById('displayType').className = 'content';
         }
         else
         {
           document.getElementById('navBars').style.visibility = 'visible';
+          document.getElementById('displayType').className = 'main-panel';
         }
 
         // const loginVal = this.loginPageDisplay();
