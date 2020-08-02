@@ -39,6 +39,10 @@ export class NotificationComponent implements OnInit {
         error => console.log(error));
   }
 
+  addNotification(message: string){
+
+  }
+
   ngOnInit(): void {
     this.appService.setTitle('Black List');
     this.reloadData();
