@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import {UsersService} from '../../model/users.service';
+import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import {UserService} from '../../model/user.service';
 import {TitleService} from '../../title.service';
 import {Router} from '@angular/router';
-import {Users} from '../../model/users';
+import {User} from '../../model/user';
 import {WebcamImage, WebcamUtil} from 'ngx-webcam';
 import {Observable, Subject} from 'rxjs';
 
@@ -13,10 +13,10 @@ import {Observable, Subject} from 'rxjs';
 })
 export class AddUserComponent implements OnInit {
 
-  user: Users = new Users();
+  user: User = new User();
   submitted = false;
 
-  constructor(private usersService: UsersService, private appService: TitleService, private router: Router) {
+  constructor(private usersService: UserService, private appService: TitleService, private router: Router) {
   }
 
   @ViewChild('video')
@@ -38,10 +38,8 @@ export class AddUserComponent implements OnInit {
   }
 
   public handleShot(img: WebcamImage): void {
-    console.info('received webcam image', img);
     this.camImg = img;
   }
-
 
   public toggleCam(): void {
     this.showCam = !this.showCam;
@@ -58,7 +56,7 @@ export class AddUserComponent implements OnInit {
   save() {
     this.usersService.addUser(this.user)
       .subscribe(data => console.log(data), error => console.log(error));
-    this.user = new Users();
+    this.user = new User();
     this.gotoList();
   }
 

@@ -36,10 +36,30 @@ function CheckPassword() {
 function updateProfilePic(event) {
     var image = document.getElementById('output');
     image.src = URL.createObjectURL(event.target.files[0]);
-
     var oldPic = document.getElementById('profilePicDisplay').style.display = "none";
 }
 
+function changePic() {
+  var confirmPic = document.getElementById('confirmPic').src;
+  var image = document.getElementById('output');
+  image.src = confirmPic;
+  document.getElementById('profilePicDisplay').style.display = "none";
+}
+
+function imgToBase64() {
+  const getImg = document.getElementById('output').src;
+  var img = new Image();
+  img.src = getImg;
+
+  var canvas = document.createElement("canvas");
+  canvas.width = img.width;
+  canvas.height = img.height;
+  var ctx = canvas.getContext("2d");
+  ctx.drawImage(img, 0, 0);
+  var dataURL = canvas.toDataURL("image/png");
+  console.log(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
+  return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+}
 /*==================================================================*/
 
 function checkProfileImage() {

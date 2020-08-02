@@ -8,7 +8,6 @@
           <img src="/assets/Images/devider.png "
                style="height: 7px; width: 200px; margin-left: auto; margin-right: auto;">
         </span>
-
         <div class="wrap-input100" data-validate="Enter name and surname ">
           <b> Name </b>
           <input class="input100 " type="text" required [(ngModel)]="user.name" name="name" id="name">
@@ -56,14 +55,14 @@
                  onchange="updateProfilePic(event)">
           <a class="btn btn-primary login100-form-btn" data-toggle="modal" data-target="#myModal">Take a picture</a>
           <img id="profilePicDisplay" src="/assets/Images/profile.jpg" width="80px">
-          <img id="output" width="150px">
+          <img id="output" width="150px" >
           <span class="focus-input100 "></span>
         </div>
 
         <div class="container-login100-form-btn">
           <div class="wrap-login100-form-btn">
             <div class="login100-form-bgbtn"></div>
-            <button class="login100-form-btn">
+            <button class="login100-form-btn" onclick="imgToBase64()">
               <!--              onclick="checkProfileImage(), CheckPassword(), mockAdd()"-->
               Add User
             </button>
@@ -81,35 +80,35 @@
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">Take a picture</h4>
-          <i class="material-icons login-close-btn" data-dismiss="modal">close</i>
+          <i class="material-icons modal-close-btn" data-dismiss="modal">close</i>
         </div>
-        <div class="modal-body">
+        <div class="modal-body center">
           <div id="app">
             <div>
-              <webcam [width]="640" [height]="480" [imageQuality]="0.92" [trigger]="triggerObservable"
+              <webcam [width]="400" [imageQuality]="0.92" [trigger]="triggerObservable"
                       *ngIf="showCam"
                       (imageCapture)="handleShot($event)">
               </webcam>
             </div>
             <div>
-
-              <button class="btn btn-primary" (click)="trigger_s();"
-                      onclick="sendNotification('Snapshot taken');sendEmail('Camera detected a person')">Snap
+              <button class="btn btn-primary" (click)="trigger_s();">Snap
               </button>
             </div>
             <div class="snapshot" *ngIf="camImg">
-              <h2>Snapshot:</h2>
-              <img width="50px" [src]="camImg.imageAsDataUrl"/>
+              <h2>Preview:</h2>
+              <img id="confirmPic" width="400px" [src]="camImg.imageAsDataUrl" alt="Preview"/>
             </div>
           </div>
         </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary pull-right" data-dismiss="modal" onclick="changePic(); imgToBase64()">
+            Confirm
+          </button>
+        </div>
       </div>
+
     </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-primary pull-right" data-dismiss="modal" onclick="saveChanges()">
-        Confirm
-      </button>
-    </div>
+
   </div>
 </div>
 
