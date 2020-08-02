@@ -27,6 +27,29 @@ export class AppComponent implements OnInit {
     return child.component === LoginComponent;
   }
 
+  loginPageDisplay(): string {
+    if ( this.isLoginPage() === true)
+    {
+      return '<div class="content">\n' +
+        '      <router-outlet></router-outlet>\n' +
+        '    <app-footer></app-footer>\n' +
+        ' </div>';
+    }
+    else {
+      return '<div class="main-panel">\n' +
+        '\n' +
+        '    <div id="navBars">\n' +
+        '      <app-side-nav></app-side-nav>\n' +
+        '      <app-top-nav></app-top-nav>\n' +
+        '    </div>\n' +
+        '\n' +
+        '    <div class="content">\n' +
+        '      <router-outlet></router-outlet>\n' +
+        '    </div>\n' +
+        '    <app-footer></app-footer>\n' +
+        ' </div>';
+    }
+  }
 
   ngOnInit() {
     const appTitle = this.titleService.getTitle();
@@ -36,21 +59,18 @@ export class AppComponent implements OnInit {
       map(() => {
         let child = this.activatedRoute.firstChild;
 
-        console.log(this.isLoginPage());
+        // console.log(this.isLoginPage());
         if ( this.isLoginPage() === true)
         {
-          document.getElementById('topNav').style.visibility = 'hidden';
-          document.getElementById('sideNav').style.visibility = 'hidden';
-          // document.getElementById('topNav').remove();
-          // document.getElementById('sideNav').remove();
+          document.getElementById('navBars').style.visibility = 'hidden';
         }
         else
         {
-          document.getElementById('topNav').style.visibility = 'visible';
-          document.getElementById('sideNav').style.visibility = 'visible';
-          // document.getElementById('topNav').innerHTML = '<app-top-nav></app-top-nav>';
-          // document.getElementById('sideNav').innerHTML = ' <app-side-nav></app-side-nav>';
+          document.getElementById('navBars').style.visibility = 'visible';
         }
+
+        // const loginVal = this.loginPageDisplay();
+        // console.log(loginVal);
 
         while (child.firstChild) {
           child = child.firstChild;
