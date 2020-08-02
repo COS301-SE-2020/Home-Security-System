@@ -2,58 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="378f1e2f-10f0-4f0b-a8fd-4adef8d96e61" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/edfe9762-a873-4d3d-845b-8e64627a5afc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/edfe9762-a873-4d3d-845b-8e64627a5afc/storage_v2/_src_/database/argus_db.KQFCoQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/edfe9762-a873-4d3d-845b-8e64627a5afc/storage_v2/_src_/database/argus_db.KQFCoQ/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/edfe9762-a873-4d3d-845b-8e64627a5afc/storage_v2/_src_/database/argus_db.KQFCoQ/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/edfe9762-a873-4d3d-845b-8e64627a5afc/storage_v2/_src_/database/argus_db.KQFCoQ/schema/public.abK9xQ.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/Black-list/people-black/people-black.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/Black-list/people-black/people-black.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/Black-list/vehicles-black/vehicles-black.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/Black-list/vehicles-black/vehicles-black.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/Dashboard/notification/notification.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/Dashboard/notification/notification.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/Grey-list/people-grey/people-grey.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/Grey-list/people-grey/people-grey.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/Grey-list/vehicles-grey/vehicles-grey.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/Grey-list/vehicles-grey/vehicles-grey.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/Person/add-person/add-person.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/Person/add-person/add-person.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/Person/add-person/add-person.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/Person/add-person/add-person.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/User/add-user/add-user.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/User/add-user/add-user.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/User/edit-user/edit-user.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/User/edit-user/edit-user.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/User/list-users/list-users.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/User/list-users/list-users.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/White-list/people-white/people-white.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/White-list/people-white/people-white.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/White-list/vehicles-white/vehicles-white.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/White-list/vehicles-white/vehicles-white.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/model/notification.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/model/notification.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/model/person.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/model/person.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/model/users.service.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/model/user.service.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/model/users.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/model/user.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/model/users.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/model/user.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/model/vehicle.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/model/vehicle.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/controller/ImageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/controller/ImageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/controller/NotificationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/controller/NotificationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/controller/PersonController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/controller/PersonController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/controller/UsersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/controller/VehicleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/controller/VehicleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Image.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Image.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Notification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Person.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Vehicle.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Vehicle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/repository/PersonRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/repository/PersonRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/repository/UsersRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/repository/UserRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/service/ImageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/service/ImageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/service/ImageServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/service/ImageServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/service/NotificationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/service/NotificationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/service/NotificationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/service/NotificationServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/service/PersonService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/service/PersonService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/service/PersonServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/service/PersonServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/service/UsersService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/service/UsersServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/service/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/service/VehicleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/service/VehicleService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/service/VehicleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/service/VehicleServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/resources/db/changelog/changelog-004.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/resources/db/changelog/changelog-004.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/resources/db/changelog/changelog-005.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/resources/db/changelog/changelog-005.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +94,10 @@
       <workItem from="1596214135046" duration="455000" />
       <workItem from="1596218270327" duration="13100000" />
       <workItem from="1596240557151" duration="2906000" />
-      <workItem from="1596271579021" duration="3271000" />
+      <workItem from="1596271579021" duration="4241000" />
+      <workItem from="1596294686360" duration="589000" />
+      <workItem from="1596307768287" duration="2036000" />
+      <workItem from="1596360195018" duration="1045000" />
     </task>
     <servers />
   </component>
@@ -279,16 +232,5 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1596274264668" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/controller/NotificationController.java</url>
-          <line>34</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
