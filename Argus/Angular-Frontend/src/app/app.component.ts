@@ -4,6 +4,7 @@ import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 import { TitleService } from './title.service';
 import {LoginComponent} from './Dashboard/login/login.component';
+import {ResetPasswordComponent} from './Dashboard/reset-password/reset-password.component';
 
 
 @Component({
@@ -25,6 +26,11 @@ export class AppComponent implements OnInit {
   isLoginPage(): boolean {
     const child = this.activatedRoute.firstChild;
     return child.component === LoginComponent;
+  }
+
+  isResetPasswordPage(): boolean {
+    const child = this.activatedRoute.firstChild;
+    return child.component === ResetPasswordComponent;
   }
 
   loginPageDisplay(): string {
@@ -60,7 +66,7 @@ export class AppComponent implements OnInit {
         let child = this.activatedRoute.firstChild;
 
         // console.log(this.isLoginPage());
-        if ( this.isLoginPage() === true)
+        if ( this.isLoginPage() === true || this.isResetPasswordPage() === true )
         {
           document.getElementById('navBars').style.visibility = 'hidden';
           document.getElementById('displayType').className = 'content';
