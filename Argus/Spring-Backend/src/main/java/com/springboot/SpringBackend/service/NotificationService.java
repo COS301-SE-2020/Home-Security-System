@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface NotificationService {
-    List<Notification> listAllEvents();
+    List<Notification> getAllNotifications();
 
     Optional<Notification> getNotificationById(Long id);
 

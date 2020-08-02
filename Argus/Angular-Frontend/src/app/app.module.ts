@@ -34,7 +34,7 @@ import { NotificationComponent } from './Dashboard/notification/notification.com
 import { ResetPasswordComponent } from './Dashboard/reset-password/reset-password.component';
 
 import { NotificationService } from './model/notification.service';
-import { UsersService } from './model/users.service';
+import { UserService } from './model/user.service';
 import { PersonService } from './model/person.service';
 import { VehicleService } from './model/vehicle.service';
 
@@ -80,7 +80,7 @@ const appRoutes: Routes = [];
     FormsModule
   ],
   providers: [NotificationService,
-    UsersService,
+    UserService,
     PersonService,
     VehicleService,
     /*AuthService,

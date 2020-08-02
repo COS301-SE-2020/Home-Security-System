@@ -25,7 +25,7 @@ public class PersonController {
 
     @GetMapping("/people")
     public List<Person> getPeopleList() {
-        return service.listAllPeople();
+        return service.getAllPeople();
     }
 
     @GetMapping("/people/{id}")

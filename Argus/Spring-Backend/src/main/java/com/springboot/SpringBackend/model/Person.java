@@ -7,29 +7,17 @@ import org.hibernate.annotations.BatchSize;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-/*@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id",
-        scope = Person.class)*/
-@JsonIgnoreProperties(
-        value = {"personCreated", "vehicleList"},
-        allowGetters = true,
-        allowSetters = true
-)
 @Table(name = "person")
 public class Person implements Serializable {
+    private static final long serialVersionUID = -2126183802877200868L;
 
-
-    public enum personType {
+    /*public enum personType {
         White, Grey, Black;
-    }
-
-    private static final long serialVersionUID = 1L;
+    }*/
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,19 +27,21 @@ public class Person implements Serializable {
     @JoinColumn(name="image_id", nullable = false)
     private Image personImg;
     @Column(name = "fname", nullable = true)
-    private String fname;
+    private String fname = "";
     @Column(name = "lname", nullable = true)
-    private String lname;
-    @Enumerated(EnumType.STRING)
+    private String lname = "";
+    //@Enumerated(EnumType.STRING)
     @Column(name = "personlisted", nullable = false)
-    private personType personListed;
+    //private personType personListed;
+    private String personListed;
     @Column(name = "personcreated", nullable = false)
     private LocalDate personCreated;
     @Column(name = "persondeleted", nullable = true)
-    private LocalDate personDeleted;
-    @OneToMany(mappedBy="person")
+    private LocalDate personDeleted = null;
+    @OneToMany(mappedBy="person", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @BatchSize(size = 1000)
-    private List<Vehicle> vehicleList;
+    @JsonIgnore
+    private List<Vehicle> vehicleList = new ArrayList<>();
 
     /*
     @ManyToMany(cascade = CascadeType.ALL)
@@ -62,6 +52,31 @@ public class Person implements Serializable {
     */
 
     public Person() { }
+
+    public Person(Image img, String listed) {
+        this.personImg = img;
+        this.fname = "";
+        this.lname = "";
+
+        if(listed.equalsIgnoreCase("White"))
+        {
+            this.personListed = listed;
+            //this.personListed = personType.White;
+        }
+        else if(listed.equalsIgnoreCase("Black"))
+        {
+            this.personListed = listed;
+            //this.personListed = personType.Black;
+        }
+        else
+        {
+            this.personListed = listed;
+            //this.personListed = personType.Grey;
+        }
+
+        this.personCreated = LocalDate.now();
+    }
+
     public Person(Image img, String name, String surname, String listed) {
         this.personImg = img;
         this.fname = name;
@@ -69,15 +84,18 @@ public class Person implements Serializable {
 
         if(listed.equalsIgnoreCase("White"))
         {
-            this.personListed = personType.White;
+            this.personListed = listed;
+            //this.personListed = personType.White;
         }
         else if(listed.equalsIgnoreCase("Black"))
         {
-            this.personListed = personType.Black;
+            this.personListed = listed;
+            //this.personListed = personType.Black;
         }
         else
         {
-            this.personListed = personType.Grey;
+            this.personListed = listed;
+            //this.personListed = personType.Grey;
         }
 
         this.personCreated = LocalDate.now();
@@ -87,7 +105,8 @@ public class Person implements Serializable {
         this.personImg = img;
         this.fname = name;
         this.lname = surname;
-        this.personListed = personType.Grey;
+        this.personListed = "Grey";
+        //this.personListed = personType.Grey;
         this.personCreated = LocalDate.now();
     }
 
@@ -98,6 +117,7 @@ public class Person implements Serializable {
         this.id = id;
     }
 
+    public Long getImageId() { return this.personImg.getImageId(); }
     public Image getPersonImg() { return this.personImg; }
     public void setPersonImg(Image img) {
         if (img != null) {
@@ -123,15 +143,18 @@ public class Person implements Serializable {
     public void setPersonListed(String listed) {
         if(listed.equalsIgnoreCase("White"))
         {
-            this.personListed = personType.White;
+            this.personListed = listed;
+            //this.personListed = personType.White;
         }
         else if(listed.equalsIgnoreCase("Black"))
         {
-            this.personListed = personType.Black;
+            this.personListed = listed;
+            //this.personListed = personType.Black;
         }
         else
         {
-            this.personListed = personType.Grey;
+            this.personListed = listed;
+            //this.personListed = personType.Grey;
         }
     }
 
@@ -141,7 +164,10 @@ public class Person implements Serializable {
     public void setPersonCreated(LocalDate date) { this.personCreated = date; }
 
     public LocalDate getPersonDeleted() {
-        return this.personDeleted;
+        if(personDeleted != null) {
+            return this.personDeleted;
+        }
+        return null;
     }
     public void setPersonDeleted() { this.personDeleted = LocalDate.now(); }
 

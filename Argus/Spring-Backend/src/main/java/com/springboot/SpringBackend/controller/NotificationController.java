@@ -2,9 +2,8 @@ package com.springboot.SpringBackend.controller;
 
 import com.springboot.SpringBackend.exception.ResourceNotFoundException;
 import com.springboot.SpringBackend.model.Notification;
-import com.springboot.SpringBackend.model.Users;
-import com.springboot.SpringBackend.repository.NotificationRepo;
-import com.springboot.SpringBackend.repository.UsersRepo;
+import com.springboot.SpringBackend.model.User;
+import com.springboot.SpringBackend.repository.UserRepo;
 import com.springboot.SpringBackend.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +19,10 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:4200")
 public class NotificationController {
     private final NotificationService service;
-    private final UsersRepo repo;
+    private final UserRepo repo;
 
     @Autowired
-    public NotificationController(NotificationService service, UsersRepo repo) {
+    public NotificationController(NotificationService service, UserRepo repo) {
         this.repo = repo;
         this.service = service;
     }
@@ -31,8 +30,8 @@ public class NotificationController {
     @GetMapping("/notifications")
     public List<Notification> getAllNotifications() {
         //return service.listAllEvents();
-        repo.save(new Users("Brad", "Zietsman", "u15228194@gmail.com", "fdgfdgdf","sfdsfsdd", "basic"));
-        List<Notification> notify = service.listAllEvents();
+        //repo.save(new User("Brad", "Zietsman", "u15228194@gmail.com", "fdgfdgdf","sfdsfsdd", "basic"));
+        List<Notification> notify = service.getAllNotifications();
         return  notify;
     }
 

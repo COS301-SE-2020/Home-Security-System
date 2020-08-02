@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PersonService {
-    List<Person> listAllPeople();
+    List<Person> getAllPeople();
 
     Optional<Person> getPersonById(Long id);
 

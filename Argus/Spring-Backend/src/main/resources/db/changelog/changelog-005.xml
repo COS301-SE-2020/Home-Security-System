@@ -7,7 +7,7 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <changeSet author="Sigma" id="005">
         <sql>
-            INSERT INTO Users(name,surname,email,username,userPass,userRole)
+            INSERT INTO ArgusUser(name,surname,email,username,userPass,userRole)
             VALUES('Team','Sigma','SigmaCOS301@gmail.com','Sigma','COS301Sigma!','Admin');
         </sql>
     </changeSet>

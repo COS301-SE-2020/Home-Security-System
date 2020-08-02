@@ -22,7 +22,7 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public List<Vehicle> listAllVehicles() {
+    public List<Vehicle> getAllVehicles() {
         return this.repo.findAll();
     }
 

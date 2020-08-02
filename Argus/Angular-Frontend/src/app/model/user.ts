@@ -1,6 +1,6 @@
 import {Image} from './image';
 
-export class Users {
+export class User {
   userId: number;
   profilePhoto: Image;
   name: string;

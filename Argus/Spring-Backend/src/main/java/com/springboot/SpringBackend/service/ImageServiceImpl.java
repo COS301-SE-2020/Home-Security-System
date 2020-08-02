@@ -21,7 +21,7 @@ public class ImageServiceImpl implements ImageService{
     }
 
     @Override
-    public List<Image> listAllImages() { return this.repo.findAll(); }
+    public List<Image> getAllImages() { return this.repo.findAll(); }
 
     @Override
     public Optional<Image> getImageById(Long id) { return this.repo.findById(id); }

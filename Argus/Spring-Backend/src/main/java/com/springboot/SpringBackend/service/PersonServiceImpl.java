@@ -22,7 +22,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public List<Person> listAllPeople() { return (List<Person>) this.repo.findAll(); }
+    public List<Person> getAllPeople() { return (List<Person>) this.repo.findAll(); }
 
     @Override
     public Optional<Person> getPersonById(Long id) { return this.repo.findById(id); }

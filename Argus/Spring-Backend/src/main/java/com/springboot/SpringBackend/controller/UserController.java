@@ -1,8 +1,8 @@
 package com.springboot.SpringBackend.controller;
 
 import com.springboot.SpringBackend.exception.ResourceNotFoundException;
-import com.springboot.SpringBackend.model.Users;
-import com.springboot.SpringBackend.service.UsersService;
+import com.springboot.SpringBackend.model.User;
+import com.springboot.SpringBackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,36 +15,36 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:4200")
-public class UsersController {
+public class UserController {
 
-    private final UsersService service;
+    private final UserService service;
 
     @Autowired
-    public UsersController(UsersService service) {
+    public UserController(UserService service) {
         this.service = service;
     }
 
     @GetMapping("/users")
-    public List<Users> getAllUsers() {
+    public List<User> getAllUsers() {
         return service.getAllUsers();
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<Users> getUserById(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
-        Users x = service.getUserById(id)
+    public ResponseEntity<User> getUserById(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
+        User x = service.getUserById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + id));
         return ResponseEntity.ok().body(x);
     }
 
     @PostMapping("/users")
-    public Users addUser(@Valid @RequestBody Users x) {
+    public User addUser(@Valid @RequestBody User x) {
         return service.createUser(x);
     }
 
     @PutMapping("/users/{id}")
-    public ResponseEntity<Users> editUser(@PathVariable(value = "id") Long id,
-                                          @Valid @RequestBody Users details) throws ResourceNotFoundException {
-        Users x = service.getUserById(id)
+    public ResponseEntity<User> editUser(@PathVariable(value = "id") Long id,
+                                          @Valid @RequestBody User details) throws ResourceNotFoundException {
+        User x = service.getUserById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + id));
 
         x.setUserId(details.getUserId());
@@ -57,13 +57,13 @@ public class UsersController {
         x.setUsername(details.getUsername());
         x.setUserPass(details.getUserPass());
         x.setUserRole(details.getUserRole());
-        final Users updatedUser = service.updateUser(x);
+        final User updatedUser = service.updateUser(x);
         return ResponseEntity.ok(updatedUser);
     }
 
     @DeleteMapping("/users/{id}")
     public Map<String, Boolean> deleteUser(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
-        Users x = service.getUserById(id)
+        User x = service.getUserById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + id));
 
         service.deleteUser(x);

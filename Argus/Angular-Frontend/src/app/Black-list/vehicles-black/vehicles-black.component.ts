@@ -17,7 +17,7 @@ export class VehiclesBlackComponent implements OnInit {
   }
 
   reloadData() {
-    this.vehicle = this.vehicleService.getAllVehicles();
+    this.vehicle = this.vehicleService.getVehicleList();
   }
 
   removeVehicle(id: number) {
