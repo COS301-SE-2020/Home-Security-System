@@ -18,14 +18,14 @@
 
   <form>
     <label class="loginFields">
-      <input class="loginInputs" type="email" name="email" placeholder="E-mail">
+      <input class="loginInputs" type="email" name="email" placeholder="E-mail" id="emailInput">
     </label>
     <label class="loginPassword">
       <input class="loginInputs" id="passwordField" type="password" name="pass" placeholder="Password">
       <i class="material-icons" id="passwordVisibility" onclick="showPassword('')">visibility_off</i>
     </label>
 
-    <a class="loginButton" [routerLink]="['/dashboard']">Log in</a>
+    <a class="loginButton" (click)="makeSession()">Log in</a>
     <div id="remember-container">
 
       <label class="checkContainer">
