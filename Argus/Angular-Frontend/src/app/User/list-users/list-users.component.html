@@ -5,7 +5,7 @@
                 <div class="card-header card-header-primary">
                     <h4 class="card-title">User List</h4>
                     <p class="card-category">All users for your system</p>
-                    <a class="btn btn-secondary btn-md btn-sm" [routerLink]="['/add-user']">Add</a>
+                    <button id="addBtn" class="btn btn-secondary btn-md btn-sm" [routerLink]="['/add-user']">Add</button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -25,8 +25,8 @@
                                 <td>{{user.name}}&nbsp;{{user.surname}}</td>
                                 <td>{{user.userRole}}</td>
                                 <td>
-                                  <a class="btn btn-primary" (click)="updateUser(user.userId)">Edit</a>
-                                  <a class="btn btn-primary" (click)="removeUser(user.userId)">Delete</a>
+                                  <button id="editBtn" class="btn btn-primary" (click)="updateUser(user.userId)">Edit</button>
+                                  <button id="deleteBtn" class="btn btn-primary" (click)="removeUser(user.userId)">Delete</button>
                                 </td>
                               </tr>
                             </ng-container>
