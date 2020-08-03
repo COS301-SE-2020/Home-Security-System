@@ -60,17 +60,17 @@ public class Person implements Serializable {
 
         if(listed.equalsIgnoreCase("White"))
         {
-            this.personListed = listed;
+            this.personListed = "White";
             //this.personListed = personType.White;
         }
         else if(listed.equalsIgnoreCase("Black"))
         {
-            this.personListed = listed;
+            this.personListed = "Black";
             //this.personListed = personType.Black;
         }
         else
         {
-            this.personListed = listed;
+            this.personListed = "Grey";
             //this.personListed = personType.Grey;
         }
 
@@ -84,17 +84,17 @@ public class Person implements Serializable {
 
         if(listed.equalsIgnoreCase("White"))
         {
-            this.personListed = listed;
+            this.personListed = "White";
             //this.personListed = personType.White;
         }
         else if(listed.equalsIgnoreCase("Black"))
         {
-            this.personListed = listed;
+            this.personListed = "Black";
             //this.personListed = personType.Black;
         }
         else
         {
-            this.personListed = listed;
+            this.personListed = "Grey";
             //this.personListed = personType.Grey;
         }
 
@@ -143,17 +143,17 @@ public class Person implements Serializable {
     public void setPersonListed(String listed) {
         if(listed.equalsIgnoreCase("White"))
         {
-            this.personListed = listed;
+            this.personListed = "White";
             //this.personListed = personType.White;
         }
         else if(listed.equalsIgnoreCase("Black"))
         {
-            this.personListed = listed;
+            this.personListed = "Black";
             //this.personListed = personType.Black;
         }
         else
         {
-            this.personListed = listed;
+            this.personListed = "Grey";
             //this.personListed = personType.Grey;
         }
     }

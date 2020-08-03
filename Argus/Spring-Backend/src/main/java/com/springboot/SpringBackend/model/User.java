@@ -176,17 +176,17 @@ public class User implements Serializable {
         if(role.equalsIgnoreCase("Admin"))
         {
             //this.userRole = UserRole.Admin;
-            this.userRole = role;
+            this.userRole = "Admin";
         }
         else if(role.equalsIgnoreCase("Advanced"))
         {
             //this.userRole = UserRole.Advanced;
-            this.userRole = role;
+            this.userRole = "Advanced";
         }
         else
         {
             //this.userRole = UserRole.Basic;
-            this.userRole = role;
+            this.userRole = "Basic";
         }
     }
 

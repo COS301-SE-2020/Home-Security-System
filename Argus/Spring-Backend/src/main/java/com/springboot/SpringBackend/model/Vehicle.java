@@ -47,17 +47,17 @@ public class Vehicle implements Serializable {
 
         if(listed.equalsIgnoreCase("White"))
         {
-            this.vehicleListed = listed;
+            this.vehicleListed = "White";
             //this.vehicleListed = vehicleType.White;
         }
         else if(listed.equalsIgnoreCase("Black"))
         {
-            this.vehicleListed = listed;
+            this.vehicleListed = "Black";
             //this.vehicleListed = vehicleType.Black;
         }
         else
         {
-            this.vehicleListed = listed;
+            this.vehicleListed = "Grey";
             //this.vehicleListed = vehicleType.Grey;
         }
 
@@ -78,20 +78,19 @@ public class Vehicle implements Serializable {
 
         if(listed.equalsIgnoreCase("White"))
         {
-            this.vehicleListed = listed;
+            this.vehicleListed = "White";
             //this.vehicleListed = vehicleType.White;
         }
         else if(listed.equalsIgnoreCase("Black"))
         {
-            this.vehicleListed = listed;
+            this.vehicleListed = "Black";
             //this.vehicleListed = vehicleType.Black;
         }
         else
         {
-            this.vehicleListed = listed;
+            this.vehicleListed = "Grey";
             //this.vehicleListed = vehicleType.Grey;
         }
-
 
         this.licenseNo = licenseNo;
         this.vehicleCreated = LocalDate.now();
@@ -130,17 +129,17 @@ public class Vehicle implements Serializable {
     public void setVehicleListed(String listed) {
         if(listed.equalsIgnoreCase("White"))
         {
-            this.vehicleListed = listed;
+            this.vehicleListed = "White";
             //this.vehicleListed = vehicleType.White;
         }
         else if(listed.equalsIgnoreCase("Black"))
         {
-            this.vehicleListed = listed;
+            this.vehicleListed = "Black";
             //this.vehicleListed = vehicleType.Black;
         }
         else
         {
-            this.vehicleListed = listed;
+            this.vehicleListed = "Grey";
             //this.vehicleListed = vehicleType.Grey;
         }
     }

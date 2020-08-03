@@ -1,0 +1,21 @@
+<h3>Update Person</h3>
+<div style="width: 400px;">
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">First Name</label>
+      <input type="text" class="form-control" id="name" required [(ngModel)]="person.fname" name="name">
+    </div><br>
+
+    <div class="form-group">
+      <label for="surname">Last Name</label>
+      <input type="text" class="form-control" id="surname" required [(ngModel)]="person.lname" name="surname">
+    </div><br>
+
+    <div class="form-group">
+      <label for="listed">Listed</label>
+      <input type="text" class="form-control" id="listed" required [(ngModel)]="person.personListed" name="listed">
+    </div><br>
+
+    <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+</div>

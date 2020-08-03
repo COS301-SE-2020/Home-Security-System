@@ -19,7 +19,7 @@ export class AddUserComponent implements OnInit {
   constructor(private usersService: UserService, private appService: TitleService, private router: Router) {
   }
 
-  @ViewChild('video')
+  /*@ViewChild('video')
   public webcam: ElementRef;
 
   @ViewChild('canvas')
@@ -47,17 +47,22 @@ export class AddUserComponent implements OnInit {
 
   public get triggerObservable(): Observable<void> {
     return this.snapTrigger.asObservable();
-  }
+  }*/
 
   ngOnInit(): void {
     this.appService.setTitle('Add User');
+  }
+
+  newUser(): void {
+    this.submitted = false;
+    this.user = new User();
   }
 
   save() {
     this.usersService.addUser(this.user)
       .subscribe(data => console.log(data), error => console.log(error));
     this.user = new User();
-    this.gotoList();
+    // this.gotoList();
   }
 
   onSubmit() {

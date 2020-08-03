@@ -21,7 +21,7 @@ import { TopNavComponent } from './Dashboard/top-nav/top-nav.component';
 import { PeopleGreyComponent } from './Grey-list/people-grey/people-grey.component';
 import { VehiclesGreyComponent } from './Grey-list/vehicles-grey/vehicles-grey.component';
 import { AddPersonComponent } from './Person/add-person/add-person.component';
-import { UpdatePersonComponent } from './Person/update-person/update-person.component';
+import { EditPersonComponent } from './Person/edit-person/edit-person.component';
 import { AddUserComponent } from './User/add-user/add-user.component';
 import { EditUserComponent } from './User/edit-user/edit-user.component';
 import { ListUsersComponent } from './User/list-users/list-users.component';
@@ -58,7 +58,7 @@ const appRoutes: Routes = [];
     PeopleGreyComponent,
     VehiclesGreyComponent,
     AddPersonComponent,
-    UpdatePersonComponent,
+    EditPersonComponent,
     AddUserComponent,
     EditUserComponent,
     ListUsersComponent,

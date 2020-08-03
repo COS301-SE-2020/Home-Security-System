@@ -1,4 +1,4 @@
-<div class="limiter">
+<!--<div class="limiter">
   <div class="container-login100">
     <div class="wrap-login100">
       <form class="login100-form validate-form" [hidden]="submitted">
@@ -27,7 +27,7 @@
         <div class="wrap-input100" data-validate="Valid email is: a@b.c ">
           <b> Email </b>
           <input class="input100" type="text" id="input" required [(ngModel)]="user.email" name="input">
-          <!--          onchange="ValidateEmail()"-->
+          // onchange="ValidateEmail()"
           <span class="focus-input100 "></span>
         </div>
 
@@ -63,7 +63,7 @@
           <div class="wrap-login100-form-btn">
             <div class="login100-form-bgbtn"></div>
             <button class="login100-form-btn" onclick="imgToBase64()">
-              <!--              onclick="checkProfileImage(), CheckPassword(), mockAdd()"-->
+              //onclick="checkProfileImage(), CheckPassword(), mockAdd()"
               Add User
             </button>
           </div>
@@ -76,7 +76,6 @@
 <div class="container">
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
-      <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">Take a picture</h4>
@@ -106,9 +105,48 @@
           </button>
         </div>
       </div>
-
     </div>
-
   </div>
+</div>-->
+
+<h3>Create User</h3>
+<div [hidden]="submitted" style="width: 400px;">
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">First Name</label>
+      <input type="text" class="form-control" id="name" required [(ngModel)]="user.name" name="name">
+    </div><br>
+
+    <div class="form-group">
+      <label for="surname">Last Name</label>
+      <input type="text" class="form-control" id="surname" required [(ngModel)]="user.surname" name="surname">
+    </div><br>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="text" class="form-control" id="email" required [(ngModel)]="user.email" name="email">
+    </div><br>
+
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" class="form-control" id="username" required [(ngModel)]="user.username" name="username">
+    </div><br>
+
+    <div class="form-group">
+      <label for="pass">Password</label>
+      <input type="text" class="form-control" id="pass" required [(ngModel)]="user.userPass" name="pass">
+    </div><br>
+
+    <div class="form-group">
+      <label for="role">Role</label>
+      <input type="text" class="form-control" id="role" required [(ngModel)]="user.userRole" name="role">
+    </div><br>
+
+    <button type="submit" class="btn btn-success">Submit</button>
+  </form>
 </div>
 
+<div [hidden]="!submitted">
+  <h4>You submitted successfully!</h4>
+  <button class="btn btn-success" (click)="newUser()">Add</button>
+</div>
