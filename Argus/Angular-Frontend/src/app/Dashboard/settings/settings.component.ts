@@ -57,7 +57,7 @@ export class SettingsComponent implements OnInit {
     console.log(this.user.notifyLocal);
 
     // console.log(this.user);
-    this.userService.updateUser(1, this.user).subscribe(data => console.log(data), error => console.log(error));
+    this.userService.updateUser(userObj.id, this.user).subscribe(data => console.log(data), error => console.log(error));
     this.user = new User();
     this.retrieveSettings();
   }
