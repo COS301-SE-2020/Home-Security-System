@@ -29,12 +29,12 @@ export class LoginComponent implements OnInit {
         data => {
           if ((data[counter].email === emailVar.value) && (data[counter].userPass === passVar.value)){
             this.sessionS.createSession(emailVar.value, passVar.value, data[counter].userId, data[counter].userRole);
-            alert('Logged in');
+            alert('You are logged in, welcome to Argus');
             this.sessionS.retrieveUserInfo();
             this.router.navigate(['/dashboard']);
           }
           if ((data[counter].email === emailVar.value) && (data[counter].userPass !== passVar.value)){
-            alert('Password incorrect');
+            alert('The password you entered seems to be incorrect, please retry entering your password.');
             passVar.value = '';
           }
           counter++;

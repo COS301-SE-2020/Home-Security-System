@@ -26,7 +26,7 @@ export class EditUserComponent implements OnInit {
 
     this.userService.getUserById(this.id)
       .subscribe(data => {
-        console.log(data);
+        // console.log(data);
         this.user = data;
       }, error => console.log(error));
   }
@@ -37,7 +37,6 @@ export class EditUserComponent implements OnInit {
     const editBtn = document.getElementById('editBtn') as HTMLButtonElement;
     const user = this.sessionS.retrieveUserInfo();
 
-    let counter = 0;
     this.userService.getUserList()
       .subscribe(
         data => {
@@ -49,9 +48,9 @@ export class EditUserComponent implements OnInit {
             editBtn.disabled = false;
           }
           else if ((user.userRole === 'Basic')){
+            alert('You are unfortunately not able to change anything on this page, please return to the previous page.');
             editBtn.disabled = true;
           }
-          counter++;
         },
         error => console.log(error));
   }

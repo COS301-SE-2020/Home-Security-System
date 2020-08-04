@@ -34,27 +34,28 @@ export class ListUsersComponent implements OnInit {
     const user = this.sessionS.retrieveUserInfo();
     const deleteBtn = document.getElementById('deleteBtn') as HTMLButtonElement;
     if ((user.userRole === 'Admin')){
-      deleteBtn.disabled = true;
-      this.userService.deleteUser(id)
-        .subscribe(
-          data => {
-            // console.log(data);
-            this.reloadData();
-          },
-          error => console.log(error));
+      deleteBtn.disabled = false;
+      if ( user.id === id )
+      {
+        alert('You are unfortunately not able to delete yourself as a user on this page.');
+      }
+      else {
+        this.userService.deleteUser(id)
+          .subscribe(
+            data => {
+              // console.log(data);
+              this.reloadData();
+            },
+            error => console.log(error));
+      }
     }
     else if ((user.userRole === 'Advanced')){
       deleteBtn.disabled = true;
-      this.userService.deleteUser(id)
-        .subscribe(
-          data => {
-            // console.log(data);
-            this.reloadData();
-          },
-          error => console.log(error));
+      alert('You are unfortunately not able to delete a user on this page.');
     }
     else if ((user.userRole === 'Basic')){
       deleteBtn.disabled = true;
+      alert('You are unfortunately not able to delete a user on this page.');
     }
     /*
     this.userService.deleteUser(id)
@@ -68,7 +69,18 @@ export class ListUsersComponent implements OnInit {
   }
 
   updateUser(id: number){
-    this.router.navigate(['edit-user', id]);
+    const user = this.sessionS.retrieveUserInfo();
+    const editBtn = document.getElementById('editBtn') as HTMLButtonElement;
+    if ((user.userRole === 'Admin')) {
+      this.router.navigate(['edit-user', id]);
+    }
+    else if ((user.userRole === 'Advanced')) {
+      this.router.navigate(['edit-user', id]);
+    }
+    else if ((user.userRole === 'Basic')) {
+      editBtn.disabled = true;
+      alert('You are unfortunately not able to edit a user on this page.');
+    }
   }
 
   viewUser(id: number){
@@ -80,10 +92,8 @@ export class ListUsersComponent implements OnInit {
   activateButtons(){
     const addBtn = document.getElementById('addBtn') as HTMLButtonElement;
     const editBtn = document.getElementById('editBtn') as HTMLButtonElement;
-    const deleteBtn = document.getElementById('deleteBtn') as HTMLButtonElement;
     const user = this.sessionS.retrieveUserInfo();
 
-    let counter = 0;
     this.userService.getUserList()
       .subscribe(
         data => {
@@ -91,19 +101,15 @@ export class ListUsersComponent implements OnInit {
           if ((user.userRole === 'Admin')){
             addBtn.disabled = false;
             editBtn.disabled = false;
-            deleteBtn.disabled = true;
           }
           else if ((user.userRole === 'Advanced')){
             addBtn.disabled = false;
             editBtn.disabled = false;
-            deleteBtn.disabled = true;
           }
           else if ((user.userRole === 'Basic')){
             addBtn.disabled = true;
             editBtn.disabled = true;
-            deleteBtn.disabled = true;
           }
-          counter++;
         },
         error => console.log(error));
   }
