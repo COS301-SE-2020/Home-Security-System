@@ -3,7 +3,7 @@ import {UserService} from '../../model/user.service';
 import {TitleService} from '../../title.service';
 import {Router} from '@angular/router';
 import {User} from '../../model/user';
-import {WebcamImage, WebcamUtil} from 'ngx-webcam';
+import {WebcamImage} from 'ngx-webcam';
 import {Observable, Subject} from 'rxjs';
 
 @Component({
@@ -19,7 +19,7 @@ export class AddUserComponent implements OnInit {
   constructor(private usersService: UserService, private appService: TitleService, private router: Router) {
   }
 
-  /*@ViewChild('video')
+  @ViewChild('video')
   public webcam: ElementRef;
 
   @ViewChild('canvas')
@@ -47,7 +47,7 @@ export class AddUserComponent implements OnInit {
 
   public get triggerObservable(): Observable<void> {
     return this.snapTrigger.asObservable();
-  }*/
+  }
 
   ngOnInit(): void {
     this.appService.setTitle('Add User');

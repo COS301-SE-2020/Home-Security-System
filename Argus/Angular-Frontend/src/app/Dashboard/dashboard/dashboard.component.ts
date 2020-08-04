@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import {WebcamImage, WebcamUtil} from "ngx-webcam";
-import {Observable, Subject} from "rxjs";
+import {WebcamImage} from 'ngx-webcam';
+import {Observable, Subject} from 'rxjs';
 import {TitleService} from '../../title.service';
 
 @Component({
@@ -24,14 +24,13 @@ export class DashboardComponent implements OnInit
 
   public camImg: WebcamImage = null;
 
-  public snap_trigger: Subject<void> = new Subject<void>();
+  public snapTrigger: Subject<void> = new Subject<void>();
 
   public trigger_s(): void {
-    this.snap_trigger.next();
+    this.snapTrigger.next();
   }
 
   public handleShot(img: WebcamImage): void {
-    console.info('received webcam image', img);
     this.camImg = img;
   }
 
@@ -46,7 +45,7 @@ export class DashboardComponent implements OnInit
   }
 
   public get triggerObservable(): Observable<void> {
-    return this.snap_trigger.asObservable();
+    return this.snapTrigger.asObservable();
   }
 
 }
