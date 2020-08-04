@@ -2,22 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99be67c4-8bf1-4d7d-9148-3baf8be7c1b5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/Pom/Pom.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/Person/update-person/update-person.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/Person/edit-person/edit-person.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/Person/update-person/update-person.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/Person/edit-person/edit-person.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/Person/update-person/update-person.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/Person/edit-person/edit-person.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/Person/update-person/update-person.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/Person/edit-person/edit-person.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/User/add-user/add-user.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/User/add-user/add-user.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/User/add-user/add-user.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/User/add-user/add-user.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/app-routing.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Image.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Image.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Notification.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Person.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Vehicle.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Vehicle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,6 +98,8 @@
       <workItem from="1596363619108" duration="2011000" />
       <workItem from="1596374343364" duration="2418000" />
       <workItem from="1596409384917" duration="4764000" />
+      <workItem from="1596453268080" duration="1674000" />
+      <workItem from="1596463303939" duration="480000" />
     </task>
     <servers />
   </component>

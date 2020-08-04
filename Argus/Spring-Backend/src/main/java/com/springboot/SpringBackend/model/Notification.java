@@ -72,12 +72,12 @@ public class Notification implements Serializable {
     }
 
     public LocalDate getOnDate() { return this.onDate; }
-    public void setOnDate() { this.onDate = LocalDate.now(); }
+    public void setOnDate(LocalDate date) { this.onDate = date; }
 
     public LocalTime getAtTime() {
         return this.atTime;
     }
-    public void setAtTime() { this.atTime = LocalTime.now();}
+    public void setAtTime(LocalTime time) { this.atTime = time; }
 
     public LocalDate getNotificationDeleted() {
         if(notificationDeleted != null) {
@@ -85,7 +85,7 @@ public class Notification implements Serializable {
         }
         return null;
     }
-    public void setNotificationDeleted() { this.notificationDeleted = LocalDate.now(); }
+    public void setNotificationDeleted(LocalDate date) { this.notificationDeleted = date; }
 
     public Long getUserById() { return this.user.getUserId(); }
     public User getUser() { return this.user; }

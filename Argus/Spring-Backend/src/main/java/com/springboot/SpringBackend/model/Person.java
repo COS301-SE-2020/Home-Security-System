@@ -169,7 +169,7 @@ public class Person implements Serializable {
         }
         return null;
     }
-    public void setPersonDeleted() { this.personDeleted = LocalDate.now(); }
+    public void setPersonDeleted(LocalDate date) { this.personDeleted = date; }
 
     public List<Vehicle> getVehicleList() { return this.vehicleList; }
     public void setVehicleList(List<Vehicle> list) {this.vehicleList = list;}

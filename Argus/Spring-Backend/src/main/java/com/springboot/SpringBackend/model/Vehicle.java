@@ -160,8 +160,8 @@ public class Vehicle implements Serializable {
         }
         return null;
     }
-    public void setVehicleDeleted() {
-        this.vehicleDeleted = LocalDate.now();
+    public void setVehicleDeleted(LocalDate date) {
+        this.vehicleDeleted = date;
     }
 
     public Long getPersonId() { return this.person.getPersonId(); }
