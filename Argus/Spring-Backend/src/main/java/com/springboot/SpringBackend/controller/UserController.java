@@ -57,6 +57,8 @@ public class UserController {
         x.setUsername(details.getUsername());
         x.setUserPass(details.getUserPass());
         x.setUserRole(details.getUserRole());
+        x.setNotifyEmail(details.getNotifyEmail());
+        x.setNotifyLocal(details.getNotifyLocal());
         final User updatedUser = service.updateUser(x);
         return ResponseEntity.ok(updatedUser);
     }
