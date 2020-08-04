@@ -5,7 +5,8 @@
                 <div class="card-header card-header-primary">
                     <h4 class="card-title">User List</h4>
                     <p class="card-category">All users for your system</p>
-                    <button id="addBtn" class="btn btn-secondary btn-md btn-sm" [routerLink]="['/add-user']">Add</button>
+<!--                  <a class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#addUserModal">Add</a>-->
+                  <button id="addBtn" class="material-icons open-modal" data-toggle="modal" data-target="#addUserModal">person_add</button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -21,7 +22,7 @@
                             <ng-container *ngFor="let user of users | async">
                               <tr>
                                 <td>{{user.userId}}</td>
-                                <td><img src="{{user.profilePhoto}}" class="listPic"></td>
+                                <td><img alt="Profile Picture" src="{{user.profilePhoto}}" class="listPic"></td>
                                 <td>{{user.name}}&nbsp;{{user.surname}}</td>
                                 <td>{{user.userRole}}</td>
                                 <td>
@@ -37,4 +38,18 @@
             </div>
         </div>
     </div>
+</div>
+
+<!--ADD USER MODAL-->
+<div class="container">
+  <div class="modal fade" id="addUserModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body center">
+          <i class="material-icons modal-close-btn" data-dismiss="modal">close</i>
+          <app-add-user></app-add-user>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
