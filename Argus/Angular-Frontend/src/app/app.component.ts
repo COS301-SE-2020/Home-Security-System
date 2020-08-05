@@ -70,11 +70,17 @@ export class AppComponent implements OnInit {
         {
           document.getElementById('navBars').style.visibility = 'hidden';
           document.getElementById('displayType').className = 'content';
+          document.getElementById('footerText1').style.color = 'white';
+          document.getElementById('footerText2').style.color = 'white';
+          document.getElementById('footerText3').style.color = 'white';
         }
         else
         {
           document.getElementById('navBars').style.visibility = 'visible';
           document.getElementById('displayType').className = 'main-panel';
+          document.getElementById('footerText1').style.color = 'black';
+          document.getElementById('footerText2').style.color = 'black';
+          document.getElementById('footerText3').style.color = 'black';
         }
 
         // const loginVal = this.loginPageDisplay();

@@ -48,7 +48,7 @@ export class EditUserComponent implements OnInit {
             editBtn.disabled = false;
           }
           else if ((user.userRole === 'Basic')){
-            alert('You are unfortunately not able to change anything on this page, please return to the previous page.');
+            // alert('You are unfortunately not able to change anything on this page, please return to the previous page.');
             editBtn.disabled = true;
           }
         },

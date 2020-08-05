@@ -35,20 +35,20 @@
         </div>
         <div class="modal-body">
           <div class="card-body">
-            <form (ngSubmit)="onSubmit()">
+            <form>
               <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-6">
                   <div class="form-group">
                     <h5 class="text-primary">First Name</h5>
                     <!-- <label class="bmd-label-floating">First Name</label> -->
-                    <input id="firstName" type="text" class="form-control" name="fname" >
+                    <input id="uFirstName" type="text" class="form-control" name="fname" >
                   </div>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-6">
                   <div class="form-group">
                     <h5 class="text-primary">Last Name</h5>
                     <!-- <label class="bmd-label-floating">Last Name</label> -->
-                    <input id="lastName" type="text" class="form-control" name="lname" >
+                    <input id="uLastName" type="text" class="form-control" name="lname" >
                   </div>
                 </div>
               </div>
@@ -57,14 +57,23 @@
                   <div class="form-group">
                     <h5 class="text-primary">Username</h5>
                     <!-- <label class="bmd-label-floating">Username</label> -->
-                    <input id="username" type="text" class="form-control" name="username" >
+                    <input id="uUsername" type="text" class="form-control" name="username" >
                   </div>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-6">
                   <div class="form-group">
                     <h5 class="text-primary">Email</h5>
                     <!-- <label class="bmd-label-floating">Email address</label> -->
-                    <input id="email" type="email" class="form-control" name="email" >
+                    <input id="uEmail" type="email" class="form-control" name="email" >
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                  <div class="form-group">
+                    <h5 class="text-primary">Password</h5>
+                    <!-- <label class="bmd-label-floating">Username</label> -->
+                    <input id="uPassword" type="text" class="form-control" name="password" >
                   </div>
                 </div>
               </div>
@@ -72,7 +81,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal" >Save Changes</button>
+          <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal" (click)="updateUser()"> Save Changes</button>
         </div>
       </div>
     </div>
@@ -143,12 +152,12 @@
                     <div class="form-group">
                       <h5 class="text-primary"><b>Password</b></h5>
                       <!-- <label class="bmd-label-floating">Last Name</label> -->
-                      <output id="paswordDisplay">
+                      <output id="passwordDisplay">
                       </output>
                     </div>
                   </div>
                 </div>
-                <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#changeModal">Change</a>
+                <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#changeModal" (click)="loadModal()">Change</a>
               </form>
             </div>
           </div>

@@ -37,6 +37,7 @@ export class ListUsersComponent implements OnInit {
       deleteBtn.disabled = false;
       if ( user.id === id )
       {
+        deleteBtn.hidden = true;
         alert('You are unfortunately not able to delete yourself as a user on this page.');
       }
       else {
@@ -51,11 +52,13 @@ export class ListUsersComponent implements OnInit {
     }
     else if ((user.userRole === 'Advanced')){
       deleteBtn.disabled = true;
-      alert('You are unfortunately not able to delete a user on this page.');
+      deleteBtn.hidden = true;
+      // alert('You are unfortunately not able to delete a user on this page.');
     }
     else if ((user.userRole === 'Basic')){
       deleteBtn.disabled = true;
-      alert('You are unfortunately not able to delete a user on this page.');
+      deleteBtn.hidden = true;
+      // alert('You are unfortunately not able to delete a user on this page.');
     }
     /*
     this.userService.deleteUser(id)
@@ -79,7 +82,8 @@ export class ListUsersComponent implements OnInit {
     }
     else if ((user.userRole === 'Basic')) {
       editBtn.disabled = true;
-      alert('You are unfortunately not able to edit a user on this page.');
+      editBtn.hidden = true;
+      // alert('You are unfortunately not able to edit a user on this page.');
     }
   }
 
@@ -92,6 +96,7 @@ export class ListUsersComponent implements OnInit {
   activateButtons(){
     const addBtn = document.getElementById('addBtn') as HTMLButtonElement;
     const editBtn = document.getElementById('editBtn') as HTMLButtonElement;
+    const deleteBtn = document.getElementById('deleteBtn') as HTMLButtonElement;
     const user = this.sessionS.retrieveUserInfo();
 
     this.userService.getUserList()
@@ -105,10 +110,14 @@ export class ListUsersComponent implements OnInit {
           else if ((user.userRole === 'Advanced')){
             addBtn.disabled = false;
             editBtn.disabled = false;
+            deleteBtn.hidden = true;
           }
           else if ((user.userRole === 'Basic')){
             addBtn.disabled = true;
+            addBtn.hidden = true;
             editBtn.disabled = true;
+            editBtn.hidden = true;
+            deleteBtn.hidden = true;
           }
         },
         error => console.log(error));

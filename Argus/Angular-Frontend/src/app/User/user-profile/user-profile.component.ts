@@ -20,24 +20,65 @@ export class UserProfileComponent implements OnInit {
   /* ======================================================== */
 
   populateFields(){
-    const userSes = this.sessionS.retrieveUserInfo();
-
-    console.log(userSes);
-
     const FName = document.getElementById('firstNameDisplay') as HTMLDataElement;
     const SName = document.getElementById('lastNameDisplay') as HTMLDataElement;
     const UName = document.getElementById('usernameDisplay') as HTMLDataElement;
     const email = document.getElementById('emailDisplay') as HTMLDataElement;
+    const password = document.getElementById('passwordDisplay') as HTMLDataElement;
 
-    FName.value = userSes.name;
-    SName.value = userSes.surname;
-    UName.value = userSes.username;
-    email.value = userSes.email;
+    let userObj;
+    userObj = this.sessionS.retrieveUserInfo();
+    /*this.users = */
+    this.userService.getUserById(userObj.id).subscribe(
+      data => {
+        FName.value = data.name;
+        SName.value = data.surname;
+        UName.value = data.username;
+        email.value = data.email;
+        password.value = data.userPass;
+        this.user = data;
+        // console.log(this.user);
+      }
+    );
+  }
+
+  loadModal() {
+    const uName = document.getElementById('uFirstName') as HTMLInputElement;
+    const uSurname = document.getElementById('uLastName') as HTMLInputElement;
+    const uUsername = document.getElementById('uUsername') as HTMLInputElement;
+    const uEmail = document.getElementById('uEmail') as HTMLInputElement;
+    const uPassword = document.getElementById('uPassword') as HTMLInputElement;
+
+    let userObj;
+    userObj = this.sessionS.retrieveUserInfo();
+
+    this.userService.getUserById(userObj.id).subscribe(
+      data => {
+        uName.value = data.name;
+        uSurname.value = data.surname;
+        uEmail.value = data.email;
+        uUsername.value = data.username;
+        uPassword.value = data.userPass;
+      });
   }
 
   updateUser() {
-    this.userService.updateUser(this.id, this.user)
-      .subscribe(data => console.log(data), error => console.log(error));
+    const uName = document.getElementById('uFirstName') as HTMLInputElement;
+    const uSurname = document.getElementById('uLastName') as HTMLInputElement;
+    const uUsername = document.getElementById('uUsername') as HTMLInputElement;
+    const uEmail = document.getElementById('uEmail') as HTMLInputElement;
+    const uPassword = document.getElementById('uPassword') as HTMLInputElement;
+
+    let userObj;
+    userObj = this.sessionS.retrieveUserInfo();
+
+    this.user.name = uName.value;
+    this.user.surname = uSurname.value;
+    this.user.email = uEmail.value;
+    this.user.username = uUsername.value;
+    this.user.userPass = uPassword.value;
+
+    this.userService.updateUser(userObj.id, this.user).subscribe(data => console.log(data), error => console.log(error));
     this.user = new User();
     this.gotoList();
   }
@@ -48,6 +89,7 @@ export class UserProfileComponent implements OnInit {
 
   gotoList() {
     this.router.navigate(['/user-profile']);
+    location.reload();
   }
 
   /* ======================================================== */
