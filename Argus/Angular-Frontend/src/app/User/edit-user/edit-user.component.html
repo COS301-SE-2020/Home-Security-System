@@ -32,23 +32,23 @@
 </div>-->
 
 <h3>Update User</h3>
-<div style="width: 400px;">
-  <form (ngSubmit)="onSubmit()">
+<div>
+  <form>
     <div class="form-group">
       <label for="name">First Name</label>
-      <input type="text" class="form-control" id="name" required [(ngModel)]="user.name" name="name">
+      <input type="text" class="form-control" id="name" name="name">
     </div><br>
 
     <div class="form-group">
       <label for="surname">Last Name</label>
-      <input type="text" class="form-control" id="surname" required [(ngModel)]="user.surname" name="surname">
+      <input type="text" class="form-control" id="surname" name="surname">
     </div><br>
 
     <div class="form-group">
       <label for="role">Role</label>
-      <input type="text" class="form-control" id="role" required [(ngModel)]="user.userRole" name="role">
+      <input type="text" class="form-control" id="role"  name="role">
     </div><br>
 
-    <button id="editBtn" type="submit" class="btn btn-success">Submit</button>
+    <button id="editBtn" type="submit" class="btn btn-success" (click)="updateUser()">Submit</button>
   </form>
 </div>
