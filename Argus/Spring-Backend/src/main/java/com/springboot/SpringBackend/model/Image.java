@@ -1,6 +1,8 @@
 package com.springboot.SpringBackend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,7 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "Image")
+@Table(name = "image")
 public class Image implements Serializable {
     private static final long serialVersionUID = -8366923365418680409L;
 
@@ -16,10 +18,12 @@ public class Image implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "image_id", nullable = false)
     private Long id;
+
     @Column(name = "photo", nullable = false)
     private String photo;
+
     @Column(name = "imagedeleted", nullable = true)
-    private LocalDate imageDeleted;
+    private LocalDate imageDeleted = null;
 
     @JsonIgnore
     @OneToMany(mappedBy="profilePhoto", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -35,9 +39,8 @@ public class Image implements Serializable {
     private List<Notification> notifications = null;
 
     public Image() { }
-
     public Image(String img) {
-        this.photo = img;
+        this.photo = Jsoup.clean(img, Whitelist.simpleText());
     }
 
     public Long getImageId() {
@@ -51,7 +54,7 @@ public class Image implements Serializable {
         return this.photo;
     }
     public void setPhoto(String img) {
-        this.photo = img;
+        this.photo = Jsoup.clean(img, Whitelist.simpleText());
     }
 
     public LocalDate getImageDeleted() {
@@ -60,7 +63,7 @@ public class Image implements Serializable {
         }
         return null;
     }
-    public void setImageDeleted(LocalDate date) {
-        this.imageDeleted = date;
+    public void setImageDeleted() {
+        this.imageDeleted = LocalDate.now();
     }
 }

@@ -2,6 +2,8 @@ package com.springboot.SpringBackend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,27 +14,33 @@ import java.time.LocalDate;
 public class Vehicle implements Serializable {
     private static final long serialVersionUID = -5448294771628276088L;
 
-    /*public enum vehicleType {
+    public enum vehicleType {
         White, Grey, Black;
-    }*/
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "vehicle_id", nullable = false)
     private Long id;
+
     @ManyToOne
     @JoinColumn(name="image_id", nullable = false)
     private Image vehicleImg;
-    //@Enumerated(EnumType.STRING)
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "vehiclelisted", nullable = false)
-    //private vehicleType vehicleListed;
-    private String vehicleListed;
+    private vehicleType vehicleListed;
+    //private String vehicleListed;
+
     @Column(name = "licenseno", nullable = false)
     private String licenseNo;
+
     @Column(name = "vehiclecreated", nullable = false)
     private LocalDate vehicleCreated;
+
     @Column(name = "vehicledeleted", nullable = true)
     private LocalDate vehicleDeleted = null;
+
     @ManyToOne
     @JoinColumn(name="person_id", nullable = false)
     private Person person;
@@ -47,29 +55,29 @@ public class Vehicle implements Serializable {
 
         if(listed.equalsIgnoreCase("White"))
         {
-            this.vehicleListed = "White";
-            //this.vehicleListed = vehicleType.White;
+            //this.vehicleListed = "White";
+            this.vehicleListed = vehicleType.White;
         }
         else if(listed.equalsIgnoreCase("Black"))
         {
-            this.vehicleListed = "Black";
-            //this.vehicleListed = vehicleType.Black;
+            //this.vehicleListed = "Black";
+            this.vehicleListed = vehicleType.Black;
         }
         else
         {
-            this.vehicleListed = "Grey";
-            //this.vehicleListed = vehicleType.Grey;
+            //this.vehicleListed = "Grey";
+            this.vehicleListed = vehicleType.Grey;
         }
 
-        this.licenseNo = licenseNo;
+        this.licenseNo = Jsoup.clean(licenseNo, Whitelist.simpleText());
         this.vehicleCreated = LocalDate.now();
     }
 
     public Vehicle(Image img, String licenseNo) {
         this.vehicleImg = img;
-        this.vehicleListed = "Grey";
-        //this.vehicleListed = vehicleType.Grey;
-        this.licenseNo = licenseNo;
+        //this.vehicleListed = "Grey";
+        this.vehicleListed = vehicleType.Grey;
+        this.licenseNo = Jsoup.clean(licenseNo, Whitelist.simpleText());
         this.vehicleCreated = LocalDate.now();
     }
 
@@ -78,30 +86,30 @@ public class Vehicle implements Serializable {
 
         if(listed.equalsIgnoreCase("White"))
         {
-            this.vehicleListed = "White";
-            //this.vehicleListed = vehicleType.White;
+            //this.vehicleListed = "White";
+            this.vehicleListed = vehicleType.White;
         }
         else if(listed.equalsIgnoreCase("Black"))
         {
-            this.vehicleListed = "Black";
-            //this.vehicleListed = vehicleType.Black;
+            //this.vehicleListed = "Black";
+            this.vehicleListed = vehicleType.Black;
         }
         else
         {
-            this.vehicleListed = "Grey";
-            //this.vehicleListed = vehicleType.Grey;
+            //this.vehicleListed = "Grey";
+            this.vehicleListed = vehicleType.Grey;
         }
 
-        this.licenseNo = licenseNo;
+        this.licenseNo = Jsoup.clean(licenseNo, Whitelist.simpleText());
         this.vehicleCreated = LocalDate.now();
         this.person = p;
     }
 
     public Vehicle(Image img, String licenseNo, Person p) {
         this.vehicleImg = img;
-        this.vehicleListed = "Grey";
-        //this.vehicleListed = vehicleType.Grey;
-        this.licenseNo = licenseNo;
+        //this.vehicleListed = "Grey";
+        this.vehicleListed = vehicleType.Grey;
+        this.licenseNo = Jsoup.clean(licenseNo, Whitelist.simpleText());
         this.vehicleCreated = LocalDate.now();
         this.person = p;
     }
@@ -129,18 +137,18 @@ public class Vehicle implements Serializable {
     public void setVehicleListed(String listed) {
         if(listed.equalsIgnoreCase("White"))
         {
-            this.vehicleListed = "White";
-            //this.vehicleListed = vehicleType.White;
+            //this.vehicleListed = "White";
+            this.vehicleListed = vehicleType.White;
         }
         else if(listed.equalsIgnoreCase("Black"))
         {
-            this.vehicleListed = "Black";
-            //this.vehicleListed = vehicleType.Black;
+            //this.vehicleListed = "Black";
+            this.vehicleListed = vehicleType.Black;
         }
         else
         {
-            this.vehicleListed = "Grey";
-            //this.vehicleListed = vehicleType.Grey;
+            //this.vehicleListed = "Grey";
+            this.vehicleListed = vehicleType.Grey;
         }
     }
 
@@ -148,7 +156,7 @@ public class Vehicle implements Serializable {
         return this.licenseNo;
     }
     public void setLicenseNo(String licenseNo) {
-        this.licenseNo = licenseNo;
+        this.licenseNo = Jsoup.clean(licenseNo, Whitelist.simpleText());
     }
 
     public LocalDate getVehicleCreated() { return this.vehicleCreated; }
@@ -160,9 +168,7 @@ public class Vehicle implements Serializable {
         }
         return null;
     }
-    public void setVehicleDeleted(LocalDate date) {
-        this.vehicleDeleted = date;
-    }
+    public void setVehicleDeleted() { this.vehicleDeleted = LocalDate.now(); }
 
     public Long getPersonId() { return this.person.getPersonId(); }
     public Person getPerson() { return this.person; }

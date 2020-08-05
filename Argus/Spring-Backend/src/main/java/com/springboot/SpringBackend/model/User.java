@@ -2,8 +2,11 @@ package com.springboot.SpringBackend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.BatchSize;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,38 +17,50 @@ import java.util.List;
 public class User implements Serializable {
     private static final long serialVersionUID = -2292162305534844772L;
 
-    /*public enum UserRole {
+    public enum UserRole {
         Admin, Advanced, Basic;
-    }*/
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id", nullable = false)
     private Long id;
+
     //@Column(name = "profilePhoto", nullable = true)
     @ManyToOne
     @JoinColumn(name="profilephoto", nullable = true)
-    private Image profilePhoto;
+    private Image profilePhoto = null;
+
     @Column(name = "name", nullable = false)
     private String name;
+
     @Column(name = "surname", nullable = false)
     private String surname;
+
     @Column(name = "email", nullable = false)
     private String email;
+
     @Column(name = "username", nullable = false)
     private String username;
+
     @Column(name = "userpass", nullable = false)
+    @Size(min=8)
     private String userPass;
-    //@Enumerated(EnumType.STRING)
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "userrole", nullable = false)
-    //private UserRole userRole;
-    private String userRole;
+    private UserRole userRole;
+    //private String userRole;
+
     @Column(name = "notifyemail", nullable = false)
     private Boolean notifyEmail;
+
     @Column(name = "notifylocal", nullable = false)
     private Boolean notifyLocal;
+
     @Column(name = "userdeleted", nullable = true)
     private LocalDate userDeleted = null;
+
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @BatchSize(size = 1000)
     @JsonIgnore
@@ -63,26 +78,26 @@ public class User implements Serializable {
 
     public User(Image id, String name, String surname, String email, String username, String password, String role) {
         this.profilePhoto = id;
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.username = username;
-        this.userPass = password;
+        this.name = Jsoup.clean(name, Whitelist.simpleText());
+        this.surname = Jsoup.clean(surname, Whitelist.simpleText());
+        this.email = Jsoup.clean(email, Whitelist.simpleText());
+        this.username = Jsoup.clean(username, Whitelist.simpleText());
+        this.userPass = Jsoup.clean(password, Whitelist.simpleText());
 
         if(role.equalsIgnoreCase("Admin"))
         {
-            //this.userRole = UserRole.Admin;
-            this.userRole = "Admin";
+            this.userRole = UserRole.Admin;
+            //this.userRole = "Admin";
         }
         else if(role.equalsIgnoreCase("Advanced"))
         {
-            //this.userRole = UserRole.Advanced;
-            this.userRole = "Advanced";
+            this.userRole = UserRole.Advanced;
+            //this.userRole = "Advanced";
         }
         else
         {
-            //this.userRole = UserRole.Basic;
-            this.userRole = "Basic";
+            this.userRole = UserRole.Basic;
+            //this.userRole = "Basic";
         }
 
         this.notifyEmail = true;
@@ -90,26 +105,26 @@ public class User implements Serializable {
     }
 
     public User(String name, String surname, String email, String username, String password, String role) {
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.username = username;
-        this.userPass = password;
+        this.name = Jsoup.clean(name, Whitelist.simpleText());
+        this.surname = Jsoup.clean(surname, Whitelist.simpleText());
+        this.email = Jsoup.clean(email, Whitelist.simpleText());
+        this.username = Jsoup.clean(username, Whitelist.simpleText());
+        this.userPass = Jsoup.clean(password, Whitelist.simpleText());
 
         if(role.equalsIgnoreCase("Admin"))
         {
-            //this.userRole = UserRole.Admin;
-            this.userRole = "Admin";
+            this.userRole = UserRole.Admin;
+            //this.userRole = "Admin";
         }
         else if(role.equalsIgnoreCase("Advanced"))
         {
-            //this.userRole = UserRole.Advanced;
-            this.userRole = "Advanced";
+            this.userRole = UserRole.Advanced;
+            //this.userRole = "Advanced";
         }
         else
         {
-            //this.userRole = UserRole.Basic;
-            this.userRole = "Basic";
+            this.userRole = UserRole.Basic;
+            //this.userRole = "Basic";
         }
 
         this.notifyEmail = true;
@@ -145,48 +160,48 @@ public class User implements Serializable {
     }
 
     public String getName() {return this.name;}
-    public void setName(String name) {this.name = name;}
+    public void setName(String name) {this.name = Jsoup.clean(name, Whitelist.simpleText());}
 
     public String getSurname() {return this.surname;}
-    public void setSurname(String name) {this.surname = name;}
+    public void setSurname(String name) {this.surname = Jsoup.clean(name, Whitelist.simpleText());}
 
     public String getEmail() {
         return this.email;
     }
     public void setEmail(String email) {
-        this.email = email;
+        this.email = Jsoup.clean(email, Whitelist.simpleText());
     }
 
     public String getUsername() {
         return this.username;
     }
     public void setUsername(String name) {
-        this.username = name;
+        this.username = Jsoup.clean(name, Whitelist.simpleText());
     }
 
     public String getUserPass() {
         return this.userPass;
     }
     public void setUserPass(String pass) {
-        this.userPass = pass;
+        this.userPass = Jsoup.clean(pass, Whitelist.simpleText());
     }
 
     public String getUserRole() { return this.userRole.toString(); }
     public void setUserRole(String role) {
         if(role.equalsIgnoreCase("Admin"))
         {
-            //this.userRole = UserRole.Admin;
-            this.userRole = "Admin";
+            this.userRole = UserRole.Admin;
+            //this.userRole = "Admin";
         }
         else if(role.equalsIgnoreCase("Advanced"))
         {
-            //this.userRole = UserRole.Advanced;
-            this.userRole = "Advanced";
+            this.userRole = UserRole.Advanced;
+            //this.userRole = "Advanced";
         }
         else
         {
-            //this.userRole = UserRole.Basic;
-            this.userRole = "Basic";
+            this.userRole = UserRole.Basic;
+            //this.userRole = "Basic";
         }
     }
 
@@ -210,8 +225,8 @@ public class User implements Serializable {
         }
         return null;
     }
-    public void setUserDeleted(LocalDate date) {
-        this.userDeleted = date;
+    public void setUserDeleted() {
+        this.userDeleted = LocalDate.now();
     }
 
     public List<Notification> getNotificationList() { return this.notificationList; }

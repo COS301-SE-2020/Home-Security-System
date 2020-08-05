@@ -2,12 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99be67c4-8bf1-4d7d-9148-3baf8be7c1b5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jsoup_jsoup_1_10_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/SpringBackendApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/SpringBackendApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/controller/NotificationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/controller/NotificationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/exception/ResourceNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/exception/ResourceNotFoundException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Image.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Image.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Notification.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Person.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Vehicle.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Vehicle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/resources/db/changelog/changelog-001.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/resources/db/changelog/changelog-001.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/resources/db/changelog/changelog-004.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/resources/db/changelog/changelog-004.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +29,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -44,6 +55,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="js.linters.configure.manually.selectedtslint" value="true" />
@@ -55,7 +67,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
-  <component name="RunManager" selected="npm.Angular CLI Server">
+  <component name="RunManager" selected="Spring Boot.SpringBackendApplication">
     <configuration name="E2E Tests (Angular-Frontend)" type="JavaScriptTestRunnerProtractor">
       <config-file value="$PROJECT_DIR$/Angular-Frontend/e2e/protractor.conf.js" />
       <node-interpreter value="project" />
@@ -100,6 +112,11 @@
       <workItem from="1596409384917" duration="4764000" />
       <workItem from="1596453268080" duration="1674000" />
       <workItem from="1596463303939" duration="480000" />
+      <workItem from="1596500650206" duration="2134000" />
+      <workItem from="1596547729969" duration="3932000" />
+      <workItem from="1596572953218" duration="10265000" />
+      <workItem from="1596630745196" duration="6194000" />
+      <workItem from="1596658736765" duration="1686000" />
     </task>
     <servers />
   </component>
@@ -119,49 +136,63 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="551" y="86" width="703" height="442" key="#TSLint/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596412544223" />
-    <state x="275" y="22" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1596363911023">
+    <state x="275" y="22" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1596584126568">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
+    <state x="275" y="22" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596584126568" />
     <state x="275" y="22" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1596363911023" />
-    <state x="488" y="70" key="#com.intellij.ide.util.MemberChooser" timestamp="1596364422487">
+    <state x="488" y="70" key="#com.intellij.ide.util.MemberChooser" timestamp="1596584473808">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
+    <state x="488" y="70" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596584473808" />
     <state x="488" y="70" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1596364422487" />
-    <state width="1323" height="180" key="GridCell.Tab.0.bottom" timestamp="1596445529544">
+    <state x="456" y="233" width="455" height="268" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1596582685524">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="180" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596445529544" />
+    <state x="456" y="233" width="455" height="268" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596582685524" />
+    <state width="1323" height="313" key="GridCell.Tab.0.bottom" timestamp="1596661061226">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="313" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596661061226" />
     <state width="1323" height="189" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1596367372182" />
-    <state width="1323" height="180" key="GridCell.Tab.0.center" timestamp="1596445529544">
+    <state width="1323" height="313" key="GridCell.Tab.0.center" timestamp="1596661061226">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="180" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596445529544" />
+    <state width="1323" height="313" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596661061226" />
     <state width="1323" height="189" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1596367372182" />
-    <state width="1323" height="180" key="GridCell.Tab.0.left" timestamp="1596445529544">
+    <state width="1323" height="313" key="GridCell.Tab.0.left" timestamp="1596661061226">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="180" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596445529544" />
+    <state width="1323" height="313" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596661061226" />
     <state width="1323" height="189" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1596367372182" />
-    <state width="1323" height="180" key="GridCell.Tab.0.right" timestamp="1596445529544">
+    <state width="1323" height="313" key="GridCell.Tab.0.right" timestamp="1596661061226">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="180" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596445529544" />
+    <state width="1323" height="313" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596661061226" />
     <state width="1323" height="189" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1596367372182" />
-    <state width="1323" height="2" key="GridCell.Tab.1.bottom" timestamp="1596445529541">
+    <state width="1323" height="313" key="GridCell.Tab.1.bottom" timestamp="1596661061226">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="2" key="GridCell.Tab.1.bottom/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596445529541" />
-    <state width="1323" height="2" key="GridCell.Tab.1.center" timestamp="1596445529540">
+    <state width="1323" height="313" key="GridCell.Tab.1.bottom/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596661061226" />
+    <state width="1323" height="313" key="GridCell.Tab.1.center" timestamp="1596661061226">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="2" key="GridCell.Tab.1.center/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596445529540" />
-    <state width="1323" height="2" key="GridCell.Tab.1.left" timestamp="1596445529540">
+    <state width="1323" height="313" key="GridCell.Tab.1.center/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596661061226" />
+    <state width="1323" height="313" key="GridCell.Tab.1.left" timestamp="1596661061226">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="2" key="GridCell.Tab.1.left/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596445529540" />
-    <state width="1323" height="2" key="GridCell.Tab.1.right" timestamp="1596445529541">
+    <state width="1323" height="313" key="GridCell.Tab.1.left/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596661061226" />
+    <state width="1323" height="313" key="GridCell.Tab.1.right" timestamp="1596661061226">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="2" key="GridCell.Tab.1.right/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596445529541" />
+    <state width="1323" height="313" key="GridCell.Tab.1.right/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596661061226" />
+    <state x="213" y="19" key="Maven.ArtifactSearchDialog" timestamp="1596634450458">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="213" y="19" key="Maven.ArtifactSearchDialog/0.0.1366.728@0.0.1366.728" timestamp="1596634450458" />
+    <state x="531" y="159" width="316" height="409" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1596584086931">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="531" y="159" width="316" height="409" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596584086931" />
   </component>
 </project>

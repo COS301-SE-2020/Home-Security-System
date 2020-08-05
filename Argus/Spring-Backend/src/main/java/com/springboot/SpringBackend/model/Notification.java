@@ -1,5 +1,8 @@
 package com.springboot.SpringBackend.model;
 
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -14,17 +17,23 @@ public class Notification implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "notification_id", nullable = false)
     private Long id;
+
     @ManyToOne
-    @JoinColumn(name="image_id", nullable = false)
-    private Image notificationImg;
-    @Column(name = "message", nullable = false)
+    @JoinColumn(name="image_id", nullable = true)
+    private Image notificationImg = null;
+
+    @Column(name = "msg", nullable = false)
     private String message;
+
     @Column(name = "ondate", nullable = false)
     private LocalDate onDate;
+
     @Column(name = "attime", nullable = false)
     private LocalTime atTime;
+
     @Column(name = "notificationdeleted", nullable = true)
     private LocalDate notificationDeleted = null;
+
     @ManyToOne
     @JoinColumn(name="user_id", nullable = false)
     private User user;
@@ -36,14 +45,14 @@ public class Notification implements Serializable {
 
     public Notification(Image img, String msg) {
         this.notificationImg = img;
-        this.message = msg;
+        this.message = Jsoup.clean(msg, Whitelist.simpleText());
         onDate = LocalDate.now();
         atTime = LocalTime.now();
     }
 
     public Notification(Image img, String msg, User u) {
         this.notificationImg = img;
-        this.message = msg;
+        this.message = Jsoup.clean(msg, Whitelist.simpleText());
         onDate = LocalDate.now();
         atTime = LocalTime.now();
         this.user = u;
@@ -68,7 +77,7 @@ public class Notification implements Serializable {
         return this.message;
     }
     public void setMessage(String msg) {
-        this.message = msg;
+        this.message = Jsoup.clean(msg, Whitelist.simpleText());
     }
 
     public LocalDate getOnDate() { return this.onDate; }
@@ -85,7 +94,7 @@ public class Notification implements Serializable {
         }
         return null;
     }
-    public void setNotificationDeleted(LocalDate date) { this.notificationDeleted = date; }
+    public void setNotificationDeleted() { this.notificationDeleted = LocalDate.now(); }
 
     public Long getUserById() { return this.user.getUserId(); }
     public User getUser() { return this.user; }

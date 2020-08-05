@@ -3,6 +3,8 @@ package com.springboot.SpringBackend.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.BatchSize;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,33 +17,44 @@ import java.util.List;
 public class Person implements Serializable {
     private static final long serialVersionUID = -2126183802877200868L;
 
-    /*public enum personType {
+    public enum personType {
         White, Grey, Black;
-    }*/
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "person_id", nullable = false)
     private Long id;
+
     @ManyToOne
     @JoinColumn(name="image_id", nullable = false)
     private Image personImg;
+
     @Column(name = "fname", nullable = true)
     private String fname = "";
+
     @Column(name = "lname", nullable = true)
     private String lname = "";
-    //@Enumerated(EnumType.STRING)
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "personlisted", nullable = false)
-    //private personType personListed;
-    private String personListed;
+    private personType personListed;
+    //private String personListed;
+
     @Column(name = "personcreated", nullable = false)
     private LocalDate personCreated;
+
     @Column(name = "persondeleted", nullable = true)
     private LocalDate personDeleted = null;
+
     @OneToMany(mappedBy="person", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @BatchSize(size = 1000)
     @JsonIgnore
     private List<Vehicle> vehicleList = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToOne(mappedBy="person")
+    private Face face;
 
     /*
     @ManyToMany(cascade = CascadeType.ALL)
@@ -60,18 +73,18 @@ public class Person implements Serializable {
 
         if(listed.equalsIgnoreCase("White"))
         {
-            this.personListed = "White";
-            //this.personListed = personType.White;
+            //this.personListed = "White";
+            this.personListed = personType.White;
         }
         else if(listed.equalsIgnoreCase("Black"))
         {
-            this.personListed = "Black";
-            //this.personListed = personType.Black;
+            //this.personListed = "Black";
+            this.personListed = personType.Black;
         }
         else
         {
-            this.personListed = "Grey";
-            //this.personListed = personType.Grey;
+            //this.personListed = "Grey";
+            this.personListed = personType.Grey;
         }
 
         this.personCreated = LocalDate.now();
@@ -79,23 +92,23 @@ public class Person implements Serializable {
 
     public Person(Image img, String name, String surname, String listed) {
         this.personImg = img;
-        this.fname = name;
-        this.lname = surname;
+        this.fname = Jsoup.clean(name, Whitelist.simpleText());
+        this.lname = Jsoup.clean(surname, Whitelist.simpleText());
 
         if(listed.equalsIgnoreCase("White"))
         {
-            this.personListed = "White";
-            //this.personListed = personType.White;
+            //this.personListed = "White";
+            this.personListed = personType.White;
         }
         else if(listed.equalsIgnoreCase("Black"))
         {
-            this.personListed = "Black";
-            //this.personListed = personType.Black;
+            //this.personListed = "Black";
+            this.personListed = personType.Black;
         }
         else
         {
-            this.personListed = "Grey";
-            //this.personListed = personType.Grey;
+            //this.personListed = "Grey";
+            this.personListed = personType.Grey;
         }
 
         this.personCreated = LocalDate.now();
@@ -103,10 +116,10 @@ public class Person implements Serializable {
 
     public Person(Image img, String name, String surname) {
         this.personImg = img;
-        this.fname = name;
-        this.lname = surname;
-        this.personListed = "Grey";
-        //this.personListed = personType.Grey;
+        this.fname = Jsoup.clean(name, Whitelist.simpleText());
+        this.lname = Jsoup.clean(surname, Whitelist.simpleText());
+        //this.personListed = "Grey";
+        this.personListed = personType.Grey;
         this.personCreated = LocalDate.now();
     }
 
@@ -129,32 +142,32 @@ public class Person implements Serializable {
         return this.fname;
     }
     public void setFname(String name) {
-        this.fname = name;
+        this.fname = Jsoup.clean(name, Whitelist.simpleText());
     }
 
     public String getLname() {
         return this.lname;
     }
     public void setLname(String name) {
-        this.lname = name;
+        this.lname = Jsoup.clean(name, Whitelist.simpleText());
     }
 
     public String getPersonListed() { return this.personListed.toString(); }
     public void setPersonListed(String listed) {
         if(listed.equalsIgnoreCase("White"))
         {
-            this.personListed = "White";
-            //this.personListed = personType.White;
+            //this.personListed = "White";
+            this.personListed = personType.White;
         }
         else if(listed.equalsIgnoreCase("Black"))
         {
-            this.personListed = "Black";
-            //this.personListed = personType.Black;
+            //this.personListed = "Black";
+            this.personListed = personType.Black;
         }
         else
         {
-            this.personListed = "Grey";
-            //this.personListed = personType.Grey;
+            //this.personListed = "Grey";
+            this.personListed = personType.Grey;
         }
     }
 
@@ -169,7 +182,7 @@ public class Person implements Serializable {
         }
         return null;
     }
-    public void setPersonDeleted(LocalDate date) { this.personDeleted = date; }
+    public void setPersonDeleted() { this.personDeleted = LocalDate.now(); }
 
     public List<Vehicle> getVehicleList() { return this.vehicleList; }
     public void setVehicleList(List<Vehicle> list) {this.vehicleList = list;}

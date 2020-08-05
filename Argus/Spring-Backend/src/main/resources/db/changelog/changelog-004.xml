@@ -34,7 +34,7 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
             CREATE TABLE Notification(
             notification_id INT NOT NULL DEFAULT nextval('notificationID_seq'),
             image_id INT REFERENCES Image(image_id),
-            message TEXT NOT NULL,
+            msg TEXT NOT NULL,
             onDate DATE NOT NULL DEFAULT CURRENT_DATE,
             atTime TIME NOT NULL DEFAULT CURRENT_TIME,
             notificationDeleted DATE,
@@ -80,5 +80,14 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
             PRIMARY KEY (person_id, vehicle_id)
             );
         </sql>-->
+        <sql>
+            CREATE TABLE Face(
+            face_id INT NOT NULL DEFAULT nextval('faceID_seq'),
+            person_id INT NOT NULL REFERENCES Person(person_id),
+            features TEXT NOT NULL,
+            faceDeleted DATE,
+            PRIMARY KEY (face_id)
+            );
+        </sql>
     </changeSet>
 </databaseChangeLog>

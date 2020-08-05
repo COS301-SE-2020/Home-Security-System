@@ -30,7 +30,7 @@ public class NotificationController {
     @GetMapping("/notifications")
     public List<Notification> getAllNotifications() {
         //return service.listAllEvents();
-        //repo.save(new User("Brad", "Zietsman", "u15228194@gmail.com", "fdgfdgdf","sfdsfsdd", "basic"));
+        //repo.save(new User("Brad", "Zietsman", "u15228194@gmail.com", "Brad","1234", "Basic"));
         List<Notification> notify = service.getAllNotifications();
         return  notify;
     }
