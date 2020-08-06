@@ -74,9 +74,6 @@ export class EditUserComponent implements OnInit {
     const uSurname = document.getElementById('surname') as HTMLInputElement;
     const uRole = document.getElementById('role') as HTMLInputElement;
 
-    let userObj;
-    userObj = this.sessionS.retrieveUserInfo();
-
     this.user.name = uName.value;
     this.user.surname = uSurname.value;
     this.user.userRole = uRole.value;
