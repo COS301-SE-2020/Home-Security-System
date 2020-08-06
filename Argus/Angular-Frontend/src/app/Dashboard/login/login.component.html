@@ -18,7 +18,7 @@
 
   <form>
     <label class="loginFields">
-      <input class="loginInputs" type="email" name="email" placeholder="E-mail" id="emailInput">
+      <input class="loginInputs" type="text" name="email" placeholder="Username or E-mail" id="emailInput">
     </label>
     <label class="loginPassword">
       <input class="loginInputs" id="passwordField" type="password" name="pass" placeholder="Password">
@@ -27,13 +27,6 @@
 
     <a class="loginButton" (click)="makeSession()">Log in</a>
     <div id="remember-container">
-
-      <label class="checkContainer">
-        <input type="checkbox" checked="checked">
-        <span class="checkmark"></span>
-        Remember me
-      </label>
-
       <span id="forgotten" onclick="forgot()">Forgot password?</span>
     </div>
   </form>
