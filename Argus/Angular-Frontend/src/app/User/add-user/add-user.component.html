@@ -43,11 +43,11 @@
         <br>
 
         <div class="form-group">
-          <input type="radio" id="admin" name="role" value="Admin">
+          <input type="radio" id="admin" name="role" value="Admin" required [(ngModel)]="user.userRole">
           <label for="admin"><i> Admin</i></label><br>
-          <input type="radio" id="advanced" name="role" value="Advanced">
+          <input type="radio" id="advanced" name="role" value="Advanced" required [(ngModel)]="user.userRole">
           <label for="advanced"><i> Advanced</i></label><br>
-          <input type="radio" id="basic" name="role" value="Basic" checked>
+          <input type="radio" id="basic" name="role" value="Basic" checked required [(ngModel)]="user.userRole">
           <label for="basic"><i> Basic</i></label><br>
         </div>
         <br>

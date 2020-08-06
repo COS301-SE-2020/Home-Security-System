@@ -92,13 +92,4 @@ export class AddPersonComponent implements OnInit {
     this.personService.addPerson(this.newPerson)
       .subscribe(data => console.log(data), error => console.log(error));
   }
-
-  deletePerson(personId: number): void {
-    this.personService.deletePerson(personId)
-      .subscribe(
-        data => {
-          console.log(data);
-        },
-        error => console.log(error));
-  }
 }

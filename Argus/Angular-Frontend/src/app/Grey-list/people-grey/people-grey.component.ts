@@ -12,6 +12,7 @@ import {Router} from '@angular/router';
 })
 export class PeopleGreyComponent implements OnInit {
   person: Observable<Person[]>;
+  psn: Person;
 
   constructor(private personService: PersonService, private appService: TitleService, private router: Router) {
   }
@@ -20,45 +21,36 @@ export class PeopleGreyComponent implements OnInit {
     this.person = this.personService.getPersonList();
   }
 
-  removePerson(id: number) {
-    this.personService.deletePerson(id)
-      .subscribe(
-        data => {
-          console.log(data);
-          this.reloadData();
-        },
-        error => console.log(error));
-  }
+  whiteListPerson(id: number) {
+    /*this.person = this.personService.getPersonById(id);
+    this.psn = new Person();
+    this.psn.personId = id;
+    this.psn.personImg = null;
+    this.psn.fname = '';
+    this.psn.lname = '';
+    this.psn.personListed = 'White';
+    this.psn.personCreated = '';
+    this.psn.personDeleted = '';
 
-  updatePerson(id: number){
-    this.router.navigate(['edit-person', id]);
-  }
-
-  viewPerson(id: number){
-    this.router.navigate(['view-person', id]);
-  }
-
-  whiteListPerson(id: number){
-    /*return this.personService.addToWhiteList(id)
-      .subscribe(
-        data => {
-          console.log(data);
-          this.reloadData();
-        },
-        error => console.log(error));
-
-     */
+    this.personService.updatePerson(id, this.psn)
+      .subscribe(data => console.log(data), error => console.log(error));
+    */
     this.reloadData();
   }
 
   blackListPerson(id: number) {
-    /*return this.personService.addToBlackList(id)
-      .subscribe(
-        data => {
-          console.log(data);
-          this.reloadData();
-        },
-        error => console.log(error));
+    /*this.person = this.personService.getPersonById(id);
+    this.psn = new Person();
+    this.psn.personId = id;
+    this.psn.personImg = null;
+    this.psn.fname = '';
+    this.psn.lname = '';
+    this.psn.personListed = 'Black';
+    this.psn.personCreated = '';
+    this.psn.personDeleted = '';
+
+    this.personService.updatePerson(id, this.psn)
+      .subscribe(data => console.log(data), error => console.log(error));
      */
     this.reloadData();
   }
