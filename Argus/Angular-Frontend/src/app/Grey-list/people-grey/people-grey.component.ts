@@ -22,37 +22,35 @@ export class PeopleGreyComponent implements OnInit {
   }
 
   whiteListPerson(id: number) {
-    /*this.person = this.personService.getPersonById(id);
+    this.person = this.personService.getPersonById(id);
     this.psn = new Person();
     this.psn.personId = id;
-    this.psn.personImg = null;
-    this.psn.fname = '';
-    this.psn.lname = '';
+    // this.psn.personImg = null;
+    this.psn.fname = 'Unknown';
+    this.psn.lname = 'Unknown';
     this.psn.personListed = 'White';
-    this.psn.personCreated = '';
-    this.psn.personDeleted = '';
 
     this.personService.updatePerson(id, this.psn)
       .subscribe(data => console.log(data), error => console.log(error));
-    */
+
     this.reloadData();
+    location.reload();
   }
 
   blackListPerson(id: number) {
-    /*this.person = this.personService.getPersonById(id);
+    this.person = this.personService.getPersonById(id);
     this.psn = new Person();
     this.psn.personId = id;
-    this.psn.personImg = null;
-    this.psn.fname = '';
-    this.psn.lname = '';
+    // this.psn.personImg = null;
+    this.psn.fname = 'Unknown';
+    this.psn.lname = 'Unknown';
     this.psn.personListed = 'Black';
-    this.psn.personCreated = '';
-    this.psn.personDeleted = '';
 
     this.personService.updatePerson(id, this.psn)
       .subscribe(data => console.log(data), error => console.log(error));
-     */
+
     this.reloadData();
+    location.reload();
   }
 
   ngOnInit(): void {
