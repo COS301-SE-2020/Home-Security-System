@@ -22,7 +22,7 @@ export class EditPersonComponent implements OnInit {
 
     this.personService.getPersonById(this.id)
       .subscribe(data => {
-        console.log(data);
+        // console.log(data);
         this.person = data;
       }, error => console.log(error));
   }
@@ -39,6 +39,24 @@ export class EditPersonComponent implements OnInit {
   }
 
   gotoList() {
-    this.router.navigate(['/people-grey']);
+    this.person = new Person();
+
+    this.id = this.route.snapshot.params.id;
+    this.personService.getPersonById(this.id)
+      .subscribe(data => {
+        this.person = data;
+        // console.log(this.person.personListed);
+        if ( this.person.personListed === 'White')
+        {
+          this.router.navigate(['/people-white']);
+        }
+        else if ( this.person.personListed === 'Black')
+        {
+          this.router.navigate(['/people-black']);
+        }
+        else {
+          this.router.navigate(['/people-grey']);
+        }
+      }, error => console.log(error));
   }
 }
