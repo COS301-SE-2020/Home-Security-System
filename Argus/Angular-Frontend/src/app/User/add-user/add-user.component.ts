@@ -19,9 +19,11 @@ export class AddUserComponent implements OnInit {
   constructor(private usersService: UserService, private appService: TitleService, private router: Router) {
   }
 
+  // noinspection JSAnnotator
   @ViewChild('video')
   public webcam: ElementRef;
 
+  // noinspection JSAnnotator
   @ViewChild('canvas')
   public canvas: ElementRef;
 

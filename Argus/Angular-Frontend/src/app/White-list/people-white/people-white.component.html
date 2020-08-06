@@ -1,52 +1,11 @@
-<div class="container">
-    <div class="modal fade" id="editModal" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
-                    <h4 class="modal-title">Change persons current status</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="card-body">
-                        <form>
-                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                <div class="form-group">
-                                    <h5 class="text-primary">Status:</h5>
-                                    <!-- <label class="bmd-label-floating">First Name</label> -->
-                                    <div class="wrap-input100" data-validate="Status">
-                                        <input type="radio" id="whiteList" name="status" value="white" checked>
-                                        <label for="whiteList"><i>White listed</i></label><br>
-
-                                        <input type="radio" id="blackList" name="status" value="black">
-                                        <label for="blackList"><i>Black listed</i></label><br>
-
-                                        <input type="radio" id="greyList" name="status" value="grey">
-                                        <label for="greyList"><i>Grey listed</i></label>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal" onclick="saveChanges()">Save Changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header card-header-primary">
                     <h4 class="card-title">White List</h4>
-                    <p class="card-category">All people allowed on your property</p>
-                    <a class="btn btn-secondary btn-md btn-sm" [routerLink]="['/add-person']">Add</a>
+                    <p class="card-category">Friends or Family</p>
+                  <button id="addWhite" class="material-icons open-modal" data-toggle="modal" data-target="#addPersonModal1">person_add</button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -65,7 +24,7 @@
                             <tbody id="whiteBody">
                                 <ng-container *ngFor="let p of person | async">
                                   <tr *ngIf="p.personListed == 'White'">
-                                    <td><img src="{{p.personImg}}" class="listPic"></td>
+                                    <td><img alt="Photo" src="{{p.personImg}}" class="listPic"></td>
                                     <td>{{p.fname}}&nbsp;{{p.lname}}</td>
                                     <td>
                                       <!--<a class="btn btn-primary" data-toggle="modal" data-target="#editModal">Edit</a>-->
@@ -81,4 +40,18 @@
             </div>
         </div>
     </div>
+</div>
+
+<!--ADD PERSON MODAL-->
+<div class="container">
+  <div class="modal fade" id="addPersonModal1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body center">
+          <i class="material-icons modal-close-btn" data-dismiss="modal">close</i>
+          <app-add-person></app-add-person>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

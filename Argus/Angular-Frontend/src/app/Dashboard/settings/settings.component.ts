@@ -53,11 +53,12 @@ export class SettingsComponent implements OnInit {
     this.user.notifyEmail = emailSet.checked;
     this.user.notifyLocal = localSet.checked;
 
-    console.log(this.user.notifyEmail);
-    console.log(this.user.notifyLocal);
-
+    // console.log(this.user.notifyEmail);
+    // console.log(this.user.notifyLocal);
     // console.log(this.user);
-    this.userService.updateUser(userObj.id, this.user).subscribe(data => console.log(data), error => console.log(error));
+
+    this.userService.updateUser(userObj.id, this.user)
+      .subscribe(data => console.log(data), error => console.log(error));
     this.user = new User();
     this.retrieveSettings();
   }

@@ -14,7 +14,7 @@
                           <th>Date-Time</th>
                           <th>Message</th>
                           <th>Image</th>
-                          <th>Dismiss</th>
+                          <th>Remove</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -22,9 +22,9 @@
                           <tr>
                             <td>{{note.onDate}}&nbsp;{{note.atTime}}</td>
                             <td>{{note.message}}</td>
-                            <td><img src="{{note.notificationImg}}" class="listPic"></td>
+                            <td><img src="{{note.notificationImg}}" class="squarePhoto"></td>
                             <td>
-                              <a class="btn btn-primary" (click)="removeNotification(note.notificationId)">Delete</a>
+                              <a class="btn btn-primary" (click)="removeNotification(note.notificationId)">Dismiss</a>
                             </td>
                           </tr>
                         </ng-container>

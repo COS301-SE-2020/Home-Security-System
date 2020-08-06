@@ -1,21 +1,37 @@
-<h3>Update Person</h3>
-<div style="width: 400px;">
-  <form (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="name">First Name</label>
-      <input type="text" class="form-control" id="name" required [(ngModel)]="person.fname" name="name">
-    </div><br>
+<div class="card">
+  <div class="card-header card-header-color">
+    <h4 class="card-title">Edit Person</h4>
+  </div>
+  <div class="card-body">
+    <br>
+    <div>
+      <form (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="name">First Name</label>
+              <input type="text" class="form-control" id="name" required [(ngModel)]="person.fname" name="name">
+            </div><br>
+          </div>
 
-    <div class="form-group">
-      <label for="surname">Last Name</label>
-      <input type="text" class="form-control" id="surname" required [(ngModel)]="person.lname" name="surname">
-    </div><br>
+          <div class="col">
+            <div class="form-group">
+              <label for="surname">Last Name</label>
+              <input type="text" class="form-control" id="surname" required [(ngModel)]="person.lname" name="surname">
+            </div><br>
+          </div>
+        </div>
 
-    <div class="form-group">
-      <label for="listed">Listed</label>
-      <input type="text" class="form-control" id="listed" required [(ngModel)]="person.personListed" name="listed">
-    </div><br>
+        <div class="form-group">
+          <input type="radio" id="white" name="listed" value="White" required [(ngModel)]="person.personListed">
+          <label for="white"><i> White</i></label><br>
+          <input type="radio" id="black" name="listed" value="Black" required [(ngModel)]="person.personListed">
+          <label for="black"><i> Black</i></label><br>
+        </div>
+        <br>
 
-    <button type="submit" class="btn btn-success">Submit</button>
-  </form>
+        <button type="submit" class="btn btn-primary justify-content-center">Submit</button>
+      </form>
+    </div>
+  </div>
 </div>

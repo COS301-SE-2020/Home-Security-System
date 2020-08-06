@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import { Observable } from 'rxjs';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Observable, Subject} from 'rxjs';
 import { PersonService } from '../../model/person.service';
 import { Person } from '../../model/person';
 import { Image } from '../../model/image';
 import { Router } from '@angular/router';
 import {TitleService} from '../../title.service';
+import {WebcamImage} from 'ngx-webcam';
 
 @Component({
   selector: 'app-add-person',
@@ -15,10 +16,43 @@ export class AddPersonComponent implements OnInit {
   persons: Observable<Person[]>;
   newPerson: Person;
   newImage: Image;
+  submitted = false;
 
   public numPeople;
 
-  constructor(private personService: PersonService, private appService: TitleService) {
+  constructor(private personService: PersonService, private appService: TitleService, private router: Router) {
+  }
+
+  // noinspection JSAnnotator
+  @ViewChild('video')
+  public webcam: ElementRef;
+
+  // noinspection JSAnnotator
+  @ViewChild('canvas')
+  public canvas: ElementRef;
+
+  public captures: Array<any>;
+
+  public showCam = true;
+
+  public camImg: WebcamImage = null;
+
+  public snapTrigger: Subject<void> = new Subject<void>();
+
+  public trigger_s(): void {
+    this.snapTrigger.next();
+  }
+
+  public handleShot(img: WebcamImage): void {
+    this.camImg = img;
+  }
+
+  public toggleCam(): void {
+    this.showCam = !this.showCam;
+  }
+
+  public get triggerObservable(): Observable<void> {
+    return this.snapTrigger.asObservable();
   }
 
   ngOnInit(): void {
@@ -45,7 +79,7 @@ export class AddPersonComponent implements OnInit {
 
     this.newPerson = new Person();
     this.newImage = new Image();
-      this.newImage.imageId = 1;
+    this.newImage.imageId = 1;
     this.newImage.photo = 'blank.jpg';
 
     this.newPerson.personImg = this.newImage;
