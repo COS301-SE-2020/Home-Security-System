@@ -19807,8 +19807,23 @@ input[type="file"] {
   display: block;
 }
 
-#output {
+.output {
   width: 100px;
   margin: auto;
   display: block;
+  display: block;
+}
+
+.squarePhoto
+{
+  width: 100px;
+  height: 100px;
+}
+
+.modal-header
+{
+  background: #d4af37;
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(212, 175, 55, 0.4);
+  font-size: 1.125rem;
+  color: #1b1e21;
 }

@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
         data => {
           if ((data[counter].email === emailVar.value) && (data[counter].userPass === passVar.value)){
             this.sessionS.createSession(emailVar.value, passVar.value, data[counter].userId, data[counter].userRole);
-            alert('You are logged in, welcome to Argus');
+            // alert('You are logged in, welcome to Argus');
             this.sessionS.retrieveUserInfo();
             this.router.navigate(['/dashboard']);
           }

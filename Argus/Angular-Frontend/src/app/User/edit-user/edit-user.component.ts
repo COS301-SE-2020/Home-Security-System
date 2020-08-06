@@ -10,7 +10,7 @@ import { Session } from '../../../assets/js/SessionStorage.js';
   styleUrls: ['./edit-user.component.css']
 })
 export class EditUserComponent implements OnInit {
-  sessionS = new Session();
+  // sessionS = new Session();
   id: number;
   user: User;
 
@@ -18,7 +18,6 @@ export class EditUserComponent implements OnInit {
               private userService: UserService) { }
 
   ngOnInit() {
-    this.activateButtons();
     this.user = new User();
 
     this.id = this.route.snapshot.params.id;
@@ -27,10 +26,10 @@ export class EditUserComponent implements OnInit {
       .subscribe( data => {
         this.user = data;
       }, error => console.log(error));
-    this.loadModal();
+    // this.loadModal();
   }
 
-  loadModal() {
+  /*loadModal() {
     const uName = document.getElementById('name') as HTMLInputElement;
     const uSurname = document.getElementById('surname') as HTMLInputElement;
     const uRole = document.getElementById('role') as HTMLInputElement;
@@ -41,35 +40,10 @@ export class EditUserComponent implements OnInit {
         uSurname.value = data.surname;
         uRole.value = data.userRole;
       });
-  }
-
-  // --------------------------------------------------------------------
-
-  activateButtons(){
-    const editBtn = document.getElementById('editBtn') as HTMLButtonElement;
-    const user = this.sessionS.retrieveUserInfo();
-
-    this.userService.getUserList()
-      .subscribe(
-        data => {
-
-          if ((user.userRole === 'Admin')){
-            editBtn.disabled = false;
-          }
-          else if ((user.userRole === 'Advanced')){
-            editBtn.disabled = false;
-          }
-          else if ((user.userRole === 'Basic')){
-            // alert('You are unfortunately not able to change anything on this page, please return to the previous page.');
-            editBtn.disabled = true;
-          }
-        },
-        error => console.log(error));
-  }
-
-  // --------------------------------------------------------------------
+  }*/
 
   updateUser() {
+    /*
     const uName = document.getElementById('name') as HTMLInputElement;
     const uSurname = document.getElementById('surname') as HTMLInputElement;
     const uRole = document.getElementById('role') as HTMLInputElement;
@@ -77,6 +51,7 @@ export class EditUserComponent implements OnInit {
     this.user.name = uName.value;
     this.user.surname = uSurname.value;
     this.user.userRole = uRole.value;
+    */
 
     this.userService.updateUser(this.id, this.user).subscribe(data => console.log(data), error => console.log(error));
     this.user = new User();

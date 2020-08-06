@@ -24,7 +24,7 @@
                             <ng-container *ngFor="let p of person | async">
                               <tr *ngIf="p.personListed == 'Grey'">
                                 <td>{{p.personId}}</td>
-                                <td><img src="{{p.personImg}}" class="listPic"></td>
+                                <td><img alt="Photo" src="{{p.personImg}}" class="listPic"></td>
                                 <td>
                                   <a class="btn btn-primary" (click)="whiteListPerson(p.personId)">Add to white list</a>
                                   <a class="btn btn-primary" (click)="blackListPerson(p.personId)">Add to black list</a>
