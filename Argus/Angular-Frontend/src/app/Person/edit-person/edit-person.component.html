@@ -23,10 +23,15 @@
         </div>
 
         <div class="form-group">
-          <input type="radio" id="white" name="listed" value="White" required [(ngModel)]="person.personListed">
-          <label for="white"><i> White</i></label><br>
-          <input type="radio" id="black" name="listed" value="Black" required [(ngModel)]="person.personListed">
-          <label for="black"><i> Black</i></label><br>
+          <label class="float-left">Role</label><br><br>
+          <label class="radioContainer">White
+            <input type="radio" checked="checked" name="listed" id="white" value="White" required [(ngModel)]="person.personListed">
+            <span class="radioCheckmark"></span>
+          </label>
+          <label class="radioContainer">Black
+            <input type="radio" name="listed" id="black" value="Black" required [(ngModel)]="person.personListed">
+            <span class="radioCheckmark"></span>
+          </label>
         </div>
         <br>
 

@@ -46,10 +46,14 @@ function changePic() {
   document.getElementById('profilePicDisplay').style.display = "none";
 }
 
-function imgToBase64() {
+
+/*==================================================================*/
+
+function imgToBase64(imgSrc) {
+  console.log("Over here: " + imgSrc);
   const getImg = document.getElementById('output').src;
   var img = new Image();
-  img.src = getImg;
+  img.src = imgSrc;
 
   var canvas = document.createElement("canvas");
   canvas.width = img.width;
@@ -64,7 +68,7 @@ function imgToBase64() {
 
 function checkProfileImage() {
     var temp = document.getElementById('output');
-    if (temp.src == '') {
+    if (temp.src === '') {
         document.getElementById('profilepic').src = "assets/Images/profile.jpg";
     }
 }
@@ -73,7 +77,7 @@ function checkProfileImage() {
 
 function checkUserImage() {
     var temp = document.getElementById('output');
-    if (temp.src == '') {
+    if (temp.src === '') {
         alert('Unfortunately you need to upload an image of the user, a .jpeg or .png will do. Smile for the camera :) ');
         //location.reload();
     }

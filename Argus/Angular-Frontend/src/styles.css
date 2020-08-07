@@ -4246,7 +4246,6 @@ tbody.collapse.show {
 
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
-  color: #495057;
   background-color: #fafafa;
   border-color: #dee2e6 #dee2e6 #fafafa;
 }
@@ -13485,7 +13484,7 @@ fieldset[disabled] .form-group .form-control {
   font-size: 12px;
   text-transform: uppercase;
   border-radius: 3px;
-  line-height: 20px;
+  line-height: 2px;
 }
 
 .navbar .navbar-nav .nav-item .nav-link:not(.btn-just-icon) .fa {
@@ -13500,6 +13499,7 @@ fieldset[disabled] .form-group .form-control {
   font-size: 1.25rem;
   max-width: 24px;
   margin-top: -1.1em;
+  cursor: pointer;
 }
 
 .navbar .navbar-nav .nav-item .nav-link:not(.btn) .material-icons {
@@ -19549,6 +19549,7 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
   font-size: 100%;
   border-radius: 6px;
   border: none;
+  cursor: pointer;
   -webkit-transition: all 2s ease-in-out;
   -moz-transition: all 2s ease-in-out;
   -o-transition: all 2s ease-in-out;
@@ -19811,7 +19812,6 @@ input[type="file"] {
   width: 100px;
   margin: auto;
   display: block;
-  display: block;
 }
 
 .squarePhoto
@@ -19826,4 +19826,173 @@ input[type="file"] {
   box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(212, 175, 55, 0.4);
   font-size: 1.125rem;
   color: #1b1e21;
+}
+
+/*Custom Radio Buttons*/
+.radioContainer {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  text-align: left;
+  padding-left: 25px;
+}
+
+/* Hide the browser's default radio button */
+.radioContainer input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.radioCheckmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+
+  background: #DCDCDC;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.radioContainer:hover input ~ .radioCheckmark {
+  background: #D3D3D3;
+}
+
+/* When the radio button is checked, add a blue background */
+.radioContainer input:checked ~ .radioCheckmark {
+  background-color: #d4af37;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.radioCheckmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radioContainer input:checked ~ .radioCheckmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.radioContainer .radioCheckmark:after {
+  top: 6px;
+  left: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+
+/*Settings Styles*/
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 45px;
+  height: 25px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 13px;
+  width: 13px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #d4af37;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #d4af37;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(20px);
+  -ms-transform: translateX(20px);
+  transform: translateX(20px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 17px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.settingsCells{
+  padding: 10px;
+}
+
+.settingsLabels{
+  font-size: 13px;
+  color: rgb(51,51,51);
+}
+
+
+/*HHHHHHHHHHHHHHHHH*/
+input[type="checkbox"].switch_2{
+  appearance: none;
+  width: 40px;
+  height: 7px;
+  background: #444;
+  border-radius: 5px;
+  position: relative;
+  outline: 0;
+  cursor: pointer;
+  transition: all .25s;
+}
+
+input[type="checkbox"].switch_2:before,
+input[type="checkbox"].switch_2:after{
+  position: absolute;
+  content: "";
+  -webkit-transition: all .25s;
+  transition: all .25s;
+}
+
+input[type="checkbox"].switch_2:before{
+  width: 20px;
+  height: 20px;
+  background: #A7A7A7;
+  border-radius: 50%;
+  top: 50%;
+  left: 0;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+input[type="checkbox"].switch_2:checked:before{
+  left: calc(100% - 17px);
+  background: #d4af37;
 }
