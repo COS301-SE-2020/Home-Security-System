@@ -3,15 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="99be67c4-8bf1-4d7d-9148-3baf8be7c1b5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/Dashboard/notification/notification.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/Dashboard/notification/notification.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/Dashboard/top-nav/top-nav.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/Dashboard/top-nav/top-nav.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/Person/add-person/add-person.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/Person/add-person/add-person.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/Person/edit-person/edit-person.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/Person/edit-person/edit-person.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/Person/edit-person/edit-person.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/Person/edit-person/edit-person.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/User/add-user/add-user.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/User/add-user/add-user.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/User/edit-user/edit-user.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/User/edit-user/edit-user.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/User/edit-user/edit-user.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/User/edit-user/edit-user.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/User/list-users/list-users.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/User/list-users/list-users.component.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +106,7 @@
       <workItem from="1596677771033" duration="2913000" />
       <workItem from="1596713119140" duration="12908000" />
       <workItem from="1596789303470" duration="20015000" />
-      <workItem from="1596823080778" duration="6041000" />
+      <workItem from="1596823080778" duration="7238000" />
     </task>
     <servers />
   </component>
