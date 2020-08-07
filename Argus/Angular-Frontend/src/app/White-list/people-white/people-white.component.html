@@ -24,7 +24,7 @@
                             <tbody id="whiteBody">
                                 <ng-container *ngFor="let p of person | async">
                                   <tr *ngIf="p.personListed == 'White'">
-                                    <td><img alt="Photo" src="{{p.personImg}}" class="listPic"></td>
+                                    <td><img alt="Photo" src="{{p.personImg.photo}}" class="listPic"></td>
                                     <td>{{p.fname}}&nbsp;{{p.lname}}</td>
                                     <td>
                                       <!--<a class="btn btn-primary" data-toggle="modal" data-target="#editModal">Edit</a>-->
