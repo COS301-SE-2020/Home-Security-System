@@ -3,6 +3,7 @@ import {Image} from './image';
 export class User {
   userId: number;
   profilePhoto: Image;
+  profilePhotoId: number;
   fname: string;
   lname: string;
   email: string;
@@ -12,8 +13,6 @@ export class User {
   notifyLocal: boolean;
   notifyEmail: boolean;
   userDeleted: any;
-  // profilePhotoId: number;
-
   /*constructor(id: number, img: Image, fname: string, lname: string, email: string,
               uname: string, pass: string , role: string) {
     this.userId = id;

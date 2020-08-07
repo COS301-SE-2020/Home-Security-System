@@ -96,7 +96,7 @@ public class Notification implements Serializable {
     }
     public void setNotificationDeleted() { this.notificationDeleted = LocalDate.now(); }
 
-    //public Long getUserById() { return this.user.getUserId(); }
+    public Long getUserId() { return this.user.getUserId(); }
     public User getUser() { return this.user; }
     public void setUser(User x) { this.user = x; }
 }

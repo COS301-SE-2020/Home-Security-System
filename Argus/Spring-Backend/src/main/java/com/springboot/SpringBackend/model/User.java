@@ -139,13 +139,9 @@ public class User implements Serializable {
     }
 
 
-    /*public Long getProfilePhotoId() {
-        if (profilePhoto != null)
-        {
-            return this.profilePhoto.getImageId();
-        }
-        return null;
-    }*/
+    public Long getProfilePhotoId() {
+        return Long.valueOf(1);
+    }
     public Image getProfilePhoto() {
         if (profilePhoto != null)
         {

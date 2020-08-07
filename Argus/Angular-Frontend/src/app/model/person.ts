@@ -3,6 +3,7 @@ import {Image} from './image';
 export class Person {
   personId: number;
   personImg: Image;
+  personImgId: number;
   fname: string;
   lname: string;
   personListed: string;

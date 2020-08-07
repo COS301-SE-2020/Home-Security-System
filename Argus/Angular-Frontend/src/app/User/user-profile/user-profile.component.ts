@@ -31,8 +31,8 @@ export class UserProfileComponent implements OnInit {
     /*this.users = */
     this.userService.getUserById(userObj.id).subscribe(
       data => {
-        FName.value = data.name;
-        SName.value = data.surname;
+        FName.value = data.fname;
+        SName.value = data.lname;
         UName.value = data.username;
         email.value = data.email;
         password.value = data.userPass;
@@ -54,8 +54,8 @@ export class UserProfileComponent implements OnInit {
 
     this.userService.getUserById(userObj.id).subscribe(
       data => {
-        uName.value = data.name;
-        uSurname.value = data.surname;
+        uName.value = data.fname;
+        uSurname.value = data.lname;
         uEmail.value = data.email;
         uUsername.value = data.username;
         uPassword.value = data.userPass;

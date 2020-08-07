@@ -25,7 +25,7 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
             CREATE SEQUENCE faceID_seq START 1;
         </sql>
         <sql>
-            CREATE SEQUENCE hibernate_sequence;
+            CREATE SEQUENCE hibernate_sequence START 1;
         </sql>
     </changeSet>
 </databaseChangeLog>

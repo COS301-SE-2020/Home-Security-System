@@ -22,7 +22,7 @@
                             <ng-container *ngFor="let user of users | async">
                               <tr>
                                 <td>{{user.userId}}</td>
-                                <td><img alt="Profile Picture" src="{{user.profilePhoto}}" class="listPic"></td>
+                                <td><img alt="Profile Picture" src="{{user.profilePhoto.photo}}" class="listPic"></td>
                                 <td>{{user.fname}}&nbsp;{{user.lname}}</td>
                                 <td>{{user.userRole}}</td>
                                 <td>
