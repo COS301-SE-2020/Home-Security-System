@@ -31,10 +31,10 @@ public class User implements Serializable {
     @JoinColumn(name="profilephoto", nullable = true)
     private Image profilePhoto = null;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "fname", nullable = false)
     private String name;
 
-    @Column(name = "surname", nullable = false)
+    @Column(name = "lname", nullable = false)
     private String surname;
 
     @Column(name = "email", nullable = false)

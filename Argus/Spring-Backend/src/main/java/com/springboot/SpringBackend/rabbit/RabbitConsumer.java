@@ -40,7 +40,7 @@ public class RabbitConsumer {
     /*
     @RabbitListener(queues = {"persontQueue"})
     public void receivedPerson(RabbitPerson newperson) {
-        pservice.createPerson(new Person(new Image(newperson.getImage()), "Unknown", "Unknown");
+        pservice.createPerson(new Person(new Image(newperson.getImage()));
         LOGGER.info("Person Created");
     }
     */
