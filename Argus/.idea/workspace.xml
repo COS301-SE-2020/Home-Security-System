@@ -2,23 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99be67c4-8bf1-4d7d-9148-3baf8be7c1b5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/Dashboard/notification/notification.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/Dashboard/notification/notification.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/Dashboard/top-nav/top-nav.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/Dashboard/top-nav/top-nav.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/Person/add-person/add-person.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/Person/add-person/add-person.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/Person/edit-person/edit-person.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/Person/edit-person/edit-person.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/Person/edit-person/edit-person.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/Person/edit-person/edit-person.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/User/add-user/add-user.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/User/add-user/add-user.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/User/edit-user/edit-user.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/User/edit-user/edit-user.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/User/edit-user/edit-user.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/User/edit-user/edit-user.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/User/list-users/list-users.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/User/list-users/list-users.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/User/user-profile/user-profile.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/User/user-profile/user-profile.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/model/auth.interceptor.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/model/notification.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/model/notification.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/model/person.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/model/person.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/model/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/model/user.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/model/vehicle.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/model/vehicle.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Face.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Face.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Notification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Person.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Vehicle.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Vehicle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/resources/db/changelog/changelog-001.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/resources/db/changelog/changelog-001.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/resources/db/changelog/changelog-004.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/resources/db/changelog/changelog-004.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/resources/db/changelog/changelog-005.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/resources/db/changelog/changelog-005.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +62,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
-  <component name="RunManager" selected="Spring Boot.SpringBackendApplication">
+  <component name="RunManager" selected="npm.Angular CLI Server">
     <configuration name="E2E Tests (Angular-Frontend)" type="JavaScriptTestRunnerProtractor">
       <config-file value="$PROJECT_DIR$/Angular-Frontend/e2e/protractor.conf.js" />
       <node-interpreter value="project" />
@@ -122,6 +115,7 @@
       <workItem from="1596677771033" duration="2913000" />
       <workItem from="1596713119140" duration="12908000" />
       <workItem from="1596789303470" duration="20015000" />
+      <workItem from="1596823080778" duration="6041000" />
     </task>
     <servers />
   </component>
@@ -157,50 +151,50 @@
     </state>
     <state x="456" y="233" width="455" height="268" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596582685524" />
     <state x="1820" y="233" width="455" height="268" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1366.728/1366.0.1360.728@1366.0.1360.728" timestamp="1596818523369" />
-    <state width="1317" height="9" key="GridCell.Tab.0.bottom" timestamp="1596822638893">
+    <state width="1317" height="332" key="GridCell.Tab.0.bottom" timestamp="1596823692393">
       <screen x="1366" y="0" width="1360" height="728" />
     </state>
     <state width="1323" height="165" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596676389512" />
-    <state width="1317" height="9" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1360.728@1366.0.1360.728" timestamp="1596822638893" />
+    <state width="1317" height="332" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1360.728@1366.0.1360.728" timestamp="1596823692393" />
     <state width="1323" height="189" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1596367372182" />
-    <state width="1317" height="9" key="GridCell.Tab.0.center" timestamp="1596822638893">
+    <state width="1317" height="332" key="GridCell.Tab.0.center" timestamp="1596823692391">
       <screen x="1366" y="0" width="1360" height="728" />
     </state>
     <state width="1323" height="165" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596676389490" />
-    <state width="1317" height="9" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1360.728@1366.0.1360.728" timestamp="1596822638893" />
+    <state width="1317" height="332" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1360.728@1366.0.1360.728" timestamp="1596823692391" />
     <state width="1323" height="189" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1596367372182" />
-    <state width="1317" height="9" key="GridCell.Tab.0.left" timestamp="1596822638893">
+    <state width="1317" height="332" key="GridCell.Tab.0.left" timestamp="1596823692391">
       <screen x="1366" y="0" width="1360" height="728" />
     </state>
     <state width="1323" height="165" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596676389490" />
-    <state width="1317" height="9" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1360.728@1366.0.1360.728" timestamp="1596822638893" />
+    <state width="1317" height="332" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1360.728@1366.0.1360.728" timestamp="1596823692391" />
     <state width="1323" height="189" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1596367372182" />
-    <state width="1317" height="9" key="GridCell.Tab.0.right" timestamp="1596822638893">
+    <state width="1317" height="332" key="GridCell.Tab.0.right" timestamp="1596823692393">
       <screen x="1366" y="0" width="1360" height="728" />
     </state>
     <state width="1323" height="165" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596676389490" />
-    <state width="1317" height="9" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1360.728@1366.0.1360.728" timestamp="1596822638893" />
+    <state width="1317" height="332" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1360.728@1366.0.1360.728" timestamp="1596823692393" />
     <state width="1323" height="189" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1596367372182" />
-    <state width="1317" height="9" key="GridCell.Tab.1.bottom" timestamp="1596822638893">
+    <state width="1317" height="332" key="GridCell.Tab.1.bottom" timestamp="1596823692393">
       <screen x="1366" y="0" width="1360" height="728" />
     </state>
     <state width="1323" height="165" key="GridCell.Tab.1.bottom/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596676389487" />
-    <state width="1317" height="9" key="GridCell.Tab.1.bottom/0.0.1366.728/1366.0.1360.728@1366.0.1360.728" timestamp="1596822638893" />
-    <state width="1317" height="9" key="GridCell.Tab.1.center" timestamp="1596822638893">
+    <state width="1317" height="332" key="GridCell.Tab.1.bottom/0.0.1366.728/1366.0.1360.728@1366.0.1360.728" timestamp="1596823692393" />
+    <state width="1317" height="332" key="GridCell.Tab.1.center" timestamp="1596823692393">
       <screen x="1366" y="0" width="1360" height="728" />
     </state>
     <state width="1323" height="165" key="GridCell.Tab.1.center/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596676389487" />
-    <state width="1317" height="9" key="GridCell.Tab.1.center/0.0.1366.728/1366.0.1360.728@1366.0.1360.728" timestamp="1596822638893" />
-    <state width="1317" height="9" key="GridCell.Tab.1.left" timestamp="1596822638893">
+    <state width="1317" height="332" key="GridCell.Tab.1.center/0.0.1366.728/1366.0.1360.728@1366.0.1360.728" timestamp="1596823692393" />
+    <state width="1317" height="332" key="GridCell.Tab.1.left" timestamp="1596823692393">
       <screen x="1366" y="0" width="1360" height="728" />
     </state>
     <state width="1323" height="165" key="GridCell.Tab.1.left/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596676389486" />
-    <state width="1317" height="9" key="GridCell.Tab.1.left/0.0.1366.728/1366.0.1360.728@1366.0.1360.728" timestamp="1596822638893" />
-    <state width="1317" height="9" key="GridCell.Tab.1.right" timestamp="1596822638893">
+    <state width="1317" height="332" key="GridCell.Tab.1.left/0.0.1366.728/1366.0.1360.728@1366.0.1360.728" timestamp="1596823692393" />
+    <state width="1317" height="332" key="GridCell.Tab.1.right" timestamp="1596823692393">
       <screen x="1366" y="0" width="1360" height="728" />
     </state>
     <state width="1323" height="165" key="GridCell.Tab.1.right/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596676389487" />
-    <state width="1317" height="9" key="GridCell.Tab.1.right/0.0.1366.728/1366.0.1360.728@1366.0.1360.728" timestamp="1596822638893" />
+    <state width="1317" height="332" key="GridCell.Tab.1.right/0.0.1366.728/1366.0.1360.728@1366.0.1360.728" timestamp="1596823692393" />
     <state x="1578" y="19" key="Maven.ArtifactSearchDialog" timestamp="1596760666108">
       <screen x="1366" y="0" width="1360" height="728" />
     </state>
@@ -211,5 +205,9 @@
     </state>
     <state x="531" y="159" width="316" height="409" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1596584086931" />
     <state x="1895" y="159" width="316" height="409" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.0.1366.728/1366.0.1360.728@1366.0.1360.728" timestamp="1596821192055" />
+    <state x="1709" y="49" key="search.everywhere.popup" timestamp="1596828344107">
+      <screen x="1366" y="0" width="1360" height="728" />
+    </state>
+    <state x="1709" y="49" key="search.everywhere.popup/0.0.1366.728/1366.0.1360.728@1366.0.1360.728" timestamp="1596828344107" />
   </component>
 </project>

@@ -9,28 +9,33 @@
         <div class="row">
           <div class="col">
             <div class="form-group">
-              <label for="name" class="float-left">First Name</label>
+              <label for="name">First Name</label>
               <input type="text" class="form-control" id="name" required [(ngModel)]="user.fname" name="name">
-            </div>
-            <br>
+            </div><br>
           </div>
 
           <div class="col">
             <div class="form-group">
-              <label for="surname" class="float-left">Last Name</label>
+              <label for="surname">Last Name</label>
               <input type="text" class="form-control" id="surname" required [(ngModel)]="user.lname" name="surname">
-            </div>
-            <br>
+            </div><br>
           </div>
         </div>
 
         <div class="form-group">
-          <input type="radio" id="admin" name="role" value="Admin" required [(ngModel)]="user.userRole">
-          <label for="admin"><i> Admin</i></label><br>
-          <input type="radio" id="advanced" name="role" value="Advanced" required [(ngModel)]="user.userRole">
-          <label for="advanced"><i> Advanced</i></label><br>
-          <input type="radio" id="basic" name="role" value="Basic" required [(ngModel)]="user.userRole">
-          <label for="basic"><i> Basic</i></label><br>
+          <label class="float-left">Role</label><br><br>
+          <label class="radioContainer">Admin
+            <input type="radio" checked="checked" name="role" id="admin" value="Admin" required [(ngModel)]="user.userRole">
+            <span class="radioCheckmark"></span>
+          </label>
+          <label class="radioContainer">Advanced
+            <input type="radio" name="role" id="advanced" value="Advanced" required [(ngModel)]="user.userRole">
+            <span class="radioCheckmark"></span>
+          </label>
+          <label class="radioContainer">Basic
+            <input type="radio" name="role" id="basic" value="Basic" required [(ngModel)]="user.userRole">
+            <span class="radioCheckmark"></span>
+          </label>
         </div>
         <br>
 
@@ -39,3 +44,4 @@
     </div>
   </div>
 </div>
+
