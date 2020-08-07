@@ -23,7 +23,7 @@
                               <tr>
                                 <td>{{user.userId}}</td>
                                 <td><img alt="Profile Picture" src="{{user.profilePhoto}}" class="listPic"></td>
-                                <td>{{user.name}}&nbsp;{{user.surname}}</td>
+                                <td>{{user.fname}}&nbsp;{{user.lname}}</td>
                                 <td>{{user.userRole}}</td>
                                 <td>
                                   <button id="editBtn" class="btn btn-primary" (click)="updateUser(user.userId)">Edit</button>
@@ -47,7 +47,8 @@
       <div class="modal-content">
         <div class="modal-body center">
           <i class="material-icons modal-close-btn" data-dismiss="modal">close</i>
-          <app-add-user></app-add-user>
+          <!--The add user has a bug that stops the list user from displaying-->
+          <!--<app-add-user></app-add-user>-->
         </div>
       </div>
     </div>

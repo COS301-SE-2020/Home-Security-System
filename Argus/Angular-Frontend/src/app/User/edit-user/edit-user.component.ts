@@ -36,8 +36,8 @@ export class EditUserComponent implements OnInit {
 
     this.userService.getUserById(this.id).subscribe(
       data => {
-        uName.value = data.name;
-        uSurname.value = data.surname;
+        uName.value = data.fname;
+        uSurname.value = data.lname;
         uRole.value = data.userRole;
       });
   }*/

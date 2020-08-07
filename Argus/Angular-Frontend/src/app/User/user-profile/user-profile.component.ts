@@ -72,8 +72,8 @@ export class UserProfileComponent implements OnInit {
     let userObj;
     userObj = this.sessionS.retrieveUserInfo();
 
-    this.user.name = uName.value;
-    this.user.surname = uSurname.value;
+    this.user.fname = uName.value;
+    this.user.lname = uSurname.value;
     this.user.email = uEmail.value;
     this.user.username = uUsername.value;
     this.user.userPass = uPassword.value;

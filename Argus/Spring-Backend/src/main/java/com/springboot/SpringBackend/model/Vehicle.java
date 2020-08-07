@@ -121,7 +121,7 @@ public class Vehicle implements Serializable {
         this.id = id;
     }
 
-    public Long getVehicleImgId() { return this.vehicleImg.getImageId(); }
+    //public Long getVehicleImgId() { return this.vehicleImg.getImageId(); }
     public Image getVehicleImg() {
         return this.vehicleImg;
     }

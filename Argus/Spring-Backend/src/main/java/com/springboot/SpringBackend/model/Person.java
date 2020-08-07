@@ -130,7 +130,7 @@ public class Person implements Serializable {
         this.id = id;
     }
 
-    public Long getImageId() { return this.personImg.getImageId(); }
+    //public Long getImageId() { return this.personImg.getImageId(); }
     public Image getPersonImg() { return this.personImg; }
     public void setPersonImg(Image img) {
         if (img != null) {

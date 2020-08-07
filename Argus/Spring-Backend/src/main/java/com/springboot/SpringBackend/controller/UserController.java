@@ -51,8 +51,8 @@ public class UserController {
         if(details.getProfilePhoto() != null) {
             x.setProfilePhoto(details.getProfilePhoto());
         }
-        x.setName(details.getName());
-        x.setSurname(details.getSurname());
+        x.setFname(details.getFname());
+        x.setLname(details.getLname());
         x.setEmail(details.getEmail());
         x.setUsername(details.getUsername());
         x.setUserPass(details.getUserPass());

@@ -94,7 +94,7 @@ export class AddUserComponent implements OnInit {
   save() {
     const usernameInp = document.getElementById('username') as HTMLInputElement;
     const emailInp = document.getElementById('email') as HTMLInputElement;
-    const nameInp = document.getElementById('name') as HTMLInputElement;
+    const nameInp = document.getElementById('fname') as HTMLInputElement;
     const surnameInp = document.getElementById('surname') as HTMLInputElement;
     const passwordInp = document.getElementById('pass') as HTMLInputElement;
 
@@ -106,8 +106,8 @@ export class AddUserComponent implements OnInit {
       (passwordInp.value !== '')){
       this.user = new User();
 
-      this.user.name = nameInp.value;
-      this.user.surname = surnameInp.value;
+      this.user.fname = nameInp.value;
+      this.user.lname = surnameInp.value;
       this.user.username = usernameInp.value;
       this.user.userPass = passwordInp.value;
 
