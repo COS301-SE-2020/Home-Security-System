@@ -12,7 +12,7 @@ public class RabbitPerson implements Serializable {
 
     public RabbitPerson() {}
 
-    public RabbitPerson(@JsonProperty("imageStr") String img) {
+    public RabbitPerson(@JsonProperty("image") String img) {
         this.image = img;
     }
 

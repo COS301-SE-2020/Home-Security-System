@@ -18,19 +18,19 @@ public class RabbitProducer {
         this.amqpTemplate = template;
     }
 
-    @Scheduled(fixedDelay = 3000L)
+    /*@Scheduled(fixedDelay = 3000L)
     public void sendAlert() {
         RabbitAlert x = new RabbitAlert("Intruder", 1);
         amqpTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.ALERT_KEY, x);
         LOGGER.info("Alert Sent");
-    }
+    }*/
 
     /*
     @Scheduled(fixedDelay = 3000L)
     public void sendPerson() {
         RabbitPerson x = new RabbitPerson("Intruder");
         amqpTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.PERSON_KEY, x);
-        LOGGER.info("Alert Sent");
+        LOGGER.info("Person Sent");
     }
     */
 }

@@ -27,7 +27,7 @@ public class RabbitConsumer {
         this.uservice = us;
     }
 
-    @RabbitListener(queues = {"alertQueue"})
+    /*@RabbitListener(queues = {"alertQueue"})
     public void receivedAlert(RabbitAlert alert) {
         Long num = Long.valueOf(1);
         Optional<User> u =  uservice.getUserById(num);
@@ -35,8 +35,7 @@ public class RabbitConsumer {
         nservice.createNotification(new Notification(new Image(alert.getImage()),
                 "Intruder" + x.get().getFname() + " " + x.get().getLname(), u.get()));
         LOGGER.info("Alert Received");
-    }
-
+    }*/
 
     /*
     @RabbitListener(queues = {"persontQueue"})

@@ -14,7 +14,7 @@ public class RabbitAlert implements Serializable {
 
     public RabbitAlert() {}
 
-    public RabbitAlert(@JsonProperty("imageStr") String img, @JsonProperty("id") int id) {
+    public RabbitAlert(@JsonProperty("image") String img, @JsonProperty("pid") int id) {
         this.image = img;
         this.pid = id;
     }
