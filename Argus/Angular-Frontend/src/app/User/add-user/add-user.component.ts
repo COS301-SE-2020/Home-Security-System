@@ -3,6 +3,7 @@ import {UserService} from '../../model/user.service';
 import {TitleService} from '../../title.service';
 import {Router} from '@angular/router';
 import {User} from '../../model/user';
+import { Session } from '../../../assets/js/SessionStorage.js';
 import {WebcamImage} from 'ngx-webcam';
 import {Observable, Subject} from 'rxjs';
 
@@ -13,7 +14,10 @@ import {Observable, Subject} from 'rxjs';
 })
 export class AddUserComponent implements OnInit {
 
-  user: User = new User();
+  sessionS = new Session();
+  users: Observable<User[]>;
+  user: User;
+  // user: User = new User();
   submitted = false;
 
   constructor(private usersService: UserService, private appService: TitleService, private router: Router) {
@@ -60,19 +64,81 @@ export class AddUserComponent implements OnInit {
     this.user = new User();
   }
 
+  checkIfExists(){
+    this.submitted = false;
+    let counter = 0;
+    const usernameInp = document.getElementById('username') as HTMLInputElement;
+    const emailInp = document.getElementById('email') as HTMLInputElement;
+
+    let userObj;
+    userObj = this.sessionS.retrieveUserInfo();
+
+    this.usersService.getUserList().subscribe(
+      data => {
+        if (data[counter].username === usernameInp.value){
+          alert('Username is already taken. Please enter another username');
+          usernameInp.value = '';
+          usernameInp.focus();
+        }
+        if (data[counter].email === emailInp.value){
+          alert('Email address is already in use. Please enter another email address');
+          emailInp.value = '';
+          emailInp.focus();
+        }
+        counter++;
+      }
+    );
+
+  }
+
   save() {
-    this.usersService.addUser(this.user)
-      .subscribe(data => console.log(data), error => console.log(error));
-    this.user = new User();
-    // this.gotoList();
+    const usernameInp = document.getElementById('username') as HTMLInputElement;
+    const emailInp = document.getElementById('email') as HTMLInputElement;
+    const nameInp = document.getElementById('name') as HTMLInputElement;
+    const surnameInp = document.getElementById('surname') as HTMLInputElement;
+    const passwordInp = document.getElementById('pass') as HTMLInputElement;
+
+    const adminRole = document.getElementById('admin') as HTMLInputElement;
+    const advancedRole = document.getElementById('advanced') as HTMLInputElement;
+    const basicRole = document.getElementById('basic') as HTMLInputElement;
+
+    if ((usernameInp.value !== '') && (emailInp.value !== '') && (nameInp.value !== '') && (surnameInp.value !== '') &&
+      (passwordInp.value !== '')){
+      this.user = new User();
+
+      this.user.name = nameInp.value;
+      this.user.surname = surnameInp.value;
+      this.user.username = usernameInp.value;
+      this.user.userPass = passwordInp.value;
+
+      if (adminRole.checked){
+        this.user.userRole = adminRole.value;
+      }
+      else if (advancedRole.checked){
+        this.user.userRole = advancedRole.value;
+      }
+      else{
+        this.user.userRole = basicRole.value;
+      }
+
+      this.usersService.addUser(this.user);
+
+      this.submitted = true;
+    }
+    else{
+      this.submitted = false;
+      alert('Cannot add a new user. Not all the fields are filled in.');
+    }
   }
 
   onSubmit() {
-    this.submitted = true;
+    this.checkIfExists();
     this.save();
+    this.gotoList();
   }
 
   gotoList() {
-    this.router.navigate(['/user-list']);
+    const cardV = document.getElementsByClassName('modal') ;
+    // this.router.navigate(['/user-list']);
   }
 }

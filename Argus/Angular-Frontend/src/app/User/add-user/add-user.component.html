@@ -1,16 +1,15 @@
-<div class="card">
+<div class="card" id="cardPopup">
   <div class="card-header card-header-color">
     <h4 class="card-title">Create User</h4>
   </div>
   <div class="card-body">
     <br>
-    <div [hidden]="submitted">
-      <form (ngSubmit)="onSubmit()">
+    <div>
         <div class="row">
           <div class="col">
             <div class="form-group">
               <label for="name" class="float-left">First Name</label>
-              <input type="text" class="form-control" id="name" required [(ngModel)]="user.name" name="name">
+              <input type="text" class="form-control" id="name" name="name">
             </div>
             <br>
           </div>
@@ -18,7 +17,7 @@
           <div class="col">
             <div class="form-group">
               <label for="surname" class="float-left">Last Name</label>
-              <input type="text" class="form-control" id="surname" required [(ngModel)]="user.surname" name="surname">
+              <input type="text" class="form-control" id="surname" name="surname">
             </div>
             <br>
           </div>
@@ -26,28 +25,28 @@
 
         <div class="form-group">
           <label for="email" class="float-left">Email</label>
-          <input type="text" class="form-control" id="email" required [(ngModel)]="user.email" name="email">
+          <input type="text" class="form-control" id="email" name="email">
         </div>
         <br>
 
         <div class="form-group">
           <label for="username" class="float-left">Username</label>
-          <input type="text" class="form-control" id="username" required [(ngModel)]="user.username" name="username">
+          <input type="text" class="form-control" id="username" name="username">
         </div>
         <br>
 
         <div class="form-group">
           <label for="pass" class="float-left">Password</label>
-          <input type="text" class="form-control" id="pass" required [(ngModel)]="user.userPass" name="pass">
+          <input type="text" class="form-control" id="pass" name="pass">
         </div>
         <br>
 
         <div class="form-group">
-          <input type="radio" id="admin" name="role" value="Admin" required [(ngModel)]="user.userRole">
+          <input type="radio" id="admin" name="role" value="Admin">
           <label for="admin"><i> Admin</i></label><br>
-          <input type="radio" id="advanced" name="role" value="Advanced" required [(ngModel)]="user.userRole">
+          <input type="radio" id="advanced" name="role" value="Advanced">
           <label for="advanced"><i> Advanced</i></label><br>
-          <input type="radio" id="basic" name="role" value="Basic" checked required [(ngModel)]="user.userRole">
+          <input type="radio" id="basic" name="role" value="Basic" checked>
           <label for="basic"><i> Basic</i></label><br>
         </div>
         <br>
@@ -77,8 +76,7 @@
           </a>
         </div>
 
-        <button type="submit" class="btn btn-primary justify-content-center">Submit</button>
-      </form>
+        <button type="submit" class="btn btn-primary justify-content-center" data-dismiss="modal" (click)="onSubmit()">Submit</button>
     </div>
 </div>
 
