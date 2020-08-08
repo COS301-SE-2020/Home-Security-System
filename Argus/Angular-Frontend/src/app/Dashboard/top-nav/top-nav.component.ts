@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {TitleService} from '../../title.service';
 import {Session} from '../../../assets/js/SessionStorage';
+import {UserService} from '../../model/user.service';
+import {User} from '../../model/user';
 
 
 @Component({
@@ -11,8 +13,9 @@ import {Session} from '../../../assets/js/SessionStorage';
 export class TopNavComponent implements OnInit {
   title: string;
   sessionS = new Session();
+  user: User;
 
-  constructor(private appService: TitleService) {}
+  constructor(private appService: TitleService, private userService: UserService) {}
 
   ReadDB(): void {}
 
@@ -22,7 +25,13 @@ export class TopNavComponent implements OnInit {
 
   ngOnInit(): void {
     // this.appService.getTitle().subscribe(appTitle => title = appTitle);
-    this.ReadDB();
+    let userObj;
+    userObj = this.sessionS.retrieveUserInfo();
+    const uPic = document.getElementById('profilePic') as HTMLImageElement;
+    this.userService.getUserById(userObj.id).subscribe(
+      data => {
+        uPic.src = data.profilePhoto.photo;
+      });
   }
 
 }

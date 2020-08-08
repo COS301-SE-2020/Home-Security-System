@@ -10,14 +10,14 @@
           <h4 class="modal-title">Select a new profile picture for yourself.</h4>
         </div>
         <div class="modal-body">
-          <input class="input100 " type="file" name="profilePic" accept="image/jpeg, image/png" id="profilePic"
+          <input class="input100 " type="file" name="profilePic" accept="image/jpeg, image/png" id="profilePicUpload"
                  onchange="updateProfilePic(event)">
           <img id="profilePicDisplay" src="/assets/Images/profile.jpg" width="80px">
           <!--Can't use inline styling-->
           <img id="output" width="150px">
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary pull-right" data-dismiss="modal" onclick="saveChanges()" >Update</button>
+          <button type="button" class="btn btn-primary pull-right" data-dismiss="modal" (click)="updateUserPic()" onclick="saveChanges()">Update</button>
         </div>
       </div>
     </div>
