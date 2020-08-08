@@ -25,9 +25,10 @@ export class ListUsersComponent implements OnInit {
     this.userService.getUserList()
       .subscribe(
         data => {
-          // console.log(data);
+          console.log(data);
         },
         error => console.log(error));
+    this.activateButtons();
   }
 
   removeUser(id: number) {
@@ -45,9 +46,9 @@ export class ListUsersComponent implements OnInit {
           .subscribe(
             data => {
               // console.log(data);
-              this.reloadData();
             },
             error => console.log(error));
+        this.reloadData();
       }
     }
     else if ((user.userRole === 'Advanced')){
@@ -60,15 +61,6 @@ export class ListUsersComponent implements OnInit {
       deleteBtn.hidden = true;
       // alert('You are unfortunately not able to delete a user on this page.');
     }
-    /*
-    this.userService.deleteUser(id)
-      .subscribe(
-        data => {
-          // console.log(data);
-          this.reloadData();
-        },
-        error => console.log(error));
-     */
   }
 
   updateUser(id: number){
@@ -85,7 +77,7 @@ export class ListUsersComponent implements OnInit {
       editBtn.hidden = true;
       // alert('You are unfortunately not able to edit a user on this page.');
     }
-  }
+    }
 
   viewUser(id: number){
     this.router.navigate(['view-user', id]);
@@ -96,31 +88,34 @@ export class ListUsersComponent implements OnInit {
   activateButtons(){
     const addBtn = document.getElementById('addBtn') as HTMLButtonElement;
     const editBtn = document.getElementById('editBtn') as HTMLButtonElement;
+    console.log(editBtn); // returns null?
     const deleteBtn = document.getElementById('deleteBtn') as HTMLButtonElement;
     const user = this.sessionS.retrieveUserInfo();
 
     this.userService.getUserList()
       .subscribe(
         data => {
-
-          if ((user.userRole === 'Admin')){
-            addBtn.disabled = false;
-            editBtn.disabled = false;
-          }
-          else if ((user.userRole === 'Advanced')){
-            addBtn.disabled = false;
-            editBtn.disabled = false;
-            deleteBtn.hidden = true;
-          }
-          else if ((user.userRole === 'Basic')){
-            addBtn.disabled = true;
-            addBtn.hidden = true;
-            editBtn.disabled = true;
-            editBtn.hidden = true;
-            deleteBtn.hidden = true;
-          }
+          console.log(data);
         },
         error => console.log(error));
+
+
+    if (user.userRole === 'Admin'){
+      addBtn.disabled = false;
+      // editBtn.disabled = false;
+    }
+    else if (user.userRole === 'Advanced'){
+      addBtn.disabled = false;
+      // editBtn.disabled = false;
+      deleteBtn.hidden = true;
+    }
+    else if (user.userRole === 'Basic'){
+      addBtn.disabled = true;
+      addBtn.hidden = true;
+      // editBtn.disabled = true;
+      // editBtn.hidden = true;
+      deleteBtn.hidden = true;
+    }
   }
 
   // ------------------------------------------------------------------
@@ -128,7 +123,6 @@ export class ListUsersComponent implements OnInit {
   ngOnInit(): void {
     this.appService.setTitle('User List');
     this.sessionS.retrieveUserInfo();
-    this.activateButtons();
     this.reloadData();
   }
 }

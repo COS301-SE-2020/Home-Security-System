@@ -68,8 +68,8 @@ public class Person implements Serializable {
 
     public Person(Image img, String listed) {
         this.personImg = img;
-        this.fname = "";
-        this.lname = "";
+        this.fname = "Unknown";
+        this.lname = "Unknown";
 
         if(listed.equalsIgnoreCase("White"))
         {

@@ -17,9 +17,9 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
         <sql>
             CREATE TABLE ArgusUser(
             user_id INT NOT NULL DEFAULT nextval('userID_seq'),
-            profilePhoto INT REFERENCES Image(image_id),
-            name TEXT NOT NULL,
-            surname TEXT NOT NULL,
+            profilePhoto INT DEFAULT 1 REFERENCES Image(image_id),
+            fname TEXT NOT NULL,
+            lname TEXT NOT NULL,
             email TEXT NOT NULL,
             username TEXT NOT NULL,
             userPass TEXT NOT NULL,

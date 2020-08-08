@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 //@Configuration
 public class LiquibaseConfig {
 /*
-    @Value("${../resources/db/liquibase-changelog.xml}")
+    @Value("${../../resources/db/liquibase-changelog.xml}")
     private String changelog;
 
     @Autowired

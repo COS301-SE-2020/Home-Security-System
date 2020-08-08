@@ -38,7 +38,7 @@ public class Face implements Serializable {
     public Long getFaceId() { return this.id; }
     public void setFaceId(Long fid) { this.id = fid; }
 
-    public Long getPersonID() { return this.person.getPersonId(); }
+    //public Long getPersonId() { return this.person.getPersonId(); }
     public Person getPerson() {
         return this.person;
     }

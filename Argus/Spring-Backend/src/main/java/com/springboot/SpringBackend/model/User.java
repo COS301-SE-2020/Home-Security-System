@@ -31,11 +31,11 @@ public class User implements Serializable {
     @JoinColumn(name="profilephoto", nullable = true)
     private Image profilePhoto = null;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "fname", nullable = false)
+    private String fname;
 
-    @Column(name = "surname", nullable = false)
-    private String surname;
+    @Column(name = "lname", nullable = false)
+    private String lname;
 
     @Column(name = "email", nullable = false)
     private String email;
@@ -78,8 +78,8 @@ public class User implements Serializable {
 
     public User(Image id, String name, String surname, String email, String username, String password, String role) {
         this.profilePhoto = id;
-        this.name = Jsoup.clean(name, Whitelist.simpleText());
-        this.surname = Jsoup.clean(surname, Whitelist.simpleText());
+        this.fname = Jsoup.clean(name, Whitelist.simpleText());
+        this.lname = Jsoup.clean(surname, Whitelist.simpleText());
         this.email = Jsoup.clean(email, Whitelist.simpleText());
         this.username = Jsoup.clean(username, Whitelist.simpleText());
         this.userPass = Jsoup.clean(password, Whitelist.simpleText());
@@ -105,8 +105,8 @@ public class User implements Serializable {
     }
 
     public User(String name, String surname, String email, String username, String password, String role) {
-        this.name = Jsoup.clean(name, Whitelist.simpleText());
-        this.surname = Jsoup.clean(surname, Whitelist.simpleText());
+        this.fname = Jsoup.clean(name, Whitelist.simpleText());
+        this.lname = Jsoup.clean(surname, Whitelist.simpleText());
         this.email = Jsoup.clean(email, Whitelist.simpleText());
         this.username = Jsoup.clean(username, Whitelist.simpleText());
         this.userPass = Jsoup.clean(password, Whitelist.simpleText());
@@ -140,11 +140,7 @@ public class User implements Serializable {
 
 
     public Long getProfilePhotoId() {
-        if (profilePhoto != null)
-        {
-            return this.profilePhoto.getImageId();
-        }
-        return null;
+        return Long.valueOf(1);
     }
     public Image getProfilePhoto() {
         if (profilePhoto != null)
@@ -159,11 +155,11 @@ public class User implements Serializable {
         }
     }
 
-    public String getName() {return this.name;}
-    public void setName(String name) {this.name = Jsoup.clean(name, Whitelist.simpleText());}
+    public String getFname() {return this.fname;}
+    public void setFname(String name) {this.fname = Jsoup.clean(name, Whitelist.simpleText());}
 
-    public String getSurname() {return this.surname;}
-    public void setSurname(String name) {this.surname = Jsoup.clean(name, Whitelist.simpleText());}
+    public String getLname() {return this.lname;}
+    public void setLname(String name) {this.lname = Jsoup.clean(name, Whitelist.simpleText());}
 
     public String getEmail() {
         return this.email;

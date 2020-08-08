@@ -27,7 +27,7 @@ export class EditPersonComponent implements OnInit {
       }, error => console.log(error));
   }
 
-  updateUser() {
+  updatePerson() {
     this.personService.updatePerson(this.id, this.person)
       .subscribe(data => console.log(data), error => console.log(error));
     this.person = new Person();
@@ -35,7 +35,7 @@ export class EditPersonComponent implements OnInit {
   }
 
   onSubmit() {
-    this.updateUser();
+    this.updatePerson();
   }
 
   gotoList() {

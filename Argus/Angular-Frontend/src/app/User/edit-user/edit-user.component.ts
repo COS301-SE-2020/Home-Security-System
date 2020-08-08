@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../model/user.service';
 import {User} from '../../model/user';
 import {ActivatedRoute, Router} from '@angular/router';
-import { Session } from '../../../assets/js/SessionStorage.js';
 
 @Component({
   selector: 'app-edit-user',
@@ -10,7 +9,6 @@ import { Session } from '../../../assets/js/SessionStorage.js';
   styleUrls: ['./edit-user.component.css']
 })
 export class EditUserComponent implements OnInit {
-  // sessionS = new Session();
   id: number;
   user: User;
 
@@ -23,37 +21,15 @@ export class EditUserComponent implements OnInit {
     this.id = this.route.snapshot.params.id;
 
     this.userService.getUserById(this.id)
-      .subscribe( data => {
+      .subscribe(data => {
+        // console.log(data);
         this.user = data;
       }, error => console.log(error));
-    // this.loadModal();
   }
 
-  /*loadModal() {
-    const uName = document.getElementById('name') as HTMLInputElement;
-    const uSurname = document.getElementById('surname') as HTMLInputElement;
-    const uRole = document.getElementById('role') as HTMLInputElement;
-
-    this.userService.getUserById(this.id).subscribe(
-      data => {
-        uName.value = data.name;
-        uSurname.value = data.surname;
-        uRole.value = data.userRole;
-      });
-  }*/
-
   updateUser() {
-    /*
-    const uName = document.getElementById('name') as HTMLInputElement;
-    const uSurname = document.getElementById('surname') as HTMLInputElement;
-    const uRole = document.getElementById('role') as HTMLInputElement;
-
-    this.user.name = uName.value;
-    this.user.surname = uSurname.value;
-    this.user.userRole = uRole.value;
-    */
-
-    this.userService.updateUser(this.id, this.user).subscribe(data => console.log(data), error => console.log(error));
+    this.userService.updateUser(this.id, this.user)
+      .subscribe(data => console.log(data), error => console.log(error));
     this.user = new User();
     this.gotoList();
   }
