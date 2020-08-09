@@ -49,6 +49,7 @@ export class ListUsersComponent implements OnInit {
             },
             error => console.log(error));
         this.reloadData();
+        location.reload();
       }
     }
     else if ((user.userRole === 'Advanced')){
