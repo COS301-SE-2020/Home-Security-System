@@ -7,9 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Spring-Backend" />
+        <module name="Pom" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="Pom" target="1.5" />
       <module name="Spring-Backend" target="14" />
     </bytecodeTargetLevel>
   </component>

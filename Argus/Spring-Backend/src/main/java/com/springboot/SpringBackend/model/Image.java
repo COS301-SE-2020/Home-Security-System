@@ -1,44 +1,46 @@
 package com.springboot.SpringBackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
-/*@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id",
-        scope = Person.class)*/
-@Table(name = "photo_table")
+@Table(name = "image")
 public class Image implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -8366923365418680409L;
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.AUTO, generator = "photoID_seq")
-    //@SequenceGenerator(name = "photoID_seq", sequenceName = "photoID_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "photo_id", nullable = false)
+    @Column(name = "image_id", nullable = false)
     private Long id;
 
-    @Column(name = "image", nullable = false)
-    private String image;
+    @Column(name = "photo", nullable = false)
+    private String photo;
 
-    @Column(name = "deletionDate", nullable = true)
-    private String deletionDate = "";
+    @Column(name = "imagedeleted", nullable = true)
+    private LocalDate imageDeleted = null;
 
-
-    @OneToOne(mappedBy = "profilePhoto", fetch = FetchType.LAZY)
-    private User user;
-    @OneToOne(mappedBy = "personImg", fetch = FetchType.LAZY)
-    private Person person;
-    @OneToOne(mappedBy = "vehicleImg", fetch = FetchType.LAZY)
-    private Vehicle vehicle;
-    @OneToOne(mappedBy = "notificationImg", fetch = FetchType.LAZY)
-    private Notification notification;
+    @JsonIgnore
+    @OneToMany(mappedBy="profilePhoto", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<User> users;
+    @JsonIgnore
+    @OneToMany(mappedBy="personImg", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Person> people;
+    @JsonIgnore
+    @OneToMany(mappedBy="vehicleImg", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Vehicle> vehicles;
+    @JsonIgnore
+    @OneToMany(mappedBy="notificationImg", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Notification> notifications = null;
 
     public Image() { }
-
     public Image(String img) {
-        this.image = img;
+        this.photo = Jsoup.clean(img, Whitelist.simpleText());
     }
 
     public Long getImageId() {
@@ -48,22 +50,20 @@ public class Image implements Serializable {
         this.id = id;
     }
 
-    public String getImage() {
-        return this.image;
+    public String getPhoto() {
+        return this.photo;
     }
-    public void setImage(String img) {
-        this.image = img;
-    }
-
-    public String getDeletionDate() {
-        return this.deletionDate;
-    }
-    public void setDeletionDate(String date) {
-        this.deletionDate = date;
+    public void setPhoto(String img) {
+        this.photo = Jsoup.clean(img, Whitelist.simpleText());
     }
 
-    @Override
-    public String toString() {
-        return "Image [photo_ID=" + id + ", image=" + image + ", deletionDate=" + deletionDate + "]";
+    public LocalDate getImageDeleted() {
+        if(imageDeleted != null) {
+            return this.imageDeleted;
+        }
+        return null;
+    }
+    public void setImageDeleted() {
+        this.imageDeleted = LocalDate.now();
     }
 }

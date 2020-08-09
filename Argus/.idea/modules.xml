@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Argus.iml" filepath="$PROJECT_DIR$/.idea/Argus.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Angular-Frontend/Pom/Pom.iml" filepath="$PROJECT_DIR$/Angular-Frontend/Pom/Pom.iml" />
       <module fileurl="file://$PROJECT_DIR$/Spring-Backend/Spring-Backend.iml" filepath="$PROJECT_DIR$/Spring-Backend/Spring-Backend.iml" />
     </modules>
   </component>

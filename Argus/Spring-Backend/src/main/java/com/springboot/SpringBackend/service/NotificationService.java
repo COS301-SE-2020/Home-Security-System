@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface NotificationService {
-    List<Notification> listAllEvents();
+    List<Notification> getAllNotifications();
 
     Optional<Notification> getNotificationById(Long id);
 
@@ -14,9 +14,7 @@ public interface NotificationService {
 
     Notification updateNotification(Notification x);
 
-    void deleteAllNotifications();
-
     void deleteNotification(Notification x);
 
-    void deleteNotificationById(Long id);
+    void deleteAllNotifications();
 }

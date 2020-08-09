@@ -1,8 +1,7 @@
-import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
-
 import { Component, OnInit } from '@angular/core';
 import {TitleService} from '../../title.service';
-import {snapshotChanges} from '@angular/fire/database';
+import {Session} from '../../../assets/js/SessionStorage';
+
 
 @Component({
   selector: 'app-top-nav',
@@ -10,34 +9,19 @@ import {snapshotChanges} from '@angular/fire/database';
   styleUrls: ['./top-nav.component.css']
 })
 export class TopNavComponent implements OnInit {
-  public usersList: AngularFireList<any>;
+  title: string;
+  sessionS = new Session();
 
-  title: String;
+  constructor(private appService: TitleService) {}
 
-  constructor(private appService: TitleService, private db: AngularFireDatabase) {
-    this.usersList = db.list('/users');
-  }
+  ReadDB(): void {}
 
-  ReadDB(): void {
-    const uL = this.db.database.ref('users');
-    let obj = null;
-    uL.orderByValue().on('value', function(snapshot): void {
-      snapshot.forEach(function(data): void {
-        if (data.val().u_id === '7531363037383632354074756b732e636f2e7a61') {
-          obj = data.val();
-        }
-      });
-      if (obj === null) {
-        console.log('error');
-      } else {
-        const userImageDisplay = document.getElementById('profilePic') as HTMLImageElement;
-        userImageDisplay.src = obj.profilePicture;
-      }
-    });
+  clearUserSession(){
+    this.sessionS.deleteSession();
   }
 
   ngOnInit(): void {
-    this.appService.getTitle().subscribe(appTitle => this.title = appTitle);
+    // this.appService.getTitle().subscribe(appTitle => title = appTitle);
     this.ReadDB();
   }
 

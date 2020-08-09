@@ -1,25 +1,35 @@
 package com.springboot.SpringBackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.BatchSize;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-/*@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id",
-        scope = Person.class)*/
-@Table(name = "user_table")
-public class User{
-    public enum UserRole implements Serializable {
+@Table(name = "argususer")
+public class User implements Serializable {
+    private static final long serialVersionUID = -2292162305534844772L;
+
+    public enum UserRole {
         Admin, Advanced, Basic;
     }
-
-    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id", nullable = false)
     private Long id;
+
+    //@Column(name = "profilePhoto", nullable = true)
+    @ManyToOne
+    @JoinColumn(name="profilephoto", nullable = true)
+    private Image profilePhoto = null;
 
     @Column(name = "fname", nullable = false)
     private String fname;
@@ -33,67 +43,92 @@ public class User{
     @Column(name = "username", nullable = false)
     private String username;
 
-    @Column(name = "userPass", nullable = false)
+    @Column(name = "userpass", nullable = false)
+    @Size(min=8)
     private String userPass;
 
-    @Column(name = "userRole", nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "userrole", nullable = false)
     private UserRole userRole;
+    //private String userRole;
 
-    @Column(name = "deletionDate", nullable = true)
-    private String deletionDate = "";
+    @Column(name = "notifyemail", nullable = false)
+    private Boolean notifyEmail;
 
-    //@Column(name = "profilePhoto", nullable = false)
-    @OneToOne(targetEntity = Image.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "profilePhoto", referencedColumnName = "photo_ID")
-    private Image profilePhoto;
+    @Column(name = "notifylocal", nullable = false)
+    private Boolean notifyLocal;
 
-    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
-    private Notification notification;
+    @Column(name = "userdeleted", nullable = true)
+    private LocalDate userDeleted = null;
+
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @BatchSize(size = 1000)
+    @JsonIgnore
+    private List<Notification> notificationList = new ArrayList<>();
+
+    /*
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "usernotification",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "notification_id"))
+    private List<Notification> notificationList = new ArrayList<>();
+     */
 
     public User() { }
 
-    public User(String name, String surname, String email, String username, String password, String role, Image id) {
-        this.fname = name;
-        this.lname = surname;
-        this.email = email;
-        this.username = username;
-        this.userPass = password;
+    public User(Image id, String name, String surname, String email, String username, String password, String role) {
+        this.profilePhoto = id;
+        this.fname = Jsoup.clean(name, Whitelist.simpleText());
+        this.lname = Jsoup.clean(surname, Whitelist.simpleText());
+        this.email = Jsoup.clean(email, Whitelist.simpleText());
+        this.username = Jsoup.clean(username, Whitelist.simpleText());
+        this.userPass = Jsoup.clean(password, Whitelist.simpleText());
 
         if(role.equalsIgnoreCase("Admin"))
         {
             this.userRole = UserRole.Admin;
+            //this.userRole = "Admin";
         }
         else if(role.equalsIgnoreCase("Advanced"))
         {
             this.userRole = UserRole.Advanced;
+            //this.userRole = "Advanced";
         }
         else
         {
             this.userRole = UserRole.Basic;
+            //this.userRole = "Basic";
         }
 
-        this.profilePhoto = id;
+        this.notifyEmail = true;
+        this.notifyLocal = true;
     }
 
     public User(String name, String surname, String email, String username, String password, String role) {
-        this.fname = name;
-        this.lname = surname;
-        this.email = email;
-        this.username = username;
-        this.userPass = password;
+        this.fname = Jsoup.clean(name, Whitelist.simpleText());
+        this.lname = Jsoup.clean(surname, Whitelist.simpleText());
+        this.email = Jsoup.clean(email, Whitelist.simpleText());
+        this.username = Jsoup.clean(username, Whitelist.simpleText());
+        this.userPass = Jsoup.clean(password, Whitelist.simpleText());
 
         if(role.equalsIgnoreCase("Admin"))
         {
             this.userRole = UserRole.Admin;
+            //this.userRole = "Admin";
         }
         else if(role.equalsIgnoreCase("Advanced"))
         {
             this.userRole = UserRole.Advanced;
+            //this.userRole = "Advanced";
         }
         else
         {
             this.userRole = UserRole.Basic;
+            //this.userRole = "Basic";
         }
+
+        this.notifyEmail = true;
+        this.notifyLocal = true;
     }
 
     public Long getUserId() {
@@ -103,72 +138,93 @@ public class User{
         this.id = id;
     }
 
-    public String getName() {return this.fname;}
-    public void setName(String name) {this.fname = name;}
 
-    public String getSurname() {return this.lname;}
-    public void setSurname(String name) {this.lname = name;}
-
-    public String getEmail() {
-        return this.email;
+    public Long getProfilePhotoId() {
+        return Long.valueOf(1);
     }
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getUsername() {
-        return this.username;
-    }
-    public void setUsername(String name) {
-        this.username = name;
-    }
-
-    public String getPassword() {
-        return this.userPass;
-    }
-    public void setPassword(String pass) {
-        this.userPass = pass;
-    }
-
-    public String getRole() {
-        return this.userRole.toString();
-    }
-    public void setRole(String role) {
-        if(role.equalsIgnoreCase("Admin"))
+    public Image getProfilePhoto() {
+        if (profilePhoto != null)
         {
-            this.userRole = UserRole.Admin;
+            return this.profilePhoto;
         }
-        else if(role.equalsIgnoreCase("Advanced"))
-        {
-            this.userRole = UserRole.Advanced;
-        }
-        else
-        {
-            this.userRole = UserRole.Basic;
-        }
+        return null;
     }
-
-    public Long getProfilePhotoById() { return this.profilePhoto.getImageId(); }
-    public Image getProfilePhoto() { return this.profilePhoto; }
     public void setProfilePhoto(Image photo) {
         if (photo != null) {
             this.profilePhoto = photo;
         }
     }
 
-    public String getDeletionDate() {
-        return this.deletionDate;
+    public String getFname() {return this.fname;}
+    public void setFname(String name) {this.fname = Jsoup.clean(name, Whitelist.simpleText());}
+
+    public String getLname() {return this.lname;}
+    public void setLname(String name) {this.lname = Jsoup.clean(name, Whitelist.simpleText());}
+
+    public String getEmail() {
+        return this.email;
     }
-    public void setDeletionDate(String date) {
-        this.deletionDate = date;
+    public void setEmail(String email) {
+        this.email = Jsoup.clean(email, Whitelist.simpleText());
     }
 
-    @Override
-    public String toString() {
-        return "User [user_id=" + id + ", fname=" + fname + ", lname=" + lname +
-                ", email=" + email + ", username=" + username +
-                ", userPass=" + userPass + ", userRole=" + userRole +
-                ", profilePhoto=" + profilePhoto.getImageId() +
-                ", deletionDate=" + deletionDate + "]";
+    public String getUsername() {
+        return this.username;
     }
+    public void setUsername(String name) {
+        this.username = Jsoup.clean(name, Whitelist.simpleText());
+    }
+
+    public String getUserPass() {
+        return this.userPass;
+    }
+    public void setUserPass(String pass) {
+        this.userPass = Jsoup.clean(pass, Whitelist.simpleText());
+    }
+
+    public String getUserRole() { return this.userRole.toString(); }
+    public void setUserRole(String role) {
+        if(role.equalsIgnoreCase("Admin"))
+        {
+            this.userRole = UserRole.Admin;
+            //this.userRole = "Admin";
+        }
+        else if(role.equalsIgnoreCase("Advanced"))
+        {
+            this.userRole = UserRole.Advanced;
+            //this.userRole = "Advanced";
+        }
+        else
+        {
+            this.userRole = UserRole.Basic;
+            //this.userRole = "Basic";
+        }
+    }
+
+    public Boolean getNotifyEmail() {
+        return this.notifyEmail;
+    }
+    public void setNotifyEmail(Boolean tf) {
+        this.notifyEmail = tf;
+    }
+
+    public Boolean getNotifyLocal() {
+        return this.notifyLocal;
+    }
+    public void setNotifyLocal(Boolean tf) {
+        this.notifyLocal = tf;
+    }
+
+    public LocalDate getUserDeleted() {
+        if(userDeleted != null) {
+            return this.userDeleted;
+        }
+        return null;
+    }
+    public void setUserDeleted() {
+        this.userDeleted = LocalDate.now();
+    }
+
+    public List<Notification> getNotificationList() { return this.notificationList; }
+    public void setNotificationList(List<Notification> list) { this.notificationList = list; }
 }

@@ -1,7 +1,12 @@
-import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
-
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { UserService } from '../../model/user.service';
+import { User } from '../../model/user';
+import { Router } from '@angular/router';
 import {TitleService} from '../../title.service';
+
+import { Session } from '../../../assets/js/SessionStorage.js';
+
 
 @Component({
   selector: 'app-list-users',
@@ -9,53 +14,115 @@ import {TitleService} from '../../title.service';
   styleUrls: ['./list-users.component.css']
 })
 export class ListUsersComponent implements OnInit {
+  sessionS = new Session();
+  users: Observable<User[]>;
 
-  public usersList: AngularFireList<any>;
-
-  constructor(private appService: TitleService, private db: AngularFireDatabase) {
-    this.usersList = db.list('/users');
+  constructor(private userService: UserService, private appService: TitleService, private router: Router) {
   }
 
-  FillTable(): void {
-
-    let rowNum = 1;
-    const usersL = this.db.database.ref('users');
-    usersL.orderByValue().on('value', (snapshot) => {
-      snapshot.forEach((data) => {
-        const objs = data.val();
-        if (objs.name != null) {
-          const table = document.getElementById('userListTable') as HTMLTableElement;
-          const tableBody = document.getElementById('userTableBody') as HTMLTableElement;
-          const row = tableBody.insertRow();
-
-          const c0 = row.insertCell(0);
-          const c1 = row.insertCell(1);
-          const c2 = row.insertCell(2);
-          const c3 = row.insertCell(3);
-          const c4 = row.insertCell(4);
-
-          c0.innerHTML = String(rowNum);
-          c1.innerHTML = objs.name + ' ' + objs.surname;
-          c2.innerHTML = objs.role;
-
-          const image = new Image();
-          image.src = objs.profilePicture
-          image.setAttribute('class', 'listPic');
-          c3.appendChild(image);
-
-          const button1 = '<a class="btn btn-primary" [routerLink]="[\'/edit-user\']">Edit</a>';
-          const button2 =  '<a class="btn btn-primary" [routerLink]="[\'/\']">Delete</a>';
-          c4.innerHTML = button1 + button2;
-
-          rowNum++; // Row number increment
-        }
-      });
-
-    });
+  reloadData() {
+    this.users = this.userService.getUserList();
+    this.userService.getUserList()
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => console.log(error));
+    this.activateButtons();
   }
+
+  removeUser(id: number) {
+    const user = this.sessionS.retrieveUserInfo();
+    const deleteBtn = document.getElementById('deleteBtn') as HTMLButtonElement;
+    if ((user.userRole === 'Admin')){
+      deleteBtn.disabled = false;
+      if ( user.id === id )
+      {
+        deleteBtn.hidden = true;
+        alert('You are unfortunately not able to delete yourself as a user on this page.');
+      }
+      else {
+        this.userService.deleteUser(id)
+          .subscribe(
+            data => {
+              // console.log(data);
+            },
+            error => console.log(error));
+        this.reloadData();
+      }
+    }
+    else if ((user.userRole === 'Advanced')){
+      deleteBtn.disabled = true;
+      deleteBtn.hidden = true;
+      // alert('You are unfortunately not able to delete a user on this page.');
+    }
+    else if ((user.userRole === 'Basic')){
+      deleteBtn.disabled = true;
+      deleteBtn.hidden = true;
+      // alert('You are unfortunately not able to delete a user on this page.');
+    }
+  }
+
+  updateUser(id: number){
+    const user = this.sessionS.retrieveUserInfo();
+    const editBtn = document.getElementById('editBtn') as HTMLButtonElement;
+    if ((user.userRole === 'Admin')) {
+      this.router.navigate(['edit-user', id]);
+    }
+    else if ((user.userRole === 'Advanced')) {
+      this.router.navigate(['edit-user', id]);
+    }
+    else if ((user.userRole === 'Basic')) {
+      editBtn.disabled = true;
+      editBtn.hidden = true;
+      // alert('You are unfortunately not able to edit a user on this page.');
+    }
+    }
+
+  viewUser(id: number){
+    this.router.navigate(['view-user', id]);
+  }
+
+  // ------------------------------------------------------------------
+
+  activateButtons(){
+    const addBtn = document.getElementById('addBtn') as HTMLButtonElement;
+    const editBtn = document.getElementById('editBtn') as HTMLButtonElement;
+    console.log(editBtn); // returns null?
+    const deleteBtn = document.getElementById('deleteBtn') as HTMLButtonElement;
+    const user = this.sessionS.retrieveUserInfo();
+
+    this.userService.getUserList()
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => console.log(error));
+
+
+    if (user.userRole === 'Admin'){
+      addBtn.disabled = false;
+      // editBtn.disabled = false;
+    }
+    else if (user.userRole === 'Advanced'){
+      addBtn.disabled = false;
+      // editBtn.disabled = false;
+      deleteBtn.hidden = true;
+    }
+    else if (user.userRole === 'Basic'){
+      addBtn.disabled = true;
+      addBtn.hidden = true;
+      // editBtn.disabled = true;
+      // editBtn.hidden = true;
+      deleteBtn.hidden = true;
+    }
+  }
+
+  // ------------------------------------------------------------------
 
   ngOnInit(): void {
     this.appService.setTitle('User List');
-    this.FillTable();
+    this.sessionS.retrieveUserInfo();
+    this.reloadData();
   }
 }

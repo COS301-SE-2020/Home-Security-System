@@ -5,19 +5,32 @@
                 <div class="card-header card-header-primary">
                     <h4 class="card-title">User List</h4>
                     <p class="card-category">All users for your system</p>
-                    <a class="btn btn-secondary btn-md btn-sm" [routerLink]="['/add-user']">Add</a>
+                    <!--<a class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#addUserModal">Add</a>-->
+                    <button id="addBtn" class="material-icons open-modal" data-toggle="modal" data-target="#addUserModal">person_add</button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table" id="userListTable">
                             <thead class="text-primary">
-                                <th> # </th>
+                                <th> ID </th>
+                                <th> Picture </th>
                                 <th> Name </th>
                                 <th> Role </th>
-                                <th> Picture </th>
                                 <th> Modify </th>
                             </thead>
                             <tbody id="userTableBody">
+                            <ng-container *ngFor="let user of users | async">
+                              <tr>
+                                <td>{{user.userId}}</td>
+                                <td><img alt="Profile Picture" src="{{user.profilePhoto.photo}}" class="listPic"></td>
+                                <td>{{user.fname}}&nbsp;{{user.lname}}</td>
+                                <td>{{user.userRole}}</td>
+                                <td>
+                                  <button id="editBtn" class="btn btn-primary" (click)="updateUser(user.userId)">Edit</button>
+                                  <button id="deleteBtn" class="btn btn-primary" (click)="removeUser(user.userId)">Delete</button>
+                                </td>
+                              </tr>
+                            </ng-container>
                             </tbody>
                         </table>
                     </div>
@@ -25,4 +38,18 @@
             </div>
         </div>
     </div>
+</div>
+
+<!--ADD USER MODAL-->
+<div class="container">
+  <div class="modal fade" id="addUserModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body center">
+          <i class="material-icons modal-close-btn" data-dismiss="modal">close</i>
+          <app-add-user></app-add-user>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

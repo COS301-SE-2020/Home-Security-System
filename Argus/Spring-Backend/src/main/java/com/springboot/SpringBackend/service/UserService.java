@@ -1,6 +1,5 @@
 package com.springboot.SpringBackend.service;
 
-import com.springboot.SpringBackend.dto.UserDTO;
 import com.springboot.SpringBackend.model.User;
 
 import java.util.List;
@@ -15,11 +14,7 @@ public interface UserService {
 
     User updateUser(User user);
 
-    //User createUserForm(UserDTO dto);
-
-    //User updateUserForm(UserDTO dto);
-
     void deleteUser(User user);
 
-    void deleteUserById(Long id);
+    void deleteAllUsers();
 }

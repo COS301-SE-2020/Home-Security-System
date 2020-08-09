@@ -1,138 +1,110 @@
-import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
-
 import { Component, OnInit } from '@angular/core';
 import {TitleService} from '../../title.service';
-import {snapshotChanges} from '@angular/fire/database';
+import {UserService} from '../../model/user.service';
+import { Session } from '../../../assets/js/SessionStorage.js';
+import {ActivatedRoute, Router} from '@angular/router';
+import {User} from '../../model/user';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
-export class UserProfileComponent implements OnInit
-{
-  public usersList: AngularFireList<any>;
+export class UserProfileComponent implements OnInit {
+  sessionS = new Session();
+  id: number;
+  user: User;
 
-  constructor(private appService: TitleService, private db: AngularFireDatabase) {
-    this.usersList = db.list('/users');
-  }
+  constructor(private route: ActivatedRoute, private router: Router, private appService: TitleService, private userService: UserService) {}
 
   /* ======================================================== */
 
-  ReadDB(): void {
-    const uL = this.db.database.ref('users');
-    let obj = null;
-    uL.orderByValue().on('value', function(snapshot): void {
-      snapshot.forEach(function(data): void {
-        if (data.val().u_id === '7531363037383632354074756b732e636f2e7a61') {
-          obj = data.val();
-        }
-      });
-      if (obj === null) {
-        console.log('error');
-      } else {
-        const userName = document.getElementById('firstName') as HTMLDataElement;
-        userName.value = obj.name;
+  populateFields(){
+    const FName = document.getElementById('firstNameDisplay') as HTMLDataElement;
+    const SName = document.getElementById('lastNameDisplay') as HTMLDataElement;
+    const UName = document.getElementById('usernameDisplay') as HTMLDataElement;
+    const email = document.getElementById('emailDisplay') as HTMLDataElement;
+    const password = document.getElementById('passwordDisplay') as HTMLDataElement;
 
-        const userSurname = document.getElementById('lastName') as HTMLDataElement;
-        userSurname.value = obj.surname;
-
-        const userEmail = document.getElementById('email') as HTMLDataElement;
-        userEmail.value = obj.email;
-
-        const userUsername = document.getElementById('username') as HTMLDataElement;
-        userUsername.value = obj.username;
-
-
-
-        const userNameDisplay = document.getElementById('firstNameDisplay') as HTMLDataElement;
-        userNameDisplay.value = obj.name;
-
-        const userSurnameDisplay = document.getElementById('lastNameDisplay') as HTMLDataElement;
-        userSurnameDisplay.value = obj.surname;
-
-        const userEmailDisplay = document.getElementById('emailDisplay') as HTMLDataElement;
-        userEmailDisplay.value = obj.email;
-
-        const userUsernameDisplay = document.getElementById('usernameDisplay') as HTMLDataElement;
-        userUsernameDisplay.value = obj.username;
-
-        const userImageDisplay = document.getElementById('userPic') as HTMLImageElement;
-        userImageDisplay.src = obj.profilePicture;
+    let userObj;
+    userObj = this.sessionS.retrieveUserInfo();
+    /*this.users = */
+    this.userService.getUserById(userObj.id).subscribe(
+      data => {
+        FName.value = data.fname;
+        SName.value = data.lname;
+        UName.value = data.username;
+        email.value = data.email;
+        password.value = data.userPass;
+        this.user = data;
+        // console.log(this.user);
       }
-    });
+    );
   }
 
-  /* ======================================================== */
+  loadModal() {
+    const uName = document.getElementById('uFirstName') as HTMLInputElement;
+    const uSurname = document.getElementById('uLastName') as HTMLInputElement;
+    const uUsername = document.getElementById('uUsername') as HTMLInputElement;
+    const uEmail = document.getElementById('uEmail') as HTMLInputElement;
+    const uPassword = document.getElementById('uPassword') as HTMLInputElement;
 
-  UpdateDB(): void {
-    const uL = this.db.database.ref('users');
-    let obj = null;
+    let userObj;
+    userObj = this.sessionS.retrieveUserInfo();
 
-    const userName = document.getElementById('firstName') as HTMLDataElement;
-    const userSurname = document.getElementById('lastName') as HTMLDataElement;
-    const userEmail = document.getElementById('email') as HTMLDataElement;
-    const userUsername = document.getElementById('username') as HTMLDataElement;
-
-    uL.orderByValue().on('value', function(snapshot): void {
-      snapshot.forEach(function(data): void {
-        if (data.val().u_id === '7531363037383632354074756b732e636f2e7a61') {
-          obj = data.val();
-        }
+    this.userService.getUserById(userObj.id).subscribe(
+      data => {
+        uName.value = data.fname;
+        uSurname.value = data.lname;
+        uEmail.value = data.email;
+        uUsername.value = data.username;
+        uPassword.value = data.userPass;
       });
-    });
-    this.usersList.update( '-MCul6_O1LNL0mQKKdo3' , { name: userName.value , surname: userSurname.value , username: userUsername.value , email : userEmail.value } );
   }
 
-  /* ======================================================== */
+  updateUser() {
+    const uName = document.getElementById('uFirstName') as HTMLInputElement;
+    const uSurname = document.getElementById('uLastName') as HTMLInputElement;
+    const uUsername = document.getElementById('uUsername') as HTMLInputElement;
+    const uEmail = document.getElementById('uEmail') as HTMLInputElement;
+    const uPassword = document.getElementById('uPassword') as HTMLInputElement;
 
-  UpdatePic(): void {
-    const uL = this.db.database.ref('users');
-    let obj = null;
+    let userObj;
+    userObj = this.sessionS.retrieveUserInfo();
 
-    const profilePic = document.getElementById('userPic') as HTMLDataElement;
+    this.user.fname = uName.value;
+    this.user.lname = uSurname.value;
+    this.user.email = uEmail.value;
+    this.user.username = uUsername.value;
+    this.user.userPass = uPassword.value;
 
-    uL.orderByValue().on('value', function(snapshot): void {
-      snapshot.forEach(function(data): void {
-        if (data.val().u_id === '7531363037383632354074756b732e636f2e7a61') {
-          obj = data.val();
-        }
-      });
-    });
-    this.usersList.update( '-MCul6_O1LNL0mQKKdo3' , { profilePicture: profilePic.value } );
+    this.userService.updateUser(userObj.id, this.user).subscribe(data => console.log(data), error => console.log(error));
+    this.user = new User();
+    this.gotoList();
   }
 
-  /* ======================================================== */
+  onSubmit() {
+    this.updateUser();
+  }
 
-  FillTable(): void{
-    const inc = 0;
-    const usersL = this.db.database.ref('users');
-    usersL.orderByValue().on('value', (snapshot) => {
-      snapshot.forEach((data) => {
-        const objs = data.val();
-        // if (objs.name === 'Johann'){
-        if (objs.name != null){
-            const table = document.getElementById('valuesTable') as HTMLTableElement;
-            const row = table.insertRow();
-
-            const c1 = row.insertCell(0);
-            const c2 = row.insertCell(1);
-            c1.style.border = '1px solid #dddddd';
-            c1.style.background = '#F9F5F4';
-            c2.style.border = '1px solid #dddddd';
-            c2.style.background = '#F9F5F4';
-            c1.innerHTML = objs.name;
-            c2.innerHTML = objs.surname;
-          }
-      });
-
-    });
+  gotoList() {
+    this.router.navigate(['/user-profile']);
+    //
   }
 
   /* ======================================================== */
 
   ngOnInit(): void {
+    this.populateFields();
     this.appService.setTitle('User Profile');
-    this.ReadDB();
+    this.user = new User();
+
+    this.id = this.route.snapshot.params.id;
+
+    this.userService.getUserById(this.id)
+      .subscribe(data => {
+        // console.log(data);
+        this.user = data;
+      }, error => console.log(error));
   }
 }

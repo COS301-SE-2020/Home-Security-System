@@ -1,50 +1,60 @@
 package com.springboot.SpringBackend.model;
 
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 @Entity
-/*@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id",
-        scope = Person.class)*/
-@Table(name = "notification_table")
+@Table(name = "notification")
 public class Notification implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -693058768293344103L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "notification_id", nullable = false)
     private Long id;
-    @Column(name = "message", nullable = false)
+
+    @ManyToOne
+    @JoinColumn(name="image_id", nullable = true)
+    private Image notificationImg = null;
+
+    @Column(name = "msg", nullable = false)
     private String message;
-    @Column(name = "onDate", nullable = false)
-    private String onDate;
-    @Column(name = "atTime", nullable = false)
-    private String atTime;
-    @Column(name = "deletionDate", nullable = true)
-    private String deletionDate = "";
 
-    //@Column(name = "photo_id", nullable = true)
-    @OneToOne(targetEntity = Image.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "photo_id", referencedColumnName = "photo_id")
-    private Image notificationImg;
+    @Column(name = "ondate", nullable = false)
+    private LocalDate onDate;
 
-    //@Column(name = "user_id", nullable = false)
-    @OneToOne(targetEntity = User.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @Column(name = "attime", nullable = false)
+    private LocalTime atTime;
+
+    @Column(name = "notificationdeleted", nullable = true)
+    private LocalDate notificationDeleted = null;
+
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable = false)
     private User user;
+
+    //@ManyToMany(mappedBy = "notificationList")
+    //private List<Users> userList = new ArrayList<>();
 
     public Notification() {}
 
-    public Notification(String msg, Image img, User u) {
-        this.message = msg;
-        onDate =LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        atTime = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"));
+    public Notification(Image img, String msg) {
         this.notificationImg = img;
+        this.message = Jsoup.clean(msg, Whitelist.simpleText());
+        onDate = LocalDate.now();
+        atTime = LocalTime.now();
+    }
+
+    public Notification(Image img, String msg, User u) {
+        this.notificationImg = img;
+        this.message = Jsoup.clean(msg, Whitelist.simpleText());
+        onDate = LocalDate.now();
+        atTime = LocalTime.now();
         this.user = u;
     }
 
@@ -55,52 +65,38 @@ public class Notification implements Serializable {
         this.id = id;
     }
 
-    public String getMessage() {
-        return this.message;
-    }
-    public void setMessage(String msg) {
-        this.message = msg;
-    }
-
-    public String getOnDate() { return this.onDate; }
-    public void setOnDate(String date) { this.onDate = date; }
-
-    public String getAtTime() {
-        return this.atTime;
-    }
-    public void setAtTime(String time) {
-        this.atTime = time;
-    }
-
-    public Long getImageById() { return this.notificationImg.getImageId(); }
-    public Image getImage() { return this.notificationImg; }
-    public void setImage(Image img) {
+    public Long getNotificationImgId() { return this.notificationImg.getImageId(); }
+    public Image getNotificationImg() { return this.notificationImg; }
+    public void setNotificationImg(Image img) {
         if (img != null) {
             this.notificationImg = img;
         }
     }
 
-    public Long getUserById() { return this.user.getUserId(); }
-    public User getUser() { return this.user; }
-    public void setUser(User u) {
-        if (u != null) {
-            this.user = u;
+    public String getMessage() {
+        return this.message;
+    }
+    public void setMessage(String msg) {
+        this.message = Jsoup.clean(msg, Whitelist.simpleText());
+    }
+
+    public LocalDate getOnDate() { return this.onDate; }
+    public void setOnDate(LocalDate date) { this.onDate = date; }
+
+    public LocalTime getAtTime() {
+        return this.atTime;
+    }
+    public void setAtTime(LocalTime time) { this.atTime = time; }
+
+    public LocalDate getNotificationDeleted() {
+        if(notificationDeleted != null) {
+            return this.notificationDeleted;
         }
+        return null;
     }
+    public void setNotificationDeleted() { this.notificationDeleted = LocalDate.now(); }
 
-    public String getDeletionDate() {
-        return this.deletionDate;
-    }
-    public void setDeletionDate(String date) {
-        this.deletionDate = date;
-    }
-
-    @Override
-    public String toString() {
-        return "Person [notification_id=" + id + ", message=" + message +
-                ", onDate=" + onDate + ", atTime=" + atTime +
-                ", photo_id=" + notificationImg.getImageId() +
-                ", user_id=" + user.getUserId() +
-                ", deletionDate=" + deletionDate + "]";
-    }
+    public Long getUserId() { return this.user.getUserId(); }
+    public User getUser() { return this.user; }
+    public void setUser(User x) { this.user = x; }
 }

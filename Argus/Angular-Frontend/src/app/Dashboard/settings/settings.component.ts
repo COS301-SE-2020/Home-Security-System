@@ -1,94 +1,70 @@
-import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
-
 import { Component, OnInit } from '@angular/core';
 import {TitleService} from '../../title.service';
-import {snapshotChanges} from '@angular/fire/database';
+import { Observable } from 'rxjs';
+import { UserService } from '../../model/user.service';
+import { User } from '../../model/user';
+import { Session } from '../../../assets/js/SessionStorage.js';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css']
 })
-export class SettingsComponent implements OnInit
-{
-  public usersList: AngularFireList<any>;
-  constructor(private appService: TitleService, private db: AngularFireDatabase) {
-    this.usersList = db.list('/users');
+export class SettingsComponent implements OnInit {
+  sessionS = new Session();
+  users: Observable<User[]>;
+  user: User;
+
+  constructor(private appService: TitleService, private userService: UserService) {}
+
+  enableButton(){
+    const buttonEl = document.getElementById('saveBtn') as HTMLButtonElement;
+    buttonEl.style.background = '#d4af37';
+    buttonEl.disabled = false;
   }
 
-  ReadDB(): void {
-    const uL = this.db.database.ref('users');
-    let obj = null;
-    uL.orderByValue().on('value', function(snapshot): void {
-      snapshot.forEach(function(data): void {
-        if (data.val().uniqueId === '321') {
-          obj = data.val();
-        }
-      });
-      if (obj === null) {
-        console.log('error');
-      } else {
-        const emails = document.getElementById('emailSlider') as HTMLInputElement;
-        if (obj.notificationsEmail === 'yes') {
-          emails.checked = true;
-        } else {
-          emails.checked = true;
-        }
+  retrieveSettings(){
+    const buttonEl = document.getElementById('saveBtn') as HTMLButtonElement;
+    const localSettings = document.getElementById('localSlider') as HTMLInputElement;
+    const emailSettings = document.getElementById('emailSlider') as HTMLInputElement;
 
-        const locals = document.getElementById('localSlider') as HTMLInputElement;
-        if (obj.obj.notificationsLocal === 'yes') {
-          locals.checked = true;
-        } else {
-          locals.checked = false;
-        }
+    buttonEl.style.background = 'grey';
+    buttonEl.disabled = true;
+
+    let userObj;
+    userObj = this.sessionS.retrieveUserInfo();
+    /*this.users = */
+    this.userService.getUserById(userObj.id).subscribe(
+      data => {
+        localSettings.checked = data.notifyLocal;
+        emailSettings.checked = data.notifyEmail;
+        this.user = data;
+        // console.log(this.user);
       }
-    });
+    );
   }
 
-  UpdateDB(): void {
-    const uL = this.db.database.ref('users');
-    let obj = null;
+  setUserSettings(){
+    // this.user = new User();
+    const localSet = document.getElementById('localSlider') as HTMLInputElement;
+    const emailSet = document.getElementById('emailSlider') as HTMLInputElement;
+    let userObj;
+    userObj = this.sessionS.retrieveUserInfo();
+    this.user.notifyEmail = emailSet.checked;
+    this.user.notifyLocal = localSet.checked;
 
-    const localNoti = document.getElementById('localSlider') as HTMLInputElement;
-    const emailNoti = document.getElementById('emailSlider') as HTMLInputElement;
+    // console.log(this.user.notifyEmail);
+    // console.log(this.user.notifyLocal);
+    // console.log(this.user);
 
-    function returnSettingValEmail(){
-      const wantsEmails = document.getElementById('emailSlider') as HTMLInputElement;
-
-      if ( wantsEmails.checked === true) {
-        return 'yes';
-      }
-      else {
-        return 'no';
-      }
-    }
-
-    function returnSettingValLocal(){
-      const wantsLocals = document.getElementById('localSlider') as HTMLInputElement;
-
-      if ( wantsLocals.checked === true) {
-        return 'yes';
-      }
-      else {
-        return 'no';
-      }
-    }
-
-    const locals = returnSettingValLocal();
-    const emails = returnSettingValEmail();
-
-    uL.orderByValue().on('value', function(snapshot): void {
-      snapshot.forEach(function(data): void {
-        if (data.val().uniqueId === '123') {
-          obj = data.val();
-        }
-      });
-    });
-    this.usersList.update( '-MCnFvdHyMQGBNi1w-Ci' , { notificationsLocal: locals , notificationsEmail: emails } );
+    this.userService.updateUser(userObj.id, this.user)
+      .subscribe(data => console.log(data), error => console.log(error));
+    this.user = new User();
+    this.retrieveSettings();
   }
 
   ngOnInit(): void {
     this.appService.setTitle('Settings');
-    this.ReadDB();
+    this.retrieveSettings();
   }
 }

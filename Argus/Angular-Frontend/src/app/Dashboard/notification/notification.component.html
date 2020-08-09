@@ -1,4 +1,3 @@
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
@@ -13,11 +12,23 @@
                         <thead class="text-primary">
                         <tr>
                           <th>Date-Time</th>
-                          <th>Notification</th>
-                          <th>Notification Type</th>
-                          <th>Delete</th>
+                          <th>Message</th>
+                          <th>Image</th>
+                          <th>Remove</th>
                         </tr>
                         </thead>
+                        <tbody>
+                        <ng-container *ngFor="let note of notification | async">
+                          <tr>
+                            <td>{{note.onDate}}&nbsp;{{note.atTime}}</td>
+                            <td>{{note.message}}</td>
+                            <td><img src="{{note.notificationImg.photo}}" class="squarePhoto"></td>
+                            <td>
+                              <a class="btn btn-primary" (click)="removeNotification(note.notificationId)">Dismiss</a>
+                            </td>
+                          </tr>
+                        </ng-container>
+                        </tbody>
                       </table>
                   </div>
               </div>
@@ -25,30 +36,4 @@
       </div>
   </div>
 </div>
-
-<div class="container-login100-form-btn " style="position: center; width: 200px;margin-left: auto; margin-right: auto"><!--Can't use inline styling-->
-  <div class="wrap-login100-form-btn">
-    <div class="login100-form-bgbtn "></div>
-    <button class="login100-form-btn" id="localNotificationBtn" (click)="AddNotification('Local', 'Testing local messages')">
-      Send notification
-    </button>
-  </div>
-</div>
-<br>
-
-<div class="container-login100-form-btn " style="position: center; width: 200px;margin-left: auto; margin-right: auto"><!--Can't use inline styling-->
-  <div class="wrap-login100-form-btn">
-    <div class="login100-form-bgbtn "></div>
-    <button class="login100-form-btn" id="emailNotification" (click)="AddNotification('Email', 'Testing email messages')" onclick="sendEmail('Testing email')">
-      Send an email notification
-    </button>
-  </div>
-</div>
-<br>
-<!--
-<label style="padding-left: 35px;">
-  <input type="checkbox" id="toggleBtn" onclick="toggle()">
-  Disable Notifications
-</label>
--->
 

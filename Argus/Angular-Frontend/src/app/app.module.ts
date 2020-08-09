@@ -2,18 +2,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 // added
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import { FormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import {WebcamModule} from 'ngx-webcam';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-// @ts-ignore
-import { AngularFireModule } from 'angularfire2';
-// @ts-ignore
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-// @ts-ignore
-// import {HttpClientModule} from '@angular/common/http';
-// @ts-ignore
-// import {FormsModule} from "@angular/forms";
 
 import { LiveFeedComponent } from './Dashboard/live-feed/live-feed.component';
 import { PeopleBlackComponent } from './Black-list/people-black/people-black.component';
@@ -27,7 +21,7 @@ import { TopNavComponent } from './Dashboard/top-nav/top-nav.component';
 import { PeopleGreyComponent } from './Grey-list/people-grey/people-grey.component';
 import { VehiclesGreyComponent } from './Grey-list/vehicles-grey/vehicles-grey.component';
 import { AddPersonComponent } from './Person/add-person/add-person.component';
-import { UpdatePersonComponent } from './Person/update-person/update-person.component';
+import { EditPersonComponent } from './Person/edit-person/edit-person.component';
 import { AddUserComponent } from './User/add-user/add-user.component';
 import { EditUserComponent } from './User/edit-user/edit-user.component';
 import { ListUsersComponent } from './User/list-users/list-users.component';
@@ -39,7 +33,13 @@ import { VehiclesWhiteComponent } from './White-list/vehicles-white/vehicles-whi
 import { NotificationComponent } from './Dashboard/notification/notification.component';
 import { ResetPasswordComponent } from './Dashboard/reset-password/reset-password.component';
 
+import { NotificationService } from './model/notification.service';
+import { UserService } from './model/user.service';
+import { PersonService } from './model/person.service';
+import { VehicleService } from './model/vehicle.service';
+
 import {environment} from '../environments/environment';
+// import {AuthInterceptor} from './model/auth.interceptor';
 
 const appRoutes: Routes = [];
 
@@ -58,7 +58,7 @@ const appRoutes: Routes = [];
     PeopleGreyComponent,
     VehiclesGreyComponent,
     AddPersonComponent,
-    UpdatePersonComponent,
+    EditPersonComponent,
     AddUserComponent,
     EditUserComponent,
     ListUsersComponent,
@@ -74,13 +74,21 @@ const appRoutes: Routes = [];
     BrowserModule,
     AppRoutingModule,
     WebcamModule,
-    AngularFireModule.initializeApp(environment.firebase, 'anotherTest'),
-    AngularFireDatabaseModule,
-    RouterModule.forRoot(appRoutes)
-    // HttpClientModule,
-    // FormsModule
+    RouterModule.forRoot(appRoutes),
+    HttpClientModule,
+    FormsModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [NotificationService,
+    UserService,
+    PersonService,
+    VehicleService,
+    /*AuthService,
+    {
+     provide: HTTP_INTERCEPTORS,
+     useClass: AuthInterceptor,
+     multi: true
+    }*/],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

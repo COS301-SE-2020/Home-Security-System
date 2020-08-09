@@ -7,68 +7,86 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <changeSet author="Sigma" id="004">
         <sql>
-            CREATE TABLE photo_table(
-            photo_id INT NOT NULL DEFAULT nextval('photoID_seq'),
-            image bytea NOT NULL,
-            deletionDate DATE,
-            PRIMARY KEY (photo_id)
+            CREATE TABLE Image(
+            image_id INT NOT NULL DEFAULT nextval('imageID_seq'),
+            photo TEXT NOT NULL,
+            imageDeleted DATE,
+            PRIMARY KEY (image_id)
             );
         </sql>
         <sql>
-            CREATE TABLE user_table(
+            CREATE TABLE ArgusUser(
             user_id INT NOT NULL DEFAULT nextval('userID_seq'),
+            profilePhoto INT DEFAULT 1 REFERENCES Image(image_id),
             fname TEXT NOT NULL,
             lname TEXT NOT NULL,
             email TEXT NOT NULL,
             username TEXT NOT NULL,
             userPass TEXT NOT NULL,
-            userRole roleType NOT NULL,
-            profilePhoto INT NOT NULL DEFAULT 1 REFERENCES photo_table(photo_id),
-            deletionDate DATE,
+            userRole TEXT NOT NULL,
+            notifyEmail BOOLEAN NOT NULL DEFAULT true,
+            notifyLocal BOOLEAN NOT NULL DEFAULT true,
+            userDeleted DATE,
             PRIMARY KEY (user_id)
             );
         </sql>
         <sql>
-            CREATE TABLE notification_table(
+            CREATE TABLE Notification(
             notification_id INT NOT NULL DEFAULT nextval('notificationID_seq'),
-            message TEXT NOT NULL,
+            image_id INT REFERENCES Image(image_id),
+            msg TEXT NOT NULL,
             onDate DATE NOT NULL DEFAULT CURRENT_DATE,
             atTime TIME NOT NULL DEFAULT CURRENT_TIME,
-            photo_id INT REFERENCES photo_Table(photo_id),
-            user_id INT NOT NULL REFERENCES user_table(user_id),
-            deletionDate DATE,
+            notificationDeleted DATE,
+            user_id INT NOT NULL REFERENCES ArgusUser(user_id),
             PRIMARY KEY (notification_id)
             );
         </sql>
+        <!--<sql>
+            CREATE TABLE UserNotification(
+            notification_id INT NOT NULL REFERENCES Notification(notification_id),
+            user_id INT NOT NULL REFERENCES ArgusUser(user_id),
+            PRIMARY KEY (notification_id, user_id)
+            );
+        </sql>-->
         <sql>
-            CREATE TABLE person_table(
+            CREATE TABLE Person(
             person_id INT NOT NULL DEFAULT nextval('personID_seq'),
-            fname TEXT NOT NULL,
-            lname TEXT NOT NULL,
-            listed listType NOT NULL DEFAULT 'Grey',
-            created DATE NOT NULL DEFAULT CURRENT_DATE,
-            photo_ID INT NOT NULL DEFAULT 1 REFERENCES photo_table(photo_id),
-            deletionDate DATE,
+            image_id INT NOT NULL REFERENCES Image(image_id),
+            fname TEXT,
+            lname TEXT,
+            personListed TEXT NOT NULL DEFAULT 'Grey',
+            personCreated DATE NOT NULL DEFAULT CURRENT_DATE,
+            personDeleted DATE,
             PRIMARY KEY (person_id)
             );
         </sql>
         <sql>
-            CREATE TABLE vehicle_table(
+            CREATE TABLE Vehicle(
             vehicle_id INT NOT NULL DEFAULT nextval('vehicleID_seq'),
-            listed listType NOT NULL DEFAULT 'Grey',
+            image_id INT NOT NULL REFERENCES Image(image_id),
+            vehicleListed TEXT NOT NULL DEFAULT 'Grey',
             licenseNo TEXT NOT NULL,
-            created DATE NOT NULL DEFAULT CURRENT_DATE,
-            photo_id INT NOT NULL DEFAULT 1 REFERENCES photo_table(photo_id),
-            deletionDate DATE,
+            vehicleCreated DATE NOT NULL DEFAULT CURRENT_DATE,
+            vehicleDeleted DATE,
+            person_id INT REFERENCES Person(person_id),
             PRIMARY KEY (vehicle_id)
             );
         </sql>
-        <sql>
-            CREATE TABLE personvehicle_table(
-            person_id INT NOT NULL REFERENCES person_Table(person_id),
-            vehicle_id INT NOT NULL REFERENCES vehicle_Table(vehicle_id),
-            deletionDate DATE,
+        <!--<sql>
+            CREATE TABLE PersonVehicle(
+            person_id INT NOT NULL REFERENCES Person(person_id),
+            vehicle_id INT NOT NULL REFERENCES Vehicle(vehicle_id),
             PRIMARY KEY (person_id, vehicle_id)
+            );
+        </sql>-->
+        <sql>
+            CREATE TABLE Face(
+            face_id INT NOT NULL DEFAULT nextval('faceID_seq'),
+            person_id INT NOT NULL REFERENCES Person(person_id),
+            features TEXT NOT NULL,
+            faceDeleted DATE,
+            PRIMARY KEY (face_id)
             );
         </sql>
     </changeSet>

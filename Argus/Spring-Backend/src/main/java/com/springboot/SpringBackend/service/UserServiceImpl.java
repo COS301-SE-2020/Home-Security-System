@@ -1,7 +1,5 @@
 package com.springboot.SpringBackend.service;
 
-import com.springboot.SpringBackend.converter.UserDTOToUser;
-import com.springboot.SpringBackend.dto.UserDTO;
 import com.springboot.SpringBackend.model.User;
 import com.springboot.SpringBackend.repository.UserRepo;
 
@@ -16,18 +14,16 @@ import java.util.Optional;
 @Transactional
 public class UserServiceImpl implements UserService{
     private final UserRepo repo;
-    //private final UserDTOToUser dtoToUser;
 
     @Autowired
     public UserServiceImpl(UserRepo usrRepo)
     {
         this.repo = usrRepo;
-        //this.dtoToUser = dto;
     }
 
     @Override
     public List<User> getAllUsers() {
-        return (List<User>) this.repo.findAll();
+        return this.repo.findAll();
     }
 
     @Override
@@ -38,14 +34,8 @@ public class UserServiceImpl implements UserService{
     @Override
     public User createUser(User user) { return this.repo.save(user); }
 
-    //@Override
-    //public User createUserForm(UserDTO dto) { return this.createUser(dtoToUser.convert(dto)); }
-
     @Override
     public User updateUser(User user) { return this.repo.save(user); }
-
-    //@Override
-    //public User updateUserForm(UserDTO dto) { return this.updateUser(dtoToUser.convert(dto)); }
 
     @Override
     public void deleteUser(User user) {
@@ -53,52 +43,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void deleteUserById(Long id) { this.repo.deleteById(id); }
-
-    /*
-    private static UserDAO dao;
-
-    public UserService() {
-		dao = new UserDAO();
-	}
-
-    @Autowired
-	public UserDAO getUserDao() {
-		return dao;
-	}
-
-    @Override
-    public List<User> listAllUsers() {
-		List<User> list = dao.findAllUsers();
-		return list;
-	}
-
-    @Override
-    public User getUserById(Long id) {
-		User x = dao.getUsrById(id);
-		return x;
-	}
-
-    @Override
-    public User createUser(User x) {
-		dao.createUsr(x);
-		return x;
-	}
-
-    @Override
-    public User updateUser(User x) {
-		dao.updateUsr(x);
-		return x;
-	}
-
-    @Override
-    public void deleteUser(User x) {
-		dao.deleteUsr(x);
+    public void deleteAllUsers()
+    {
+        this.repo.deleteAll();
     }
-
-    @Override
-    public void deleteUserById(Long id) {
-		dao.deleteUsrById(id);
-	}
-    */
 }

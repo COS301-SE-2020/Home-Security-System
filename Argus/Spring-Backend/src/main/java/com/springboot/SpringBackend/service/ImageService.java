@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface ImageService {
 
-    List<Image> listAllImages();
+    List<Image> getAllImages();
 
     Optional<Image> getImageById(Long id);
 
@@ -17,5 +17,5 @@ public interface ImageService {
 
     void deleteImage(Image x);
 
-    void deleteImageById(Long id);
+    void deleteAllImages();
 }

@@ -22,24 +22,6 @@ describe('NotificationComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-  /*
-  it('saves an item to Firebase', () => {
-
-  });
-   */
-  /*
-  it('if it runs, should expect surnames ',  () => {
-
-    const notComp = new NotificationComponent();
-    const mess = notComp.ReadDB();
-    expect(mess).toBe('success');
-    //console.log = jasmine.createSpy('log');
-    //const outp = 'success';
-    //expect(console.log).toHaveBeenCalledWith(outp);
-    //expect(notComp.ReadDB()).message().toMatch('success');
-
-  });
-   */
 /*
   it('should create', () => {
     expect(component).toBeTruthy();

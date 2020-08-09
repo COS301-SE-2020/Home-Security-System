@@ -13,7 +13,7 @@ import {TopNavComponent} from './Dashboard/top-nav/top-nav.component';
 import {PeopleGreyComponent} from './Grey-list/people-grey/people-grey.component';
 import {VehiclesGreyComponent} from './Grey-list/vehicles-grey/vehicles-grey.component';
 import {AddPersonComponent} from './Person/add-person/add-person.component';
-import {UpdatePersonComponent} from './Person/update-person/update-person.component';
+import {EditPersonComponent} from './Person/edit-person/edit-person.component';
 import {AddUserComponent} from './User/add-user/add-user.component';
 import {EditUserComponent} from './User/edit-user/edit-user.component';
 import {ListUsersComponent} from './User/list-users/list-users.component';
@@ -32,12 +32,12 @@ const routes: Routes = [
   {path: 'user-profile', component: UserProfileComponent, data: {title: 'User Profile | Argus'}},
   {path: 'user-list', component: ListUsersComponent, data: {title: 'User List | Argus'}},
   {path: 'add-user', component: AddUserComponent, data: {title: 'Add User | Argus'}},
-  {path: 'edit-user', component: EditUserComponent, data: {title: 'Edit User | Argus'}},
+  {path: 'edit-user/:id', component: EditUserComponent, data: {title: 'Edit User | Argus'}},
   {path: 'people-white', component: PeopleWhiteComponent, data: {title: 'White List | Argus'}},
   {path: 'people-grey', component: PeopleGreyComponent, data: {title: 'Grey List | Argus'}},
   {path: 'people-black', component: PeopleBlackComponent, data: {title: 'Black List | Argus'}},
   {path: 'add-person', component: AddPersonComponent, data: {title: 'Add Person | Argus'}},
-  {path: 'edit-person', component: UpdatePersonComponent, data: {title: 'Edit Person | Argus'}},
+  {path: 'edit-person/:id', component: EditPersonComponent, data: {title: 'Edit Person | Argus'}},
   {path: 'settings', component: SettingsComponent, data: {title: 'Notifications | Argus'}},
   {path: 'live-feed', component: LiveFeedComponent, data: {title: 'Live Feed | Argus'}},
   {path: 'notification', component: NotificationComponent, data: {title: 'Notifications | Argus'}},
