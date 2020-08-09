@@ -25,9 +25,9 @@
                                 <td><img alt="Profile Picture" src="{{user.profilePhoto.photo}}" class="listPic"></td>
                                 <td>{{user.fname}}&nbsp;{{user.lname}}</td>
                                 <td>{{user.userRole}}</td>
-                                <td>
-                                  <button id="editBtn" class="btn btn-primary" (click)="updateUser(user.userId)">Edit</button>
-                                  <button id="deleteBtn" class="btn btn-primary" (click)="removeUser(user.userId)">Delete</button>
+                                <td *ngIf=" user.userRole != 'Basic'">
+                                  <button class="btn btn-primary" (click)="updateUser(user.userId)">Edit</button>
+                                  <button *ngIf=" user.userRole != 'Advanced'|| user.userRole != 'Admin'" class="btn btn-primary" (click)="removeUser(user.userId)">Delete</button>
                                 </td>
                               </tr>
                             </ng-container>
