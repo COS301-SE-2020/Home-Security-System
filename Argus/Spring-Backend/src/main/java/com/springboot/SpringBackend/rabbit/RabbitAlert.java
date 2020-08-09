@@ -12,14 +12,16 @@ import java.io.Serializable;
 public class RabbitAlert implements Serializable {
     private static final long serialVersionUID = -7446583075938108797L;
 
-    private String imageStr;
     private Long pid;
+    private String type;
+    private String imageStr;
 
     public RabbitAlert() {}
 
-    public RabbitAlert(@JsonProperty("imageStr") String img, @JsonProperty("pid") Long id) {
+    public RabbitAlert(@JsonProperty("person") Long id, @JsonProperty("list") String type, @JsonProperty("image") String img) {
         this.imageStr = img;
         this.pid = id;
+        this.type = type;
     }
 
     public String getImageStr() { return this.imageStr; }
