@@ -66,6 +66,14 @@ public class Person implements Serializable {
 
     public Person() { }
 
+    public Person(Image img) {
+        this.personImg = img;
+        this.fname = "Unknown";
+        this.lname = "Unknown";
+        this.personListed = personType.Grey;
+        this.personCreated = LocalDate.now();
+    }
+
     public Person(Image img, String listed) {
         this.personImg = img;
         this.fname = "Unknown";

@@ -5,6 +5,7 @@ import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.amqp.support.converter.MessageConverter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -15,11 +16,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
 public class RabbitMQConfig {
+    //@Value("${sigma.rabbitmq.exchange}")
     public static final String EXCHANGE_NAME = "sigma.direct";
+    //@Value("${sigma.rabbitmq.alertQueue}")
     public static final String ALERT_QUEUE = "alertQueue";
-    public static final String PERSON_QUEUE = "perosnQueue";
-    public static final String ALERT_KEY = "alert";
-    public static final String PERSON_KEY = "newperson";
+    //@Value("${sigma.rabbitmq.personQueue}")
+    public static final String PERSON_QUEUE = "personQueue";
+    //@Value("${sigma.rabbitmq.alertKey}")
+    public static final String ALERT_KEY = "alertKey";
+    //@Value("${sigma.rabbitmq.personKey}")
+    public static final String PERSON_KEY = "personKey";
 
     @Bean
     Queue alertQueue()
