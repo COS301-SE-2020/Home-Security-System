@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet author="Sigma" id="004">
+        <sql>
+            CREATE TABLE Image(
+            image_id INT NOT NULL DEFAULT nextval('imageID_seq'),
+            photo TEXT NOT NULL,
+            imageDeleted DATE,
+            PRIMARY KEY (image_id)
+            );
+        </sql>
+        <sql>
+            CREATE TABLE ArgusUser(
+            user_id INT NOT NULL DEFAULT nextval('userID_seq'),
+            profilePhoto INT DEFAULT 1 REFERENCES Image(image_id),
+            fname TEXT NOT NULL,
+            lname TEXT NOT NULL,
+            email TEXT NOT NULL,
+            username TEXT NOT NULL,
+            userPass TEXT NOT NULL,
+            userRole TEXT NOT NULL,
+            notifyEmail BOOLEAN NOT NULL DEFAULT true,
+            notifyLocal BOOLEAN NOT NULL DEFAULT true,
+            userDeleted DATE,
+            PRIMARY KEY (user_id)
+            );
+        </sql>
+        <sql>
+            CREATE TABLE Notification(
+            notification_id INT NOT NULL DEFAULT nextval('notificationID_seq'),
+            image_id INT REFERENCES Image(image_id),
+            msg TEXT NOT NULL,
+            onDate DATE NOT NULL DEFAULT CURRENT_DATE,
+            atTime TIME NOT NULL DEFAULT CURRENT_TIME,
+            notificationDeleted DATE,
+            user_id INT NOT NULL REFERENCES ArgusUser(user_id),
+            PRIMARY KEY (notification_id)
+            );
+        </sql>
+        <!--<sql>
+            CREATE TABLE UserNotification(
+            notification_id INT NOT NULL REFERENCES Notification(notification_id),
+            user_id INT NOT NULL REFERENCES ArgusUser(user_id),
+            PRIMARY KEY (notification_id, user_id)
+            );
+        </sql>-->
+        <sql>
+            CREATE TABLE Person(
+            person_id INT NOT NULL DEFAULT nextval('personID_seq'),
+            image_id INT NOT NULL REFERENCES Image(image_id),
+            fname TEXT,
+            lname TEXT,
+            personListed TEXT NOT NULL DEFAULT 'Grey',
+            personCreated DATE NOT NULL DEFAULT CURRENT_DATE,
+            personDeleted DATE,
+            PRIMARY KEY (person_id)
+            );
+        </sql>
+        <sql>
+            CREATE TABLE Vehicle(
+            vehicle_id INT NOT NULL DEFAULT nextval('vehicleID_seq'),
+            image_id INT NOT NULL REFERENCES Image(image_id),
+            vehicleListed TEXT NOT NULL DEFAULT 'Grey',
+            licenseNo TEXT NOT NULL,
+            vehicleCreated DATE NOT NULL DEFAULT CURRENT_DATE,
+            vehicleDeleted DATE,
+            person_id INT REFERENCES Person(person_id),
+            PRIMARY KEY (vehicle_id)
+            );
+        </sql>
+        <!--<sql>
+            CREATE TABLE PersonVehicle(
+            person_id INT NOT NULL REFERENCES Person(person_id),
+            vehicle_id INT NOT NULL REFERENCES Vehicle(vehicle_id),
+            PRIMARY KEY (person_id, vehicle_id)
+            );
+        </sql>-->
+        <sql>
+            CREATE TABLE Face(
+            face_id INT NOT NULL DEFAULT nextval('faceID_seq'),
+            person_id INT NOT NULL REFERENCES Person(person_id),
+            features TEXT NOT NULL,
+            faceDeleted DATE,
+            PRIMARY KEY (face_id)
+            );
+        </sql>
+    </changeSet>
+</databaseChangeLog>

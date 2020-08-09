@@ -1,126 +1,57 @@
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-header card-header-primary">
-          <h4 class="card-title">White List</h4>
-          <p class="card-category">All people allowed on your property</p>
-          <a class="btn btn-secondary btn-md btn-sm" [routerLink]="['/add-person']">Add</a>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title">White List</h4>
+                    <p class="card-category">Friends or Family</p>
+                  <button id="addWhite" class="material-icons open-modal" data-toggle="modal" data-target="#addPersonModal1">person_add</button>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="text-primary">
+                                <th>
+                                    Picture
+                                </th>
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Modify
+                                </th>
+                            </thead>
+                            <tbody id="whiteBody">
+                                <ng-container *ngFor="let p of person | async">
+                                  <tr *ngIf="p.personListed == 'White'">
+                                    <td><img alt="Photo" src="{{p.personImg.photo}}" class="listPic"></td>
+                                    <td>{{p.fname}}&nbsp;{{p.lname}}</td>
+                                    <td>
+                                      <!--<a class="btn btn-primary" data-toggle="modal" data-target="#editModal">Edit</a>-->
+                                      <a class="btn btn-primary" (click)="updatePerson(p.personId)">Edit</a>
+                                      <a class="btn btn-primary" (click)="removePerson(p.personId)">Delete</a>
+                                    </td>
+                                  </tr>
+                                </ng-container>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table">
-              <thead class="text-primary">
-                <th>
-                  ID
-                </th>
-                <th>
-                  Name
-                </th>
-                <th>
-                  Picture
-                </th>
-                <th>
-                  Modify
-                </th>
-              </thead>
-              <tbody>
-              <tr>
-                <td>
-                  1
-                </td>
-                <td>
-                  Daniel Craig
-                </td>
-                <td>
-                  <img src="./assets/Images/whitelist/DC.jpg" class="listPic">
-                </td>
-                <td>
-                  <a [routerLink]="['/edit-person']">Edit</a>
-                  <a [routerLink]="['/']">Delete</a>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  2
-                </td>
-                <td>
-                  Denzel Washington
-                </td>
-                <td>
-                  <img src="./assets/Images/whitelist/DW.jpg" class="listPic">
-                </td>
-                <td>
-                  <a [routerLink]="['/edit-person']">Edit</a>
-                  <a [routerLink]="['/']">Delete</a>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  3
-                </td>
-                <td>
-                  Jennifer Lopez
-                </td>
-                <td>
-                  <img src="./assets/Images/whitelist/JL.jpg" class="listPic">
-                </td>
-                <td>
-                  <a [routerLink]="['/edit-person']">Edit</a>
-                  <a [routerLink]="['/']">Delete</a>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  4
-                </td>
-                <td>
-                  Linda Cardellini
-                </td>
-                <td>
-                  <img src="./assets/Images/whitelist/LC.jpg" class="listPic">
-                </td>
-                <td>
-                  <a [routerLink]="['/edit-person']">Edit</a>
-                  <a [routerLink]="['/']">Delete</a>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  5
-                </td>
-                <td>
-                  Octavia Spencer
-                </td>
-                <td>
-                  <img src="./assets/Images/whitelist/OS.jpg" class="listPic">
-                </td>
-                <td>
-                  <a [routerLink]="['/edit-person']">Edit</a>
-                  <a [routerLink]="['/']">Delete</a>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  6
-                </td>
-                <td>
-                  Steve Carell
-                </td>
-                <td>
-                  <img src="./assets/Images/whitelist/SC.jpg" class="listPic">
-                </td>
-                <td>
-                  <a [routerLink]="['/edit-person']">Edit</a>
-                  <a [routerLink]="['/']">Delete</a>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
+    </div>
+</div>
+
+<!--ADD PERSON MODAL-->
+<div class="container">
+  <div class="modal fade" id="addPersonModal1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body center">
+          <i class="material-icons modal-close-btn" data-dismiss="modal">close</i>
+          <app-add-person></app-add-person>
         </div>
       </div>
     </div>
   </div>
 </div>
-

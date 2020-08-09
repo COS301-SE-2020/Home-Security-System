@@ -4,22 +4,14 @@
 Argus is a home security system  capable of instantly identifying threats on multiple video feeds around the home of a user while notifying the user of identified threats.
 
 ## Documents
-| Document                         	| Link                                                                                        	|
-|----------------------------------	|---------------------------------------------------------------------------------------------	|
-| SRS                              	| [Software Requirements Specification](/Documentation/Sigma___SRS_document.pdf)                  |
-| Project management tool (ClickUp) | [ClickUp](https://app.clickup.com/2535636/v/l/s/2669690)                                      |
+<img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Software Requirements Specification](/Documentation/Sigma___SRS_Document(Demo2).pdf)
 
-## Repository Layout
-This is how the branches will be laid out
-```
-master 
-└── demo1
-    └──── notification
-    └──── web-app-struc
-    └──── camera_feed
-    └──── web_dash
-    └──── spring
-```
+<img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [User Manual](/Documentation/Argus_User_Manual.pdf)
+
+<img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Coding Standards](/Documentation/Sigma__Coding_Standards_document.pdf)
+
+<img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Project Management Tool (ClickUp)](https://app.clickup.com/2535636/v/l/s/2669690)
+
 ## Group Members
 
 ### Britney Chu - Team Leader (u18176951) [GitHub Profile](https://github.com/BritneyChu), [CV](https://britneychu.github.io/), [LinkedIn](https://www.linkedin.com/in/britney-chu-ab434a1a3/)

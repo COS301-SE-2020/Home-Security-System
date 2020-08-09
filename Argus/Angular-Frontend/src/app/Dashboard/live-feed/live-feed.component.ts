@@ -8,7 +8,7 @@ templateUrl: './live-feed.component.html',
 styleUrls: ['./live-feed.component.css']
 })
 export class LiveFeedComponent implements OnInit {
-title = 'Angular-Frontend';
+title = 'argus-app';
 
 @ViewChild('video')
 public webcam: ElementRef;

@@ -1,60 +1,165 @@
-<div class="content">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-header card-header-primary">
-            <h4 class="card-title">Edit Profile</h4>
-            <p class="card-category">Complete your profile</p>
-            <div class="image-cropper">
-              <img class="userPic" src="/assets/Images/faces/JS.jpg">
-              <div class="middle">
-                <a class="text" [routerLink]="['/edit-user']">Change</a>
-              </div>
-            </div>
-          </div>
+<!-- For this page, all the info must be drawn from the DB and populate the fields-->
+
+<div class="container">
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+          <h4 class="modal-title">Select a new profile picture for yourself.</h4>
+        </div>
+        <div class="modal-body">
+          <input class="input100 " type="file" name="profilePic" accept="image/jpeg, image/png" id="profilePic"
+                 onchange="updateProfilePic(event)">
+          <img id="profilePicDisplay" src="/assets/Images/profile.jpg" width="80px">
+          <!--Can't use inline styling-->
+          <img id="output" width="150px">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary pull-right" data-dismiss="modal" onclick="saveChanges()" >Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="modal fade" id="changeModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <i class="material-icons modal-close-btn" data-dismiss="modal">close</i>
+          <h4 class="modal-title">Update Your Personal Information</h4>
+        </div>
+        <div class="modal-body">
           <div class="card-body">
             <form>
               <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-6">
                   <div class="form-group">
-                    <label class="bmd-label-floating">Fist Name</label>
-                    <input type="text" class="form-control" name="fname">
+                    <h5 class="text-primary">First Name</h5>
+                    <!-- <label class="bmd-label-floating">First Name</label> -->
+                    <input id="uFirstName" type="text" class="form-control" name="fname" >
                   </div>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-6">
                   <div class="form-group">
-                    <label class="bmd-label-floating">Last Name</label>
-                    <input type="text" class="form-control" name="lname">
+                    <h5 class="text-primary">Last Name</h5>
+                    <!-- <label class="bmd-label-floating">Last Name</label> -->
+                    <input id="uLastName" type="text" class="form-control" name="lname" >
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-6">
                   <div class="form-group">
-                    <label class="bmd-label-floating">Username</label>
-                    <input type="text" class="form-control" name="username">
+                    <h5 class="text-primary">Username</h5>
+                    <!-- <label class="bmd-label-floating">Username</label> -->
+                    <input id="uUsername" type="text" class="form-control" name="username" >
                   </div>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-6">
                   <div class="form-group">
-                    <label class="bmd-label-floating">Email address</label>
-                    <input type="email" class="form-control" name="email">
+                    <h5 class="text-primary">Email</h5>
+                    <!-- <label class="bmd-label-floating">Email address</label> -->
+                    <input id="uEmail" type="email" class="form-control" name="email" >
                   </div>
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="col-md-6 col-sm-6 col-xs-6">
                   <div class="form-group">
-                    <label class="bmd-label-floating">Password</label>
-                    <input type="text" class="form-control" name="password">
+                    <h5 class="text-primary">Password</h5>
+                    <!-- <label class="bmd-label-floating">Username</label> -->
+                    <input id="uPassword" type="text" class="form-control" name="password" >
                   </div>
                 </div>
               </div>
-              <button type="submit" class="btn btn-primary pull-right">
-                Update Profile
-              </button>
             </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal" (click)="updateUser()"> Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div>
+  <!-- (click) =" AddDB(); ReadDB(); FillTable();" -->
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-primary">
+              <h4 class="card-title"><u>User Profile</u></h4>
+              <p class="card-category">If you want to reinvent yourself, here is your chance.</p>
+              <div class="image-cropper">
+                <img class="userPic" id="userPic"> <!-- src="/assets/Images/faces/JS.jpg"> -->
+                <div class="middle">
+                  <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Change</button>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <form>
+                <div class="row">
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="form-group">
+                      <h5 class="text-primary"><b>First Name</b></h5>
+                      <!-- <label class="bmd-label-floating">First Name</label> -->
+                      <output id="firstNameDisplay">
+                      </output>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="form-group">
+                      <h5 class="text-primary"><b>Last Name</b></h5>
+                      <!-- <label class="bmd-label-floating">Last Name</label> -->
+                      <output id="lastNameDisplay">
+                      </output>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="form-group">
+                      <h5 class="text-primary"><b>Username</b></h5>
+                      <!-- <label class="bmd-label-floating">Username</label> -->
+                      <output id="usernameDisplay">
+                      </output>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="form-group">
+                      <h5 class="text-primary"><b>Email</b></h5>
+                      <!-- <label class="bmd-label-floating">Email address</label> -->
+                      <output id="emailDisplay">
+                      </output>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="form-group">
+                      <h5 class="text-primary"><b>Password</b></h5>
+                      <!-- <label class="bmd-label-floating">Last Name</label> -->
+                      <output id="passwordDisplay">
+                      </output>
+                    </div>
+                  </div>
+                </div>
+                <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#changeModal" (click)="loadModal()">Change</button>
+              </form>
+            </div>
           </div>
         </div>
       </div>

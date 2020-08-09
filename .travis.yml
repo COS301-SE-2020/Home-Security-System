@@ -1,0 +1,31 @@
+matrix:
+  include:
+    - language: java
+        jdk: openjdk8
+        env: NODE_VERSION="0.12"
+        before_install: nvm install $NODE_VERSION
+    
+    - language: node_js
+      node_js: 7
+      before_install: npm i -g npm@7
+      
+    - language: python
+      python: 3.7
+
+branches:
+  only:
+    - master
+before_script:
+  - npm install -g @angular/cli
+
+# Deploy the app on Heroku
+deploy:
+  provider: heroku
+  api_key:
+    secure: "SHA256:X4Hs8YjYzThAXQ799MJXAb+myfbSh+MlRJCkBahC+mI chubr@DESKTOP-N1KIF7V"
+  app: Argus-app
+
+# Test & Build SpringBoot app
+script:
+  - mvn test
+  - mvn clean package

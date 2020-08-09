@@ -1,43 +1,105 @@
-<div class="limiter">
-  <div class="container-login100">
-    <div class="wrap-login100">
-      <form class="login100-form validate-form">
-        <span class="login100-form-title p-b-26 ">
-          Add Person profile on
-          <!--Can't use inline styling-->
-          <img src="/assets/Images/Argus.png" style="height: 60px; margin-left: auto; margin-right: auto;"> <br>
-          <img src="/assets/Images/devider.png" style="height: 7px; width: 200px; margin-left: auto; margin-right: auto;">
-        </span>
-
-          <div class="wrap-input100-last" data-validate="Add a profile picture">
-            <b> Person Picture </b>
-            <p style="padding-top: 20px;"><!--Can't use inline styling-->
-              <input class="input100 " type="file" name="userPic" accept="image/jpeg, image/png" id="userPic" onchange="updateProfilePic(event)">
-              <img id="profilePicDisplay" src="/assets/Images/blank.jpg" width="200px"><!--Can't use inline styling-->
-              <img id="output" width="250px">
-            </p>
-            <span class="focus-input100 "></span>
+<div class="card">
+  <div class="card-header card-header-color">
+    <h4 class="card-title">Add Person</h4>
+  </div>
+  <div class="card-body">
+    <br>
+    <div [hidden]="submitted">
+      <form (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="fname" class="float-left">First Name</label>
+              <input type="text" class="form-control" id="fname"name="fname">
+            </div>
+            <br>
           </div>
 
-        <div class="wrap-input100" data-validate="Enter user type ">
-          <b> Choose identification </b><br><br>
-          <input type="radio" id="white-listed" name="white-listed" value="white-listed" checked>
-          <label for="white-listed"><i>White-listed</i></label><br>
-          <input type="radio" id="grey-listed" name="grey-listed" value="grey-listed">
-          <label for="grey-listed"><i>Grey-listed</i></label><br>
-          <input type="radio" id="black-listed" name="black-listed" value="black-listed">
-          <label for="black-listed"><i>Black-listed</i></label>
-        </div>
-
-        <div class="container-login100-form-btn">
-          <div class="wrap-login100-form-btn">
-            <div class="login100-form-bgbtn"></div>
-            <button class="login100-form-btn" onclick="checkUserImage(), mockAdd()">
-              Save Changes
-            </button>
+          <div class="col">
+            <div class="form-group">
+              <label for="surname" class="float-left">Last Name</label>
+              <input type="text" class="form-control" id="surname" name="surname">
+            </div>
+            <br>
           </div>
         </div>
+
+        <div class="form-group">
+          <label class="float-left">Person Type</label><br><br>
+          <label class="radioContainer">White List
+            <input type="radio" checked="checked" name="personType" id="whiteList" value="whiteList">
+            <span class="radioCheckmark"></span>
+          </label>
+          <label class="radioContainer">Black List
+            <input type="radio" name="personType" id="blackList" value="blackList">
+            <span class="radioCheckmark"></span>
+          </label>
+        </div>
+
+        <!--Picture-->
+        <div class="form-group">
+          <label for="picInput" class="float-left">Picture</label><br><br>
+          <div class="picture-container">
+            <img alt="Default Picture" class="picture-center" id="personPicDisplay" src="/assets/Images/blank.jpg">
+            <img class="output" width="150px">
+            <br>
+          </div>
+
+          <label class="custom-file-upload">
+            <input class="form-control " type="file" name="personPic" accept="image/jpeg, image/png"
+                   id="picInput" onchange="updateProfilePic(event)">
+            <i class="material-icons add-photo-icon">add_photo_alternate</i>
+            <br>
+            Click to add a picture
+          </label>
+
+          <label>or</label>
+          <br>
+
+          <a data-toggle="modal" data-target="#pictureModal">
+            capture a photo from camera
+          </a>
+        </div>
+
+        <button type="submit" class="btn btn-primary justify-content-center" (click)="addPerson();">Submit</button>
       </form>
     </div>
+</div>
+
+<div class="container">
+  <div class="modal fade picModal" id="pictureModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Take a picture</h4>
+          <i class="material-icons modal-close-btn" data-toggle="modal" data-target="#pictureModal">close</i>
+        </div>
+        <div class="modal-body center">
+          <div id="app">
+            <div>
+              <webcam [width]="400" [imageQuality]="0.92" [trigger]="triggerObservable"
+                      *ngIf="showCam"
+                      (imageCapture)="handleShot($event)">
+              </webcam>
+            </div>
+            <div>
+              <button class="btn btn-primary" (click)="trigger_s();">Snap
+              </button>
+            </div>
+            <div class="snapshot" *ngIf="camImg">
+              <h2>Preview:</h2>
+              <img id="confirmPic" width="400px" [src]="camImg.imageAsDataUrl" alt="Preview"/>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#pictureModal"
+                  onclick="changePic(); imgToBase64()">
+            Confirm
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
-  </div>
+</div>
+</div>

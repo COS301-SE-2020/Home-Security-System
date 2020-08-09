@@ -1,39 +1,47 @@
-<!-- ARGUS Login Page -->
-<div class="limiter">
-  <div class="container-login100">
-    <div class="wrap-login100">
-      <form class="login100-form validate-form" name="form1">
-                    <span class="login100-form-title p-b-26 ">
-                    <b>Welcome to </b><!--Can't use inline styling-->
-                    <img src="/assets/Images/Argus.png" style="height: 60px; margin-left: auto; margin-right: auto;"> <br>
-                    <img src="/assets/Images/devider.png" style="height: 7px; width: 200px; margin-left: auto; margin-right: auto;">
-                  </span>
+<div class="loginBG">
+  <div class="loginCover"></div>
+</div>
+<div id="login-button" onclick="loginSlide()">
+  <img class="loginImg" src="./assets/Images/ArgusIcon.png"
+       alt="">
+  Log in
+</div>
 
-        <div class="wrap-input100 " data-validate="Valid email is: a@b.c ">
-          <b> Email or Username </b>
-          <input class="input100" type="text" id="input" name="input">
-          <span class="focus-input100 "></span>
-        </div>
-
-        <div class="wrap-input100 " data-validate="Enter password ">
-          <b> Password </b>
-          <img src="./assets/Images/hidePass.png" id="passEye" onclick="showPassword()" style="height: 12px; padding-left: 150px; "> <br><!--Can't use inline styling-->
-          <input class="input100 " type='password' id="pass">
-          <span class="focus-input100 "></span>
-        </div>
-
-        <div class="container-login100-form-btn ">
-          <div class="wrap-login100-form-btn ">
-            <div class="login100-form-bgbtn "></div>
-            <button class="login100-form-btn" onclick="CheckPassword(), mockLogin()">
-              Login
-            </button>
-          </div>
-        </div>
-      </form>
-      <div class="center">
-        <a class="blue" href="#">Forgot password</a>
-      </div>
-    </div>
+<div id="loginContainer">
+  <h1 class="loginHead">Welcome to</h1>
+  <div class="loginLogo">
+    <a class="simple-text">
+      <img src="assets/Images/ArgusLogo.png" width="50%">
+    </a>
   </div>
+  <i class="material-icons login-close-btn" onclick="closeLogin()">close</i>
+
+  <form>
+    <label class="loginFields">
+      <input class="loginInputs" type="text" name="email" placeholder="Username or E-mail" id="emailInput">
+    </label>
+    <label class="loginPassword">
+      <input class="loginInputs" id="passwordField" type="password" name="pass" placeholder="Password">
+      <i class="material-icons" id="passwordVisibility" onclick="showPassword('')">visibility_off</i>
+    </label>
+
+    <a class="loginButton" (click)="makeSession()">Log in</a>
+    <div id="remember-container">
+      <span id="forgotten" onclick="forgot()">Forgot password?</span>
+    </div>
+  </form>
+</div>
+
+<!-- Forgotten Password Container -->
+<div id="forgotten-container">
+  <h1 class="loginHead">Trouble logging in?</h1>
+  <p class="forgotExplain">Enter email and we'll send you a link to get back into your account.</p>
+  <i class="material-icons login-close-btn" onclick="closeLogin()">close</i>
+
+  <form>
+    <label class="loginFields">
+      <input class="loginInputs" type="email" name="email" placeholder="E-mail">
+    </label>
+    <a [routerLink]="['/reset-password']" class="loginButton loginInputs loginButton">Send Password Reset Link</a>
+  </form>
 </div>

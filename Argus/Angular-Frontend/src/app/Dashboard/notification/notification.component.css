@@ -1,0 +1,23 @@
+
+table {
+  width: 99%;
+}
+
+.DeleteButton{
+  border: 1px;
+  background-color: green;
+  text-align: center;
+}
+
+.DeleteButton:hover{
+  background-color: red;
+}
+.img{
+  height: 20px;
+  width: 20px;
+}
+table, th, td {
+  border: solid #dddddd;
+  background: #F9F5F4;
+  font-size: 18px;
+}

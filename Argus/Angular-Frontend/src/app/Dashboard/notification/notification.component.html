@@ -1,0 +1,39 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title">Notifications</h4>
+                    <p class="card-category">A history of all the notifications sent to you</p>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                      <table id ="notificationsTable">
+                        <thead class="text-primary">
+                        <tr>
+                          <th>Date-Time</th>
+                          <th>Message</th>
+                          <th>Image</th>
+                          <th>Remove</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <ng-container *ngFor="let note of notification | async">
+                          <tr>
+                            <td>{{note.onDate}}&nbsp;{{note.atTime}}</td>
+                            <td>{{note.message}}</td>
+                            <td><img src="{{note.notificationImg.photo}}" class="squarePhoto"></td>
+                            <td>
+                              <a class="btn btn-primary" (click)="removeNotification(note.notificationId)">Dismiss</a>
+                            </td>
+                          </tr>
+                        </ng-container>
+                        </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+

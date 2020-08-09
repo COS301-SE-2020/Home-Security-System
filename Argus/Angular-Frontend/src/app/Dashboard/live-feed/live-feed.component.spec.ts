@@ -27,10 +27,10 @@ describe('LiveFeedComponent', () => {
   });
 
   /*
-  it(`should have as title 'Angular-Frontend'`, () => {
+  it(`should have as title 'argus-app'`, () => {
     fixture = TestBed.createComponent(LiveFeedComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('Angular-Frontend');
+    expect(app.title).toEqual('argus-app');
   });
   */
 /*
@@ -38,7 +38,7 @@ describe('LiveFeedComponent', () => {
     fixture = TestBed.createComponent(LiveFeedComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('Angular-Frontend app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('argus-app app is running!');
   });
   */
 });
