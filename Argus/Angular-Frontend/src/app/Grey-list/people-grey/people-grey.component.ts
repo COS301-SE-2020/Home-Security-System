@@ -12,7 +12,8 @@ import {Router} from '@angular/router';
 })
 export class PeopleGreyComponent implements OnInit {
   person: Observable<Person[]>;
-  psn: Person;
+  arr: Observable<Person[]>;
+  psn: Person = new Person();
 
   constructor(private personService: PersonService, private appService: TitleService, private router: Router) {
   }
@@ -21,36 +22,61 @@ export class PeopleGreyComponent implements OnInit {
     this.person = this.personService.getPersonList();
   }
 
-  whiteListPerson(id: number) {
-    this.person = this.personService.getPersonById(id);
-    this.psn = new Person();
-    this.psn.personId = id;
-    // this.psn.personImg = null;
-    this.psn.fname = 'Unknown';
-    this.psn.lname = 'Unknown';
+  addToWhiteList(id: number) {
+    this.arr = this.personService.getPersonList();
+
+    this.arr.forEach((value) => {
+      value.forEach((key) => {
+        if (id === key.personId)
+        {
+          this.psn = key;
+          // this.psn.personId = key.personId;
+          // this.psn.personImg = key.personImg;
+          // this.psn.fname = key.fname;
+          // this.psn.lname = key.lname;
+          // this.psn.personListed = key.personListed;
+          // this.psn.personCreated = key.personCreated;
+          // this.psn.personDeleted = key.personDeleted;
+        }
+      });
+    });
+
+    // console.log(this.psn.personListed);
     this.psn.personListed = 'White';
 
     this.personService.updatePerson(id, this.psn)
       .subscribe(data => console.log(data), error => console.log(error));
 
     this.reloadData();
-    location.reload();
   }
 
-  blackListPerson(id: number) {
-    this.person = this.personService.getPersonById(id);
-    this.psn = new Person();
-    this.psn.personId = id;
-    // this.psn.personImg = null;
-    this.psn.fname = 'Unknown';
-    this.psn.lname = 'Unknown';
+  addToBlackList(id: number) {
+    this.arr = this.personService.getPersonList();
+
+    this.arr.forEach((value) => {
+      value.forEach((key) => {
+        if (key.personId === id)
+        {
+          console.log(key.lname);
+          this.psn = key;
+          // this.psn.personId = key.personId;
+          // this.psn.personImg = key.personImg;
+          // this.psn.fname = key.fname;
+          // this.psn.lname = key.lname;
+          // this.psn.personListed = key.personListed;
+          // this.psn.personCreated = key.personCreated;
+          // this.psn.personDeleted = key.personDeleted;
+        }
+      });
+    });
+
+    // console.log(this.psn.personListed);
     this.psn.personListed = 'Black';
 
     this.personService.updatePerson(id, this.psn)
       .subscribe(data => console.log(data), error => console.log(error));
 
     this.reloadData();
-    location.reload();
   }
 
   ngOnInit(): void {

@@ -9,7 +9,7 @@ function ValidateEmail() {
     } else {
         // document.getElementById("input").innerHTML = " ";
         alert("That email address doesn't look real... maybe try that again.");
-        // location.reload();
+        // //
         // return false;
     }
 }
@@ -25,7 +25,7 @@ function CheckPassword() {
         // return true;
     } else {
         alert('Unfortunately that is an invalid password! It must be 8 to 15 characters long, containing at least one lowercase letter, one uppercase letter, one numeric digit, and one special character');
-        //location.reload();
+        ////
         // return false;
     }
 }
@@ -46,7 +46,6 @@ function changePic() {
   document.getElementById('profilePicDisplay').style.display = "none";
 }
 
-
 /*==================================================================*/
 
 function imgToBase64(imgSrc) {
@@ -64,6 +63,7 @@ function imgToBase64(imgSrc) {
   console.log(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
   return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
 }
+
 /*==================================================================*/
 
 function checkProfileImage() {
@@ -79,7 +79,7 @@ function checkUserImage() {
     var temp = document.getElementById('output');
     if (temp.src === '') {
         alert('Unfortunately you need to upload an image of the user, a .jpeg or .png will do. Smile for the camera :) ');
-        //location.reload();
+        ////
     }
 }
 
