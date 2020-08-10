@@ -40,7 +40,7 @@ export class NotificationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.appService.setTitle('Black List');
+    this.appService.setTitle('Notifications');
     this.reloadData();
   }
 }

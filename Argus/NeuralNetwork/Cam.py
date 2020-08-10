@@ -21,12 +21,11 @@ successive_detection_ignore = 300.0
 
 rabbit_conn = pi.BlockingConnection(pi.ConnectionParameters(rabbit_host))
 message_channel = rabbit_conn.channel()
-message_channel.queue_declare(queue='alerts')
-message_channel.queue_declare(queue='features')
+message_channel.queue_declare(queue='alertQueue')
+message_channel.queue_declare(queue='featureQueue')
 
 face_d = MTCNN()
 face_r = VGGFace(include_top=False, model=mod_name, input_shape=(224, 224, 3), pooling='avg')
-
 
 def load_faces(path):
     feats = list()
@@ -107,7 +106,7 @@ def cam_feed():
                 for face in features:
                     min_match = 1.0
                     f_name = 'Unknown'
-                    f_type = 'grey'
+                    f_type = 'Grey'
                     for feat in all_f_features:
                         match = cosine(face, feat[1])
                         if match <= threshold:
@@ -122,15 +121,15 @@ def cam_feed():
                     else:
                         if time.time() - time_dict[f_name] > successive_detection_ignore:
                             time_dict[f_name] = time.time()
-                            if f_type == 'black':
-                                message = {'person': f_name, 'list': 'black', 'image': frame.encode('base64')}
-                                message_channel.basic_publish(exchange='',
-                                                              routing_key='alerts',
+                            if f_type == 'Black':
+                                message = {'personId': f_name, 'type': 'Black', 'imageStr': frame.encode('base64')}
+                                message_channel.basic_publish(exchange='sigma.direct',
+                                                              routing_key='alertKey',
                                                               body=json.dumps(message))
-                            elif f_type == 'grey':
-                                message = {'person': f_name, 'list': 'grey', 'image': frame.encode('base64')}
-                                message_channel.basic_publish(exchange='',
-                                                              routing_key='alerts',
+                            elif f_type == 'Grey':
+                                message = {'personId': f_name, 'type': 'Grey', 'imageStr': frame.encode('base64')}
+                                message_channel.basic_publish(exchange='sigma.direct',
+                                                              routing_key='alertKey',
                                                               body=json.dumps(message))
 
             c.imshow("view", frame)

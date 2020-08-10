@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="6ca75e70-e515-4e2d-803c-9d8d3a3c0097" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_mail_jakarta_mail_1_6_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_mail_2_2_5_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_support_5_2_5_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/Dashboard/notification/notification.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/Dashboard/notification/notification.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/Dashboard/notification/notification.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/Dashboard/notification/notification.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/User/list-users/list-users.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/User/list-users/list-users.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/User/list-users/list-users.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/User/list-users/list-users.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/model/notification.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/model/notification.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeuralNetwork/Cam.py" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetwork/Cam.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/controller/NotificationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/controller/NotificationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/controller/PersonController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/controller/PersonController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Notification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/rabbit/RabbitAlert.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/rabbit/RabbitAlert.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/rabbit/RabbitConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/rabbit/RabbitConsumer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/rabbit/RabbitPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/rabbit/RabbitPerson.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/rabbit/RabbitProducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/rabbit/RabbitProducer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/resources/db/changelog/changelog-004.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/resources/db/changelog/changelog-004.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
+  <component name="ProjectId" id="1fsDQR5FuZQ02HlLKqOQsbT3wD0" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="postgresql" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="js.linters.configure.manually.selectedtslint" value="true" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="$PROJECT_DIR$/../../../../Program Files/nodejs/node" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+  </component>
+  <component name="RunManager" selected="Spring Boot.SpringBackendApplication">
+    <configuration name="E2E Tests (Angular-Frontend)" type="JavaScriptTestRunnerProtractor">
+      <config-file value="$PROJECT_DIR$/Angular-Frontend/e2e/protractor.conf.js" />
+      <node-interpreter value="project" />
+      <protractor-options value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Angular Application" type="JavascriptDebugType" uri="http://localhost:4200">
+      <method v="2" />
+    </configuration>
+    <configuration name="SpringBackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="Spring-Backend" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.springboot.SpringBackend.SpringBackendApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Angular CLI Server" type="js.build_tools.npm" singleton="false">
+      <package-json value="$PROJECT_DIR$/Angular-Frontend/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="$PROJECT_DIR$/../../../../Program Files/nodejs/node" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6ca75e70-e515-4e2d-803c-9d8d3a3c0097" name="Default Changelist" comment="" />
+      <created>1596997889320</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1596997889320</updated>
+      <workItem from="1596997890813" duration="12680000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="392" y="49" key="#Angular_CLI_Server" timestamp="1597007912649">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="392" y="49" key="#Angular_CLI_Server/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1597007912649" />
+    <state x="551" y="275" width="551" height="354" key="#TSLint" timestamp="1597005449891">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="551" y="275" width="551" height="354" key="#TSLint/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1597005449891" />
+    <state x="275" y="22" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1597015831052">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="275" y="22" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1597015831052" />
+    <state width="1323" height="341" key="GridCell.Tab.0.bottom" timestamp="1597010077325">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="341" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1597010077325" />
+    <state width="1323" height="341" key="GridCell.Tab.0.center" timestamp="1597010077325">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="341" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1597010077325" />
+    <state width="1323" height="341" key="GridCell.Tab.0.left" timestamp="1597010077325">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="341" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1597010077325" />
+    <state width="1323" height="341" key="GridCell.Tab.0.right" timestamp="1597010077325">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="341" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1597010077325" />
+    <state width="1323" height="341" key="GridCell.Tab.1.bottom" timestamp="1597008239628">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="341" key="GridCell.Tab.1.bottom/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1597008239628" />
+    <state width="1323" height="341" key="GridCell.Tab.1.center" timestamp="1597008239628">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="341" key="GridCell.Tab.1.center/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1597008239628" />
+    <state width="1323" height="341" key="GridCell.Tab.1.left" timestamp="1597008239628">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="341" key="GridCell.Tab.1.left/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1597008239628" />
+    <state width="1323" height="341" key="GridCell.Tab.1.right" timestamp="1597008239628">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="341" key="GridCell.Tab.1.right/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1597008239628" />
+    <state x="531" y="142" width="316" height="443" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1597019250967">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="531" y="142" width="316" height="443" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1597019250967" />
+    <state x="339" y="162" width="672" height="677" key="run.anything.popup" timestamp="1597012709205">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="339" y="162" width="672" height="677" key="run.anything.popup/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1597012709205" />
+  </component>
+</project>

@@ -12,6 +12,7 @@
                         <thead class="text-primary">
                         <tr>
                           <th>Date-Time</th>
+                          <th>Type</th>
                           <th>Message</th>
                           <th>Image</th>
                           <th>Remove</th>
@@ -21,6 +22,7 @@
                         <ng-container *ngFor="let note of notification | async">
                           <tr>
                             <td>{{note.onDate}}&nbsp;{{note.atTime}}</td>
+                            <td>{{note.listed}}&nbsp;Listed</td>
                             <td>{{note.message}}</td>
                             <td><img src="{{note.notificationImg.photo}}" class="squarePhoto"></td>
                             <td>

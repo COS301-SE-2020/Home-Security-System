@@ -16,6 +16,7 @@ import { Session } from '../../../assets/js/SessionStorage.js';
 export class ListUsersComponent implements OnInit {
   sessionS = new Session();
   users: Observable<User[]>;
+  info: User = this.sessionS.retrieveUserInfo();
 
   constructor(private userService: UserService, private appService: TitleService, private router: Router) {
   }
@@ -87,8 +88,6 @@ export class ListUsersComponent implements OnInit {
 
   activateButtons(){
     const addBtn = document.getElementById('addBtn') as HTMLButtonElement;
-    const editBtn = document.getElementById('editBtn') as HTMLButtonElement;
-    console.log(editBtn); // returns null?
     const deleteBtn = document.getElementById('deleteBtn') as HTMLButtonElement;
     const user = this.sessionS.retrieveUserInfo();
 
@@ -99,21 +98,16 @@ export class ListUsersComponent implements OnInit {
         },
         error => console.log(error));
 
-
     if (user.userRole === 'Admin'){
       addBtn.disabled = false;
-      // editBtn.disabled = false;
     }
     else if (user.userRole === 'Advanced'){
       addBtn.disabled = false;
-      // editBtn.disabled = false;
       deleteBtn.hidden = true;
     }
     else if (user.userRole === 'Basic'){
       addBtn.disabled = true;
       addBtn.hidden = true;
-      // editBtn.disabled = true;
-      // editBtn.hidden = true;
       deleteBtn.hidden = true;
     }
   }

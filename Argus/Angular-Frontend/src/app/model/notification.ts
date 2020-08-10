@@ -5,6 +5,7 @@ export class Notification {
   notificationId: number;
   notificationImg: Image;
   notificationImgId: number;
+  listed: string;
   message: string;
   onDate: any;
   atTime: any;
@@ -12,7 +13,7 @@ export class Notification {
   user: User;
   userId: number;
 
-  /*constructor(id: number, img: Image, msg: string, u: ArgusUser) {
+  /*constructor(id: number, img: Image, listed: string, msg: string, u: ArgusUser) {
     this.notificationId = id;
     this.notificationImg = img;
     this.message = msg;
