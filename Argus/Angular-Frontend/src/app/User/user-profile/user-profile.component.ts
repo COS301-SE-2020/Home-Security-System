@@ -106,6 +106,7 @@ export class UserProfileComponent implements OnInit {
 
   gotoList() {
     this.router.navigate(['/user-profile']);
+    location.reload();
     //
   }
 

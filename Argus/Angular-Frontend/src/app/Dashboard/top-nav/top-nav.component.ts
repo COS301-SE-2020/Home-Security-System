@@ -15,9 +15,7 @@ export class TopNavComponent implements OnInit {
   sessionS = new Session();
   user: User;
 
-  constructor(private appService: TitleService, private userService: UserService) {}
-
-  ReadDB(): void {}
+  constructor(private appService: TitleService, private userService: UserService) { }
 
   clearUserSession(){
     this.sessionS.deleteSession();

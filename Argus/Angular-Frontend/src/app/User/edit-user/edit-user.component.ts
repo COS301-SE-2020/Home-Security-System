@@ -72,6 +72,5 @@ export class EditUserComponent implements OnInit {
 
   gotoList() {
     this.router.navigate(['/user-list']);
-    location.reload();
   }
 }
