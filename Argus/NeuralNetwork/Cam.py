@@ -1,6 +1,7 @@
 import cv2 as c
 from mtcnn.mtcnn import MTCNN
 import numpy as np
+import tensorflow as tf
 from scipy.spatial.distance import cosine
 from keras_vggface.vggface import VGGFace
 from keras_vggface.utils import preprocess_input
@@ -16,8 +17,8 @@ import base64 as b64
 #  ONLY RUN IF RTX CARD  #
 ##########################
 
-# phys = tf.config.experimental.list_physical_devices('GPU')
-# tf.config.experimental.set_memory_growth(phys[0], True)
+phys = tf.config.experimental.list_physical_devices('GPU')
+tf.config.experimental.set_memory_growth(phys[0], True)
 
 #############################################################
 
@@ -130,13 +131,13 @@ def cam_feed():
                             time_dict[f_name] = time.time()
 
                             if f_type == 'black':
-                                message = {'personId': f_name, 'type': 'Black',
+                                message = {'personId': int(f_name), 'type': 'Black',
                                            'imageStr': str(b64.b64encode(c.imencode('.jpg', frame)[1]))}
                                 message_channel.basic_publish(exchange='sigma.direct',
                                                               routing_key='alertKey',
                                                               body=json.dumps(message))
                             elif f_type == 'grey':
-                                message = {'personId': f_name, 'type': 'Grey',
+                                message = {'personId': int(f_name), 'type': 'Grey',
                                            'imageStr': str(b64.b64encode(c.imencode('.jpg', frame)[1]))}
                                 message_channel.basic_publish(exchange='sigma.direct',
                                                               routing_key='alertKey',
