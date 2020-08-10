@@ -10,8 +10,16 @@ import pika as pi
 import time
 import json
 
-phys = tf.config.experimental.list_physical_devices('GPU')  # NB
-tf.config.experimental.set_memory_growth(phys[0], True)  # Only run lines if RTX card
+############################################################
+
+##########################
+#  ONLY RUN IF RTX CARD  #
+##########################
+
+phys = tf.config.experimental.list_physical_devices('GPU')
+tf.config.experimental.set_memory_growth(phys[0], True)
+
+#############################################################
 
 mod_name = 'senet50'
 path_features = 'models/'
