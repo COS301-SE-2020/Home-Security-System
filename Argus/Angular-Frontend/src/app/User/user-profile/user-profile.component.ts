@@ -25,6 +25,7 @@ export class UserProfileComponent implements OnInit {
     const UName = document.getElementById('usernameDisplay') as HTMLDataElement;
     const email = document.getElementById('emailDisplay') as HTMLDataElement;
     const password = document.getElementById('passwordDisplay') as HTMLDataElement;
+    const uPic = document.getElementById('userPic') as HTMLImageElement;
 
     let userObj;
     userObj = this.sessionS.retrieveUserInfo();
@@ -36,6 +37,7 @@ export class UserProfileComponent implements OnInit {
         UName.value = data.username;
         email.value = data.email;
         password.value = data.userPass;
+        uPic.src = data.profilePhoto.photo;
         this.user = data;
         // console.log(this.user);
       }
@@ -48,6 +50,7 @@ export class UserProfileComponent implements OnInit {
     const uUsername = document.getElementById('uUsername') as HTMLInputElement;
     const uEmail = document.getElementById('uEmail') as HTMLInputElement;
     const uPassword = document.getElementById('uPassword') as HTMLInputElement;
+    const uPic = document.getElementById('userPic') as HTMLImageElement;
 
     let userObj;
     userObj = this.sessionS.retrieveUserInfo();
@@ -59,6 +62,7 @@ export class UserProfileComponent implements OnInit {
         uEmail.value = data.email;
         uUsername.value = data.username;
         uPassword.value = data.userPass;
+        uPic.src = data.profilePhoto.photo;
       });
   }
 
@@ -83,12 +87,26 @@ export class UserProfileComponent implements OnInit {
     this.gotoList();
   }
 
+  updateUserPic() {
+    const uPicUploaded = document.getElementById('profilePicUpload') as HTMLImageElement;
+
+    let userObj;
+    userObj = this.sessionS.retrieveUserInfo();
+
+    this.user.profilePhoto.photo = uPicUploaded.src;
+
+    this.userService.updateUser(userObj.id, this.user).subscribe(data => console.log(data), error => console.log(error));
+    this.user = new User();
+    this.gotoList();
+  }
+
   onSubmit() {
     this.updateUser();
   }
 
   gotoList() {
     this.router.navigate(['/user-profile']);
+    location.reload();
     //
   }
 
