@@ -16,8 +16,8 @@ import json
 #  ONLY RUN IF RTX CARD  #
 ##########################
 
-phys = tf.config.experimental.list_physical_devices('GPU')
-tf.config.experimental.set_memory_growth(phys[0], True)
+# phys = tf.config.experimental.list_physical_devices('GPU')
+# tf.config.experimental.set_memory_growth(phys[0], True)
 
 #############################################################
 
@@ -45,6 +45,7 @@ def load_faces(path):
             f_feat.append(str(os.path.splitext(file)[0]))
             f_feat.append(np.load(os.path.join(root, file)))
             f_feat.append(root.split('/')[2])
+            print(str(os.path.splitext(file)[0]))
             feats.append(f_feat)
             t_dict[f_feat[0]] = 0.0
 
