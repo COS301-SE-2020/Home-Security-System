@@ -16,8 +16,8 @@ import json
 #  ONLY RUN IF RTX CARD  #
 ##########################
 
-phys = tf.config.experimental.list_physical_devices('GPU')
-tf.config.experimental.set_memory_growth(phys[0], True)
+# phys = tf.config.experimental.list_physical_devices('GPU')
+# tf.config.experimental.set_memory_growth(phys[0], True)
 
 #############################################################
 
