@@ -34,6 +34,7 @@ public class RabbitConsumer {
 
     @RabbitListener(queues = {"alertQueue"})
     public void receivedAlert(RabbitAlert alert) {
+        //Session
         Long num = Long.valueOf(1);
         Optional<User> u =  userService.getUserById(num);
 

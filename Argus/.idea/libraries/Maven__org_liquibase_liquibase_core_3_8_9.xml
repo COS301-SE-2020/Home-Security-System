@@ -3,9 +3,7 @@
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/org/liquibase/liquibase-core/3.8.9/liquibase-core-3.8.9.jar!/" />
     </CLASSES>
-    <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/liquibase/liquibase-core/3.8.9/liquibase-core-3.8.9-javadoc.jar!/" />
-    </JAVADOC>
+    <JAVADOC />
     <SOURCES>
       <root url="jar://$MAVEN_REPOSITORY$/org/liquibase/liquibase-core/3.8.9/liquibase-core-3.8.9-sources.jar!/" />
     </SOURCES>

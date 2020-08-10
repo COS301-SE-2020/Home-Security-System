@@ -18,7 +18,8 @@ public class RabbitProducer {
         this.amqpTemplate = template;
     }
 
-    /*@Scheduled(fixedDelay = 5000L)
+    /*
+    //@Scheduled(fixedDelay = 5000L)
     public void sendAlert() {
         RabbitAlert x = new RabbitAlert(Long.valueOf(1), "Grey", "Intruder");
         amqpTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.ALERT_KEY, x);
@@ -30,6 +31,13 @@ public class RabbitProducer {
         RabbitPerson x = new RabbitPerson(Long.valueOf(1), "Grey", "Feature", "Photo", true);
         amqpTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.PERSON_KEY, x);
         LOGGER.info("Person Sent");
+    }
+
+    //@Scheduled(fixedDelay = 3000L)
+    public void sendFeature() {
+        RabbitPerson x = new RabbitPerson(Long.valueOf(1), "Grey", "Feature", "Photo", true);
+        amqpTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.FEATURE_KEY, x);
+        LOGGER.info("Feature Sent");
     }
     */
 }

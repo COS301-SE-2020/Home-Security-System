@@ -3,9 +3,7 @@
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/com/sun/xml/messaging/saaj/saaj-impl/1.5.2/saaj-impl-1.5.2.jar!/" />
     </CLASSES>
-    <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/com/sun/xml/messaging/saaj/saaj-impl/1.5.2/saaj-impl-1.5.2-javadoc.jar!/" />
-    </JAVADOC>
+    <JAVADOC />
     <SOURCES>
       <root url="jar://$MAVEN_REPOSITORY$/com/sun/xml/messaging/saaj/saaj-impl/1.5.2/saaj-impl-1.5.2-sources.jar!/" />
     </SOURCES>

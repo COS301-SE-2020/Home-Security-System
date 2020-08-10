@@ -3,9 +3,7 @@
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/org/modelmapper/modelmapper/2.3.8/modelmapper-2.3.8.jar!/" />
     </CLASSES>
-    <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/modelmapper/modelmapper/2.3.8/modelmapper-2.3.8-javadoc.jar!/" />
-    </JAVADOC>
+    <JAVADOC />
     <SOURCES>
       <root url="jar://$MAVEN_REPOSITORY$/org/modelmapper/modelmapper/2.3.8/modelmapper-2.3.8-sources.jar!/" />
     </SOURCES>

@@ -10,8 +10,8 @@ import pika as pi
 import time
 import json
 
-phys = tf.config.experimental.list_physical_devices('GPU')  # NB
-tf.config.experimental.set_memory_growth(phys[0], True)  # Only run lines if RTX card
+#phys = tf.config.experimental.list_physical_devices('GPU')  # NB
+#tf.config.experimental.set_memory_growth(phys[0], True)  # Only run lines if RTX card
 
 mod_name = 'senet50'
 path_features = 'models/'
@@ -35,6 +35,7 @@ def load_faces(path):
             f_feat = list()
             f_feat.append(str(os.path.splitext(file)[0]))
             f_feat.append(np.load(os.path.join(root, file)))
+            
             feats.append(f_feat)
             t_dict[f_feat[0]] = 0.0
 
@@ -106,7 +107,7 @@ def cam_feed():
                 for face in features:
                     min_match = 1.0
                     f_name = 'Unknown'
-                    f_type = 'Grey'
+                    f_type = 'grey'
                     for feat in all_f_features:
                         match = cosine(face, feat[1])
                         if match <= threshold:
@@ -122,12 +123,12 @@ def cam_feed():
                         if time.time() - time_dict[f_name] > successive_detection_ignore:
                             time_dict[f_name] = time.time()
 
-                            if f_type == 'Black':
+                            if f_type == 'black':
                                 message = {'personId': f_name, 'type': 'Black', 'imageStr': frame.encode('base64')}
                                 message_channel.basic_publish(exchange='sigma.direct',
                                                               routing_key='alertKey',
                                                               body=json.dumps(message))
-                            elif f_type == 'Grey':
+                            elif f_type == 'grey':
                                 message = {'personId': f_name, 'type': 'Grey', 'imageStr': frame.encode('base64')}
                                 message_channel.basic_publish(exchange='sigma.direct',
                                                               routing_key='alertKey',
