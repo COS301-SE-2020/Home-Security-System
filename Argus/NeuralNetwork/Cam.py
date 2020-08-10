@@ -9,6 +9,7 @@ import os
 import pika as pi
 import time
 import json
+import base64 as b64
 
 ############################################################
 
@@ -22,7 +23,7 @@ tf.config.experimental.set_memory_growth(phys[0], True)
 #############################################################
 
 mod_name = 'senet50'
-path_features = 'models/'
+path_features = './models/'
 rabbit_host = 'localhost'
 threshold = 0.5
 successive_detection_ignore = 300.0
@@ -129,12 +130,14 @@ def cam_feed():
                             time_dict[f_name] = time.time()
 
                             if f_type == 'black':
-                                message = {'personId': f_name, 'type': 'Black', 'imageStr': frame.encode('base64')}
+                                message = {'personId': f_name, 'type': 'Black',
+                                           'imageStr': str(b64.b64encode(c.imencode('.jpg', frame)[1]))}
                                 message_channel.basic_publish(exchange='sigma.direct',
                                                               routing_key='alertKey',
                                                               body=json.dumps(message))
                             elif f_type == 'grey':
-                                message = {'personId': f_name, 'type': 'Grey', 'imageStr': frame.encode('base64')}
+                                message = {'personId': f_name, 'type': 'Grey',
+                                           'imageStr': str(b64.b64encode(c.imencode('.jpg', frame)[1]))}
                                 message_channel.basic_publish(exchange='sigma.direct',
                                                               routing_key='alertKey',
                                                               body=json.dumps(message))
