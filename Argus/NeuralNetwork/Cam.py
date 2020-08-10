@@ -1,7 +1,6 @@
 import cv2 as c
 from mtcnn.mtcnn import MTCNN
 import numpy as np
-import tensorflow as tf
 from scipy.spatial.distance import cosine
 from keras_vggface.vggface import VGGFace
 from keras_vggface.utils import preprocess_input
