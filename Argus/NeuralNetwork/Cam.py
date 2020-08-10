@@ -27,6 +27,7 @@ message_channel.queue_declare(queue='featureQueue')
 face_d = MTCNN()
 face_r = VGGFace(include_top=False, model=mod_name, input_shape=(224, 224, 3), pooling='avg')
 
+
 def load_faces(path):
     feats = list()
     t_dict = dict()
@@ -35,6 +36,7 @@ def load_faces(path):
             f_feat = list()
             f_feat.append(str(os.path.splitext(file)[0]))
             f_feat.append(np.load(os.path.join(root, file)))
+            f_feat.append(root.split('/')[2])
             feats.append(f_feat)
             t_dict[f_feat[0]] = 0.0
 
@@ -73,7 +75,6 @@ def cam_feed():
     if vc.isOpened():
         c.namedWindow("view")
         f, frame = vc.read()
-        f_count = 0
         while f:
             pix = np.asarray(frame)
             faces = face_d.detect_faces(pix)
@@ -88,7 +89,6 @@ def cam_feed():
                 face_pix.append(pix[y1:y2, x1:x2])
                 frame = c.rectangle(frame, start, end, (0, 0, 255), 1)
 
-            count = 0
             inp_features = list()
             for face in face_pix:
                 face = c.resize(face, (224, 224), interpolation=c.INTER_AREA)
@@ -96,8 +96,6 @@ def cam_feed():
                     inp_features.append(preprocess_input(np.asarray(face).astype('float64')))
                 else:
                     inp_features.append(preprocess_input(np.asarray(face).astype('float64'), version=2))
-                c.imwrite('data/test'+str(f_count)+'_'+str(count)+'.jpg', face)
-                count += 1
 
             inp_features = np.asarray(inp_features)
 
@@ -134,7 +132,6 @@ def cam_feed():
                                                               body=json.dumps(message))
 
             c.imshow("view", frame)
-            f_count += 1
             f, frame = vc.read()
             key = c.waitKey(5)
             if key == 27:
