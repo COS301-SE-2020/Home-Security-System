@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="argus_db@localhost" uuid="b8697462-4a11-436c-97de-1c0fb6c3602c">
+    <data-source source="LOCAL" name="argus_db@localhost" uuid="bb756ca5-4ea5-4c64-8e13-02ed0bd72ee9">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>

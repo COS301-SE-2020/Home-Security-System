@@ -16,6 +16,11 @@ import { Session } from '../../../assets/js/SessionStorage.js';
 export class ListUsersComponent implements OnInit {
   sessionS = new Session();
   users: Observable<User[]>;
+  info: User = this.sessionS.retrieveUserInfo();
+
+  id: number;
+  user: User;
+  temp: string;
 
   constructor(private userService: UserService, private appService: TitleService, private router: Router) {
   }
@@ -25,7 +30,7 @@ export class ListUsersComponent implements OnInit {
     this.userService.getUserList()
       .subscribe(
         data => {
-          console.log(data);
+          // console.log(data);
         },
         error => console.log(error));
     this.activateButtons();
@@ -33,12 +38,11 @@ export class ListUsersComponent implements OnInit {
 
   removeUser(id: number) {
     const user = this.sessionS.retrieveUserInfo();
-    const deleteBtn = document.getElementById('deleteBtn') as HTMLButtonElement;
+    // const deleteBtn = document.getElementById('deleteBtn') as HTMLButtonElement;
     if ((user.userRole === 'Admin')){
-      deleteBtn.disabled = false;
       if ( user.id === id )
       {
-        deleteBtn.hidden = true;
+        // deleteBtn.hidden = true;
         alert('You are unfortunately not able to delete yourself as a user on this page.');
       }
       else {
@@ -49,35 +53,34 @@ export class ListUsersComponent implements OnInit {
             },
             error => console.log(error));
         this.reloadData();
+        location.reload();
       }
-    }
-    else if ((user.userRole === 'Advanced')){
-      deleteBtn.disabled = true;
-      deleteBtn.hidden = true;
-      // alert('You are unfortunately not able to delete a user on this page.');
-    }
-    else if ((user.userRole === 'Basic')){
-      deleteBtn.disabled = true;
-      deleteBtn.hidden = true;
-      // alert('You are unfortunately not able to delete a user on this page.');
     }
   }
 
   updateUser(id: number){
-    const user = this.sessionS.retrieveUserInfo();
-    const editBtn = document.getElementById('editBtn') as HTMLButtonElement;
-    if ((user.userRole === 'Admin')) {
-      this.router.navigate(['edit-user', id]);
-    }
-    else if ((user.userRole === 'Advanced')) {
-      this.router.navigate(['edit-user', id]);
-    }
-    else if ((user.userRole === 'Basic')) {
-      editBtn.disabled = true;
-      editBtn.hidden = true;
-      // alert('You are unfortunately not able to edit a user on this page.');
-    }
-    }
+    const userInfo = this.sessionS.retrieveUserInfo();
+
+    this.user = new User();
+
+    this.userService.getUserById(id)
+      .subscribe(data => {
+        console.log(data);
+        this.user = data;
+        this.temp = data.userRole;
+
+        if ( this.user.userRole === 'Admin' && this.info.userRole === 'Advanced')
+        {
+          alert('Sorry, you can not edit a user with more privileges than yourself.');
+        }
+        else if ((userInfo.userRole === 'Basic')) {
+          alert('You are unfortunately not able to edit a user on this page.');
+        }
+        else {
+          this.router.navigate(['edit-user', id]);
+        }
+      }, error => console.log(error));
+  }
 
   viewUser(id: number){
     this.router.navigate(['view-user', id]);
@@ -87,34 +90,15 @@ export class ListUsersComponent implements OnInit {
 
   activateButtons(){
     const addBtn = document.getElementById('addBtn') as HTMLButtonElement;
-    const editBtn = document.getElementById('editBtn') as HTMLButtonElement;
-    console.log(editBtn); // returns null?
-    const deleteBtn = document.getElementById('deleteBtn') as HTMLButtonElement;
     const user = this.sessionS.retrieveUserInfo();
 
-    this.userService.getUserList()
-      .subscribe(
-        data => {
-          console.log(data);
-        },
-        error => console.log(error));
+    // -----------------------------------------------------
+   //  console.log('You are a -> ' + user.userRole);
+    // -----------------------------------------------------
 
-
-    if (user.userRole === 'Admin'){
-      addBtn.disabled = false;
-      // editBtn.disabled = false;
-    }
-    else if (user.userRole === 'Advanced'){
-      addBtn.disabled = false;
-      // editBtn.disabled = false;
-      deleteBtn.hidden = true;
-    }
-    else if (user.userRole === 'Basic'){
+    if (user.userRole === 'Basic'){
       addBtn.disabled = true;
       addBtn.hidden = true;
-      // editBtn.disabled = true;
-      // editBtn.hidden = true;
-      deleteBtn.hidden = true;
     }
   }
 
