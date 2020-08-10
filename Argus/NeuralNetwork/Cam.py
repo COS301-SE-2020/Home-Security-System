@@ -126,13 +126,15 @@ def cam_feed():
 
                             if f_type == 'black':
                                 message = {'personId': int(f_name), 'type': 'Black',
-                                           'imageStr': str(b64.b64encode(c.imencode('.jpg', frame)[1]))}
+                                           'imageStr': 'data:image/jpg;base64,' +
+                                                       str(b64.b64encode(c.imencode('.jpg', frame)[1]).decode('utf-8'))}
                                 message_channel.basic_publish(exchange='sigma.direct',
                                                               routing_key='alertKey',
                                                               body=json.dumps(message))
                             elif f_type == 'grey':
                                 message = {'personId': int(f_name), 'type': 'Grey',
-                                           'imageStr': str(b64.b64encode(c.imencode('.jpg', frame)[1]))}
+                                           'imageStr': 'data:image/jpg;base64,' +
+                                                       str(b64.b64encode(c.imencode('.jpg', frame)[1]).decode('utf-8'))}
                                 message_channel.basic_publish(exchange='sigma.direct',
                                                               routing_key='alertKey',
                                                               body=json.dumps(message))
