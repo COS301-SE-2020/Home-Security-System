@@ -106,7 +106,7 @@ def cam_feed():
                 for face in features:
                     min_match = 1.0
                     f_name = 'Unknown'
-                    f_type = 'Grey'
+                    f_type = 'grey'
                     for feat in all_f_features:
                         match = cosine(face, feat[1])
                         if match <= threshold:
@@ -122,12 +122,12 @@ def cam_feed():
                         if time.time() - time_dict[f_name] > successive_detection_ignore:
                             time_dict[f_name] = time.time()
 
-                            if f_type == 'Black':
+                            if f_type == 'black':
                                 message = {'personId': f_name, 'type': 'Black', 'imageStr': frame.encode('base64')}
                                 message_channel.basic_publish(exchange='sigma.direct',
                                                               routing_key='alertKey',
                                                               body=json.dumps(message))
-                            elif f_type == 'Grey':
+                            elif f_type == 'grey':
                                 message = {'personId': f_name, 'type': 'Grey', 'imageStr': frame.encode('base64')}
                                 message_channel.basic_publish(exchange='sigma.direct',
                                                               routing_key='alertKey',
