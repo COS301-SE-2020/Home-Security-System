@@ -25,10 +25,8 @@ export class TopNavComponent implements OnInit {
 
   ngOnInit(): void {
     // this.appService.getTitle().subscribe(appTitle => title = appTitle);
-    let userObj;
-    userObj = this.sessionS.retrieveUserInfo();
     const uPic = document.getElementById('profilePic') as HTMLImageElement;
-    this.userService.getUserById(userObj.id).subscribe(
+    this.userService.getUserById(this.sessionS.retrieveUserInfo().id).subscribe(
       data => {
         uPic.src = data.profilePhoto.photo;
       });

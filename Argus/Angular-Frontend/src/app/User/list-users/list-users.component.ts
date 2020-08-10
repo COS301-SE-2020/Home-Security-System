@@ -16,6 +16,11 @@ import { Session } from '../../../assets/js/SessionStorage.js';
 export class ListUsersComponent implements OnInit {
   sessionS = new Session();
   users: Observable<User[]>;
+  info: User = this.sessionS.retrieveUserInfo();
+
+  id: number;
+  user: User;
+  temp: string;
 
   constructor(private userService: UserService, private appService: TitleService, private router: Router) {
   }
@@ -54,13 +59,27 @@ export class ListUsersComponent implements OnInit {
   }
 
   updateUser(id: number){
-    const user = this.sessionS.retrieveUserInfo();
-    if ((user.userRole === 'Basic')) {
-      alert('You are unfortunately not able to edit a user on this page.');
-    }
-    else {
-      this.router.navigate(['edit-user', id]);
-    }
+    const userInfo = this.sessionS.retrieveUserInfo();
+
+    this.user = new User();
+
+    this.userService.getUserById(id)
+      .subscribe(data => {
+        console.log(data);
+        this.user = data;
+        this.temp = data.userRole;
+
+        if ( this.user.userRole === 'Admin' && this.info.userRole === 'Advanced')
+        {
+          alert('Sorry, you can not edit a user with more privileges than yourself.');
+        }
+        else if ((userInfo.userRole === 'Basic')) {
+          alert('You are unfortunately not able to edit a user on this page.');
+        }
+        else {
+          this.router.navigate(['edit-user', id]);
+        }
+      }, error => console.log(error));
   }
 
   viewUser(id: number){
