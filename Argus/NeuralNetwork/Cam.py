@@ -121,6 +121,7 @@ def cam_feed():
                     else:
                         if time.time() - time_dict[f_name] > successive_detection_ignore:
                             time_dict[f_name] = time.time()
+
                             if f_type == 'Black':
                                 message = {'personId': f_name, 'type': 'Black', 'imageStr': frame.encode('base64')}
                                 message_channel.basic_publish(exchange='sigma.direct',

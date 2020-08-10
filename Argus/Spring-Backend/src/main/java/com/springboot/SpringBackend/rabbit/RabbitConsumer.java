@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +33,7 @@ public class RabbitConsumer {
     }
 
     @RabbitListener(queues = {"alertQueue"})
-    public void receiveAlert(RabbitAlert alert) {
+    public void receivedAlert(RabbitAlert alert) {
         Long num = Long.valueOf(1);
         Optional<User> u =  userService.getUserById(num);
 
@@ -62,6 +61,7 @@ public class RabbitConsumer {
 
     //@RabbitListener(queues = {"featureQueue"})
     public void receivePerson(RabbitPerson psn) {
+        /*
         if(psn.getType() == "Grey") {
             Image img = new Image(psn.getImageStr());
             imageService.createImage(img);
@@ -82,5 +82,6 @@ public class RabbitConsumer {
 
             LOGGER.info("Person updated");
         }
+        */
     }
 }

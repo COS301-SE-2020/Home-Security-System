@@ -2,26 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6ca75e70-e515-4e2d-803c-9d8d3a3c0097" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_mail_jakarta_mail_1_6_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_mail_2_2_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_support_5_2_5_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/Dashboard/notification/notification.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/Dashboard/notification/notification.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/Dashboard/notification/notification.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/Dashboard/notification/notification.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/User/list-users/list-users.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/User/list-users/list-users.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/User/list-users/list-users.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/User/list-users/list-users.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular-Frontend/src/app/model/notification.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Angular-Frontend/src/app/model/notification.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NeuralNetwork/Cam.py" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetwork/Cam.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/controller/NotificationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/controller/NotificationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/controller/PersonController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/controller/PersonController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/model/Notification.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/rabbit/RabbitAlert.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/rabbit/RabbitAlert.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/rabbit/RabbitConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/rabbit/RabbitConsumer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/rabbit/RabbitPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/rabbit/RabbitPerson.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/rabbit/RabbitProducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/java/com/springboot/SpringBackend/rabbit/RabbitProducer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spring-Backend/src/main/resources/db/changelog/changelog-004.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Spring-Backend/src/main/resources/db/changelog/changelog-004.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +83,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1596997889320</updated>
-      <workItem from="1596997890813" duration="12680000" />
+      <workItem from="1596997890813" duration="13239000" />
     </task>
     <servers />
   </component>
