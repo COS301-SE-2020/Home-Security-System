@@ -26,8 +26,11 @@
                                 <td>{{user.fname}}&nbsp;{{user.lname}}</td>
                                 <td>{{user.userRole}}</td>
                                 <td>
-                                  <button id="editBtn" class="btn btn-primary" (click)="updateUser(user.userId)">Edit</button>
-                                  <button id="deleteBtn" class="btn btn-primary" (click)="removeUser(user.userId)">Delete</button>
+<!--                                  <button id="editBtn" class="btn btn-primary" (click)="updateUser(user.userId)">Edit</button>-->
+<!--                                  <button id="deleteBtn" class="btn btn-primary" (click)="removeUser(user.userId)">Delete</button>-->
+                                  <a class="material-icons listPageIcons" id="editBtn" (click)="updateUser(user.userId)">create</a>
+                                  <a class="material-icons listPageIcons" id="deleteBtn" (click)="removeUser(user.userId)">delete</a>
+
                                 </td>
                               </tr>
                             </ng-container>

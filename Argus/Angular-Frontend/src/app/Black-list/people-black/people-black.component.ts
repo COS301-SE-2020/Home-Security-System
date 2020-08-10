@@ -11,6 +11,8 @@ import {PersonService} from '../../model/person.service';
   styleUrls: ['./people-black.component.css']
 })
 export class PeopleBlackComponent implements OnInit {
+  attack = 'javascript:alert("Hi, youve been pwned")';
+  abstract bypassSecurityTrustScript(value: string): SafeScript;
   person: Observable<Person[]>;
 
   constructor(private personService: PersonService, private appService: TitleService, private router: Router) {
