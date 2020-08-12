@@ -71,6 +71,8 @@ public class PersonController {
             x.setLname(details.getLname());
         }
         x.setPersonListed(details.getPersonListed());
+        x.setPersonDeleted(details.getPersonDeleted());
+
         final Person updatedPerson = service.updatePerson(x);
 
         /*

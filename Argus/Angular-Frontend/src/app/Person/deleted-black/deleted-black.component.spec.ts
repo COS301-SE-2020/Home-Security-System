@@ -1,26 +1,25 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListUsersComponent } from './list-users.component';
+import { DeletedBlackComponent } from './deleted-black.component';
 
-describe('ListUsersComponent', () => {
-  let component: ListUsersComponent;
-  let fixture: ComponentFixture<ListUsersComponent>;
+describe('DeletedBlackComponent', () => {
+  let component: DeletedBlackComponent;
+  let fixture: ComponentFixture<DeletedBlackComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListUsersComponent ]
+      declarations: [ DeletedBlackComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ListUsersComponent);
+    fixture = TestBed.createComponent(DeletedBlackComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-  /*
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-   */
 });

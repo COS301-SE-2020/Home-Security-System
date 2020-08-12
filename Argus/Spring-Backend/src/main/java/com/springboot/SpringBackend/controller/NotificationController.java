@@ -45,6 +45,26 @@ public class NotificationController {
         return service.createNotification(x);
     }
 
+    @PutMapping("/notifications/{id}")
+    public ResponseEntity<Notification> editUser(@PathVariable(value = "id") Long id,
+                                         @Valid @RequestBody Notification details) throws ResourceNotFoundException {
+        Notification x = service.getNotificationById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Notification not found for this id :: " + id));
+
+        x.setNotificationId(details.getNotificationId());
+        if(details.getNotificationImg() != null) {
+            x.setNotificationImg(details.getNotificationImg());
+        }
+        x.setListed(details.getListed());
+        x.setMessage(details.getMessage());
+        if(details.getUser() != null) {
+            x.setUser(details.getUser());
+        }
+        x.setNotificationDeleted(details.getNotificationDeleted());
+        final Notification updatedNotification = service.updateNotification(x);
+        return ResponseEntity.ok(updatedNotification);
+    }
+
     @DeleteMapping("/notifications/{id}")
     public Map<String, Boolean> deleteNotification(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
         Notification x = service.getNotificationById(id)

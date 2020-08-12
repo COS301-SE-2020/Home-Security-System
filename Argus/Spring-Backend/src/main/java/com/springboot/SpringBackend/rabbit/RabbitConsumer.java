@@ -6,17 +6,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Component
 //@Service
-@Controller
+//@Controller
 public class RabbitConsumer {
     private static final Logger LOGGER = LoggerFactory.getLogger(RabbitConsumer.class);
 
-    private final NotificationService nservice;
+    /*private final NotificationService nservice;
     private final PersonService personService;
     private final UserService userService;
     private final FaceService faceService;
@@ -43,8 +45,8 @@ public class RabbitConsumer {
         Image img = new Image(alert.getImageStr());
         imageService.createImage(img);
 
-        if(alert.getType() == "Black") {
-            if (p.get().getFname() == "Unknown") {
+        if(alert.getType().equalsIgnoreCase("Black")) {
+            if (p.get().getFname().equalsIgnoreCase("Unknown")) {
                 nservice.createNotification(new Notification(img ,alert.getType(),
                          "Intruder: " + p.get().getFname(), u.get()));
             } else {
@@ -52,7 +54,7 @@ public class RabbitConsumer {
                         "Intruder: " + p.get().getFname() + " " + p.get().getLname(), u.get()));
             }
         }
-        else {
+        else if(alert.getType().equalsIgnoreCase("Grey")) {
             nservice.createNotification(new Notification(img, alert.getType(),
                         "Suspicious person: " + p.get().getFname(), u.get()));
         }
@@ -60,10 +62,12 @@ public class RabbitConsumer {
         LOGGER.info("Notification Created");
     }
 
+    */
+
     //@RabbitListener(queues = {"featureQueue"})
     public void receivePerson(RabbitPerson psn) {
         /*
-        if(psn.getType() == "Grey") {
+        if(psn.getType().equalsIgnoreCase("Grey")) {
             Image img = new Image(psn.getImageStr());
             imageService.createImage(img);
 

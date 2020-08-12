@@ -1,7 +1,9 @@
 package com.springboot.SpringBackend.controller;
 
 import com.springboot.SpringBackend.exception.ResourceNotFoundException;
+import com.springboot.SpringBackend.model.Face;
 import com.springboot.SpringBackend.model.Image;
+import com.springboot.SpringBackend.model.Notification;
 import com.springboot.SpringBackend.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +40,19 @@ public class ImageController {
     @PostMapping("/images")
     public Image addImage(@Valid @RequestBody Image x) {
         return service.createImage(x);
+    }
+
+    @PutMapping("/images/{id}")
+    public ResponseEntity<Image> editUser(@PathVariable(value = "id") Long id,
+                                                 @Valid @RequestBody Image details) throws ResourceNotFoundException {
+        Image x = service.getImageById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Image not found for this id :: " + id));
+
+        x.setImageId(details.getImageId());
+        x.setPhoto(details.getPhoto());
+        x.setImageDeleted(details.getImageDeleted());
+        final Image updatedImage = service.updateImage(x);
+        return ResponseEntity.ok(updatedImage);
     }
 
     @DeleteMapping("/images/{id}")

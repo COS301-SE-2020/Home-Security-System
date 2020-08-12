@@ -19,6 +19,10 @@ export class NotificationService {
     return this.http.post(`${this.baseUrl}`, notification);
   }
 
+  updateNotification(id: number, value: any): Observable<Object> {
+    return this.http.put(`${this.baseUrl}/${id}`, value);
+  }
+
   deleteNotification(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }

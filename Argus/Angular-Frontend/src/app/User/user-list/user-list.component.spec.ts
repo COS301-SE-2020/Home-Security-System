@@ -1,25 +1,26 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VehiclesWhiteComponent } from './vehicles-white.component';
+import { UserListComponent } from './user-list.component';
 
-describe('VehiclesWhiteComponent', () => {
-  let component: VehiclesWhiteComponent;
-  let fixture: ComponentFixture<VehiclesWhiteComponent>;
+describe('UserListComponent', () => {
+  let component: UserListComponent;
+  let fixture: ComponentFixture<UserListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ VehiclesWhiteComponent ]
+      declarations: [ UserListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VehiclesWhiteComponent);
+    fixture = TestBed.createComponent(UserListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-
+  /*
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+   */
 });

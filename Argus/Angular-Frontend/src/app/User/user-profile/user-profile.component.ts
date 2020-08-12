@@ -12,6 +12,7 @@ import {User} from '../../model/user';
 })
 export class UserProfileComponent implements OnInit {
   sessionS = new Session();
+  userObj: Session = this.sessionS.retrieveUserInfo();
   id: number;
   user: User;
 
@@ -26,20 +27,15 @@ export class UserProfileComponent implements OnInit {
     const email = document.getElementById('emailDisplay') as HTMLDataElement;
     const password = document.getElementById('passwordDisplay') as HTMLDataElement;
 
-    let userObj;
-    userObj = this.sessionS.retrieveUserInfo();
-    /*this.users = */
-    this.userService.getUserById(userObj.id).subscribe(
-      data => {
+    this.userService.getUserById(this.userObj.id)
+      .subscribe(data => {
         FName.value = data.fname;
         SName.value = data.lname;
         UName.value = data.username;
         email.value = data.email;
         password.value = data.userPass;
         this.user = data;
-        // console.log(this.user);
-      }
-    );
+      }, error => console.log(error));
   }
 
   loadModal() {
@@ -49,17 +45,14 @@ export class UserProfileComponent implements OnInit {
     const uEmail = document.getElementById('uEmail') as HTMLInputElement;
     const uPassword = document.getElementById('uPassword') as HTMLInputElement;
 
-    let userObj;
-    userObj = this.sessionS.retrieveUserInfo();
-
-    this.userService.getUserById(userObj.id).subscribe(
-      data => {
+    this.userService.getUserById(this.userObj.id)
+      .subscribe(data => {
         uName.value = data.fname;
         uSurname.value = data.lname;
         uEmail.value = data.email;
         uUsername.value = data.username;
         uPassword.value = data.userPass;
-      });
+      }, error => console.log(error));
   }
 
   updateUser() {
@@ -69,17 +62,17 @@ export class UserProfileComponent implements OnInit {
     const uEmail = document.getElementById('uEmail') as HTMLInputElement;
     const uPassword = document.getElementById('uPassword') as HTMLInputElement;
 
-    let userObj;
-    userObj = this.sessionS.retrieveUserInfo();
-
     this.user.fname = uName.value;
     this.user.lname = uSurname.value;
     this.user.email = uEmail.value;
     this.user.username = uUsername.value;
     this.user.userPass = uPassword.value;
 
-    this.userService.updateUser(userObj.id, this.user).subscribe(data => console.log(data), error => console.log(error));
-    this.user = new User();
+    this.userService.updateUser(this.userObj.id, this.user)
+      .subscribe(data => {
+        // console.log(data);
+        this.populateFields();
+      }, error => console.log(error));
     this.gotoList();
   }
 
@@ -89,7 +82,6 @@ export class UserProfileComponent implements OnInit {
 
   gotoList() {
     this.router.navigate(['/user-profile']);
-    //
   }
 
   /* ======================================================== */
@@ -97,14 +89,5 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
     this.populateFields();
     this.appService.setTitle('User Profile');
-    this.user = new User();
-
-    this.id = this.route.snapshot.params.id;
-
-    this.userService.getUserById(this.id)
-      .subscribe(data => {
-        // console.log(data);
-        this.user = data;
-      }, error => console.log(error));
   }
 }

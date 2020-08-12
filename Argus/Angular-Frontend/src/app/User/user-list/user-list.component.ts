@@ -4,16 +4,14 @@ import { UserService } from '../../model/user.service';
 import { User } from '../../model/user';
 import { Router } from '@angular/router';
 import {TitleService} from '../../title.service';
-
 import { Session } from '../../../assets/js/SessionStorage.js';
-
 
 @Component({
   selector: 'app-list-users',
-  templateUrl: './list-users.component.html',
-  styleUrls: ['./list-users.component.css']
+  templateUrl: './user-list.component.html',
+  styleUrls: ['./user-list.component.css']
 })
-export class ListUsersComponent implements OnInit {
+export class UserListComponent implements OnInit {
   sessionS = new Session();
   users: Observable<User[]>;
   info: User = this.sessionS.retrieveUserInfo();
@@ -23,100 +21,85 @@ export class ListUsersComponent implements OnInit {
 
   reloadData() {
     this.users = this.userService.getUserList();
-    this.userService.getUserList()
-      .subscribe(
-        data => {
-          console.log(data);
-        },
-        error => console.log(error));
     this.activateButtons();
   }
 
   removeUser(id: number) {
-    const user = this.sessionS.retrieveUserInfo();
     const deleteBtn = document.getElementById('deleteBtn') as HTMLButtonElement;
-    if ((user.userRole === 'Admin')){
+    if (this.info.userRole === 'Admin'){
       deleteBtn.disabled = false;
-      if ( user.id === id )
+      if (this.info.userId === id )
       {
         deleteBtn.hidden = true;
         alert('You are unfortunately not able to delete yourself as a user on this page.');
       }
       else {
-        this.userService.deleteUser(id)
-          .subscribe(
-            data => {
-              // console.log(data);
-            },
-            error => console.log(error));
+        this.userService.deleteUser(id);
         this.reloadData();
       }
     }
-    else if ((user.userRole === 'Advanced')){
+    else if (this.info.userRole === 'Advanced'){
       deleteBtn.disabled = true;
       deleteBtn.hidden = true;
       // alert('You are unfortunately not able to delete a user on this page.');
     }
-    else if ((user.userRole === 'Basic')){
+    else if (this.info.userRole === 'Basic'){
       deleteBtn.disabled = true;
       deleteBtn.hidden = true;
       // alert('You are unfortunately not able to delete a user on this page.');
     }
   }
 
-  updateUser(id: number){
-    const user = this.sessionS.retrieveUserInfo();
+  updateUser(id: number) {
     const editBtn = document.getElementById('editBtn') as HTMLButtonElement;
-    if ((user.userRole === 'Admin')) {
+    if (this.info.userRole === 'Admin') {
       this.router.navigate(['edit-user', id]);
     }
-    else if ((user.userRole === 'Advanced')) {
+    else if (this.info.userRole === 'Advanced') {
       this.router.navigate(['edit-user', id]);
     }
-    else if ((user.userRole === 'Basic')) {
+    else if (this.info.userRole === 'Basic') {
       editBtn.disabled = true;
       editBtn.hidden = true;
       // alert('You are unfortunately not able to edit a user on this page.');
     }
-    }
+  }
 
-  viewUser(id: number){
+  viewUser(id: number) {
     this.router.navigate(['view-user', id]);
   }
 
   // ------------------------------------------------------------------
 
   activateButtons(){
-    const addBtn = document.getElementById('addBtn') as HTMLButtonElement;
-    const deleteBtn = document.getElementById('deleteBtn') as HTMLButtonElement;
-    const user = this.sessionS.retrieveUserInfo();
+    const restoreBtn = document.getElementById('addBtn') as HTMLButtonElement;
 
     this.userService.getUserList()
       .subscribe(
         data => {
-          console.log(data);
-        },
-        error => console.log(error));
-
-    if (user.userRole === 'Admin'){
-      addBtn.disabled = false;
-    }
-    else if (user.userRole === 'Advanced'){
-      addBtn.disabled = false;
-      deleteBtn.hidden = true;
-    }
-    else if (user.userRole === 'Basic'){
-      addBtn.disabled = true;
-      addBtn.hidden = true;
-      deleteBtn.hidden = true;
-    }
+          // console.log(data);
+          if (this.info.userRole === 'Admin'){
+            restoreBtn.disabled = false;
+          }
+          else if (this.info.userRole === 'Advanced'){
+            restoreBtn.disabled = false;
+          }
+          else if (this.info.userRole === 'Basic'){
+            restoreBtn.disabled = true;
+            restoreBtn.hidden = true;
+          }
+        }, error => console.log(error));
   }
 
   // ------------------------------------------------------------------
 
   ngOnInit(): void {
     this.appService.setTitle('User List');
-    this.sessionS.retrieveUserInfo();
+    // this.sessionS.retrieveUserInfo();
     this.reloadData();
+  }
+
+  restoreUser() {
+    this.router.navigate(['deleted-users']);
   }
 }

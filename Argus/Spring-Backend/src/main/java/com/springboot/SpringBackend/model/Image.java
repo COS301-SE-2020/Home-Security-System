@@ -63,7 +63,11 @@ public class Image implements Serializable {
         }
         return null;
     }
-    public void setImageDeleted() {
-        this.imageDeleted = LocalDate.now();
+    public void setImageDeleted(LocalDate date) {
+        if (date != null) {
+            this.imageDeleted = LocalDate.now();
+        } else {
+            this.imageDeleted = null;
+        }
     }
 }

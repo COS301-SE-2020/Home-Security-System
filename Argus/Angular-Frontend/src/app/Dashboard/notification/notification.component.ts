@@ -21,22 +21,16 @@ export class NotificationComponent implements OnInit {
 
   reloadData() {
     this.notification = this.notificationService.getNotificationList();
-    this.notificationService.getNotificationList()
-      .subscribe(
-        data => {
-          console.log(data);
-        },
-        error => console.log(error));
   }
 
   removeNotification(id: number) {
     this.notificationService.deleteNotification(id)
       .subscribe(
-        data => {
-          console.log(data);
-          this.reloadData();
-        },
-        error => console.log(error));
+      data => {
+        // console.log(data);
+        this.reloadData();
+      },
+      error => console.log(error));
   }
 
   ngOnInit(): void {

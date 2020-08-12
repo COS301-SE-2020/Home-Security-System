@@ -20,7 +20,7 @@
                         </thead>
                         <tbody>
                         <ng-container *ngFor="let note of notification | async">
-                          <tr>
+                          <tr *ngIf="note.notificationDeleted == null">
                             <td>{{note.onDate}}&nbsp;{{note.atTime}}</td>
                             <td>{{note.listed}}&nbsp;Listed</td>
                             <td>{{note.message}}</td>
