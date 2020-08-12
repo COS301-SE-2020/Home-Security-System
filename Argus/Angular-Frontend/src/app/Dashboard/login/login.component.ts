@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { UserService } from '../../model/user.service';
 import { User } from '../../model/user';
 import { Session } from '../../../assets/js/SessionStorage.js';
+import { RecoverPasswordEmail } from '../../../assets/js/RecoverPasswordEmail.js';
 import {forEachComment} from 'tslint';
 import {Router} from '@angular/router';
 
@@ -12,11 +13,26 @@ import {Router} from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+  mailer = new RecoverPasswordEmail();
   sessionS = new Session();
   users: Observable<User[]>;
 
   constructor(private userService: UserService, private router: Router) { }
+
+  recoverPasswordEmail(){
+    const emailInp = document.getElementById('emailIn') as HTMLInputElement;
+
+    if (emailInp.value !== '' && emailInp.value !== 'E-mail'){
+      this.sessionS.recoverySess(emailInp.value.toString());
+      this.router.navigate(['/reset-password']);
+    }
+    else{
+      alert('Error, please enter an email address');
+    }
+
+
+
+  }
 
   makeSession(){
     const emailVar = document.getElementById('emailInput') as HTMLInputElement;

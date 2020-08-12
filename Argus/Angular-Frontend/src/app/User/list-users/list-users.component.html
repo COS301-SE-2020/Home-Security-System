@@ -5,8 +5,8 @@
                 <div class="card-header card-header-primary">
                     <h4 class="card-title">User List</h4>
                     <p class="card-category">All users for your system</p>
-                    <!--<a class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#addUserModal">Add</a>-->
-                    <button id="addBtn" class="material-icons open-modal" data-toggle="modal" data-target="#addUserModal">person_add</button>
+<!--                  <a class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#addUserModal">Add</a>-->
+                  <a id="addBtn" class="material-icons open-modal listPageIcons" data-toggle="modal" data-target="#addUserModal">person_add</a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -26,8 +26,11 @@
                                 <td>{{user.fname}}&nbsp;{{user.lname}}</td>
                                 <td>{{user.userRole}}</td>
                                 <td>
-                                  <button id="editBtn" class="btn btn-primary" (click)="updateUser(user.userId)">Edit</button>
-                                  <button id="deleteBtn" class="btn btn-primary" (click)="removeUser(user.userId)">Delete</button>
+<!--                                  <button id="editBtn" class="btn btn-primary" (click)="updateUser(user.userId)">Edit</button>-->
+<!--                                  <button id="deleteBtn" class="btn btn-primary" (click)="removeUser(user.userId)">Delete</button>-->
+                                  <a class="material-icons listPageIcons" id="editBtn" (click)="updateUser(user.userId)">create</a>
+                                  <a class="material-icons listPageIcons" id="deleteBtn" (click)="removeUser(user.userId)">delete</a>
+
                                 </td>
                               </tr>
                             </ng-container>
