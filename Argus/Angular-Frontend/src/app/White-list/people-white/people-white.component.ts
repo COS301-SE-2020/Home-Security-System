@@ -22,8 +22,8 @@ export class PeopleWhiteComponent implements OnInit {
   }
 
   reloadData() {
-    this.person = this.personService.getPersonList();
     this.psn = new Person();
+    this.person = this.personService.getPersonList();
   }
 
   removePerson(id: number) {

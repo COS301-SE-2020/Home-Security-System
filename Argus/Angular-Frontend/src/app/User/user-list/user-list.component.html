@@ -5,8 +5,7 @@
                 <div class="card-header card-header-primary">
                     <h4 class="card-title">User List</h4>
                     <p class="card-category">All users for your system</p>
-                    <!--<a class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#addUserModal">Add</a>-->
-                    <button id="addBtn" class="material-icons open-modal" data-toggle="modal" data-target="#addUserModal">person_add</button>
+                    <a id="addBtn" class="material-icons open-modal listPageIcons" data-toggle="modal" data-target="#addUserModal">person_add</a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -26,8 +25,8 @@
                                 <td>{{user.fname}}&nbsp;{{user.lname}}</td>
                                 <td>{{user.userRole}}</td>
                                 <td *ngIf="info.userRole != 'Basic'">
-                                  <button id="editBtn" class="btn btn-primary" (click)="updateUser(user.userId)">Edit</button>
-                                  <button *ngIf="info.userRole != 'Advanced'" id="deleteBtn" class="btn btn-primary" (click)="removeUser(user.userId)">Delete</button>
+                                  <button id="editBtn" class="material-icons listPageIcon" (click)="updateUser(user.userId)">create</button>
+                                  <button *ngIf="info.userRole != 'Advanced'" id="deleteBtn" class="material-icons listPageIcons" (click)="removeUser(user.userId)">delete</button>
                                 </td>
                               </tr>
                             </ng-container>
@@ -38,7 +37,7 @@
             </div>
         </div>
     </div>
-  <a class="btn btn-primary float-right" (click)="restoreUser()">Restore</a>
+  <a *ngIf="info.userRole != 'Basic'" class="btn btn-primary float-right" (click)="restoreUser()">Restore</a>
 </div>
 
 <!--ADD USER MODAL-->

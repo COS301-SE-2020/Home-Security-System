@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 // added
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import { FormsModule, FormBuilder, FormGroup } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import {WebcamModule} from 'ngx-webcam';
 import { AppRoutingModule } from './app-routing.module';
@@ -72,7 +72,8 @@ const appRoutes: Routes = [];
     WebcamModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [NotificationService,
     UserService,

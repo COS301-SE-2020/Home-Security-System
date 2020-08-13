@@ -1,3 +1,23 @@
+/*
+// Get the modal
+var modal = document.getElementById("imageModal");
+
+// Get the image and insert it inside the modal - use its "alt" text as a caption
+var img = document.getElementsByClassName("noteImg");
+var modalImg = document.getElementById("enlargedImg");
+img.onclick = function(){
+  modal.style.display = "block";
+  modalImg.src = this.src;
+}
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+*/
 /*==================================================================*/
 
 function ValidateEmail() {
@@ -36,7 +56,7 @@ function CheckPassword() {
 function updateProfilePic(event) {
     var image = document.getElementById('output');
     image.src = URL.createObjectURL(event.target.files[0]);
-    var oldPic = document.getElementById('profilePicDisplay').style.display = "none";
+    document.getElementById('profilePicDisplay').style.display = "none";
 }
 
 function changePic() {
@@ -46,11 +66,16 @@ function changePic() {
   document.getElementById('profilePicDisplay').style.display = "none";
 }
 
+function updateProfilePicUP(event) {
+  const image = document.getElementById('previewUP');
+  image.src = URL.createObjectURL(event.target.files[0]);
+  document.getElementById('profilePicDisplayUP').style.display = "none";
+}
 /*==================================================================*/
 
 function imgToBase64(imgSrc) {
   console.log("Over here: " + imgSrc);
-  const getImg = document.getElementById('output').src;
+  // const getImg = document.getElementById('output').src;
   var img = new Image();
   img.src = imgSrc;
 

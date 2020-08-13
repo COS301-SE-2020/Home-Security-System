@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../model/user.service';
 import {User} from '../../model/user';
 import {ActivatedRoute, Router} from '@angular/router';
+import {Session} from '../../../assets/js/SessionStorage';
 
 @Component({
   selector: 'app-edit-user',
@@ -11,6 +12,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class EditUserComponent implements OnInit {
   id: number;
   user: User;
+  submitted: boolean;
+
+  sessionS = new Session();
+  info: User = this.sessionS.retrieveUserInfo();
 
   constructor(private route: ActivatedRoute, private router: Router,
               private userService: UserService) { }
@@ -24,6 +29,33 @@ export class EditUserComponent implements OnInit {
         // console.log(data);
         this.user = data;
       }, error => console.log(error));
+  }
+
+  checkIfExists(): boolean {
+    this.submitted = false;
+    let counter = 0;
+    const usernameInp = document.getElementById('username') as HTMLInputElement;
+    const emailInp = document.getElementById('email') as HTMLInputElement;
+
+    this.userService.getUserList().subscribe(
+      data => {
+        if (data[counter].username === usernameInp.value){
+          alert('Username is already taken. Please enter another username');
+          usernameInp.value = '';
+          usernameInp.focus();
+          return true;
+        }
+        if (data[counter].email === emailInp.value){
+          alert('Email address is already in use. Please enter another email address');
+          emailInp.value = '';
+          emailInp.focus();
+          return true;
+        }
+        counter++;
+      }
+    );
+
+    return false;
   }
 
   updateUser() {

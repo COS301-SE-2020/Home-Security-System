@@ -40,8 +40,8 @@
 
   <form>
     <label class="loginFields">
-      <input class="loginInputs" type="email" name="email" placeholder="E-mail">
+      <input class="loginInputs" id="emailIn" type="email" name="email" placeholder="E-mail">
     </label>
-    <a [routerLink]="['/reset-password']" class="loginButton loginInputs loginButton">Send Password Reset Link</a>
+    <a class="loginButton loginInputs loginButton" (click)="recoverPasswordEmail()">Next</a>
   </form>
 </div>

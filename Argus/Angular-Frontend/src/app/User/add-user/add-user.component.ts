@@ -7,6 +7,7 @@ import {WebcamImage} from 'ngx-webcam';
 import {Observable, Subject} from 'rxjs';
 import {Image} from '../../model/image';
 import {ImageService} from '../../model/image.service';
+import {Session} from '../../../assets/js/SessionStorage';
 
 @Component({
   selector: 'app-add-user',
@@ -18,6 +19,9 @@ export class AddUserComponent implements OnInit {
   newImage: Image = new Image();
   user: User = new User();
   submitted = false;
+
+  sessionS = new Session();
+  info: User = this.sessionS.retrieveUserInfo();
 
   constructor(private usersService: UserService, private imageService: ImageService,
               private appService: TitleService, private router: Router) {
