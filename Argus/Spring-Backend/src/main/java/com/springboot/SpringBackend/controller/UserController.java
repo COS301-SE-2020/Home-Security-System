@@ -59,6 +59,7 @@ public class UserController {
         x.setUserRole(details.getUserRole());
         x.setNotifyEmail(details.getNotifyEmail());
         x.setNotifyLocal(details.getNotifyLocal());
+        x.setUserDeleted(details.getUserDeleted());
         final User updatedUser = service.updateUser(x);
         return ResponseEntity.ok(updatedUser);
     }

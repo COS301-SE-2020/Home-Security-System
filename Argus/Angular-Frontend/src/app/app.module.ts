@@ -10,33 +10,34 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { LiveFeedComponent } from './Dashboard/live-feed/live-feed.component';
-import { PeopleBlackComponent } from './Black-list/people-black/people-black.component';
-import { VehiclesBlackComponent } from './Black-list/vehicles-black/vehicles-black.component';
 import { DashboardComponent } from './Dashboard/dashboard/dashboard.component';
 import { FooterComponent } from './Dashboard/footer/footer.component';
 import { LoginComponent } from './Dashboard/login/login.component';
 import { SettingsComponent } from './Dashboard/settings/settings.component';
 import { SideNavComponent } from './Dashboard/side-nav/side-nav.component';
 import { TopNavComponent } from './Dashboard/top-nav/top-nav.component';
+import { NotificationComponent } from './Dashboard/notification/notification.component';
+import { ResetPasswordComponent } from './Dashboard/reset-password/reset-password.component';
 import { PeopleGreyComponent } from './Grey-list/people-grey/people-grey.component';
-import { VehiclesGreyComponent } from './Grey-list/vehicles-grey/vehicles-grey.component';
+import { PeopleWhiteComponent } from './White-list/people-white/people-white.component';
+import { PeopleBlackComponent } from './Black-list/people-black/people-black.component';
 import { AddPersonComponent } from './Person/add-person/add-person.component';
 import { EditPersonComponent } from './Person/edit-person/edit-person.component';
 import { AddUserComponent } from './User/add-user/add-user.component';
 import { EditUserComponent } from './User/edit-user/edit-user.component';
-import { ListUsersComponent } from './User/list-users/list-users.component';
+import { UserListComponent } from './User/user-list/user-list.component';
 import { UserProfileComponent } from './User/user-profile/user-profile.component';
-import { AddVehicleComponent } from './Vehicle/add-vehicle/add-vehicle.component';
-import { EditVehicleComponent } from './Vehicle/edit-vehicle/edit-vehicle.component';
-import { PeopleWhiteComponent } from './White-list/people-white/people-white.component';
-import { VehiclesWhiteComponent } from './White-list/vehicles-white/vehicles-white.component';
-import { NotificationComponent } from './Dashboard/notification/notification.component';
-import { ResetPasswordComponent } from './Dashboard/reset-password/reset-password.component';
+import { DeletedUsersComponent } from './User/deleted-users/deleted-users.component';
+import { DeletedWhiteComponent } from './Person/deleted-white/deleted-white.component';
+import { DeletedBlackComponent } from './Person/deleted-black/deleted-black.component';
 
 import { NotificationService } from './model/notification.service';
 import { UserService } from './model/user.service';
 import { PersonService } from './model/person.service';
 import { VehicleService } from './model/vehicle.service';
+import { ImageService } from './model/image.service';
+
+import {environment} from '../environments/environment';
 
 const appRoutes: Routes = [];
 
@@ -45,7 +46,6 @@ const appRoutes: Routes = [];
     AppComponent,
     LiveFeedComponent,
     PeopleBlackComponent,
-    VehiclesBlackComponent,
     DashboardComponent,
     FooterComponent,
     LoginComponent,
@@ -53,19 +53,18 @@ const appRoutes: Routes = [];
     SideNavComponent,
     TopNavComponent,
     PeopleGreyComponent,
-    VehiclesGreyComponent,
     AddPersonComponent,
     EditPersonComponent,
     AddUserComponent,
     EditUserComponent,
-    ListUsersComponent,
+    UserListComponent,
     UserProfileComponent,
-    AddVehicleComponent,
-    EditVehicleComponent,
     PeopleWhiteComponent,
-    VehiclesWhiteComponent,
     NotificationComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    DeletedUsersComponent,
+    DeletedWhiteComponent,
+    DeletedBlackComponent
   ],
   imports: [
     BrowserModule,
@@ -73,18 +72,14 @@ const appRoutes: Routes = [];
     WebcamModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
-    FormsModule, ReactiveFormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [NotificationService,
     UserService,
     PersonService,
     VehicleService,
-    /*AuthService,
-    {
-     provide: HTTP_INTERCEPTORS,
-     useClass: AuthInterceptor,
-     multi: true
-    }*/],
+    ImageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

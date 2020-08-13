@@ -1,0 +1,55 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title">User List</h4>
+                    <p class="card-category">All users for your system</p>
+                    <a id="addBtn" class="material-icons open-modal listPageIcons" data-toggle="modal" data-target="#addUserModal">person_add</a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table" id="userListTable">
+                            <thead class="text-primary">
+                                <th> ID </th>
+                                <th> Picture </th>
+                                <th> Name </th>
+                                <th> Role </th>
+                                <th> Modify </th>
+                            </thead>
+                            <tbody id="userTableBody">
+                            <ng-container *ngFor="let user of users | async">
+                              <tr *ngIf="user.userDeleted == null">
+                                <td>{{user.userId}}</td>
+                                <td><img alt="Profile Picture" src="{{user.profilePhoto.photo}}" class="listPic ImgClassName"></td>
+                                <td>{{user.fname}}&nbsp;{{user.lname}}</td>
+                                <td>{{user.userRole}}</td>
+                                <td *ngIf="info.userRole != 'Basic'">
+                                  <button id="editBtn" class="material-icons listPageIcon" (click)="updateUser(user.userId)">create</button>
+                                  <button *ngIf="info.userRole != 'Advanced'" id="deleteBtn" class="material-icons listPageIcons" (click)="removeUser(user.userId)">delete</button>
+                                </td>
+                              </tr>
+                            </ng-container>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  <a *ngIf="info.userRole != 'Basic'" class="btn btn-primary float-right" (click)="restoreUser()">Restore</a>
+</div>
+
+<!--ADD USER MODAL-->
+<div class="container">
+  <div class="modal fade" id="addUserModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body center">
+          <i class="material-icons modal-close-btn" data-dismiss="modal">close</i>
+          <app-add-user></app-add-user>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -18,14 +18,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class RabbitMQConfig {
     //@Value("${sigma.rabbitmq.exchange}")
     public static final String EXCHANGE_NAME = "sigma.direct";
-    //@Value("${sigma.rabbitmq.alertQueue}")
     public static final String ALERT_QUEUE = "alertQueue";
-    //@Value("${sigma.rabbitmq.personQueue}")
     public static final String PERSON_QUEUE = "personQueue";
-    //@Value("${sigma.rabbitmq.alertKey}")
+    public static final String FEATURE_QUEUE = "featureQueue";
     public static final String ALERT_KEY = "alertKey";
-    //@Value("${sigma.rabbitmq.personKey}")
     public static final String PERSON_KEY = "personKey";
+    public static final String FEATURE_KEY = "personKey";
 
     @Bean
     Queue alertQueue()
@@ -37,6 +35,12 @@ public class RabbitMQConfig {
     Queue personQueue()
     {
         return new Queue(PERSON_QUEUE, false);
+    }
+
+    @Bean
+    Queue featureQueue()
+    {
+        return new Queue(FEATURE_QUEUE, false);
     }
 
     @Bean
@@ -55,6 +59,12 @@ public class RabbitMQConfig {
     }
 
     @Bean
+    public Binding featureBinding() {
+        return BindingBuilder.bind(featureQueue()).to(exchange()).with(FEATURE_KEY);
+    }
+
+
+    @Bean
     public MessageConverter jsonMessageConverter(){
         return new Jackson2JsonMessageConverter();
     }
@@ -65,4 +75,21 @@ public class RabbitMQConfig {
         rabbitTemplate.setMessageConverter(jsonMessageConverter());
         return rabbitTemplate;
     }
+
+    /*
+    @Bean
+    public SimpleMessageListenerContainer container(ConnectionFactory connectionFactory,
+                                             MessageListenerAdapter listenerAdapter) {
+        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+        container.setConnectionFactory(connectionFactory);
+        container.setQueueNames(String.valueOf(alertQueue()));
+        container.setMessageListener(listenerAdapter);
+        return container;
+    }
+
+    @Bean
+    public MessageListenerAdapter listenerAdapter(RabbitConsumer receiver) {
+        return new MessageListenerAdapter(receiver, "receiveMessage");
+    }
+    */
 }

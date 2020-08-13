@@ -221,8 +221,12 @@ public class User implements Serializable {
         }
         return null;
     }
-    public void setUserDeleted() {
-        this.userDeleted = LocalDate.now();
+    public void setUserDeleted(LocalDate date) {
+        if (date != null) {
+            this.userDeleted = LocalDate.now();
+        } else {
+            this.userDeleted = null;
+        }
     }
 
     public List<Notification> getNotificationList() { return this.notificationList; }

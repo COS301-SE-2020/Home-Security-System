@@ -22,12 +22,12 @@
                             </thead>
                             <tbody>
                             <ng-container *ngFor="let p of person | async">
-                              <tr *ngIf="p.personListed == 'Grey'">
+                              <tr *ngIf="p.personListed == 'Grey' && p.personDeleted == null">
                                 <td>{{p.personId}}</td>
-                                <td><img alt="Photo" src="{{p.personImg.photo}}" class="listPic"></td>
-                                <td>
-                                  <a class="btn btn-primary" (click)="addToWhiteList(p.personId)">Add to white list</a>
-                                  <a class="btn btn-primary" (click)="addToBlackList(p.personId)">Add to black list</a>
+                                <td><img alt="Photo" src="{{p.personImg.photo}}" class="listPic ImgClassName"></td>
+                                <td *ngIf="info.userRole != 'Basic'">
+                                  <a class="btn btn-primary" (click)="addToWhiteList(p.personId)">Add to White-list</a>
+                                  <a class="btn btn-primary" (click)="addToBlackList(p.personId)">Add to Black-list</a>
                                 </td>
                               </tr>
                             </ng-container>

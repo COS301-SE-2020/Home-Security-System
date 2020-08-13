@@ -1,7 +1,7 @@
 import unittest
 
-from fd import save_face
-from fd import classify_face
+from Cam import save_face
+from Cam import classify_face
 
 class MyTestCase(unittest.TestCase):
 

@@ -32,8 +32,6 @@ public class MailerService {
         javaMailSender.send(mailMessage);
     }
 
-
-
     public void sendMailWithInlineResources(String to, String subject, String fileToAttach, String messageEmail) {
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
             public void prepare(MimeMessage mimeMessage) throws Exception {

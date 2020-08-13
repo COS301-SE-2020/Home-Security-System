@@ -1,3 +1,11 @@
+.ImgClassName {
+  transition: transform 0.5s;
+}
+
+.ImgClassName:hover {
+  transform: scale(1.5);
+}
+
 .center {
   text-align: center;
 }
@@ -19814,7 +19822,12 @@ input[type="file"] {
 {
   width: 100px;
   height: 100px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
 }
+
+.squarePhoto:hover {opacity: 0.7;}
 
 .modal-header
 {

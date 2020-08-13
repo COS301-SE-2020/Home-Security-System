@@ -13,37 +13,22 @@ import {Observable, Subject} from 'rxjs';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private appService: TitleService,
-    private userService: UserService
-  ) {
-  }
-
   sessionS = new Session();
+  userObj: Session = this.sessionS.retrieveUserInfo();
   id: number;
   user: User;
 
+  constructor(private route: ActivatedRoute, private router: Router,
+              private appService: TitleService, private userService: UserService) {}
 
-  ngOnInit(): void {
-    this.populateFields();
-    this.appService.setTitle('User Profile');
-    this.user = new User();
-
-    this.id = this.route.snapshot.params.id;
-
-    this.userService.getUserById(this.id)
-      .subscribe(data => {
-        // console.log(data);
-        this.user = data;
-      }, error => console.log(error));
+  public get triggerObservable(): Observable<void> {
+    return this.snapTrigger.asObservable();
   }
-
 
   /* ======================================================== */
   /*         START of Camera for taking profile picture       */
   /* ======================================================== */
+
   @ViewChild('video')
   public webcam: ElementRef;
 
@@ -58,16 +43,19 @@ export class UserProfileComponent implements OnInit {
 
   public snapTrigger: Subject<void> = new Subject<void>();
 
+
+  ngOnInit(): void {
+    this.populateFields();
+    this.appService.setTitle('User Profile');
+    this.user = new User();
+  }
+
   public trigger_s(): void {
     this.snapTrigger.next();
   }
 
   public handleShot(img: WebcamImage): void {
     this.camImg = img;
-  }
-
-  public get triggerObservable(): Observable<void> {
-    return this.snapTrigger.asObservable();
   }
 
   /* ======================================================== */
@@ -83,11 +71,8 @@ export class UserProfileComponent implements OnInit {
     const password = document.getElementById('passwordDisplay') as HTMLDataElement;
     const uPic = document.getElementById('userPic') as HTMLImageElement;
 
-    let userObj;
-    userObj = this.sessionS.retrieveUserInfo();
-
-    this.userService.getUserById(userObj.id).subscribe(
-      data => {
+    this.userService.getUserById(this.userObj.id)
+      .subscribe(data => {
         FName.value = data.fname;
         SName.value = data.lname;
         UName.value = data.username;
@@ -95,8 +80,7 @@ export class UserProfileComponent implements OnInit {
         password.value = data.userPass;
         uPic.src = data.profilePhoto.photo;
         this.user = data;
-      }
-    );
+      }, error => console.log(error));
   }
 
   loadModal() {
@@ -107,18 +91,15 @@ export class UserProfileComponent implements OnInit {
     const uPassword = document.getElementById('uPassword') as HTMLInputElement;
     const uPic = document.getElementById('userPic') as HTMLImageElement;
 
-    let userObj;
-    userObj = this.sessionS.retrieveUserInfo();
-
-    this.userService.getUserById(userObj.id).subscribe(
-      data => {
+    this.userService.getUserById(this.userObj.id)
+      .subscribe(data => {
         uName.value = data.fname;
         uSurname.value = data.lname;
         uEmail.value = data.email;
         uUsername.value = data.username;
         uPassword.value = data.userPass;
         uPic.src = data.profilePhoto.photo;
-      });
+      }, error => console.log(error));
   }
 
   updateUser() {
@@ -128,30 +109,31 @@ export class UserProfileComponent implements OnInit {
     const uEmail = document.getElementById('uEmail') as HTMLInputElement;
     const uPassword = document.getElementById('uPassword') as HTMLInputElement;
 
-    let userObj;
-    userObj = this.sessionS.retrieveUserInfo();
-
     this.user.fname = uName.value;
     this.user.lname = uSurname.value;
     this.user.email = uEmail.value;
     this.user.username = uUsername.value;
     this.user.userPass = uPassword.value;
 
-    this.userService.updateUser(userObj.id, this.user).subscribe(data => console.log(data), error => console.log(error));
-    this.user = new User();
+    this.userService.updateUser(this.userObj.id, this.user)
+      .subscribe(data => {
+        // console.log(data);
+        this.populateFields();
+      }, error => console.log(error));
     this.gotoList();
   }
 
   updateUserPic() {
     const uPicUploaded = document.getElementById('profilePicInputUP') as HTMLImageElement;
-
     let userObj;
     userObj = this.sessionS.retrieveUserInfo();
 
     this.user.profilePhoto.photo = uPicUploaded.src;
 
-    this.userService.updateUser(userObj.id, this.user).subscribe(data => console.log(data), error => console.log(error));
-    this.user = new User();
+    this.userService.updateUser(userObj.id, this.user).subscribe(data => {
+      // console.log(data);
+      this.populateFields();
+    }, error => console.log(error));
     this.gotoList();
   }
 
@@ -161,6 +143,5 @@ export class UserProfileComponent implements OnInit {
 
   gotoList() {
     this.router.navigate(['/user-profile']);
-    location.reload();
   }
 }

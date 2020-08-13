@@ -34,6 +34,7 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
             CREATE TABLE Notification(
             notification_id INT NOT NULL DEFAULT nextval('notificationID_seq'),
             image_id INT REFERENCES Image(image_id),
+            listed TEXT NOT NULL,
             msg TEXT NOT NULL,
             onDate DATE NOT NULL DEFAULT CURRENT_DATE,
             atTime TIME NOT NULL DEFAULT CURRENT_TIME,

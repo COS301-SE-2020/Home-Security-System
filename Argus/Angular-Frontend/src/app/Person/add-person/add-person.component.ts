@@ -91,11 +91,13 @@ export class AddPersonComponent implements OnInit {
     this.newPerson.fname = addName.value;
     this.newPerson.lname = addSurname.value;
     this.newPerson.personListed = getRole.toString();
-    console.log(this.newPerson.personImg.photo.toString() + ' ' + this.newPerson.fname + ' ' +
-      this.newPerson.lname + ' ' + this.newPerson.personListed);
-
+    /* console.log(this.newPerson.personImg.photo.toString() + ' ' + this.newPerson.fname
+                   + ' ' + this.newPerson.lname + ' ' + this.newPerson.personListed);
+    */
     this.personService.addPerson(this.newPerson)
-      .subscribe(data => console.log(data), error => console.log(error));
+      .subscribe(data => {
+        // console.log(data);
+      }, error => console.log(error));
   }
 
   onSubmit() {

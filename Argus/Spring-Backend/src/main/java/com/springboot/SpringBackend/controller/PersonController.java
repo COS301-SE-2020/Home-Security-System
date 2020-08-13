@@ -1,8 +1,14 @@
 package com.springboot.SpringBackend.controller;
 
+import com.springboot.SpringBackend.config.RabbitMQConfig;
 import com.springboot.SpringBackend.exception.ResourceNotFoundException;
+import com.springboot.SpringBackend.model.Face;
+import com.springboot.SpringBackend.model.Image;
 import com.springboot.SpringBackend.model.Person;
+import com.springboot.SpringBackend.rabbit.RabbitPerson;
+import com.springboot.SpringBackend.service.FaceService;
 import com.springboot.SpringBackend.service.PersonService;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +23,14 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:4200")
 public class PersonController {
     private final PersonService service;
+    private final FaceService faceService;
+    private AmqpTemplate amqpTemplate;
 
     @Autowired
-    public PersonController(PersonService service) {
+    public PersonController(PersonService service, FaceService faceService, AmqpTemplate template) {
         this.service = service;
+        this.faceService = faceService;
+        this.amqpTemplate = template;
     }
 
     @GetMapping("/people")
@@ -37,6 +47,9 @@ public class PersonController {
 
     @PostMapping("/people")
     public Person addPerson(@Valid @RequestBody Person x) {
+        //RabbitPerson p = new RabbitPerson(x.getPersonId(), x.getPersonListed(), "null", x.getPersonImg().getPhoto(), true);
+        //amqpTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.PERSON_KEY, p);
+
         return service.createPerson(x);
     }
 
@@ -58,7 +71,27 @@ public class PersonController {
             x.setLname(details.getLname());
         }
         x.setPersonListed(details.getPersonListed());
+        x.setPersonDeleted(details.getPersonDeleted());
+
         final Person updatedPerson = service.updatePerson(x);
+
+        /*
+        List<Face> list = faceService.getAllFaces();
+        Face faceStr = null;
+        for (Face f: list) {
+            if(f.getPerson().getPersonId() == updatedPerson.getPersonId()) {
+                faceStr = f;
+                break;
+            }
+        }
+
+        if(faceStr != null){
+            RabbitPerson p = new RabbitPerson(updatedPerson.getPersonId(), updatedPerson.getPersonListed(),
+                    faceStr.getFeatures(), updatedPerson.getPersonImg().getPhoto(), true);
+            amqpTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.PERSON_KEY, p);
+        }
+        */
+
         return ResponseEntity.ok(updatedPerson);
     }
 
@@ -71,6 +104,23 @@ public class PersonController {
 
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
+
+        /*
+        List<Face> list = faceService.getAllFaces();
+        Face faceStr = null;
+        for (Face f: list) {
+            if(f.getPerson().getPersonId() == x.getPersonId()) {
+                faceStr = f;
+                break;
+            }
+        }
+
+        if(faceStr != null){
+            RabbitPerson p = new RabbitPerson(x.getPersonId(), x.getPersonListed(), faceStr.getFeatures(), x.getPersonImg().getPhoto(), false);
+            amqpTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.PERSON_KEY, p);
+        }
+        */
+
         return response;
     }
 }

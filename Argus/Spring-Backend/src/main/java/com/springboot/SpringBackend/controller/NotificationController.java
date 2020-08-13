@@ -29,8 +29,6 @@ public class NotificationController {
 
     @GetMapping("/notifications")
     public List<Notification> getAllNotifications() {
-        //return service.listAllEvents();
-        //repo.save(new User("Brad", "Zietsman", "u15228194@gmail.com", "Brad","1234", "Basic"));
         List<Notification> notify = service.getAllNotifications();
         return  notify;
     }
@@ -45,6 +43,26 @@ public class NotificationController {
     @PostMapping("/notifications")
     public Notification addNotification(@Valid @RequestBody Notification x) {
         return service.createNotification(x);
+    }
+
+    @PutMapping("/notifications/{id}")
+    public ResponseEntity<Notification> editUser(@PathVariable(value = "id") Long id,
+                                         @Valid @RequestBody Notification details) throws ResourceNotFoundException {
+        Notification x = service.getNotificationById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Notification not found for this id :: " + id));
+
+        x.setNotificationId(details.getNotificationId());
+        if(details.getNotificationImg() != null) {
+            x.setNotificationImg(details.getNotificationImg());
+        }
+        x.setListed(details.getListed());
+        x.setMessage(details.getMessage());
+        if(details.getUser() != null) {
+            x.setUser(details.getUser());
+        }
+        x.setNotificationDeleted(details.getNotificationDeleted());
+        final Notification updatedNotification = service.updateNotification(x);
+        return ResponseEntity.ok(updatedNotification);
     }
 
     @DeleteMapping("/notifications/{id}")
