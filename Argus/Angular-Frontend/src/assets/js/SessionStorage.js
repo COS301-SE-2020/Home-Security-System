@@ -1,5 +1,16 @@
 "use strict";
 export class Session{
+
+  recoverySess(email){
+    let recoveryDetails = {};
+    recoveryDetails.email = email;
+    sessionStorage.setItem('recovery', JSON.stringify(recoveryDetails));
+  }
+  retrieveEmail(){
+    let retrievedMail = sessionStorage.getItem('recovery');
+    return JSON.parse(retrievedMail);
+  }
+
   createSession(email, passw, id, role){
     let newUser = {};
 

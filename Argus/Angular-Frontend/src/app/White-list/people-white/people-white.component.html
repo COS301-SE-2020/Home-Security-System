@@ -5,7 +5,7 @@
                 <div class="card-header card-header-primary">
                     <h4 class="card-title">White List</h4>
                     <p class="card-category">Friends or Family</p>
-                  <button id="addWhite" class="material-icons open-modal" data-toggle="modal" data-target="#addPersonModal1">person_add</button>
+                  <a id="addWhite" class="material-icons open-modal listPageIcons" data-toggle="modal" data-target="#addPersonModal1">person_add</a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -27,8 +27,8 @@
                                     <td><img alt="Photo" src="{{p.personImg.photo}}" class="listPic ImgClassName"></td>
                                     <td>{{p.fname}}&nbsp;{{p.lname}}</td>
                                     <td *ngIf="info.userRole != 'Basic'">
-                                      <a class="btn btn-primary" (click)="updatePerson(p.personId)">Edit</a>
-                                      <a class="btn btn-primary" (click)="removePerson(p.personId)">Delete</a>
+                                      <a class="material-icons listPageIcons" (click)="updatePerson(p.personId)">create</a>
+                                      <a class="material-icons listPageIcons" (click)="removePerson(p.personId)">delete</a>
                                     </td>
                                   </tr>
                                 </ng-container>
@@ -39,7 +39,7 @@
             </div>
         </div>
     </div>
-  <a class="btn btn-primary float-right" (click)="restorePerson()">Restore</a>
+  <a *ngIf="info.userRole != 'Basic'" class="btn btn-primary float-right" (click)="restorePerson()">Restore</a>
 </div>
 
 <!--ADD PERSON MODAL-->

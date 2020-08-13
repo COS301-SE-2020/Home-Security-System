@@ -24,7 +24,9 @@
                             <td>{{note.onDate}}&nbsp;{{note.atTime}}</td>
                             <td>{{note.listed}}&nbsp;Listed</td>
                             <td>{{note.message}}</td>
-                            <td><img src="{{note.notificationImg.photo}}" class="squarePhoto"></td>
+                            <td>
+                              <img id="noteImg{{note.notificationId}}" src="{{note.notificationImg.photo}}" class="squarePhoto">
+                            </td>
                             <td>
                               <a class="btn btn-primary" (click)="removeNotification(note.notificationId)">Dismiss</a>
                             </td>
@@ -39,3 +41,9 @@
   </div>
 </div>
 
+<!--
+<div id="imageModal" class="modal">
+  <span class="close">&times;</span>
+  <img id="enlargedImg" class="modal-content">
+</div>
+-->
