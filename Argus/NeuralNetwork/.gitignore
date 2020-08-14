@@ -1,4 +1,4 @@
-NeuralNetwork.iml
+*.iml
 .idea
 models
 data

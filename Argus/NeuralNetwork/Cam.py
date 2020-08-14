@@ -117,7 +117,18 @@ def cam_feed():
 
                     frame = c.putText(frame, f_name, (0, 20), c.FONT_HERSHEY_DUPLEX, 1, (0, 0, 255), thickness=2)
                     if f_name == 'Unknown':
-                        print("yes")
+                        temp_face = 'u' + str(time.time())
+                        np.save('models/grey/' + temp_face + '.npy', face)
+                        temp_face_stored = open('models/grey/' + temp_face + '.npy', 'rb').read()
+                        message = {'personId': 'Unknown', 'type': 'Grey',
+                                   'faceStr': str(b64.b64encode(temp_face_stored).decode('utf-8')),
+                                   'imageStr': 'data:image/jpg;base64,' +
+                                               str(b64.b64encode(c.imencode('.jpg', frame)[1]).decode('utf-8')),
+                                   'exists': False}
+                        message_channel.basic_publish(exchange='sigma.direct',
+                                                      routing_key='alertKey',
+                                                      body=json.dumps(message))
+                        all_f_features, time_dict = load_faces(path_features)
                     else:
                         if time.time() - time_dict[f_name] > successive_detection_ignore:
                             time_dict[f_name] = time.time()
