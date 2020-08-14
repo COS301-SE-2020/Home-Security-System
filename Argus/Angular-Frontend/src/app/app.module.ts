@@ -2,12 +2,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 // added
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-import {WebcamModule} from 'ngx-webcam';
+import { WebcamModule } from 'ngx-webcam';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { environment } from '../environments/environment';
 
 import { LiveFeedComponent } from './Dashboard/live-feed/live-feed.component';
 import { DashboardComponent } from './Dashboard/dashboard/dashboard.component';
@@ -36,8 +38,6 @@ import { UserService } from './model/user.service';
 import { PersonService } from './model/person.service';
 import { VehicleService } from './model/vehicle.service';
 import { ImageService } from './model/image.service';
-
-import {environment} from '../environments/environment';
 
 const appRoutes: Routes = [];
 
@@ -73,9 +73,11 @@ const appRoutes: Routes = [];
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSpinnerModule
   ],
-  providers: [NotificationService,
+  providers: [
+    NotificationService,
     UserService,
     PersonService,
     VehicleService,

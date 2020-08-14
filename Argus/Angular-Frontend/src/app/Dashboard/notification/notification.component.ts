@@ -5,6 +5,7 @@ import {Notification} from '../../model/notification';
 import {NotificationService} from '../../model/notification.service';
 import {TitleService} from '../../title.service';
 import {Router} from '@angular/router';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-notification',
@@ -12,13 +13,12 @@ import {Router} from '@angular/router';
   styleUrls: ['./notification.component.css']
 })
 
-
 export class NotificationComponent implements OnInit {
   notification: Observable<Notification[]>;
   note: Notification;
 
-  constructor(private notificationService: NotificationService, private appService: TitleService) {
-  }
+  constructor(private notificationService: NotificationService, private SpinnerService: NgxSpinnerService,
+              private appService: TitleService) { }
 
   reloadData() {
     this.note = new Notification();
@@ -26,6 +26,7 @@ export class NotificationComponent implements OnInit {
   }
 
   removeNotification(id: number) {
+    this.SpinnerService.show();
     this.notificationService.getNotificationById(id)
       .subscribe(
       data => {
@@ -35,10 +36,12 @@ export class NotificationComponent implements OnInit {
         this.notificationService.updateNotification(id, this.note)
           .subscribe(value => {
             // console.log(value);
+            setTimeout(() => {
+              this.SpinnerService.hide();
+            }, 500);
+            this.reloadData();
           }, error => console.log(error));
-        this.reloadData();
-      },
-      error => console.log(error));
+      }, error => console.log(error));
   }
 
   ngOnInit(): void {

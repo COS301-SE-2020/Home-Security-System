@@ -5,6 +5,7 @@ import { User } from '../../model/user';
 import { Router } from '@angular/router';
 import {TitleService} from '../../title.service';
 import { Session } from '../../../assets/js/SessionStorage.js';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-list-users',
@@ -20,7 +21,8 @@ export class UserListComponent implements OnInit {
   user: User;
   temp: string;
 
-  constructor(private userService: UserService, private appService: TitleService, private router: Router) {
+  constructor(private userService: UserService, private appService: TitleService,
+              private SpinnerService: NgxSpinnerService, private router: Router) {
   }
 
   reloadData() {
@@ -29,54 +31,26 @@ export class UserListComponent implements OnInit {
   }
 
   removeUser(id: number) {
-    const deleteBtn = document.getElementById('deleteBtn') as HTMLButtonElement;
-    if (this.info.userRole === 'Admin'){
-      deleteBtn.disabled = false;
-      if (this.info.userId === id )
-      {
-        // deleteBtn.hidden = true;
-        alert('You are unfortunately not able to delete yourself as a user on this page.');
-      }
-      else {
-        this.userService.deleteUser(id);
-        this.reloadData();
-        // location.reload();
-      }
-    }
-    else if (this.info.userRole === 'Advanced'){
-      deleteBtn.disabled = true;
-      deleteBtn.hidden = true;
-      // alert('You are unfortunately not able to delete a user on this page.');
-    }
-    else if (this.info.userRole === 'Basic'){
-      deleteBtn.disabled = true;
-      deleteBtn.hidden = true;
-      // alert('You are unfortunately not able to delete a user on this page.');
-    }
+    this.SpinnerService.show();
+    this.userService.getUserById(id)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.user = data;
+          this.user.userDeleted = new Date();
+          this.userService.updateUser(id, this.user)
+            .subscribe(value => {
+              // console.log(value);
+              setTimeout(() => {
+                this.SpinnerService.hide();
+              }, 500);
+              this.reloadData();
+            }, error => console.log(error));
+        }, error => console.log(error));
   }
 
   updateUser(id: number){
-    const userInfo = this.sessionS.retrieveUserInfo();
-
-    this.user = new User();
-
-    this.userService.getUserById(id)
-      .subscribe(data => {
-        console.log(data);
-        this.user = data;
-        this.temp = data.userRole;
-
-        if ( this.user.userRole === 'Admin' && this.info.userRole === 'Advanced')
-        {
-          alert('Sorry, you can not edit a user with more privileges than yourself.');
-        }
-        else if ((userInfo.userRole === 'Basic')) {
-          alert('You are unfortunately not able to edit a user on this page.');
-        }
-        else {
-          this.router.navigate(['edit-user', id]);
-        }
-      }, error => console.log(error));
+    this.router.navigate(['edit-user', id]);
   }
 
   viewUser(id: number) {

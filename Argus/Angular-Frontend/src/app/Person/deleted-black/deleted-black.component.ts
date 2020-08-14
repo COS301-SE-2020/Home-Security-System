@@ -7,6 +7,7 @@ import {UserService} from '../../model/user.service';
 import Session from '../../../assets/js/SessionStorage';
 import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-deleted-black',
@@ -20,7 +21,7 @@ export class DeletedBlackComponent implements OnInit {
   psn: Person;
 
   constructor(private personService: PersonService, private userService: UserService,
-              private appService: TitleService, private router: Router) { }
+              private SpinnerService: NgxSpinnerService, private appService: TitleService, private router: Router) { }
 
   reloadData() {
     this.person = this.personService.getPersonList();
@@ -49,6 +50,7 @@ export class DeletedBlackComponent implements OnInit {
   }
 
   restorePerson(id: number){
+    this.SpinnerService.show();
     this.psn = new Person();
     this.personService.getPersonById(id)
       .subscribe(
@@ -59,8 +61,11 @@ export class DeletedBlackComponent implements OnInit {
           this.personService.updatePerson(id, this.psn)
             .subscribe(value => {
               // console.log(value);
+              setTimeout(() => {
+                this.SpinnerService.hide();
+              }, 500);
+              this.reloadData();
             }, error => console.log(error));
-          this.reloadData();
         }, error => console.log(error));
   }
 

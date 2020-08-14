@@ -10,15 +10,16 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Component
 //@Service
 //@Controller
-public class RabbitConsumer {
+public class RabbitConsumer{
     private static final Logger LOGGER = LoggerFactory.getLogger(RabbitConsumer.class);
 
-    /*private final NotificationService nservice;
+    private final NotificationService nservice;
     private final PersonService personService;
     private final UserService userService;
     private final FaceService faceService;
@@ -45,28 +46,41 @@ public class RabbitConsumer {
         Image img = new Image(alert.getImageStr());
         imageService.createImage(img);
 
-        if(alert.getType().equalsIgnoreCase("Black")) {
-            if (p.get().getFname().equalsIgnoreCase("Unknown")) {
-                nservice.createNotification(new Notification(img ,alert.getType(),
-                         "Intruder: " + p.get().getFname(), u.get()));
-            } else {
+        /*try {
+            Person person = new Person();
+            User user= new User();
+
+            if(p.isPresent() && u.isPresent()) {
+                 person = p.get();
+                 user = u.get();
+            }
+
+            if (alert.getType() == "Black") {
                 nservice.createNotification(new Notification(img, alert.getType(),
-                        "Intruder: " + p.get().getFname() + " " + p.get().getLname(), u.get()));
+                        "Intruder: " + person.getFname() + " " + person.getLname(), user));
+            } else if (alert.getType() == "Grey") {
+                nservice.createNotification(new Notification(img, alert.getType(),
+                        "Suspicious person: " + person.getFname(), user));
             }
         }
-        else if(alert.getType().equalsIgnoreCase("Grey")) {
+        catch (NoSuchElementException ex) {
+            LOGGER.info(String.valueOf(ex));
+        }
+        */
+
+        if (alert.getType().equalsIgnoreCase("Black")) {
             nservice.createNotification(new Notification(img, alert.getType(),
-                        "Suspicious person: " + p.get().getFname(), u.get()));
+                    "Intruder: " + p.get().getFname() + " " + p.get().getLname(), u.get()));
+        } else {
+            nservice.createNotification(new Notification(img, alert.getType(),
+                    "Suspicious person: " + p.get().getFname(), u.get()));
         }
 
         LOGGER.info("Notification Created");
     }
 
-    */
-
     //@RabbitListener(queues = {"featureQueue"})
-    public void receivePerson(RabbitPerson psn) {
-        /*
+    /*public void receivePerson(RabbitPerson psn) {
         if(psn.getType().equalsIgnoreCase("Grey")) {
             Image img = new Image(psn.getImageStr());
             imageService.createImage(img);
@@ -80,13 +94,24 @@ public class RabbitConsumer {
             LOGGER.info("Grey Person Added");
         }
         else {
-            Optional<Person> p = personService.getPersonById(Long.valueOf(psn.getPersonId()));
+            try {
+                Optional<Person> p = personService.getPersonById(Long.valueOf(psn.getPersonId()));
+                Person person = new Person();
 
-            Face f = new Face(p.get(), psn.getFaceStr());
-            faceService.createFace(f);
+                if(p.isPresent()) {
+                    person = p.get();
+                }
+
+                Face f = new Face(person, psn.getFaceStr());
+                faceService.createFace(f);
+            }
+            catch (NoSuchElementException ex) {
+                LOGGER.info(String.valueOf(ex));
+            }
 
             LOGGER.info("Person updated");
         }
-        */
     }
+
+     */
 }

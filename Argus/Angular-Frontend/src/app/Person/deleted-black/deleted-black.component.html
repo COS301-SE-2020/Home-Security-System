@@ -17,6 +17,9 @@
                 Alias
               </th>
               <th>
+                Deletion Date
+              </th>
+              <th>
                 Modify
               </th>
               </thead>
@@ -25,6 +28,7 @@
                 <tr *ngIf="p.personListed == 'Black' && p.personDeleted != null">
                   <td><img alt="Photo" src="{{p.personImg.photo}}" class="listPic ImgClassName"></td>
                   <td>{{p.fname}}&nbsp;{{p.lname}}</td>
+                  <td>{{p.personDeleted}}</td>
                   <td *ngIf="info.userRole != 'Basic'">
                     <a id="restoreBtn" class="btn btn-primary" (click)="restorePerson(p.personId)">Restore</a>
                   </td>
@@ -39,3 +43,7 @@
   </div>
   <a class="btn btn-primary" (click)="back()">Back</a>
 </div>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+  <p style="color: white">Please Wait. </p>
+</ngx-spinner>

@@ -11,7 +11,6 @@ import time
 import json
 import base64 as b64
 
-
 phys = tf.config.experimental.list_physical_devices('GPU')
 if len(phys) > 0:
     tf.config.experimental.set_memory_growth(phys[0], True)
@@ -45,7 +44,6 @@ def load_faces(path):
             t_dict[f_feat[0]] = 0.0
 
     return np.asarray(feats), t_dict
-
 
 def save_face(path, image, f_d=face_d, f_r=face_r):
     face_image = c.imread(image)
@@ -146,7 +144,6 @@ def cam_feed():
                 vc.release()
                 c.destroyWindow("view")
                 break
-
 
 cam_feed()
 rabbit_conn.close()

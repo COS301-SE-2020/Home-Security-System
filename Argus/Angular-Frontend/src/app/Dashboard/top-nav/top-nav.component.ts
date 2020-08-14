@@ -4,7 +4,6 @@ import {Session} from '../../../assets/js/SessionStorage';
 import {UserService} from '../../model/user.service';
 import {User} from '../../model/user';
 
-
 @Component({
   selector: 'app-top-nav',
   templateUrl: './top-nav.component.html',
@@ -29,5 +28,4 @@ export class TopNavComponent implements OnInit {
         uPic.src = data.profilePhoto.photo;
       });
   }
-
 }
