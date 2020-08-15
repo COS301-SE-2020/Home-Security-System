@@ -1,13 +1,5 @@
-package com.springboot.SpringBackend;
+package com.springboot.SpringBackend.serviceTest;
 
-public class ImageServiceTest {
-}
-
-/*
-package com.techtter.blog.scrum.service;
-
-import com.techtter.blog.scrum.model.Scrum;
-import com.techtter.blog.scrum.repository.ScrumRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,6 +14,11 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
+public class ImageServiceTest {
+}
+
+/*
+
 public class ScrumServiceTest {
 
     ScrumService scrumService;

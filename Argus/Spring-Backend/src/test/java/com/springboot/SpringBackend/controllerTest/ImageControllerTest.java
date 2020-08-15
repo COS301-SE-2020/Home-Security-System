@@ -1,14 +1,10 @@
-package com.springboot.SpringBackend;
-
-public class ImageControllerTest {
-}
-
-/*
-package net.guides.springboot2.springboot2jpacrudexample;
+package com.springboot.SpringBackend.controllerTest;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import com.springboot.SpringBackend.SpringBackendApplication;
+import com.springboot.SpringBackend.model.Image;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +19,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.HttpClientErrorException;
 
-import net.guides.springboot2.springboot2jpacrudexample.model.Employee;
-
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest
+public class ImageControllerTest {
+
+}
+
+/*
 public class EmployeeControllerIntegrationTest {
 	@Autowired
 	private TestRestTemplate restTemplate;

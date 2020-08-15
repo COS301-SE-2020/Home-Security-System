@@ -105,22 +105,6 @@ public class PersonController {
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
 
-        /*
-        List<Face> list = faceService.getAllFaces();
-        Face faceStr = null;
-        for (Face f: list) {
-            if(f.getPerson().getPersonId() == x.getPersonId()) {
-                faceStr = f;
-                break;
-            }
-        }
-
-        if(faceStr != null){
-            RabbitPerson p = new RabbitPerson(x.getPersonId(), x.getPersonListed(), faceStr.getFeatures(), x.getPersonImg().getPhoto(), false);
-            amqpTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.PERSON_KEY, p);
-        }
-        */
-
         return response;
     }
 }

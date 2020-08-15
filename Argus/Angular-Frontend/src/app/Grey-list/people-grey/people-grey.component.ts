@@ -6,6 +6,7 @@ import {PersonService} from '../../model/person.service';
 import {Router} from '@angular/router';
 import {User} from '../../model/user';
 import Session from '../../../assets/js/SessionStorage';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-people-grey',
@@ -18,7 +19,8 @@ export class PeopleGreyComponent implements OnInit {
   person: Observable<Person[]>;
   psn: Person;
 
-  constructor(private personService: PersonService, private appService: TitleService, private router: Router) {
+  constructor(private personService: PersonService, private appService: TitleService,
+              private SpinnerService: NgxSpinnerService, private router: Router) {
   }
 
   reloadData() {
@@ -27,6 +29,7 @@ export class PeopleGreyComponent implements OnInit {
   }
 
   addToWhiteList(id: number) {
+    this.SpinnerService.show();
     this.personService.getPersonById(id)
       .subscribe(
         data => {
@@ -37,12 +40,16 @@ export class PeopleGreyComponent implements OnInit {
             .subscribe(value =>
             {
               // console.log(value);
+              setTimeout(() => {
+                this.SpinnerService.hide();
+              }, 500);
+              this.reloadData();
             }, error => console.log(error));
-          this.reloadData();
         }, error => console.log(error));
   }
 
   addToBlackList(id: number) {
+    this.SpinnerService.show();
     this.personService.getPersonById(id)
       .subscribe(
         data => {
@@ -53,8 +60,11 @@ export class PeopleGreyComponent implements OnInit {
             .subscribe(value =>
             {
               // console.log(value);
+              setTimeout(() => {
+                this.SpinnerService.hide();
+              }, 500);
+              this.reloadData();
             }, error => console.log(error));
-          this.reloadData();
         }, error => console.log(error));
   }
 

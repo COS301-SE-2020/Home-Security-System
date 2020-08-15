@@ -5,6 +5,7 @@ import {UserService} from '../../model/user.service';
 import {TitleService} from '../../title.service';
 import {Router} from '@angular/router';
 import {Session} from '../../../assets/js/SessionStorage';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-deleted-users',
@@ -17,7 +18,8 @@ export class DeletedUsersComponent implements OnInit {
   users: Observable<User[]>;
   user: User;
 
-  constructor(private userService: UserService, private appService: TitleService, private router: Router) {
+  constructor(private userService: UserService, private appService: TitleService,
+              private SpinnerService: NgxSpinnerService, private router: Router) {
   }
 
   reloadData() {
@@ -52,6 +54,7 @@ export class DeletedUsersComponent implements OnInit {
   }
 
   restoreUser(id: number) {
+    this.SpinnerService.show();
     this.userService.getUserById(id)
       .subscribe(
         data => {
@@ -61,11 +64,12 @@ export class DeletedUsersComponent implements OnInit {
           this.userService.updateUser(id, this.user)
             .subscribe(value => {
               // console.log(data);
+              setTimeout(() => {
+                this.SpinnerService.hide();
+              }, 500);
+              this.reloadData();
             }, error => console.log(error));
-
-          this.reloadData();
-        },
-        error => console.log(error));
+        }, error => console.log(error));
   }
 
   back() {
