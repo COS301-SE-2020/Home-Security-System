@@ -9,10 +9,10 @@ import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-list-users',
-  templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.css']
+  templateUrl: './list-users.component.html',
+  styleUrls: ['./list-users.component.css']
 })
-export class UserListComponent implements OnInit {
+export class ListUsersComponent implements OnInit {
   sessionS = new Session();
   users: Observable<User[]>;
   info: User = this.sessionS.retrieveUserInfo();
