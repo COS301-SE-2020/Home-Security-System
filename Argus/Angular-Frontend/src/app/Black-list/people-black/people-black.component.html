@@ -3,8 +3,8 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header card-header-primary">
-                    <h4 class="card-title">Black List</h4>
-                    <p class="card-category">Suspicious People</p>
+                    <h4 class="card-title">Threat Person List</h4>
+                    <p class="card-category">Danger Level High!</p>
                   <a id="addBlack" class="material-icons open-modal listPageIcons" data-toggle="modal" data-target="#addPersonModal2">person_add</a>
                 </div>
                 <div class="card-body">
@@ -41,6 +41,10 @@
     </div>
   <a *ngIf="info.userRole != 'Basic'" class="btn btn-primary float-right" (click)="restorePerson()">Restore</a>
 </div>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+  <p style="color: white">Please Wait. </p>
+</ngx-spinner>
 
 <!--ADD PERSON MODAL-->
 <div class="container">

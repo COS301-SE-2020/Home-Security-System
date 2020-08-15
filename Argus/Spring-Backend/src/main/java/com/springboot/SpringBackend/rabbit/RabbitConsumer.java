@@ -7,18 +7,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Component
-//@Service
-//@Controller
-public class RabbitConsumer {
+public class RabbitConsumer{
     private static final Logger LOGGER = LoggerFactory.getLogger(RabbitConsumer.class);
 
-    /*private final NotificationService nservice;
+    private final NotificationService nservice;
     private final PersonService personService;
     private final UserService userService;
     private final FaceService faceService;
@@ -36,7 +33,7 @@ public class RabbitConsumer {
 
     @RabbitListener(queues = {"alertQueue"})
     public void receivedAlert(RabbitAlert alert) {
-        //Session
+        // User session id
         Long num = Long.valueOf(1);
         Optional<User> u =  userService.getUserById(num);
 
@@ -45,28 +42,27 @@ public class RabbitConsumer {
         Image img = new Image(alert.getImageStr());
         imageService.createImage(img);
 
-        if(alert.getType().equalsIgnoreCase("Black")) {
-            if (p.get().getFname().equalsIgnoreCase("Unknown")) {
-                nservice.createNotification(new Notification(img ,alert.getType(),
-                         "Intruder: " + p.get().getFname(), u.get()));
-            } else {
-                nservice.createNotification(new Notification(img, alert.getType(),
+        try {
+            if(p.isPresent() && u.isPresent()) {
+                if (alert.getType().equalsIgnoreCase("Grey")) {
+                    nservice.createNotification(new Notification(img, "Threat",
+                        "Person: " + p.get().getFname(), u.get()));
+                } else {
+                    nservice.createNotification(new Notification(img, "Suspicious",
                         "Intruder: " + p.get().getFname() + " " + p.get().getLname(), u.get()));
+                }
             }
         }
-        else if(alert.getType().equalsIgnoreCase("Grey")) {
-            nservice.createNotification(new Notification(img, alert.getType(),
-                        "Suspicious person: " + p.get().getFname(), u.get()));
+        catch (NoSuchElementException ex) {
+            LOGGER.info(String.valueOf(ex));
         }
 
         LOGGER.info("Notification Created");
     }
 
-    */
-
-    //@RabbitListener(queues = {"featureQueue"})
+    @RabbitListener(queues = {"featureQueue"})
     public void receivePerson(RabbitPerson psn) {
-        /*
+        // Creating a Grey-list person from Python
         if(psn.getType().equalsIgnoreCase("Grey")) {
             Image img = new Image(psn.getImageStr());
             imageService.createImage(img);
@@ -77,16 +73,23 @@ public class RabbitConsumer {
             Face f = new Face(p, psn.getFaceStr());
             faceService.createFace(f);
 
-            LOGGER.info("Grey Person Added");
+            LOGGER.info("Grey-list Person Added");
         }
+        // Creating features for a new (white/black) listed person from Angular
         else {
-            Optional<Person> p = personService.getPersonById(Long.valueOf(psn.getPersonId()));
+            try {
+                Optional<Person> p = personService.getPersonById(Long.valueOf(psn.getPersonId()));
 
-            Face f = new Face(p.get(), psn.getFaceStr());
-            faceService.createFace(f);
+                if(p.isPresent()) {
+                    Face f = new Face(p.get(), psn.getFaceStr());
+                    faceService.createFace(f);
+                }
+            }
+            catch (NoSuchElementException ex) {
+                LOGGER.info(String.valueOf(ex));
+            }
 
-            LOGGER.info("Person updated");
+            LOGGER.info("Person updated, added face features");
         }
-        */
     }
 }

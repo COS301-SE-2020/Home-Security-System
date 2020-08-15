@@ -14,7 +14,7 @@ import {AddPersonComponent} from './Person/add-person/add-person.component';
 import {EditPersonComponent} from './Person/edit-person/edit-person.component';
 import {AddUserComponent} from './User/add-user/add-user.component';
 import {EditUserComponent} from './User/edit-user/edit-user.component';
-import {UserListComponent} from './User/user-list/user-list.component';
+import {ListUsersComponent} from './User/user-list/list-users.component';
 import {UserProfileComponent} from './User/user-profile/user-profile.component';
 import {PeopleWhiteComponent} from './White-list/people-white/people-white.component';
 import {NotificationComponent} from './Dashboard/notification/notification.component';
@@ -28,7 +28,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent, data: {title: 'Login | Argus'}},
   {path: 'dashboard', component: DashboardComponent, data: {title: 'Dashboard | Argus'}},
   {path: 'user-profile', component: UserProfileComponent, data: {title: 'User Profile | Argus'}},
-  {path: 'user-list', component: UserListComponent, data: {title: 'User List | Argus'}},
+  {path: 'user-list', component: ListUsersComponent, data: {title: 'User List | Argus'}},
   {path: 'add-user', component: AddUserComponent, data: {title: 'Add User | Argus'}},
   {path: 'deleted-users', component: DeletedUsersComponent, data: {title: 'Deleted Users | Argus'}},
   {path: 'edit-user/:id', component: EditUserComponent, data: {title: 'Edit User | Argus'}},

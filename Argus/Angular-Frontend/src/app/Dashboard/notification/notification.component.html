@@ -22,7 +22,7 @@
                         <ng-container *ngFor="let note of notification | async">
                           <tr *ngIf="note.notificationDeleted == null">
                             <td>{{note.onDate}}&nbsp;{{note.atTime}}</td>
-                            <td>{{note.listed}}&nbsp;Listed</td>
+                            <td>{{note.listed}}</td>
                             <td>{{note.message}}</td>
                             <td>
                               <img id="noteImg{{note.notificationId}}" src="{{note.notificationImg.photo}}" class="squarePhoto">
@@ -40,6 +40,10 @@
       </div>
   </div>
 </div>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+  <p style="color: white">Please Wait. </p>
+</ngx-spinner>
 
 <!--
 <div id="imageModal" class="modal">

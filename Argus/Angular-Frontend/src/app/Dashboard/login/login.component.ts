@@ -29,9 +29,6 @@ export class LoginComponent implements OnInit {
     else{
       alert('Error, please enter an email address');
     }
-
-
-
   }
 
   makeSession(){

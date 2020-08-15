@@ -23,17 +23,17 @@ function toggle(){
 
 /* Fuction for sending an email */
 function sendEmail(notificationTypeE) {
-	Email.send({
-	Host: "smtp.gmail.com",
+  Email.send({
+    Host: "smtp.gmail.com",
     Username : "cos332prac7email@gmail.com",
     Password : "COS3322020",
     To : 'u16078625@tuks.co.za',
     From : "sigmacos301@gmail.com",
     Subject : "Argus home security alert",
     Body : notificationTypeE
-	}).then(
-		message => alert("mail sent successfully")
-	);
+  }).then(
+    message => alert("mail sent successfully")
+  );
 }
 
 /* Adding rows to table (a row per notification) */
@@ -239,4 +239,3 @@ function passwordConfirm() {
     }
   }
 }
-

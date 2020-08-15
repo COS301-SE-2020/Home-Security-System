@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { UserService } from '../../model/user.service';
 import { User } from '../../model/user';
 import { Session } from '../../../assets/js/SessionStorage.js';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-settings',
@@ -15,7 +16,8 @@ export class SettingsComponent implements OnInit {
   users: Observable<User[]>;
   user: User;
 
-  constructor(private appService: TitleService, private userService: UserService) {}
+  constructor(private SpinnerService: NgxSpinnerService, private appService: TitleService,
+              private userService: UserService) {}
 
   enableButton(){
     const buttonEl = document.getElementById('saveBtn') as HTMLButtonElement;
@@ -24,7 +26,6 @@ export class SettingsComponent implements OnInit {
   }
 
   retrieveSettings(){
-    this.user = new User();
     const buttonEl = document.getElementById('saveBtn') as HTMLButtonElement;
     const localSettings = document.getElementById('localSlider') as HTMLInputElement;
     const emailSettings = document.getElementById('emailSlider') as HTMLInputElement;
@@ -34,8 +35,10 @@ export class SettingsComponent implements OnInit {
 
     let userObj;
     userObj = this.sessionS.retrieveUserInfo();
+    /*this.users = */
     this.userService.getUserById(userObj.id).subscribe(
       data => {
+        // console.log(data);
         localSettings.checked = data.notifyLocal;
         emailSettings.checked = data.notifyEmail;
         this.user = data;
@@ -43,7 +46,7 @@ export class SettingsComponent implements OnInit {
     );
   }
 
-  setUserSettings() {
+  setUserSettings(){
     const localSet = document.getElementById('localSlider') as HTMLInputElement;
     const emailSet = document.getElementById('emailSlider') as HTMLInputElement;
     let userObj;
@@ -51,15 +54,24 @@ export class SettingsComponent implements OnInit {
     this.user.notifyEmail = emailSet.checked;
     this.user.notifyLocal = localSet.checked;
 
+    // console.log(this.user.notifyEmail);
+    // console.log(this.user.notifyLocal);
+
+
+    this.SpinnerService.show();
     this.userService.updateUser(userObj.id, this.user)
       .subscribe(data => {
-        // console.log(data);
-        this.retrieveSettings();
-        }, error => console.log(error));
+          // console.log(data);
+          setTimeout(() => {
+            this.SpinnerService.hide();
+          }, 500);
+      }, error => console.log(error));
+    this.retrieveSettings();
   }
 
   ngOnInit(): void {
     this.appService.setTitle('Settings');
     this.retrieveSettings();
+    this.user = new User();
   }
 }
