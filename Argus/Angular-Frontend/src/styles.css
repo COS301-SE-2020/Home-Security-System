@@ -9272,7 +9272,6 @@ a.text-dark:focus {
 }
 
 .text-hide {
-  font: 0/0 a;
   color: transparent;
   text-shadow: none;
   background-color: transparent;
@@ -19772,50 +19771,6 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
   transition: all 0.2s ease-in-out;
 }
 
-/*PICTURE UPLOAD*/
-input[type="file"] {
-  display: none;
-}
-
-.custom-file-upload {
-  height: 50%;
-  background: #DCDCDC;
-  color: #696969;
-  display: block;
-  padding: 10px 15px;
-  cursor: pointer;
-  outline: 3px dashed #ccc;
-  outline-offset: -7px;
-  border-radius: 5px;
-}
-
-.custom-file-upload:hover {
-  background: #D3D3D3;
-  outline: 3px dashed #C0C0C0;
-}
-
-.add-photo-icon {
-  font-size: 200%;
-}
-
-.picture-center {
-  width: 100px;
-  margin: auto;
-  display: block;
-}
-
-.output {
-  width: 100px;
-  margin: auto;
-  display: block;
-}
-
-.squarePhoto
-{
-  width: 100px;
-  height: 100px;
-}
-
 .modal-header
 {
   background: #d4af37;
@@ -19948,3 +19903,65 @@ input[type="checkbox"].switch_2:checked:before{
   color: #6c757d;
   transition-duration: .2s;
   }
+
+
+#gallery img {
+  width: 150px;
+  vertical-align: middle;
+}
+
+
+
+/*PICTURE UPLOAD*/
+input[type="file"] {
+  display: none;
+}
+
+#profilePicInput {
+  height: 50%;
+  background: #DCDCDC;
+  color: #696969;
+  display: block;
+  padding: 10px 15px;
+  cursor: pointer;
+  outline: 3px dashed #ccc;
+  outline-offset: -7px;
+  border-radius: 5px;
+}
+
+#profilePicInput:hover {
+  background: #D3D3D3;
+  outline: 3px dashed #C0C0C0;
+}
+
+#profilePicInput.highlight{
+  background: #D3D3D3;
+  outline: 3px dashed #C0C0C0;
+}
+
+.add-photo-icon {
+  font-size: 200%;
+}
+
+.picture-center {
+  width: 100px;
+  margin: auto;
+  display: block;
+}
+
+.output {
+  width: 100px;
+  margin: auto;
+  display: block;
+}
+
+.squarePhoto
+{
+  width: 100px;
+  height: 100px;
+}
+
+.hoverPointer
+{
+  cursor: pointer;
+}
