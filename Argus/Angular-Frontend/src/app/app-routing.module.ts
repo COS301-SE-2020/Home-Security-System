@@ -14,7 +14,7 @@ import {AddPersonComponent} from './Person/add-person/add-person.component';
 import {EditPersonComponent} from './Person/edit-person/edit-person.component';
 import {AddUserComponent} from './User/add-user/add-user.component';
 import {EditUserComponent} from './User/edit-user/edit-user.component';
-import {ListUsersComponent} from './User/user-list/list-users.component';
+import {ListUsersComponent} from './User/list-users/list-users.component';
 import {UserProfileComponent} from './User/user-profile/user-profile.component';
 import {PeopleWhiteComponent} from './White-list/people-white/people-white.component';
 import {NotificationComponent} from './Dashboard/notification/notification.component';

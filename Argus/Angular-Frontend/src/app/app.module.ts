@@ -27,7 +27,7 @@ import { AddPersonComponent } from './Person/add-person/add-person.component';
 import { EditPersonComponent } from './Person/edit-person/edit-person.component';
 import { AddUserComponent } from './User/add-user/add-user.component';
 import { EditUserComponent } from './User/edit-user/edit-user.component';
-import { ListUsersComponent } from './User/user-list/list-users.component';
+import { ListUsersComponent } from './User/list-users/list-users.component';
 import { UserProfileComponent } from './User/user-profile/user-profile.component';
 import { DeletedUsersComponent } from './User/deleted-users/deleted-users.component';
 import { DeletedWhiteComponent } from './Person/deleted-white/deleted-white.component';
