@@ -18,8 +18,8 @@ public class MailerController {
         String x = "sent";
         emailSender.sendMail(
                 email,
-                "Argus System Grey-list Alert",
-                "An unknown person was detected on the Argus system"
+                "Argus System Suspicious person Alert",
+                "An suspicious person was detected on the Argus system."
         );
 
         return x;
@@ -30,8 +30,8 @@ public class MailerController {
         String x = "sent";
         emailSender.sendMail(
                 email,
-                "Argus System Black-list Alert",
-                "A person from your blacklist has been detected on the Argus system. Image captured below:"
+                "Argus System Threat List Alert",
+                "A person from your threat list has been detected on the Argus system."
         );
 
         return x;
@@ -42,9 +42,9 @@ public class MailerController {
         String x = "sent";
         emailSender.sendMailWithInlineResources(
                 email,
-                "WARNING: Argus Black-list Detection",
+                "WARNING: Argus Threat-list Detection",
                 imagePath,
-                "This person from your blacklist has been detected. Image captured below:"
+                "This person from your threat list has been detected. Image captured below:"
         );
 
         return x;
@@ -55,9 +55,9 @@ public class MailerController {
         String x = "sent";
         emailSender.sendMailWithInlineResources(
                 email,
-                "ALERT: Argus Grey-list Detection",
+                "ALERT: Argus Suspicious Person Detection",
                 imagePath,
-                "This unknown person has been detected"
+                "A suspicious person has been detected. Image captured below:"
         );
 
         return x;
