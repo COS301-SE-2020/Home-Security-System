@@ -13,6 +13,10 @@ import java.time.LocalTime;
 public class Notification implements Serializable {
     private static final long serialVersionUID = -693058768293344103L;
 
+    public enum notificationType {
+        Suspicious, Threat;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "notification_id", nullable = false)
@@ -21,6 +25,11 @@ public class Notification implements Serializable {
     @ManyToOne
     @JoinColumn(name="image_id", nullable = true)
     private Image notificationImg = null;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "listed", nullable = false)
+    private notificationType listed;
+    //private String listed;
 
     @Column(name = "msg", nullable = false)
     private String message;
@@ -45,6 +54,26 @@ public class Notification implements Serializable {
 
     public Notification(Image img, String msg) {
         this.notificationImg = img;
+        this.listed = notificationType.Suspicious;
+        this.message = Jsoup.clean(msg, Whitelist.simpleText());
+        onDate = LocalDate.now();
+        atTime = LocalTime.now();
+    }
+
+    public Notification(Image img, String listed, String msg) {
+        this.notificationImg = img;
+
+        if(listed.equalsIgnoreCase("Suspicious"))
+        {
+            //this.listed = "Suspicious";
+            this.listed = notificationType.Suspicious;
+        }
+        else
+        {
+            //this.listed = "Threat";
+            this.listed = notificationType.Threat;
+        }
+
         this.message = Jsoup.clean(msg, Whitelist.simpleText());
         onDate = LocalDate.now();
         atTime = LocalTime.now();
@@ -52,9 +81,30 @@ public class Notification implements Serializable {
 
     public Notification(Image img, String msg, User u) {
         this.notificationImg = img;
+        this.listed = notificationType.Suspicious;
         this.message = Jsoup.clean(msg, Whitelist.simpleText());
-        onDate = LocalDate.now();
-        atTime = LocalTime.now();
+        this.onDate = LocalDate.now();
+        this.atTime = LocalTime.now();
+        this.user = u;
+    }
+
+    public Notification(Image img, String listed, String msg, User u) {
+        this.notificationImg = img;
+
+        if(listed.equalsIgnoreCase("Suspicious"))
+        {
+            //this.listed = "Suspicious";
+            this.listed = notificationType.Suspicious;
+        }
+        else
+        {
+            //this.listed = "Threat";
+            this.listed = notificationType.Threat;
+        }
+
+        this.message = Jsoup.clean(msg, Whitelist.simpleText());
+        this.onDate = LocalDate.now();
+        this.atTime = LocalTime.now();
         this.user = u;
     }
 
@@ -70,6 +120,20 @@ public class Notification implements Serializable {
     public void setNotificationImg(Image img) {
         if (img != null) {
             this.notificationImg = img;
+        }
+    }
+
+    public String getListed() { return this.listed.toString(); }
+    public void setListed(String listed) {
+        if(listed.equalsIgnoreCase("Suspicious"))
+        {
+            //this.listed = "Suspicious";
+            this.listed = notificationType.Suspicious;
+        }
+        else
+        {
+            //this.listed = "Threat";
+            this.listed = notificationType.Threat;
         }
     }
 
@@ -94,7 +158,14 @@ public class Notification implements Serializable {
         }
         return null;
     }
-    public void setNotificationDeleted() { this.notificationDeleted = LocalDate.now(); }
+    public void setNotificationDeleted(LocalDate date) {
+        if (date != null) {
+            this.notificationDeleted = LocalDate.now();
+        }
+        else {
+            this.notificationDeleted = null;
+        }
+    }
 
     public Long getUserId() { return this.user.getUserId(); }
     public User getUser() { return this.user; }

@@ -1,0 +1,45 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header card-header-primary">
+          <h4 class="card-title">Deleted Users</h4>
+          <p class="card-category">All users removed from your system</p>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table" id="userListTable">
+              <thead class="text-primary">
+              <th> ID </th>
+              <th> Picture </th>
+              <th> Name </th>
+              <th> Role </th>
+              <th> Deletion Date </th>
+              <th> Modify </th>
+              </thead>
+              <tbody id="userTableBody">
+              <ng-container *ngFor="let user of users | async">
+                <tr *ngIf="user.userDeleted != null">
+                  <td>{{user.userId}}</td>
+                  <td><img alt="Profile Picture" src="{{user.profilePhoto.photo}}" class="listPic ImgClassName"></td>
+                  <td>{{user.fname}}&nbsp;{{user.lname}}</td>
+                  <td>{{user.userRole}}</td>
+                  <td>{{user.userDeleted}}</td>
+                  <td>
+                    <button id="restoreBtn" class="btn btn-primary" (click)="restoreUser(user.userId)">Restore</button>
+                  </td>
+                </tr>
+              </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a class="btn btn-primary" (click)="back()">Back</a>
+</div>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+  <p style="color: white">Please Wait. </p>
+</ngx-spinner>

@@ -4,9 +4,8 @@ import { UserService } from '../../model/user.service';
 import { User } from '../../model/user';
 import { Router } from '@angular/router';
 import {TitleService} from '../../title.service';
-
 import { Session } from '../../../assets/js/SessionStorage.js';
-
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-list-users',
@@ -22,91 +21,48 @@ export class ListUsersComponent implements OnInit {
   user: User;
   temp: string;
 
-  constructor(private userService: UserService, private appService: TitleService, private router: Router) {
+  constructor(private userService: UserService, private appService: TitleService,
+              private SpinnerService: NgxSpinnerService, private router: Router) {
   }
 
   reloadData() {
+    this.user = new User();
     this.users = this.userService.getUserList();
-    this.userService.getUserList()
-      .subscribe(
-        data => {
-          // console.log(data);
-        },
-        error => console.log(error));
-    this.activateButtons();
   }
 
   removeUser(id: number) {
-    const user = this.sessionS.retrieveUserInfo();
-    // const deleteBtn = document.getElementById('deleteBtn') as HTMLButtonElement;
-    if ((user.userRole === 'Admin')){
-      if ( user.id === id )
-      {
-        // deleteBtn.hidden = true;
-        alert('You are unfortunately not able to delete yourself as a user on this page.');
-      }
-      else {
-        this.userService.deleteUser(id)
-          .subscribe(
-            data => {
-              // console.log(data);
-            },
-            error => console.log(error));
-        this.reloadData();
-        location.reload();
-      }
-    }
+    this.SpinnerService.show();
+    this.userService.getUserById(id)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.user = data;
+          this.user.userDeleted = new Date();
+          this.userService.updateUser(id, this.user)
+            .subscribe(value => {
+              // console.log(value);
+              setTimeout(() => {
+                this.SpinnerService.hide();
+              }, 500);
+              this.reloadData();
+            }, error => console.log(error));
+        }, error => console.log(error));
   }
 
   updateUser(id: number){
-    const userInfo = this.sessionS.retrieveUserInfo();
-
-    this.user = new User();
-
-    this.userService.getUserById(id)
-      .subscribe(data => {
-        console.log(data);
-        this.user = data;
-        this.temp = data.userRole;
-
-        if ( this.user.userRole === 'Admin' && this.info.userRole === 'Advanced')
-        {
-          alert('Sorry, you can not edit a user with more privileges than yourself.');
-        }
-        else if ((userInfo.userRole === 'Basic')) {
-          alert('You are unfortunately not able to edit a user on this page.');
-        }
-        else {
-          this.router.navigate(['edit-user', id]);
-        }
-      }, error => console.log(error));
+    this.router.navigate(['edit-user', id]);
   }
 
-  viewUser(id: number){
+  viewUser(id: number) {
     this.router.navigate(['view-user', id]);
   }
 
-  // ------------------------------------------------------------------
-
-  activateButtons(){
-    const addBtn = document.getElementById('addBtn') as HTMLButtonElement;
-    const user = this.sessionS.retrieveUserInfo();
-
-    // -----------------------------------------------------
-   //  console.log('You are a -> ' + user.userRole);
-    // -----------------------------------------------------
-
-    if (user.userRole === 'Basic'){
-      addBtn.disabled = true;
-      addBtn.hidden = true;
-    }
-  }
-
-  // ------------------------------------------------------------------
-
   ngOnInit(): void {
     this.appService.setTitle('User List');
-    this.sessionS.retrieveUserInfo();
     this.reloadData();
+  }
+
+  restoreUser() {
+    this.router.navigate(['deleted-users']);
   }
 }

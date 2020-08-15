@@ -18,6 +18,10 @@ export class ImageService {
     return this.http.post(`${this.baseUrl}`, notification);
   }
 
+  updateImage(id: number, value: any): Observable<Object> {
+    return this.http.put(`${this.baseUrl}/${id}`, value);
+  }
+
   deleteImage(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }

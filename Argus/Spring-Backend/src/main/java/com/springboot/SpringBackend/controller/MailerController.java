@@ -18,7 +18,7 @@ public class MailerController {
         String x = "sent";
         emailSender.sendMail(
                 email,
-                "Argus System Greylist Alert",
+                "Argus System Grey-list Alert",
                 "An unknown person was detected on the Argus system"
         );
 
@@ -30,7 +30,7 @@ public class MailerController {
         String x = "sent";
         emailSender.sendMail(
                 email,
-                "Argus System Blacklist Alert",
+                "Argus System Black-list Alert",
                 "A person from your blacklist has been detected on the Argus system. Image captured below:"
         );
 
@@ -42,7 +42,7 @@ public class MailerController {
         String x = "sent";
         emailSender.sendMailWithInlineResources(
                 email,
-                "WARNING: Argus Blacklist Detection",
+                "WARNING: Argus Black-list Detection",
                 imagePath,
                 "This person from your blacklist has been detected. Image captured below:"
         );
@@ -55,7 +55,7 @@ public class MailerController {
         String x = "sent";
         emailSender.sendMailWithInlineResources(
                 email,
-                "ALERT: Argus Greylist Detection",
+                "ALERT: Argus Grey-list Detection",
                 imagePath,
                 "This unknown person has been detected"
         );

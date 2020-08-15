@@ -3,6 +3,7 @@ import {UserService} from '../../model/user.service';
 import {User} from '../../model/user';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Session} from '../../../assets/js/SessionStorage';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-edit-user',
@@ -18,11 +19,10 @@ export class EditUserComponent implements OnInit {
   info: User = this.sessionS.retrieveUserInfo();
 
   constructor(private route: ActivatedRoute, private router: Router,
-              private userService: UserService) { }
+              private SpinnerService: NgxSpinnerService, private userService: UserService) { }
 
   ngOnInit() {
     this.user = new User();
-
     this.id = this.route.snapshot.params.id;
 
     this.userService.getUserById(this.id)
@@ -60,10 +60,15 @@ export class EditUserComponent implements OnInit {
   }
 
   updateUser() {
+    this.SpinnerService.show();
     this.userService.updateUser(this.id, this.user)
-      .subscribe(data => console.log(data), error => console.log(error));
-    this.user = new User();
-    this.gotoList();
+      .subscribe(data => {
+        // console.log(data);
+        setTimeout(() => {
+          this.SpinnerService.hide();
+        }, 500);
+        this.gotoList();
+      }, error => console.log(error));
   }
 
   onSubmit() {

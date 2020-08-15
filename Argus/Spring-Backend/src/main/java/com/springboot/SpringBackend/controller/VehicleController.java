@@ -52,6 +52,7 @@ public class VehicleController {
         }
         x.setVehicleListed(details.getVehicleListed());
         x.setLicenseNo(details.getLicenseNo());
+        x.setVehicleDeleted(details.getVehicleDeleted());
         final Vehicle updatedVehicle = service.updateVehicle(x);
         return ResponseEntity.ok(updatedVehicle);
     }

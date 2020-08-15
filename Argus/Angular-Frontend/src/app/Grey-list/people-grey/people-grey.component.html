@@ -3,8 +3,8 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header card-header-primary">
-                    <h4 class="card-title">Grey List</h4>
-                    <p class="card-category">Unknown People</p>
+                    <h4 class="card-title">Unknown Person List</h4>
+                    <p class="card-category">Random people detected on the street walking past your property.</p>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -22,12 +22,12 @@
                             </thead>
                             <tbody>
                             <ng-container *ngFor="let p of person | async">
-                              <tr *ngIf="p.personListed == 'Grey'">
+                              <tr *ngIf="p.personListed == 'Grey' && p.personDeleted == null">
                                 <td>{{p.personId}}</td>
-                                <td><img alt="Photo" src="{{p.personImg.photo}}" class="listPic"></td>
-                                <td>
-                                  <a class="btn btn-primary" (click)="addToWhiteList(p.personId)">Add to white list</a>
-                                  <a class="btn btn-primary" (click)="addToBlackList(p.personId)">Add to black list</a>
+                                <td><img alt="Photo" src="{{p.personImg.photo}}" class="listPic ImgClassName"></td>
+                                <td *ngIf="info.userRole != 'Basic'">
+                                  <a class="btn btn-primary" (click)="addToWhiteList(p.personId)">Add to White-list</a>
+                                  <a class="btn btn-primary" (click)="addToBlackList(p.personId)">Add to Black-list</a>
                                 </td>
                               </tr>
                             </ng-container>
@@ -39,3 +39,7 @@
         </div>
     </div>
 </div>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+  <p style="color: white">Please Wait. </p>
+</ngx-spinner>

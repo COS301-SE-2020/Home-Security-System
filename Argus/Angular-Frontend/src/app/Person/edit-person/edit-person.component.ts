@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PersonService} from '../../model/person.service';
 import {Person} from '../../model/person';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-edit-person',
@@ -13,11 +14,10 @@ export class EditPersonComponent implements OnInit {
   person: Person;
 
   constructor(private route: ActivatedRoute, private router: Router,
-              private personService: PersonService) { }
+              private SpinnerService: NgxSpinnerService, private personService: PersonService) { }
 
   ngOnInit() {
     this.person = new Person();
-
     this.id = this.route.snapshot.params.id;
 
     this.personService.getPersonById(this.id)
@@ -28,10 +28,15 @@ export class EditPersonComponent implements OnInit {
   }
 
   updatePerson() {
+    this.SpinnerService.show();
     this.personService.updatePerson(this.id, this.person)
-      .subscribe(data => console.log(data), error => console.log(error));
-    this.person = new Person();
-    this.gotoList();
+      .subscribe(data => {
+        // console.log(data);
+        setTimeout(() => {
+          this.SpinnerService.hide();
+        }, 500);
+        this.gotoList();
+      }, error => console.log(error));
   }
 
   onSubmit() {
@@ -39,13 +44,12 @@ export class EditPersonComponent implements OnInit {
   }
 
   gotoList() {
-    this.person = new Person();
-
     this.id = this.route.snapshot.params.id;
+
     this.personService.getPersonById(this.id)
       .subscribe(data => {
+        // console.log(data);
         this.person = data;
-        // console.log(this.person.personListed);
         if ( this.person.personListed === 'White')
         {
           this.router.navigate(['/people-white']);

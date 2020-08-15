@@ -1,1 +1,15 @@
-/argus-app/node_modules/
+/node_modules/
+/Argus/.idea
+/Argus/NeuralNetwork/.idea
+/Argus/NeuralNetwork/data
+/Argus/NeuralNetwork/models
+/Argus/NeuralNetwork/NeuralNetwork.iml
+
+# Default ignored files
+/Argus/shelf/
+/Argus/workspace.xml
+# Datasource local storage ignored files
+/Argus/dataSources/
+/Argus/dataSources.local.xml
+# Editor-based HTTP Client requests
+/Argus/httpRequests/

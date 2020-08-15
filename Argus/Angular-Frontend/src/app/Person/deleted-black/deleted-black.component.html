@@ -1,0 +1,49 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header card-header-primary">
+          <h4 class="card-title">Deleted People</h4>
+          <p class="card-category">Black Listed People</p>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="text-primary">
+              <th>
+                Picture
+              </th>
+              <th>
+                Alias
+              </th>
+              <th>
+                Deletion Date
+              </th>
+              <th>
+                Modify
+              </th>
+              </thead>
+              <tbody id="blackBody">
+              <ng-container *ngFor="let p of person | async">
+                <tr *ngIf="p.personListed == 'Black' && p.personDeleted != null">
+                  <td><img alt="Photo" src="{{p.personImg.photo}}" class="listPic ImgClassName"></td>
+                  <td>{{p.fname}}&nbsp;{{p.lname}}</td>
+                  <td>{{p.personDeleted}}</td>
+                  <td *ngIf="info.userRole != 'Basic'">
+                    <a id="restoreBtn" class="btn btn-primary" (click)="restorePerson(p.personId)">Restore</a>
+                  </td>
+                </tr>
+              </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a class="btn btn-primary" (click)="back()">Back</a>
+</div>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+  <p style="color: white">Please Wait. </p>
+</ngx-spinner>

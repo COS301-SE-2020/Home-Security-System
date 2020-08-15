@@ -7,15 +7,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
-@Service
-public class RabbitConsumer {
+@Component
+public class RabbitConsumer{
     private static final Logger LOGGER = LoggerFactory.getLogger(RabbitConsumer.class);
 
-    /*private final NotificationService nservice;
+    private final NotificationService nservice;
     private final PersonService personService;
     private final UserService userService;
     private final FaceService faceService;
@@ -29,37 +29,67 @@ public class RabbitConsumer {
         this.userService = us;
         this.faceService = fs;
         this.imageService = is;
-    }*/
+    }
 
-    //@RabbitListener(queues = {"alertQueue"})
+    @RabbitListener(queues = {"alertQueue"})
     public void receivedAlert(RabbitAlert alert) {
-        /*Long num = Long.valueOf(1);
+        // User session id
+        Long num = Long.valueOf(1);
         Optional<User> u =  userService.getUserById(num);
 
-        Optional<Person> x =  personService.getPersonById(Long.valueOf(alert.getPid()));
+        Optional<Person> p =  personService.getPersonById(Long.valueOf(alert.getPersonId()));
 
         Image img = new Image(alert.getImageStr());
         imageService.createImage(img);
 
-        nservice.createNotification(new Notification(img,
-                "Intruder" + x.get().getFname() + " " + x.get().getLname(), u.get()));
-        */
-        LOGGER.info(String.valueOf(alert.getPid()));
-        LOGGER.info("Alert Received");
+        try {
+            if(p.isPresent() && u.isPresent()) {
+                if (alert.getType().equalsIgnoreCase("Grey")) {
+                    nservice.createNotification(new Notification(img, "Threat",
+                        "Person: " + p.get().getFname(), u.get()));
+                } else {
+                    nservice.createNotification(new Notification(img, "Suspicious",
+                        "Intruder: " + p.get().getFname() + " " + p.get().getLname(), u.get()));
+                }
+            }
+        }
+        catch (NoSuchElementException ex) {
+            LOGGER.info(String.valueOf(ex));
+        }
+
+        LOGGER.info("Notification Created");
     }
 
-    //@RabbitListener(queues = {"personQueue"})
-    public void receivedPerson(RabbitPerson newperson) {
-        /*Image img = new Image(newperson.getImageStr());
-        imageService.createImage(img);
+    @RabbitListener(queues = {"featureQueue"})
+    public void receivePerson(RabbitPerson psn) {
+        // Creating a Grey-list person from Python
+        if(psn.getType().equalsIgnoreCase("Grey")) {
+            Image img = new Image(psn.getImageStr());
+            imageService.createImage(img);
 
-        Person p = new Person(img);
-        personService.createPerson(p);
+            Person p = new Person(img);
+            personService.createPerson(p);
 
-        Face f = new Face(p, newperson.getFaceStr());
-        faceService.createFace(f);
-        */
-        LOGGER.info(newperson.getImageStr());
-        LOGGER.info("Person Created");
+            Face f = new Face(p, psn.getFaceStr());
+            faceService.createFace(f);
+
+            LOGGER.info("Grey-list Person Added");
+        }
+        // Creating features for a new (white/black) listed person from Angular
+        else {
+            try {
+                Optional<Person> p = personService.getPersonById(Long.valueOf(psn.getPersonId()));
+
+                if(p.isPresent()) {
+                    Face f = new Face(p.get(), psn.getFaceStr());
+                    faceService.createFace(f);
+                }
+            }
+            catch (NoSuchElementException ex) {
+                LOGGER.info(String.valueOf(ex));
+            }
+
+            LOGGER.info("Person updated, added face features");
+        }
     }
 }

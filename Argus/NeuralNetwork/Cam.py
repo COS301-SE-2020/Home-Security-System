@@ -9,20 +9,22 @@ import os
 import pika as pi
 import time
 import json
+import base64 as b64
 
-phys = tf.config.experimental.list_physical_devices('GPU')  # NB
-tf.config.experimental.set_memory_growth(phys[0], True)  # Only run lines if RTX card
+phys = tf.config.experimental.list_physical_devices('GPU')
+if len(phys) > 0:
+    tf.config.experimental.set_memory_growth(phys[0], True)
 
 mod_name = 'senet50'
-path_features = 'models/'
+path_features = './models/'
 rabbit_host = 'localhost'
 threshold = 0.5
 successive_detection_ignore = 300.0
 
 rabbit_conn = pi.BlockingConnection(pi.ConnectionParameters(rabbit_host))
 message_channel = rabbit_conn.channel()
-message_channel.queue_declare(queue='alerts')
-message_channel.queue_declare(queue='features')
+message_channel.queue_declare(queue='alertQueue')
+message_channel.queue_declare(queue='featureQueue')
 
 face_d = MTCNN()
 face_r = VGGFace(include_top=False, model=mod_name, input_shape=(224, 224, 3), pooling='avg')
@@ -36,11 +38,12 @@ def load_faces(path):
             f_feat = list()
             f_feat.append(str(os.path.splitext(file)[0]))
             f_feat.append(np.load(os.path.join(root, file)))
+            f_feat.append(root.split('/')[2])
+            print(str(os.path.splitext(file)[0]))
             feats.append(f_feat)
             t_dict[f_feat[0]] = 0.0
 
     return np.asarray(feats), t_dict
-
 
 def save_face(path, image, f_d=face_d, f_r=face_r):
     face_image = c.imread(image)
@@ -74,7 +77,6 @@ def cam_feed():
     if vc.isOpened():
         c.namedWindow("view")
         f, frame = vc.read()
-        f_count = 0
         while f:
             pix = np.asarray(frame)
             faces = face_d.detect_faces(pix)
@@ -89,7 +91,6 @@ def cam_feed():
                 face_pix.append(pix[y1:y2, x1:x2])
                 frame = c.rectangle(frame, start, end, (0, 0, 255), 1)
 
-            count = 0
             inp_features = list()
             for face in face_pix:
                 face = c.resize(face, (224, 224), interpolation=c.INTER_AREA)
@@ -97,8 +98,6 @@ def cam_feed():
                     inp_features.append(preprocess_input(np.asarray(face).astype('float64')))
                 else:
                     inp_features.append(preprocess_input(np.asarray(face).astype('float64'), version=2))
-                c.imwrite('data/test'+str(f_count)+'_'+str(count)+'.jpg', face)
-                count += 1
 
             inp_features = np.asarray(inp_features)
 
@@ -118,30 +117,44 @@ def cam_feed():
 
                     frame = c.putText(frame, f_name, (0, 20), c.FONT_HERSHEY_DUPLEX, 1, (0, 0, 255), thickness=2)
                     if f_name == 'Unknown':
-                        print("yes")
+                        temp_face = 'u' + str(time.time())
+                        np.save('models/grey/' + temp_face + '.npy', face)
+                        temp_face_stored = open('models/grey/' + temp_face + '.npy', 'rb').read()
+                        message = {'personId': 'Unknown', 'type': 'Grey',
+                                   'faceStr': str(b64.b64encode(temp_face_stored).decode('utf-8')),
+                                   'imageStr': 'data:image/jpg;base64,' +
+                                               str(b64.b64encode(c.imencode('.jpg', frame)[1]).decode('utf-8')),
+                                   'exists': False}
+                        message_channel.basic_publish(exchange='sigma.direct',
+                                                      routing_key='alertKey',
+                                                      body=json.dumps(message))
+                        all_f_features, time_dict = load_faces(path_features)
                     else:
                         if time.time() - time_dict[f_name] > successive_detection_ignore:
                             time_dict[f_name] = time.time()
+
                             if f_type == 'black':
-                                message = {'person': f_name, 'list': 'black', 'image': frame.encode('base64')}
-                                message_channel.basic_publish(exchange='',
-                                                              routing_key='alerts',
+                                message = {'personId': int(f_name), 'type': 'Black',
+                                           'imageStr': 'data:image/jpg;base64,' +
+                                                       str(b64.b64encode(c.imencode('.jpg', frame)[1]).decode('utf-8'))}
+                                message_channel.basic_publish(exchange='sigma.direct',
+                                                              routing_key='alertKey',
                                                               body=json.dumps(message))
                             elif f_type == 'grey':
-                                message = {'person': f_name, 'list': 'grey', 'image': frame.encode('base64')}
-                                message_channel.basic_publish(exchange='',
-                                                              routing_key='alerts',
+                                message = {'personId': int(f_name), 'type': 'Grey',
+                                           'imageStr': 'data:image/jpg;base64,' +
+                                                       str(b64.b64encode(c.imencode('.jpg', frame)[1]).decode('utf-8'))}
+                                message_channel.basic_publish(exchange='sigma.direct',
+                                                              routing_key='alertKey',
                                                               body=json.dumps(message))
 
             c.imshow("view", frame)
-            f_count += 1
             f, frame = vc.read()
             key = c.waitKey(5)
             if key == 27:
                 vc.release()
                 c.destroyWindow("view")
                 break
-
 
 cam_feed()
 rabbit_conn.close()
