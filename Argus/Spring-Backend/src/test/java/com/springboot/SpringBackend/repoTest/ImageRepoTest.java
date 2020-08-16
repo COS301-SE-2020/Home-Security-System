@@ -1,7 +1,9 @@
 package com.springboot.SpringBackend.repoTest;
 
 import com.springboot.SpringBackend.model.Image;
+import com.springboot.SpringBackend.model.Person;
 import com.springboot.SpringBackend.repository.ImageRepo;
+import com.springboot.SpringBackend.repository.PersonRepo;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +15,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 public class ImageRepoTest {
-
     private static final String IMAGE_URL = "http://an-imageurl.com/image1.jpg";
 
     @Autowired

@@ -14,8 +14,8 @@ export class ImageService {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
-  addImage(notification: Object): Observable<Object> {
-    return this.http.post(`${this.baseUrl}`, notification);
+  addImage(image: Object): Observable<Object> {
+    return this.http.post(`${this.baseUrl}`, image);
   }
 
   updateImage(id: number, value: any): Observable<Object> {
