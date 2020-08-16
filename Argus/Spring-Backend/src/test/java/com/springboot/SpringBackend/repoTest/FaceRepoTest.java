@@ -1,8 +1,11 @@
 package com.springboot.SpringBackend.repoTest;
 
 import com.springboot.SpringBackend.model.Face;
+import com.springboot.SpringBackend.model.Image;
 import com.springboot.SpringBackend.model.Person;
 import com.springboot.SpringBackend.repository.FaceRepo;
+import com.springboot.SpringBackend.repository.ImageRepo;
+import com.springboot.SpringBackend.repository.PersonRepo;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,9 +18,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest
 public class FaceRepoTest {
     private static final String IMAGE_URL = "http://an-imageurl.com/image1.jpg";
+    private static final String FEATURES = "Face";
 
     @Autowired
-    private FaceRepo repo;
+    private ImageRepo irepo;
+    @Autowired
+    private PersonRepo prepo;
+    @Autowired
+    private FaceRepo frepo;
 
     @Before
     public void setUp() throws Exception {
@@ -26,17 +34,18 @@ public class FaceRepoTest {
 
     @Test
     public void testPersistence() {
-        /*Person person = new Person();
-        Face face = new Face();
-        face.setPhoto(IMAGE_URL);
+        Image img = new Image(IMAGE_URL);
+        irepo.save(img);
 
-        repo.save(face);
+        Person person = new Person(img);
+        prepo.save(person);
+
+        Face face = new Face(person, FEATURES);
+        frepo.save(face);
 
         Assert.assertNotNull(face.getFaceId());
-        Face newFace = repo.findById(face.getFaceId()).orElse(null);
+        Face newFace = frepo.findById(face.getFaceId()).orElse(null);
         Assert.assertEquals((Long) 1L, newFace.getFaceId());
-        Assert.assertEquals(IMAGE_URL, newFace.getFeatures());
-
-         */
+        Assert.assertEquals(FEATURES, newFace.getFeatures());
     }
 }

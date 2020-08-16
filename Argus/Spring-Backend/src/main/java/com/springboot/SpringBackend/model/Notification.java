@@ -11,7 +11,7 @@ import java.time.LocalTime;
 @Entity
 @Table(name = "notification")
 public class Notification implements Serializable {
-    private static final long serialVersionUID = -693058768293344103L;
+    private static final long serialVersionUID = 3055690177451933044L;
 
     public enum notificationType {
         Suspicious, Threat;
@@ -108,7 +108,7 @@ public class Notification implements Serializable {
         this.user = u;
     }
 
-    public long getNotificationId() {
+    public Long getNotificationId() {
         return this.id;
     }
     public void setNotificationId(Long id) {
