@@ -11,12 +11,11 @@ import {NgxSpinnerService} from 'ngx-spinner';
   styleUrls: ['./edit-user.component.css']
 })
 export class EditUserComponent implements OnInit {
-  id: number;
-  user: User;
-  submitted: boolean;
-
   sessionS = new Session();
   info: User = this.sessionS.retrieveUserInfo();
+  id: number;
+  user: User;
+  submitted = false;
 
   constructor(private route: ActivatedRoute, private router: Router,
               private SpinnerService: NgxSpinnerService, private userService: UserService) { }
@@ -33,7 +32,6 @@ export class EditUserComponent implements OnInit {
   }
 
   checkIfExists(): boolean {
-    this.submitted = false;
     let counter = 0;
     const usernameInp = document.getElementById('username') as HTMLInputElement;
     const emailInp = document.getElementById('email') as HTMLInputElement;
@@ -46,7 +44,7 @@ export class EditUserComponent implements OnInit {
           usernameInp.focus();
           return true;
         }
-        if (data[counter].email === emailInp.value){
+        if (data[counter].email.toLowerCase() === emailInp.value.toLowerCase()){
           alert('Email address is already in use. Please enter another email address');
           emailInp.value = '';
           emailInp.focus();
@@ -72,7 +70,12 @@ export class EditUserComponent implements OnInit {
   }
 
   onSubmit() {
-    this.updateUser();
+    const tf = this.checkIfExists();
+    if (tf !== true)
+    {
+      this.updateUser();
+      this.submitted = true;
+    }
   }
 
   gotoList() {

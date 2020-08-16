@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   recoverPasswordEmail(){
     const emailInp = document.getElementById('emailIn') as HTMLInputElement;
 
-    if (emailInp.value !== '' && emailInp.value !== 'E-mail'){
+    if (emailInp.value.toLowerCase() !== '' && emailInp.value.toLowerCase() !== 'E-mail'){
       this.sessionS.recoverySess(emailInp.value.toString());
       this.router.navigate(['/reset-password']);
     }
@@ -35,19 +35,18 @@ export class LoginComponent implements OnInit {
     const emailVar = document.getElementById('emailInput') as HTMLInputElement;
     const passVar = document.getElementById('passwordField') as HTMLInputElement;
 
-
     let counter = 0;
     this.userService.getUserList()
       .subscribe(
         data => {
-          if (( (data[counter].email === emailVar.value) || (data[counter].username === emailVar.value) )
+          if (( (data[counter].email.toLowerCase() === emailVar.value.toLowerCase()) || (data[counter].username === emailVar.value) )
             && (data[counter].userPass === passVar.value)){
             this.sessionS.createSession(data[counter].email, passVar.value, data[counter].userId, data[counter].userRole);
             // alert('You are logged in, welcome to Argus');
             this.sessionS.retrieveUserInfo();
             this.router.navigate(['/dashboard']);
           }
-          if (((data[counter].email === emailVar.value) || (data[counter].username === emailVar.value)) &&
+          if (((data[counter].email.toLowerCase() === emailVar.value.toLowerCase() ) || (data[counter].username === emailVar.value)) &&
             (data[counter].userPass !== passVar.value)){
             alert('The password you entered seems to be incorrect, please retry entering your password.');
             passVar.value = '';
@@ -61,13 +60,13 @@ export class LoginComponent implements OnInit {
     this.userService.getUserById(1)
       .subscribe(
         data => {
-          if ((data.email === emailVar.value) && (data.userPass === passVar.value)){
+          if ((data.email.toLowerCase() === emailVar.value.toLowerCase()) && (data.userPass === passVar.value)){
             this.sessionS.createSession(emailVar.value, passVar.value, data.userId, data.userRole);
             alert('Logged in');
             this.sessionS.retrieveUserInfo();
             this.router.navigate(['/dashboard']);
           }
-          if ((data.email === emailVar.value) && (data.userPass !== passVar.value)){
+          if ((data.email.toLowerCase() === emailVar.value.toLowerCase()) && (data.userPass !== passVar.value)){
             alert('Password incorrect');
             passVar.value = '';
           }
@@ -79,5 +78,4 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.sessionS.retrieveUserInfo();
   }
-
 }
