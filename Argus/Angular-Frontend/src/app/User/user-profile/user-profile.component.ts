@@ -78,7 +78,7 @@ export class UserProfileComponent implements OnInit {
         UName.value = data.username;
         email.value = data.email;
         password.value = data.userPass;
-        uPic.src = data.profilePhoto.photo;
+        uPic.src = data.profilePhoto;
         this.user = data;
       }, error => console.log(error));
   }
@@ -98,7 +98,7 @@ export class UserProfileComponent implements OnInit {
         uEmail.value = data.email;
         uUsername.value = data.username;
         uPassword.value = data.userPass;
-        uPic.src = data.profilePhoto.photo;
+        uPic.src = data.profilePhoto;
       }, error => console.log(error));
   }
 
@@ -128,7 +128,7 @@ export class UserProfileComponent implements OnInit {
     let userObj;
     userObj = this.sessionS.retrieveUserInfo();
 
-    this.user.profilePhoto.photo = uPicUploaded.src;
+    this.user.profilePhoto = uPicUploaded.src;
 
     this.userService.updateUser(userObj.id, this.user).subscribe(data => {
       // console.log(data);

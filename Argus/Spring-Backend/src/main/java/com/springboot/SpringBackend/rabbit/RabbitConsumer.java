@@ -40,23 +40,23 @@ public class RabbitConsumer{
         Long num = Long.valueOf(1);
         Optional<User> u =  userService.getUserById(num);
 
-        Optional<Person> p =  personService.getPersonById(Long.valueOf(alert.getPersonId()));
+        Optional<Person> p =  personService.getPersonById(alert.getPersonId());
 
-        Image img = new Image(alert.getImageStr());
-        imageService.createImage(img);
+        // Image img = new Image(alert.getImageStr());
+        // imageService.createImage(img);
 
         try {
             if(p.isPresent() && u.isPresent()) {
                 String email = u.get().getEmail();
 
                 if (alert.getType().equalsIgnoreCase("Grey")) {
-                    nservice.createNotification(new Notification(img, "Suspicious",
+                    nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
                         "Person: " + p.get().getFname(), u.get()));
 
                     mailer.sendWithAttatchGL(email);
 
                 } else {
-                    nservice.createNotification(new Notification(img, "Threat",
+                    nservice.createNotification(new Notification(alert.getImageStr(), "Threat",
                         "Intruder: " + p.get().getFname() + " " + p.get().getLname(), u.get()));
 
                     mailer.sendWithAttatchBL(email);
@@ -74,10 +74,10 @@ public class RabbitConsumer{
     public void receivePerson(RabbitPerson psn) {
         // Creating a Grey-list person from Python
         if(psn.getType().equalsIgnoreCase("Grey")) {
-            Image img = new Image(psn.getImageStr());
-            imageService.createImage(img);
+            // Image img = new Image(psn.getImageStr());
+            // imageService.createImage(img);
 
-            Person p = new Person(img);
+            Person p = new Person(psn.getImageStr());
             personService.createPerson(p);
 
             Face f = new Face(p, psn.getFaceStr());
@@ -88,7 +88,7 @@ public class RabbitConsumer{
         // Creating features for a new (white/black) listed person from Angular
         else {
             try {
-                Optional<Person> p = personService.getPersonById(Long.valueOf(psn.getPersonId()));
+                Optional<Person> p = personService.getPersonById(psn.getPersonId());
 
                 if(p.isPresent()) {
                     Face f = new Face(p.get(), psn.getFaceStr());

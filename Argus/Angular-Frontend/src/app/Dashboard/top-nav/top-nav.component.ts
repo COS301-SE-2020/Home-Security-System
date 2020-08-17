@@ -28,7 +28,7 @@ export class TopNavComponent implements OnInit {
     const uPic = document.getElementById('profilePic') as HTMLImageElement;
     this.userService.getUserById(this.sessionS.retrieveUserInfo().id).subscribe(
       data => {
-        uPic.src = data.profilePhoto.photo;
+        uPic.src = data.profilePhoto;
       });
     // this.countNotifications();
   }

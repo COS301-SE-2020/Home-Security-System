@@ -21,7 +21,7 @@
               <ng-container *ngFor="let user of users | async">
                 <tr *ngIf="user.userDeleted != null">
                   <td>{{user.userId}}</td>
-                  <td><img alt="Profile Picture" src="{{user.profilePhoto.photo}}" class="listPic ImgClassName"></td>
+                  <td><img alt="Profile Picture" src="{{user.profilePhoto}}" class="listPic ImgClassName"></td>
                   <td>{{user.fname}}&nbsp;{{user.lname}}</td>
                   <td>{{user.userRole}}</td>
                   <td>{{user.userDeleted}}</td>

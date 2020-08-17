@@ -11,7 +11,6 @@
                     <div class="table-responsive">
                         <table class="table" id="userListTable">
                             <thead class="text-primary">
-                                <th> ID </th>
                                 <th> Picture </th>
                                 <th> Name </th>
                                 <th> Role </th>
@@ -20,8 +19,7 @@
                             <tbody id="userTableBody">
                             <ng-container *ngFor="let user of users | async">
                               <tr *ngIf="user.userDeleted == null">
-                                <td>{{user.userId}}</td>
-                                <td><img alt="Profile Picture" src="{{user.profilePhoto.photo}}" class="listPic ImgClassName"></td>
+                                <td><img alt="Profile Picture" src="{{user.profilePhoto}}" class="listPic ImgClassName"></td>
                                 <td>{{user.fname}}&nbsp;{{user.lname}}</td>
                                 <td>{{user.userRole}}</td>
                                 <td *ngIf="info.userRole != 'Basic'">

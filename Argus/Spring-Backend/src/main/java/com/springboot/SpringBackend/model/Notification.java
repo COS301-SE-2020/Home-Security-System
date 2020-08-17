@@ -14,7 +14,7 @@ public class Notification implements Serializable {
     private static final long serialVersionUID = 3055690177451933044L;
 
     public enum notificationType {
-        Suspicious, Threat;
+        Suspicious, Threat
     }
 
     @Id
@@ -22,9 +22,10 @@ public class Notification implements Serializable {
     @Column(name = "notification_id", nullable = false)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name="image_id", nullable = true)
-    private Image notificationImg = null;
+    // @ManyToOne
+    // @JoinColumn(name="image", nullable = false)
+    @Column(name = "image", nullable = false)
+    private String notificationImg;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "listed", nullable = false)
@@ -40,7 +41,7 @@ public class Notification implements Serializable {
     @Column(name = "attime", nullable = false)
     private LocalTime atTime;
 
-    @Column(name = "notificationdeleted", nullable = true)
+    @Column(name = "notificationdeleted")
     private LocalDate notificationDeleted = null;
 
     @ManyToOne
@@ -52,7 +53,7 @@ public class Notification implements Serializable {
 
     public Notification() {}
 
-    public Notification(Image img, String msg) {
+    public Notification(String img, String msg) {
         this.notificationImg = img;
         this.listed = notificationType.Suspicious;
         this.message = Jsoup.clean(msg, Whitelist.simpleText());
@@ -60,7 +61,7 @@ public class Notification implements Serializable {
         atTime = LocalTime.now();
     }
 
-    public Notification(Image img, String listed, String msg) {
+    public Notification(String img, String listed, String msg) {
         this.notificationImg = img;
 
         if(listed.equalsIgnoreCase("Suspicious"))
@@ -79,7 +80,7 @@ public class Notification implements Serializable {
         atTime = LocalTime.now();
     }
 
-    public Notification(Image img, String msg, User u) {
+    public Notification(String img, String msg, User u) {
         this.notificationImg = img;
         this.listed = notificationType.Suspicious;
         this.message = Jsoup.clean(msg, Whitelist.simpleText());
@@ -88,7 +89,7 @@ public class Notification implements Serializable {
         this.user = u;
     }
 
-    public Notification(Image img, String listed, String msg, User u) {
+    public Notification(String img, String listed, String msg, User u) {
         this.notificationImg = img;
 
         if(listed.equalsIgnoreCase("Suspicious"))
@@ -115,9 +116,9 @@ public class Notification implements Serializable {
         this.id = id;
     }
 
-    public Long getNotificationImgId() { return this.notificationImg.getImageId(); }
-    public Image getNotificationImg() { return this.notificationImg; }
-    public void setNotificationImg(Image img) {
+    // public Long getNotificationImgId() { return this.notificationImg.getImageId(); }
+    public String getNotificationImg() { return this.notificationImg; }
+    public void setNotificationImg(String img) {
         if (img != null) {
             this.notificationImg = img;
         }
