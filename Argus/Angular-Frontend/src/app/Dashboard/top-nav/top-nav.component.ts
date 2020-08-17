@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {TitleService} from '../../title.service';
+import { BackendsessionService } from '../../model/backendsession.service';
 import {Session} from '../../../assets/js/SessionStorage';
 import {UserService} from '../../model/user.service';
 import {User} from '../../model/user';
 import {NotificationService} from '../../model/notification.service';
+import {JsonObject} from '@angular/compiler-cli/ngcc/src/packages/entry_point';
 
 @Component({
   selector: 'app-top-nav',
@@ -15,11 +17,15 @@ export class TopNavComponent implements OnInit {
   sessionS = new Session();
   user: User;
   cnt = 0 ;
+  newObj: JsonObject;
 
-  constructor(private noteService: NotificationService, private appService: TitleService,
+  constructor(private noteService: NotificationService, private sessService: BackendsessionService, private appService: TitleService,
               private userService: UserService) { }
 
   clearUserSession(){
+    this.newObj = this.sessionS.retrieveUserInfo();
+    const idU = this.newObj.id;
+    this.sessService.deleteSessionById(idU.toString()).subscribe();
     this.sessionS.deleteSession();
   }
 
