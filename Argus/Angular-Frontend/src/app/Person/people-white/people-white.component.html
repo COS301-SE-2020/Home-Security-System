@@ -3,9 +3,9 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header card-header-primary">
-                    <h4 class="card-title">Threat Person List</h4>
-                    <p class="card-category">Danger Level High!</p>
-                  <a id="addBlack" class="material-icons open-modal listPageIcons" data-toggle="modal" data-target="#addPersonModal2">person_add</a>
+                    <h4 class="card-title">Cleared Person List</h4>
+                    <p class="card-category">Friends or Family.</p>
+                  <a id="addWhite" class="material-icons open-modal listPageIcons" data-toggle="modal" data-target="#addPersonModal1">person_add</a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -15,23 +15,23 @@
                                     Picture
                                 </th>
                                 <th>
-                                    Alias
+                                    Name
                                 </th>
                                 <th>
                                     Modify
                                 </th>
                             </thead>
-                            <tbody id="blackBody">
+                            <tbody id="whiteBody">
                                 <ng-container *ngFor="let p of person | async">
-                                  <tr *ngIf="p.personListed == 'Black' && p.personDeleted == null">
+                                  <tr *ngIf="p.personListed == 'White' && p.personDeleted == null">
                                     <td><img alt="Photo" src="{{p.personImg.photo}}" class="listPic ImgClassName"></td>
                                     <td>{{p.fname}}&nbsp;{{p.lname}}</td>
                                     <td *ngIf="info.userRole != 'Basic'">
-                                      <a class="material-icons listPageIcons" (click)="updatePerson(p.personId)">create</a>
+                                      <a class="material-icons listPageIcons" (click)="updatePerson(p.personId)">edit</a>
                                       <a class="material-icons listPageIcons" (click)="removePerson(p.personId)">delete</a>
                                     </td>
                                   </tr>
-                               </ng-container>
+                                </ng-container>
                             </tbody>
                         </table>
                     </div>
@@ -48,7 +48,7 @@
 
 <!--ADD PERSON MODAL-->
 <div class="container">
-  <div class="modal fade" id="addPersonModal2" role="dialog">
+  <div class="modal fade" id="addPersonModal1" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body center">

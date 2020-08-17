@@ -1,5 +1,6 @@
 package com.springboot.SpringBackend.rabbit;
 
+import com.springboot.SpringBackend.controller.MailerController;
 import com.springboot.SpringBackend.model.*;
 import com.springboot.SpringBackend.service.*;
 import org.slf4j.Logger;
@@ -20,15 +21,17 @@ public class RabbitConsumer{
     private final UserService userService;
     private final FaceService faceService;
     private final ImageService imageService;
+    private MailerController mailer;
 
     @Autowired
     public RabbitConsumer(NotificationService ns, PersonService ps,
-                          UserService us, FaceService fs, ImageService is) {
+                          UserService us, FaceService fs, ImageService is, MailerController mc) {
         this.nservice = ns;
         this.personService = ps;
         this.userService = us;
         this.faceService = fs;
         this.imageService = is;
+        this.mailer = mc;
     }
 
     @RabbitListener(queues = {"alertQueue"})
@@ -44,12 +47,19 @@ public class RabbitConsumer{
 
         try {
             if(p.isPresent() && u.isPresent()) {
+                String email = u.get().getEmail();
+
                 if (alert.getType().equalsIgnoreCase("Grey")) {
-                    nservice.createNotification(new Notification(img, "Threat",
-                        "Person: " + p.get().getFname(), u.get()));
-                } else {
                     nservice.createNotification(new Notification(img, "Suspicious",
+                        "Person: " + p.get().getFname(), u.get()));
+
+                    mailer.sendWithAttatchGL(email);
+
+                } else {
+                    nservice.createNotification(new Notification(img, "Threat",
                         "Intruder: " + p.get().getFname() + " " + p.get().getLname(), u.get()));
+
+                    mailer.sendWithAttatchBL(email);
                 }
             }
         }
