@@ -51,9 +51,10 @@ function updateProfilePicUP(event) {
   image.src = URL.createObjectURL(event.target.files[0]);
   document.getElementById('profilePicDisplayUP').style.display = "none";
 }
+
 /*==================================================================*/
 
-function imgToBase64(imgSrc) {
+function jsB64(imgSrc) {
   console.log("Over here: " + imgSrc);
   // const getImg = document.getElementById('output').src;
   var img = new Image();
@@ -67,6 +68,7 @@ function imgToBase64(imgSrc) {
   var dataURL = canvas.toDataURL("image/png");
   console.log(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
   return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+
 }
 
 /*==================================================================*/
@@ -129,67 +131,155 @@ function saveChanges() {
   alert("All changes saved. Welcome to the new you.");
 }
 
-/*==================================================================*/
-
-
-
-// ************************ Drag and drop ***************** //
+// ******************************************************** //
+//                    Drag and Drop                         //
+// ******************************************************** //
 function openDrop() {
   var dropArea = document.getElementById("profilePicInput")
 
 // Prevent default drag behaviors
-    ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-      dropArea.addEventListener(eventName, preventDefaults, false)
-      document.body.addEventListener(eventName, preventDefaults, false)
-    })
+  ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    dropArea.addEventListener(eventName, preventDefaults, false)
+    document.body.addEventListener(eventName, preventDefaults, false)
+  })
 
 // Highlight drop area when item is dragged over it
-    ;['dragenter', 'dragover'].forEach(eventName => {
-      dropArea.addEventListener(eventName, highlight, false)
-    })
+  ;['dragenter', 'dragover'].forEach(eventName => {
+    dropArea.addEventListener(eventName, highlight, false)
+  })
 
-    ;['dragleave', 'drop'].forEach(eventName => {
-      dropArea.addEventListener(eventName, unhighlight, false)
-    })
+  ;['dragleave', 'drop'].forEach(eventName => {
+    dropArea.addEventListener(eventName, unhighlight, false)
+  })
 
 // Handle dropped files
-    dropArea.addEventListener('drop', handleDrop, false)
+  dropArea.addEventListener('drop', handleDrop, false)
 
-    function preventDefaults(e) {
-      e.preventDefault()
-      e.stopPropagation()
+  function preventDefaults(e) {
+    e.preventDefault()
+    e.stopPropagation()
+  }
+
+  function highlight(e) {
+    dropArea.classList.add('highlight')
+  }
+
+  function unhighlight(e) {
+    dropArea.classList.remove('highlight')
+  }
+
+  function handleDrop(e) {
+    var dt = e.dataTransfer
+    var files = dt.files
+
+    handleFiles(files)
+  }
+
+  function handleFiles(files) {
+    files = [...files]
+    // files.forEach(uploadFile)
+    files.forEach(previewFile)
+  }
+
+  function previewFile(file) {
+    var reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onloadend = function () {
+      document.getElementById("profilePicDisplay").style.display = "none";
+      var img = document.createElement('img')
+      img.src = reader.result
+      img.width = 150;
+      document.getElementById('preview').appendChild(img)
+      document.getElementById('preview').firstChild.id = 'submitPhoto';
     }
+  }
+}
 
-    function highlight(e) {
-      dropArea.classList.add('highlight')
-    }
-
-    function unhighlight(e) {
-      dropArea.classList.remove('highlight')
-    }
-
-    function handleDrop(e) {
-      var dt = e.dataTransfer
-      var files = dt.files
-
-      handleFiles(files)
-    }
-
-    function handleFiles(files) {
-      files = [...files]
-      // files.forEach(uploadFile)
-      files.forEach(previewFile)
-    }
-
-    function previewFile(file) {
-      var reader = new FileReader()
-      reader.readAsDataURL(file)
-      reader.onloadend = function () {
-        document.getElementById("profilePicDisplay").style.display = "none";
-        var img = document.createElement('img')
-        img.src = reader.result
-        img.width = 150;
-        document.getElementById('gallery').appendChild(img)
+// ******************************************************** //
+//                    Table Functions                       //
+// ******************************************************** //
+function searchFunc(tableID, colNum) {
+  let input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("searchInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById(tableID);
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[colNum];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
       }
     }
+  }
+}
+
+function sortTable(tableID, colNum) {
+  let oldArrow = document.getElementById('arrowID');
+  if (oldArrow)
+    oldArrow.parentNode.removeChild(oldArrow);
+
+  let newArrow = document.createElement('span');
+  let currentHead = document.getElementsByTagName("TH")[colNum];
+  newArrow.className = 'material-icons align-middle';
+  newArrow.id = 'arrowID'
+
+  let table, rows, switching, i, x, y, shouldSwitch, dir, switchCount = 0;
+  table = document.getElementById(tableID);
+  switching = true;
+  // Set the sorting direction to ascending:
+  dir = "asc";
+  /* Make a loop that will continue until
+  no switching has been done: */
+  while (switching) {
+    // Start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /* Loop through all table rows (except the
+    first, which contains table headers): */
+    for (i = 0; i < (rows.length - 1); i++) {
+      // Start by saying there should be no switching:
+      shouldSwitch = false;
+      /* Get the two elements you want to compare,
+      one from current row and one from the next: */
+      x = rows[i].getElementsByTagName("TD")[colNum];
+      y = rows[i + 1].getElementsByTagName("TD")[colNum];
+      /* Check if the two rows should switch place,
+      based on the direction, asc or desc: */
+      if (dir === "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+          newArrow.innerText = 'arrow_drop_down';
+          shouldSwitch = true;
+          break;
+        }
+      } else if (dir === "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+          newArrow.innerText = 'arrow_drop_up';
+          shouldSwitch = true;
+          break;
+        }
+      }
+      currentHead.appendChild(newArrow);
+    }
+    if (shouldSwitch) {
+      /* If a switch has been marked, make the switch
+      and mark that a switch has been done: */
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      // Each time a switch is done, increase this count by 1:
+      switchCount++;
+    } else {
+      /* If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again. */
+      if (switchCount === 0 && dir === "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
 }

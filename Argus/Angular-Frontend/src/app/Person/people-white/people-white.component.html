@@ -1,44 +1,54 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header card-header-primary">
-                    <h4 class="card-title">Cleared Person List</h4>
-                    <p class="card-category">Friends or Family.</p>
-                  <a id="addWhite" class="material-icons open-modal listPageIcons" data-toggle="modal" data-target="#addPersonModal1">person_add</a>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead class="text-primary">
-                                <th>
-                                    Picture
-                                </th>
-                                <th>
-                                    Name
-                                </th>
-                                <th>
-                                    Modify
-                                </th>
-                            </thead>
-                            <tbody id="whiteBody">
-                                <ng-container *ngFor="let p of person | async">
-                                  <tr *ngIf="p.personListed == 'White' && p.personDeleted == null">
-                                    <td><img alt="Photo" src="{{p.personImg.photo}}" class="listPic ImgClassName"></td>
-                                    <td>{{p.fname}}&nbsp;{{p.lname}}</td>
-                                    <td *ngIf="info.userRole != 'Basic'">
-                                      <a class="material-icons listPageIcons" (click)="updatePerson(p.personId)">edit</a>
-                                      <a class="material-icons listPageIcons" (click)="removePerson(p.personId)">delete</a>
-                                    </td>
-                                  </tr>
-                                </ng-container>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header card-header-primary">
+          <h4 class="card-title">Cleared Person List</h4>
+          <p class="card-category">Friends or Family.</p>
+          <a id="addWhite" class="material-icons open-modal listPageIcons" data-toggle="modal"
+             data-target="#addPersonModal1">person_add</a>
         </div>
+        <div class="card-body">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="material-icons">search</i>
+              </span>
+            </div>
+            <input type="text" class="form-control" id="searchInput" placeholder="Search for a user..."
+                   onkeyup="searchFunc('whiteListTable', 1)">
+          </div>
+          <div class="table-responsive table-striped">
+            <table class="table" id="whiteListTable">
+              <thead class="text-primary">
+              <th>
+                Picture
+              </th>
+              <th class="hoverPointer" onclick="sortTable('whiteListTable', 1)">
+                Name
+              </th>
+              <th>
+                Modify
+              </th>
+              </thead>
+              <tbody id="whiteBody">
+              <ng-container *ngFor="let p of person | async">
+                <tr *ngIf="p.personListed == 'White' && p.personDeleted == null">
+                  <td><img alt="Photo" src="{{p.personImg.photo}}" class="listPic ImgClassName"></td>
+                  <td>{{p.fname}}&nbsp;{{p.lname}}</td>
+                  <td *ngIf="info.userRole != 'Basic'">
+                    <a class="material-icons listPageIcons" (click)="updatePerson(p.personId)">edit</a>
+                    <a class="material-icons listPageIcons" (click)="removePerson(p.personId)">delete</a>
+                  </td>
+                </tr>
+              </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
   <a *ngIf="info.userRole != 'Basic'" class="btn btn-primary float-right" (click)="restorePerson()">Restore</a>
 </div>
 
