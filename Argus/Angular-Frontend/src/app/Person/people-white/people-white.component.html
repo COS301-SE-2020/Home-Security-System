@@ -34,7 +34,7 @@
               <tbody id="whiteBody">
               <ng-container *ngFor="let p of person | async">
                 <tr *ngIf="p.personListed == 'White' && p.personDeleted == null">
-                  <td><img alt="Photo" src="{{p.personImg.photo}}" class="listPic ImgClassName"></td>
+                  <td><img alt="Photo" src="{{p.personImg}}" class="listPic ImgClassName"></td>
                   <td>{{p.fname}}&nbsp;{{p.lname}}</td>
                   <td *ngIf="info.userRole != 'Basic'">
                     <a class="material-icons listPageIcons" (click)="updatePerson(p.personId)">edit</a>

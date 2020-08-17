@@ -30,15 +30,16 @@ public class VehicleRepoTest {
 
     @Test
     public void testPersistence() {
-        Image img = new Image(IMAGE_URL);
-        irepo.save(img);
+        // Image img = new Image(IMAGE_URL);
+        // irepo.save(img);
 
-        Vehicle v = new Vehicle(img,LICENCE);
+        Vehicle v = new Vehicle(IMAGE_URL,LICENCE);
         vrepo.save(v);
 
         Assert.assertNotNull(v.getVehicleId());
         Vehicle newV = vrepo.findById(v.getVehicleId()).orElse(null);
         Assert.assertEquals((Long) 1L, newV.getVehicleId());
+        Assert.assertEquals(IMAGE_URL, newV.getVehicleImg());
         Assert.assertEquals(LICENCE, newV.getLicenseNo());
         Assert.assertEquals("Grey", newV.getVehicleListed());
     }

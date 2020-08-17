@@ -18,7 +18,7 @@ public class Person implements Serializable {
     private static final long serialVersionUID = -2126183802877200868L;
 
     public enum personType {
-        White, Grey, Black;
+        White, Grey, Black
     }
 
     @Id
@@ -26,14 +26,15 @@ public class Person implements Serializable {
     @Column(name = "person_id", nullable = false)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name="image_id", nullable = false)
-    private Image personImg;
+    // @ManyToOne
+    // @JoinColumn(name="image_id", nullable = false)
+    @Column(name = "image", nullable = false)
+    private String personImg;
 
-    @Column(name = "fname", nullable = true)
+    @Column(name = "fname", nullable = false)
     private String fname = "";
 
-    @Column(name = "lname", nullable = true)
+    @Column(name = "lname", nullable = false)
     private String lname = "";
 
     @Enumerated(EnumType.STRING)
@@ -44,7 +45,7 @@ public class Person implements Serializable {
     @Column(name = "personcreated", nullable = false)
     private LocalDate personCreated;
 
-    @Column(name = "persondeleted", nullable = true)
+    @Column(name = "persondeleted")
     private LocalDate personDeleted = null;
 
     @OneToMany(mappedBy="person", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -66,7 +67,7 @@ public class Person implements Serializable {
 
     public Person() { }
 
-    public Person(Image img) {
+    public Person(String img) {
         this.personImg = img;
         this.fname = "Unknown";
         this.lname = "Unknown";
@@ -74,7 +75,7 @@ public class Person implements Serializable {
         this.personCreated = LocalDate.now();
     }
 
-    public Person(Image img, String listed) {
+    public Person(String img, String listed) {
         this.personImg = img;
         this.fname = "Unknown";
         this.lname = "Unknown";
@@ -98,7 +99,7 @@ public class Person implements Serializable {
         this.personCreated = LocalDate.now();
     }
 
-    public Person(Image img, String name, String surname, String listed) {
+    public Person(String img, String name, String surname, String listed) {
         this.personImg = img;
         this.fname = Jsoup.clean(name, Whitelist.simpleText());
         this.lname = Jsoup.clean(surname, Whitelist.simpleText());
@@ -122,7 +123,7 @@ public class Person implements Serializable {
         this.personCreated = LocalDate.now();
     }
 
-    public Person(Image img, String name, String surname) {
+    public Person(String img, String name, String surname) {
         this.personImg = img;
         this.fname = Jsoup.clean(name, Whitelist.simpleText());
         this.lname = Jsoup.clean(surname, Whitelist.simpleText());
@@ -138,9 +139,9 @@ public class Person implements Serializable {
         this.id = id;
     }
 
-    public Long getPersonImgId() { return this.personImg.getImageId(); }
-    public Image getPersonImg() { return this.personImg; }
-    public void setPersonImg(Image img) {
+    // public Long getPersonImgId() { return this.personImg.getImageId(); }
+    public String getPersonImg() { return this.personImg; }
+    public void setPersonImg(String img) {
         if (img != null) {
             this.personImg = img;
         }
