@@ -13,3 +13,4 @@
 /Argus/dataSources.local.xml
 # Editor-based HTTP Client requests
 /Argus/httpRequests/
+/.idea/

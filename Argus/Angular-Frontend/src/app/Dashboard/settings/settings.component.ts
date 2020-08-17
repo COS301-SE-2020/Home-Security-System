@@ -35,7 +35,6 @@ export class SettingsComponent implements OnInit {
 
     let userObj;
     userObj = this.sessionS.retrieveUserInfo();
-    /*this.users = */
     this.userService.getUserById(userObj.id).subscribe(
       data => {
         // console.log(data);
@@ -65,8 +64,9 @@ export class SettingsComponent implements OnInit {
           setTimeout(() => {
             this.SpinnerService.hide();
           }, 500);
+          this.retrieveSettings();
       }, error => console.log(error));
-    this.retrieveSettings();
+    // this.retrieveSettings();
   }
 
   ngOnInit(): void {
