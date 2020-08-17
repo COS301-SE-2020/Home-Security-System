@@ -3,20 +3,28 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header card-header-primary">
-          <h4 class="card-title">Deleted People</h4>
-          <p class="card-category">White Listed People</p>
+          <h4 class="card-title">Deleted Cleared People</h4>
         </div>
         <div class="card-body">
-          <div class="table-responsive">
-            <table class="table">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="material-icons">search</i>
+              </span>
+            </div>
+            <input type="text" class="form-control" id="searchInput" placeholder="Search for a deleted person..."
+                   onkeyup="searchFunc('deletedWhiteList', 1)">
+          </div>
+          <div class="table-responsive table-striped">
+            <table class="table" id="deletedWhiteList">
               <thead class="text-primary">
               <th>
                 Picture
               </th>
-              <th>
+              <th class="hoverPointer" onclick="sortTable('deletedWhiteList', 1)">
                 Name
               </th>
-              <th>
+              <th class="hoverPointer" onclick="sortTable('deletedWhiteList', 2)">
                 Deletion Date
               </th>
               <th>

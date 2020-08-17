@@ -8,6 +8,8 @@ import {Observable, Subject} from 'rxjs';
 import {Image} from '../../model/image';
 import {ImageService} from '../../model/image.service';
 import {Session} from '../../../assets/js/SessionStorage';
+import validate = WebAssembly.validate;
+import {Person} from '../../model/person';
 
 @Component({
   selector: 'app-add-user',
@@ -21,6 +23,7 @@ export class AddUserComponent implements OnInit {
   newImage: Image;
   newUser: User;
   submitted = false;
+  useDefaultImg = true;
 
   constructor(private usersService: UserService, private imageService: ImageService,
               private appService: TitleService, private router: Router) {
@@ -70,13 +73,13 @@ export class AddUserComponent implements OnInit {
 
     this.usersService.getUserList().subscribe(
       data => {
-        if (data[counter].username === usernameInp.value){
+        if (data[counter].username === usernameInp.value) {
           alert('Username is already taken. Please enter another username');
           usernameInp.value = '';
           usernameInp.focus();
           return true;
         }
-        if (data[counter].email.toLowerCase() === emailInp.value.toLowerCase()){
+        if (data[counter].email.toLowerCase() === emailInp.value.toLowerCase()) {
           alert('Email address is already in use. Please enter another email address');
           emailInp.value = '';
           emailInp.focus();
@@ -94,13 +97,11 @@ export class AddUserComponent implements OnInit {
     const advancedRole = document.getElementById('advanced') as HTMLInputElement;
     const basicRole = document.getElementById('basic') as HTMLInputElement;
 
-    if (adminRole.checked === true){
+    if (adminRole.checked === true) {
       return 'Admin';
-    }
-    else if (advancedRole.checked === true) {
+    } else if (advancedRole.checked === true) {
       return 'Advanced';
-    }
-    else if (basicRole.checked === true) {
+    } else if (basicRole.checked === true) {
       return 'Basic';
     }
   }
@@ -117,26 +118,26 @@ export class AddUserComponent implements OnInit {
     const passwordInp = document.getElementById('pass') as HTMLInputElement;
     const getRole = this.returnUserRole();
 
-    if ((usernameInp.value !== '') && (emailInp.value !== '') &&
-      (nameInp.value !== '') && (surnameInp.value !== '') && (passwordInp.value !== ''))
+    if ((usernameInp.value !== '') && (emailInp.value !== '') && (nameInp.value !== '') && (surnameInp.value !== '') &&
+      (passwordInp.value !== ''))
     {
-        this.newUser = new User();
-        this.newUser.profilePhoto = this.getDefaultImage();
-        this.newUser.fname = nameInp.value;
-        this.newUser.lname = surnameInp.value;
-        this.newUser.email = emailInp.value;
-        this.newUser.username = usernameInp.value;
-        this.newUser.userPass = passwordInp.value;
-        this.newUser.userRole = getRole;
-        this.newUser.notifyEmail = true;
-        this.newUser.notifyLocal = true;
+      this.newUser = new User();
+      this.newUser.profilePhoto = this.getDefaultImage();
+      this.newUser.fname = nameInp.value;
+      this.newUser.lname = surnameInp.value;
+      this.newUser.email = emailInp.value;
+      this.newUser.username = usernameInp.value;
+      this.newUser.userPass = passwordInp.value;
+      this.newUser.userRole = getRole;
+      this.newUser.notifyEmail = true;
+      this.newUser.notifyLocal = true;
 
-        this.usersService.addUser(this.newUser)
-          .subscribe(value => {
-            // console.log(value);
-          }, error => console.log(error));
+      this.usersService.addUser(this.newUser)
+        .subscribe(value => {
+          // console.log(value);
+        }, error => console.log(error));
 
-        this.gotoList();
+      this.gotoList();
     }
     else{
       this.submitted = false;
@@ -146,8 +147,7 @@ export class AddUserComponent implements OnInit {
 
   onSubmit() {
     const tf = this.checkIfExists();
-    if (tf !== true)
-    {
+    if (tf !== true) {
       this.save();
       this.submitted = true;
     }
@@ -157,4 +157,96 @@ export class AddUserComponent implements OnInit {
     // const cardV = document.getElementsByClassName('modal') ;
     this.router.navigate(['/user-list']);
   }
+
+  imgTob64() {
+    let imgSrc;
+    if (this.useDefaultImg) {
+      imgSrc = document.getElementById('profilePicDisplay').getAttribute('src');
+    } else {
+      imgSrc = document.getElementById('submitPhoto').getAttribute('src');
+    }
+  }
+
+  toggleDefault() {
+    this.useDefaultImg = false;
+  }
+
+  //
+  // imageSrc;
+  // sellersPermitFile: any;
+  // DriversLicenseFile: any;
+  // InteriorPicFile: any;
+  // ExteriorPicFile: any;
+  // //base64s
+  // sellersPermitString: string;
+  // DriversLicenseString: string;
+  // InteriorPicString: string;
+  // ExteriorPicString: string;
+  // //json
+  // finalJson = {};
+  //
+  // currentId: number = 0;
+  //
+  // public picked(event, field) {
+  //   this.currentId = field;
+  //   const fileList: FileList = event.target.files;
+  //   if (fileList.length > 0) {
+  //     const file: File = fileList[0];
+  //     if (field == 1) {
+  //       this.sellersPermitFile = file;
+  //       this.handleInputChange(file); //turn into base64
+  //     }
+  //     else if (field == 2) {
+  //       this.DriversLicenseFile = file;
+  //       this.handleInputChange(file); //turn into base64
+  //     }
+  //     else if (field == 3) {
+  //       this.InteriorPicFile = file;
+  //       this.handleInputChange(file); //turn into base64
+  //     }
+  //     else if (field == 4) {
+  //       this.ExteriorPicFile = file;
+  //       this.handleInputChange(file); //turn into base64
+  //
+  //     }
+  //   }
+  //   else {
+  //     alert("No file selected");
+  //   }
+  // }
+  //
+  // handleInputChange(files) {
+  //   var file = files;
+  //   var pattern = /image-*/;
+  //   var reader = new FileReader();
+  //   if (!file.type.match(pattern)) {
+  //     alert('invalid format');
+  //     return;
+  //   }
+  //   reader.onloadend = this._handleReaderLoaded.bind(this);
+  //   reader.readAsDataURL(file);
+  // }
+  //
+  // _handleReaderLoaded(e) {
+  //   const reader = e.target;
+  //   var base64result = reader.result.substr(reader.result.indexOf(',') + 1);
+  //   //this.imageSrc = base64result;
+  //   let id = this.currentId;
+  //   switch (id) {
+  //     case 1:
+  //       this.sellersPermitString = base64result;
+  //       break;
+  //     case 2:
+  //       this.DriversLicenseString = base64result;
+  //       break;
+  //     case 3:
+  //       this.InteriorPicString = base64result;
+  //       break;
+  //     case 4:
+  //       this.ExteriorPicString = base64result;
+  //       break
+  //   }
+  //
+  //   this.log();
+  // }
 }
