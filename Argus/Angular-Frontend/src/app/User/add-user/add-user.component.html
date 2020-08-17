@@ -64,22 +64,30 @@
           <label for="profilePicInput" class="float-left">Profile Picture</label><br><br>
           <div class="picture-container">
             <img alt="Default Picture" class="picture-center" id="profilePicDisplay" src="/assets/Images/blank.jpg">
-            <img class="output" width="150px">
+            <!--            <div class="output" width="150px">-->
+            <div id="gallery"></div>
             <br>
           </div>
 
-          <label class="custom-file-upload">
-            <input class="form-control " type="file" name="profilePic" accept="image/jpeg, image/png"
-                   id="profilePicInput" onchange="updateProfilePic(event)">
-            <i class="material-icons add-photo-icon">add_photo_alternate</i>
-            <br>
-            Click to add a picture
+          <!--          <label class="custom-file-upload">-->
+          <!--            <input class="form-control " type="file" name="profilePic" accept="image/jpeg, image/png"-->
+          <!--                   id="profilePicInput" onchange="updateProfilePic(event)">-->
+          <!--            <i class="material-icons add-photo-icon">add_photo_alternate</i>-->
+          <!--            <br>-->
+          <!--            Click to add a picture-->
+          <!--          </label>-->
+
+
+          <label id="profilePicInput" for="fileElem">
+            <i class="material-icons add-photo-icon">add_photo_alternate</i><br>
+            <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)">
+            Drag and Drop an image<br>or<br>Click to add
           </label>
 
           <label>or</label>
           <br>
 
-          <a data-toggle="modal" data-target="#pictureModal">
+          <a class="hoverPointer" data-toggle="modal" data-target="#pictureModal">
             capture a photo from camera
           </a>
         </div>
@@ -87,42 +95,42 @@
         <button type="submit" class="btn btn-primary justify-content-center">Submit</button>
       </form>
     </div>
-</div>
+  </div>
 
-<div class="container">
-  <div class="modal fade picModal" id="pictureModal" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Take a picture</h4>
-          <i class="material-icons modal-close-btn" data-toggle="modal" data-target="#pictureModal">close</i>
-        </div>
-        <div class="modal-body center">
-          <div id="app">
-            <div>
-              <webcam [width]="400" [imageQuality]="0.92" [trigger]="triggerObservable"
-                      *ngIf="showCam"
-                      (imageCapture)="handleShot($event)">
-              </webcam>
-            </div>
-            <div>
-              <button class="btn btn-primary" (click)="trigger_s();">Snap
-              </button>
-            </div>
-            <div class="snapshot" *ngIf="camImg">
-              <h2>Preview:</h2>
-              <img id="confirmPic" width="400px" [src]="camImg.imageAsDataUrl" alt="Preview"/>
+  <div class="container">
+    <div class="modal fade picModal" id="pictureModal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Take a picture</h4>
+            <i class="material-icons modal-close-btn" data-toggle="modal" data-target="#pictureModal">close</i>
+          </div>
+          <div class="modal-body center">
+            <div id="app">
+              <div>
+                <webcam [width]="400" [imageQuality]="0.92" [trigger]="triggerObservable"
+                        *ngIf="showCam"
+                        (imageCapture)="handleShot($event)">
+                </webcam>
+              </div>
+              <div>
+                <button class="btn btn-primary" (click)="trigger_s();">Snap
+                </button>
+              </div>
+              <div class="snapshot" *ngIf="camImg">
+                <h2>Preview:</h2>
+                <img id="confirmPic" width="400px" [src]="camImg.imageAsDataUrl" alt="Preview"/>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#pictureModal"
-                  onclick="changePic(); imgToBase64()">
-            Confirm
-          </button>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#pictureModal"
+                    onclick="imgToBase64()">
+              Confirm
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </div>

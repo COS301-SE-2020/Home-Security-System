@@ -11,6 +11,7 @@ import time
 import json
 import base64 as b64
 
+
 phys = tf.config.experimental.list_physical_devices('GPU')
 if len(phys) > 0:
     tf.config.experimental.set_memory_growth(phys[0], True)
@@ -29,6 +30,16 @@ message_channel.queue_declare(queue='featureQueue')
 face_d = MTCNN()
 face_r = VGGFace(include_top=False, model=mod_name, input_shape=(224, 224, 3), pooling='avg')
 
+num_cams = 0
+cam_check = True
+while cam_check:
+    temp = c.VideoCapture(num_cams)
+    if temp.isOpened():
+        num_cams += 1
+    else:
+        cam_check = False
+    temp.release()
+
 
 def load_faces(path):
     feats = list()
@@ -44,6 +55,7 @@ def load_faces(path):
             t_dict[f_feat[0]] = 0.0
 
     return np.asarray(feats), t_dict
+
 
 def save_face(path, image, f_d=face_d, f_r=face_r):
     face_image = c.imread(image)
@@ -70,14 +82,24 @@ def save_face(path, image, f_d=face_d, f_r=face_r):
 
 
 def cam_feed():
-    vc = c.VideoCapture(0)
+    cams = list()
+    frames = list()
+    for x in range(num_cams):
+        cams.append(c.VideoCapture(x))
 
     all_f_features, time_dict = load_faces(path_features)
 
-    if vc.isOpened():
-        c.namedWindow("view")
-        f, frame = vc.read()
-        while f:
+    c.namedWindow("view")
+
+    f = True
+    for cam in cams:
+        frames = list()
+        t, fr = cam.read()
+        frames.append(fr)
+        f = f and t
+
+    while f:
+        for frame in frames:
             pix = np.asarray(frame)
             faces = face_d.detect_faces(pix)
             face_pix = list()
@@ -149,12 +171,20 @@ def cam_feed():
                                                               body=json.dumps(message))
 
             c.imshow("view", frame)
-            f, frame = vc.read()
+
+            for cam in cams:
+                frames = list()
+                t, fr = cam.read()
+                frames.append(fr)
+                f = f and t
+
             key = c.waitKey(5)
             if key == 27:
-                vc.release()
+                for cam in cams:
+                    cam.release()
                 c.destroyWindow("view")
                 break
+
 
 cam_feed()
 rabbit_conn.close()
