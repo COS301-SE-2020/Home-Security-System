@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserService } from '../../model/user.service';
+import { BackendsessionService } from '../../model/backendsession.service';
 import { User } from '../../model/user';
 import { Session } from '../../../assets/js/SessionStorage.js';
 import { RecoverPasswordEmail } from '../../../assets/js/RecoverPasswordEmail.js';
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
   sessionS = new Session();
   users: Observable<User[]>;
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private sessService: BackendsessionService, private router: Router) { }
 
   recoverPasswordEmail(){
     const emailInp = document.getElementById('emailIn') as HTMLInputElement;
@@ -42,6 +43,8 @@ export class LoginComponent implements OnInit {
           if (( (data[counter].email.toLowerCase() === emailVar.value.toLowerCase()) || (data[counter].username === emailVar.value) )
             && (data[counter].userPass === passVar.value)){
             this.sessionS.createSession(data[counter].email, passVar.value, data[counter].userId, data[counter].userRole);
+            this.sessService.addToSession(data[counter].userId.toString(), data[counter].email.toString(),
+              passVar.value.toString(), data[counter].userRole.toString()).subscribe();
             // alert('You are logged in, welcome to Argus');
             this.sessionS.retrieveUserInfo();
             this.router.navigate(['/dashboard']);
