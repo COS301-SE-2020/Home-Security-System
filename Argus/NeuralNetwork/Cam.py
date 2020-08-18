@@ -142,13 +142,13 @@ def cam_feed():
                         temp_face = 'u' + str(time.time())
                         np.save('models/grey/' + temp_face + '.npy', face)
                         temp_face_stored = open('models/grey/' + temp_face + '.npy', 'rb').read()
-                        message = {'personId': 'Unknown', 'type': 'Grey',
+                        message = {'personId': 0, 'type': 'Grey',
                                    'faceStr': str(b64.b64encode(temp_face_stored).decode('utf-8')),
                                    'imageStr': 'data:image/jpg;base64,' +
                                                str(b64.b64encode(c.imencode('.jpg', frame)[1]).decode('utf-8')),
                                    'exists': False}
                         message_channel.basic_publish(exchange='sigma.direct',
-                                                      routing_key='alertKey',
+                                                      routing_key='featureKey',
                                                       body=json.dumps(message))
                         all_f_features, time_dict = load_faces(path_features)
                     else:
