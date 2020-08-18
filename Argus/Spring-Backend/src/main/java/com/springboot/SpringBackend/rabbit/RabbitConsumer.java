@@ -103,36 +103,36 @@ public class RabbitConsumer{
         LOGGER.info("Notification Created");
     }
 
-    @RabbitListener(queues = {"featureQueue"})
+    @RabbitListener(queues = {"personQueue"})
     public void receivePerson(RabbitPerson psn) {
         // Creating a Grey-list person from Python
-        if(psn.getPersonId() == 0) {
+        if(!psn.getExists()) {
             // Image img = new Image(psn.getImageStr());
             // imageService.createImage(img);
 
             Person p = new Person(psn.getImageStr());
             personService.createPerson(p);
 
-            Face f = new Face(p, psn.getFaceStr());
-            faceService.createFace(f);
-
             LOGGER.info("Grey-list Person Added");
         }
+    }
+
+    @RabbitListener(queues = {"featureQueue"})
+    public void receiveFeature(RabbitFeature feature)
+    {
         // Creating features for a new (white/black) listed person from Angular
-        else {
-            try {
-                Optional<Person> p = personService.getPersonById(psn.getPersonId());
+        try {
+            Optional<Person> p = personService.getPersonById(feature.getPersonId());
 
-                if(p.isPresent()) {
-                    Face f = new Face(p.get(), psn.getFaceStr());
-                    faceService.createFace(f);
-                }
+            if(p.isPresent()) {
+                Face f = new Face(p.get(), feature.getFaceStr());
+                faceService.createFace(f);
             }
-            catch (NoSuchElementException ex) {
-                LOGGER.info(String.valueOf(ex));
-            }
-
-            LOGGER.info("Person updated, added face features");
         }
+        catch (NoSuchElementException ex) {
+            LOGGER.info(String.valueOf(ex));
+        }
+
+        LOGGER.info("Person updated, added face features");
     }
 }
