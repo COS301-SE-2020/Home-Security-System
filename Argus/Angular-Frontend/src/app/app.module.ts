@@ -38,6 +38,7 @@ import { UserService } from './model/user.service';
 import { PersonService } from './model/person.service';
 import { VehicleService } from './model/vehicle.service';
 import { ImageService } from './model/image.service';
+import { ViewUserComponent } from './User/view-user/view-user.component';
 
 const appRoutes: Routes = [];
 
@@ -57,6 +58,7 @@ const appRoutes: Routes = [];
     EditPersonComponent,
     AddUserComponent,
     EditUserComponent,
+    ViewUserComponent,
     ListUsersComponent,
     UserProfileComponent,
     PeopleWhiteComponent,

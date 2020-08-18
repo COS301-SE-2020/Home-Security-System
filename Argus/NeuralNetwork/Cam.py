@@ -26,8 +26,8 @@ successive_detection_ignore = 300.0
 rabbit_conn = pi.BlockingConnection(pi.ConnectionParameters(rabbit_host))
 message_channel = rabbit_conn.channel()
 message_channel.queue_declare(queue='alertQueue')
+message_channel.queue_declare(queue='personQueue')
 message_channel.queue_declare(queue='featureQueue')
-
 face_d = MTCNN()
 face_r = VGGFace(include_top=False, model=mod_name, input_shape=(224, 224, 3), pooling='avg')
 
@@ -145,12 +145,13 @@ def cam_feed():
                         temp_face = 'u' + str(time.time())
                         np.save('models/grey/' + temp_face + '.npy', face)
                         message = {'personId': 0, 'type': 'Grey',
+                                   'exists': False,
                                    'imageStr': 'data:image/jpg;base64,' +
-                                               str(b64.b64encode(c.imencode('.jpg',
-                                                                            face_pix[f_num])[1]).decode('utf-8')),
-                                   'exists': False}
+                                               str(b64.b64encode(c.imencode('.jpg', frame)[1]).decode('utf-8')),
+                                   'features': False,
+                                   }
                         message_channel.basic_publish(exchange='sigma.direct',
-                                                      routing_key='featureKey',
+                                                      routing_key='personKey',
                                                       body=json.dumps(message))
                         up_face = True
                     else:

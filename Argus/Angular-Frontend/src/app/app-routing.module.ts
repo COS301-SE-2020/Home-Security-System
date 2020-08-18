@@ -22,6 +22,7 @@ import {ResetPasswordComponent} from './Dashboard/reset-password/reset-password.
 import {DeletedUsersComponent} from './User/deleted-users/deleted-users.component';
 import { DeletedWhiteComponent } from './Person/deleted-white/deleted-white.component';
 import { DeletedBlackComponent } from './Person/deleted-black/deleted-black.component';
+import {ViewUserComponent} from './User/view-user/view-user.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -32,6 +33,7 @@ const routes: Routes = [
   {path: 'add-user', component: AddUserComponent, data: {title: 'Add User | Argus'}},
   {path: 'deleted-users', component: DeletedUsersComponent, data: {title: 'Deleted Users | Argus'}},
   {path: 'edit-user/:id', component: EditUserComponent, data: {title: 'Edit User | Argus'}},
+  {path: 'view-user/:id', component: ViewUserComponent, data: {title: 'View User | Argus'}},
   {path: 'people-white', component: PeopleWhiteComponent, data: {title: 'White List | Argus'}},
   {path: 'people-grey', component: PeopleGreyComponent, data: {title: 'Grey List | Argus'}},
   {path: 'people-black', component: PeopleBlackComponent, data: {title: 'Black List | Argus'}},

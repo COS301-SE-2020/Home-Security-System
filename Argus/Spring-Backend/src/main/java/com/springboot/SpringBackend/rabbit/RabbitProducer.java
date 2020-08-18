@@ -29,19 +29,19 @@ public class RabbitProducer {
 
     /*
     //@Scheduled(fixedDelay = 10000L)
-    public void sendFeature() {
-        RabbitPerson x = new RabbitPerson(Long.valueOf(1), "Grey", "Feature", "Photo", true);
-        amqpTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.FEATURE_KEY, x);
-        LOGGER.info("Feature Sent");
+    public void sendPerson() {
+        RabbitPerson x = new RabbitPerson(Long.valueOf(1), "Grey", true, "Photo", true);
+        amqpTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.PERSON_KEY, x);
+        LOGGER.info("Person Sent");
     }
     */
 
     /*
     //@Scheduled(fixedDelay = 10000L)
-    public void sendPerson() {
-        RabbitPerson x = new RabbitPerson(Long.valueOf(1), "Grey", "Feature", "Photo", true);
-        amqpTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.PERSON_KEY, x);
-        LOGGER.info("Person Sent");
+    public void sendFeature() {
+        RabbitPerson x = new RabbitPerson(Long.valueOf(1),"Facial_Features");
+        amqpTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.FEATURE_KEY, x);
+        LOGGER.info("Feature Sent");
     }
     */
 }
