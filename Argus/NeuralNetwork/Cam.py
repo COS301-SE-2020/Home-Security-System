@@ -125,7 +125,7 @@ def cam_feed():
 
             if len(inp_features) > 0:
                 features = face_r.predict(inp_features)
-                for face in features:
+                for f_num, face in enumerate(features):
                     min_match = 1.0
                     f_name = 'Unknown'
                     f_type = 'grey'
@@ -141,11 +141,9 @@ def cam_feed():
                     if f_name == 'Unknown':
                         temp_face = 'u' + str(time.time())
                         np.save('models/grey/' + temp_face + '.npy', face)
-                        temp_face_stored = open('models/grey/' + temp_face + '.npy', 'rb').read()
                         message = {'personId': 0, 'type': 'Grey',
-                                   'faceStr': str(b64.b64encode(temp_face_stored).decode('utf-8')),
                                    'imageStr': 'data:image/jpg;base64,' +
-                                               str(b64.b64encode(c.imencode('.jpg', frame)[1]).decode('utf-8')),
+                                               str(b64.b64encode(c.imencode('.jpg', face_pix[f_num])[1]).decode('utf-8')),
                                    'exists': False}
                         message_channel.basic_publish(exchange='sigma.direct',
                                                       routing_key='featureKey',
