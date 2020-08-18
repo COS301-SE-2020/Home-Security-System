@@ -155,6 +155,9 @@ def cam_feed():
                         if time.time() - time_dict[f_name] > successive_detection_ignore:
                             time_dict[f_name] = time.time()
 
+                            if f_name[0] == 'u':
+                                f_name = '0'
+
                             if f_type == 'black':
                                 message = {'personId': int(f_name), 'type': 'Black',
                                            'imageStr': 'data:image/jpg;base64,' +
