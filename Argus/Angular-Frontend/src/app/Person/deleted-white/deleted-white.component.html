@@ -6,17 +6,32 @@
           <h4 class="card-title">Deleted Cleared People</h4>
         </div>
         <div class="card-body">
-          <div class="input-group">
-            <div class="input-group-prepend">
+          <!--Search Bar Starts Here-->
+          <div class="row">
+            <div class="col-11">
+              <div class="input-group">
+                <div class="input-group-prepend">
               <span class="input-group-text">
                 <i class="material-icons">search</i>
               </span>
+                </div>
+                <input type="text" class="form-control" id="searchInput" placeholder="Search by Name..."
+                       onkeyup="searchFunc('deletedWhiteList', 1)">
+              </div>
             </div>
-            <input type="text" class="form-control" id="searchInput" placeholder="Search for a deleted person..."
-                   onkeyup="searchFunc('deletedWhiteList', 1)">
+            <a class="dropdown-toggle btn-sm hoverPointer" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a class="dropdown-item hoverPointer" onclick="changeSearchFunc('deletedWhiteList','Search by Name...', 1)">Search by
+                Name</a>
+              <a class="dropdown-item hoverPointer" onclick="changeSearchFunc('deletedWhiteList','Search by Date...',2)">Search by Date</a>
+            </div>
           </div>
+          <br>
+          <!--Table Starts Here-->
           <div class="table-responsive table-striped">
-            <table class="table" id="deletedWhiteList">
+            <table class="table center" id="deletedWhiteList">
               <thead class="text-primary">
               <th>
                 Picture
@@ -38,7 +53,7 @@
                   <td>{{p.fname}}&nbsp;{{p.lname}}</td>
                   <td>{{p.personDeleted}}</td>
                   <td *ngIf="info.userRole != 'Basic'">
-                    <a id="restoreBtn" class="btn btn-primary" (click)="restorePerson(p.personId)">Restore</a>
+                    <a class="material-icons listPageIcons" id="restoreBtn" (click)="restorePerson(p.personId)">restore_from_trash</a>
                   </td>
                 </tr>
               </ng-container>

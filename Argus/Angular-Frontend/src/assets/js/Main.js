@@ -217,11 +217,11 @@ function searchFunc(tableID, colNum) {
   }
 }
 
-function changeSearchFunc(placeholder ,colNum)
+function changeSearchFunc(tableID ,placeholder ,colNum)
 {
   let currentSearch = document.getElementById('searchInput');
   currentSearch.setAttribute('placeholder', placeholder);
-  currentSearch.setAttribute('onkeyup', "searchFunc('notificationsTable', " + colNum + ")")
+  currentSearch.setAttribute('onkeyup', "searchFunc('" + tableID + "', " + colNum + ")")
 }
 
 function sortTable(tableID, colNum) {
@@ -290,3 +290,5 @@ function sortTable(tableID, colNum) {
     }
   }
 }
+
+
