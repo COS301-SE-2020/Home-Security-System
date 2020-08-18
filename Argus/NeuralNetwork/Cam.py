@@ -198,9 +198,10 @@ def rabbit_consume():
     def feature_update(ch, method, props, body):
         global up_face
         message = json.loads(body)
+
         up_face = True
 
-    message_channel.basic_consume(queue='',
+    message_channel.basic_consume(queue='personQueue',
                                   auto_ack=True,
                                   on_message_callback=feature_update)
     message_channel.start_consuming()
