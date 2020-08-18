@@ -31,12 +31,13 @@ public class UserRepoTest {
 
     @Test
     public void testPersistence() {
-        User user = new User(FNAME,LNAME,EMAIL,USERNAME,PASS,ROLE);
+        User user = new User(IMAGE_URL, FNAME,LNAME,EMAIL,USERNAME,PASS,ROLE);
         repo.save(user);
 
         Assert.assertNotNull(user.getUserId());
         User newUsr = repo.findById(user.getUserId()).orElse(null);
         Assert.assertEquals((Long) 1L, newUsr.getUserId());
+        Assert.assertEquals(IMAGE_URL, newUsr.getProfilePhoto());
         Assert.assertEquals(FNAME, newUsr.getFname());
         Assert.assertEquals(LNAME, newUsr.getLname());
         Assert.assertEquals(EMAIL, newUsr.getEmail());

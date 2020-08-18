@@ -3,20 +3,28 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header card-header-primary">
-          <h4 class="card-title">Deleted People</h4>
-          <p class="card-category">Black Listed People</p>
+          <h4 class="card-title">Deleted Threat List People</h4>
         </div>
         <div class="card-body">
-          <div class="table-responsive">
-            <table class="table">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="material-icons">search</i>
+              </span>
+            </div>
+            <input type="text" class="form-control" id="searchInput" placeholder="Search for a deleted person..."
+                   onkeyup="searchFunc('deletedBlackList', 1)">
+          </div>
+          <div class="table-responsive table-striped">
+            <table class="table" id="deletedBlackList">
               <thead class="text-primary">
               <th>
                 Picture
               </th>
-              <th>
+              <th class="hoverPointer" onclick="sortTable('deletedBlackList', 1)">
                 Alias
               </th>
-              <th>
+              <th class="hoverPointer" onclick="sortTable('deletedBlackList', 2)">
                 Deletion Date
               </th>
               <th>
@@ -26,7 +34,7 @@
               <tbody id="blackBody">
               <ng-container *ngFor="let p of person | async">
                 <tr *ngIf="p.personListed == 'Black' && p.personDeleted != null">
-                  <td><img alt="Photo" src="{{p.personImg.photo}}" class="listPic ImgClassName"></td>
+                  <td><img alt="Photo" src="{{p.personImg}}" class="listPic ImgClassName"></td>
                   <td>{{p.fname}}&nbsp;{{p.lname}}</td>
                   <td>{{p.personDeleted}}</td>
                   <td *ngIf="info.userRole != 'Basic'">

@@ -23,6 +23,7 @@ export class AddUserComponent implements OnInit {
   newImage: Image;
   newUser: User;
   submitted = false;
+  useDefaultImg = true;
 
   constructor(private usersService: UserService, private imageService: ImageService,
               private appService: TitleService, private router: Router) {
@@ -72,13 +73,13 @@ export class AddUserComponent implements OnInit {
 
     this.usersService.getUserList().subscribe(
       data => {
-        if (data[counter].username === usernameInp.value){
+        if (data[counter].username === usernameInp.value) {
           alert('Username is already taken. Please enter another username');
           usernameInp.value = '';
           usernameInp.focus();
           return true;
         }
-        if (data[counter].email.toLowerCase() === emailInp.value.toLowerCase()){
+        if (data[counter].email.toLowerCase() === emailInp.value.toLowerCase()) {
           alert('Email address is already in use. Please enter another email address');
           emailInp.value = '';
           emailInp.focus();
@@ -96,15 +97,17 @@ export class AddUserComponent implements OnInit {
     const advancedRole = document.getElementById('advanced') as HTMLInputElement;
     const basicRole = document.getElementById('basic') as HTMLInputElement;
 
-    if (adminRole.checked === true){
+    if (adminRole.checked === true) {
       return 'Admin';
-    }
-    else if (advancedRole.checked === true) {
+    } else if (advancedRole.checked === true) {
       return 'Advanced';
-    }
-    else if (basicRole.checked === true) {
+    } else if (basicRole.checked === true) {
       return 'Basic';
     }
+  }
+
+  getDefaultImage(): string {
+    return 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAD6APoDASIAAhEBAxEB/8QAGwABAQACAwEAAAAAAAAAAAAAAAECBgQFBwP/xAA6EAACAQIFAgQEBAMHBQAAAAAAAQIDEQQFEiExBkEiUWFxEzKhsSOBkfBiwdEUFSQ0NXPhQmNysvH/xAAZAQEBAQEBAQAAAAAAAAAAAAAAAQMCBAX/xAAgEQEBAAIDAQACAwAAAAAAAAAAAQIRAyExEjJBBCJh/9oADAMBAAIRAxEAPwD3gAh9JioBAKQpAKAQCghQAIABSN2CvbdWDmxQN/2w9lvsPmGgD23Fn5fUakTdALbEDqKAAoCFAEKABCggAACFAAEKCiAAAAAAAAAB/JtyRLQDTLSnqSMlTqSa0Up1W+8FsLZCVF8y22Cg51NMKU6r8kd1lXT+JxLU8R+HS2bVtzaMBl+DwcFHD0Yprmcoq/6mOXPJ07mLScPlGY1n4cHp92jlR6czbn4dO3k2v6m+JL0FkYXltX5ef1sizSC3w0X7Nf1OJUwWKpXVTCVE1y+x6YfKrGLspR1LysdY81nq/MeYyWl2aafkyHoGNybAYlO9GEJNcxgkzWM1yGtg4yqUtVaF+y3RvjzTJxlNOmBlvfhX4s+xLWbXc19cy7QABQpCkAAAAAAAAAEKUQAAAAAAAAi2bdtkimeHg6uKpUkr6nuc26hJt3PTuSPFqNfEbUpbpeZtmGwOFw8dNGhCK9jLCUYYfDU6cIpaUkfc8Gedt00mIoJcfoGn6P0LFmRHSLjgFAEJZ3vcyAGMk7bcmDgmmrKz5v3Po+Ccku53E68ar1PksVCeMwsNLjvKKRq90rT38Wz9D0+pFTdpK6S3Xnc0PqPAvA5nOy/Bq3kttk/2z1cHJvqss8deOsAB6UCkKFAAQAAAAAAhSFAAAAAAAAA5/TkFPPMPGSut/szgHa9JK+eUX5J/ZnGf40b3FJ89zIx/6V5mR86etp4R7lJHuUs8AAFAAABYAlGMlurcnR9X4VV8sc4xvKm3K/sd676lY4uaRjLLsRDzpy+zO8OqlebJ3KXZTqW3SdjGDbij3slKQpQABAAAAAAQFIUAAAAAAAADuOkP9ah/4v7M6c7fpJ2zul6pr6M4z/GjeV8y92ZLgx9TJcM+dPa2nhDllJHllLj4QABQAAAAXII15HFzGtCjharqTS8EtvPY5TbRpfW7/wAbTgm7NXf0O+OfWWolunRTkp1pTjtGU39yLixNK0KC4TuXsl5HvZBSFKAAIAAAAAAQpCgAAAAAAElez08gVbnadKu2e0Pz/wDVnV7pWTsu5zun2v75oNOdrtbJ24Zxn4PQk9jJcGOzaMlwz509raeEOWUkOWUuPhAAFAAAGQrJ2AkjSes5XzmMeyg/sjdnz6s0Tq2Ted1b30qMUvexp/G/Nxm6kAHucBSFAAAgAAAAABCgogAAAAAVbO6IG9O/kMf9XSOLnDQ9m5WTPQsqyvDYbD0dNOGuO7k47t2sefprXL/tSu/3+Z6ZgKyr4SnWjxNXR5ebLKLJ2+unfkqVgDz6aCVgANaFIAAKQABYACNb8nV51lWHxOFrzcUqmnUpabu6TO0tucfM6vwsDiJeVKT+hcLZeks282aack+zsRO8U/Mrlql8R8Sm/uGkkrH0GSFIUoAAgAAAAADAIUAAAAAAkt00UBWT8Tq+qN56SxCrZPTV96T0/Rf1NEb4t+ZsPRWKjSxNXDybtU3j5X/aMeaf1WXtuC878mR81e8dnaPPqfQ8bQAAFIAAKQAAwHuTLwY359Nzpurq6o5XKKfiquy9v2zuJPZq3bc07rPFRq4ulh4NyVJPVbz2NODG2pXQAA97IKQoAAEAAAAAAAYKIAAAAAAAAIuXxFom4SjumA+LvhMfP10jduksZVxOBlKvLVKMrfY700rorE/Cxzw0pbVLtL8n/Q3O915Hz+XH5rWXpkncGMOWvIyOIsAUhVACgR8BcB8GF2lFc3Gtpa6rqqtOhllSVGeibsrmiykpTctTdV21PzNk66xGqeHwyfEm5rz4sayvmn5329j2cE1HFqgA2chSFAAAgAAAAABCgogAAAAAAAAl8qXm9wBLpK+mFrSw2LjiYcwe3seiYLEwxeEp14O6kkzzfubN0TXrOrVoSk3BfLvxyefmx/a43fTbI8spjC/D3MjyttaAAAAAB8Hyq1Iwpym3ZRjqufV8HS9V1Z0smquk7P5fqkXGbrnJqOcYp4zH1ayd1e0fa5xXbZrl8kirQim7vSr+4PfjNRlOwAHShSFIAAAAAAAAADIUAAAAAAAAAgVbkSo+5s3QsLyxNR+Ube+9zWXxubj0VT0Zc5tW1Tf6djHm8MPWwQ22MiRKeRuAAAAAJLg6jqqF8mr6edSf1VzuHwcHOIfFy+tC1/A39DrH1zl486j39wErXT2a59BZ2vZ2Pdj4ygADpQpCgAAQAAAAAAhQUQAAAAAAC57/AJAA7225Yfh+dq3kuQ7pX2S5uyal9c2bSSaioWvJs9DyPD/2fLcLBqzdNOXvZGp9NZdPG41V5RksPF/M1y/3Y3uENKsnt29Dy82U8jTjmlg739ygHnjQABQAAB8HxqR1wUWtpxd/0Ps+DFxvFq9hPUrzXH03h8zxNKasviSt7Xdj4eLjsbR1flc5pYrDxcnFeNLy8/uas25S8HC2a7pnv47MoyuKgXTdk7S9Q9ubnYFIUAACAAAAAAEBSiAFI5t0gKkm9xtfxPfsNkqDfs7Psz64bD1sTV0U4Oc3+iNiyzpi1p4+erygmc5ZyLN1ruEw9bFVFDCUviz7s2TLOmqcbTx1T4iv8l+5sWGoU6NNU6dPTFHIjxzc8+fNb1GkxcalGnSpqlCKilxA5KKDz9u0BQUCFAEKABHwQyATT4zcVJqW11t6nS5t0/hcU5VaH4NZ7t35NgD4LjlcV083zHLcVgZfj0tVHtNHDXG0tS7eh6hOKkmnHUmdDmnTuHxEnPDv4VV7+jPTjzb9ZXHTTSnJzDL8VgXbERa/jRxrru/EbTKVxLQFaVrvnuYlLdKCAKoIAoO6QD42e/YoJq7V90Vbuy38ybqSSheb4R3WU5FisXpq118Kj3XdkucxNbdRh6VXEVPh0acpTvwjZMr6ak1Gri2n30o73LsDhsHCMcNTSj3bW7Oc7Pfc8nJzb8dzFx8Jg6WFpqFGCjbv3PtosnaT35b5M1urh8GG7XWpGNrLZv8AMsVYFjwXa7UAAQoAAhQAAAEKAAI+CkfAGKJpvdXdvqZFRNm4+VSjGpDRUSnH+I6LMum6NZOWH8E/WxsRNm77lxzuKfMrzbH4LE4KbjXpu3aS4Zxuyb2TPTMXRp146KlOM4P5ro1jNenZK9XLvlW7g/2j18fNP24uLWm0le//ACPL1Mq0Z06rp16WiV9kY738Xbg33tyAAgDxX1Rjqt28w2vD/E9jvekctWLqyxVSP4dKWlJr5nb/AJGdmETW65vTuRwioY3FrU5bxhJXtf8A+m0RilFJJJLtYwUNPCVuy8j6Ljk+fln9VtJ0tgARQE/MoEsUE/MCgAACFAAEAoAAAhQAAAlkUAAAAJZX4FkUgHTZ9k1HMKcnBRhXjupJbs0nFUqtKu6VSNnTelt9z0yUG00na7vc6Dq3K41cJLGU4pVKSbkkvmVt/sbcPJq9uM5tp4Jy0u7VzFzinb+R7d7ZeM7apaVzay9z0PIcOsLllGnp0y0py9zz7B/5uH+5/I9Ojwzx82VrTj8ZIpCnnkaAAKAAAAAAAAAAAAAAAAAAAAAAAAABAKCAAYVoRqU5QmrxkrNGfdkff2JL2sea5nReGx9am1bTO8fY+Pwovc7TrLbOp/7f8kdZH5V7H0OO7xebP1//2Q==';
   }
 
   save() {
@@ -116,30 +119,10 @@ export class AddUserComponent implements OnInit {
     const getRole = this.returnUserRole();
 
     if ((usernameInp.value !== '') && (emailInp.value !== '') && (nameInp.value !== '') && (surnameInp.value !== '') &&
-      (passwordInp.value !== '')){
-
-      // tslint:disable-next-line:max-line-length
-      /*const addPhoto = 'data:image/gif;base64,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';
-      this.newImage = new Image();
-      this.newImage.photo = addPhoto;
-      this.imageService.addImage(this.newImage)
-        .subscribe(data => {
-          // console.log(data);
-        }, error => console.log(error));
-
-      // This part doesn't work as expected!
-      this.images = this.imageService.getImageList();
-      this.images.forEach((value) => {
-        if (value.photo === addPhoto)
-        {
-          this.newImage = value;
-        }
-      });
-      */
-
-      /*
+      (passwordInp.value !== ''))
+    {
       this.newUser = new User();
-      this.newUser.profilePhoto = this.newImage;
+      this.newUser.profilePhoto = this.getDefaultImage();
       this.newUser.fname = nameInp.value;
       this.newUser.lname = surnameInp.value;
       this.newUser.email = emailInp.value;
@@ -150,32 +133,11 @@ export class AddUserComponent implements OnInit {
       this.newUser.notifyLocal = true;
 
       this.usersService.addUser(this.newUser)
-        .subscribe(data => {
-          // console.log(data);
-          this.gotoList();
+        .subscribe(value => {
+          // console.log(value);
         }, error => console.log(error));
-        */
 
-      this.imageService.getImageById(1)
-        .subscribe(data => {
-          // console.log(data);
-          this.newUser = new User();
-          this.newUser.profilePhoto = data;
-          this.newUser.fname = nameInp.value;
-          this.newUser.lname = surnameInp.value;
-          this.newUser.email = emailInp.value;
-          this.newUser.username = usernameInp.value;
-          this.newUser.userPass = passwordInp.value;
-          this.newUser.userRole = getRole;
-          this.newUser.notifyEmail = true;
-          this.newUser.notifyLocal = true;
-
-          this.usersService.addUser(this.newUser)
-            .subscribe(value => {
-              // console.log(value);
-              this.gotoList();
-            }, error => console.log(error));
-        }, error => console.log(error));
+      this.gotoList();
     }
     else{
       this.submitted = false;
@@ -185,8 +147,7 @@ export class AddUserComponent implements OnInit {
 
   onSubmit() {
     const tf = this.checkIfExists();
-    if (tf !== true)
-    {
+    if (tf !== true) {
       this.save();
       this.submitted = true;
     }
@@ -196,4 +157,96 @@ export class AddUserComponent implements OnInit {
     // const cardV = document.getElementsByClassName('modal') ;
     this.router.navigate(['/user-list']);
   }
+
+  imgTob64() {
+    let imgSrc;
+    if (this.useDefaultImg) {
+      imgSrc = document.getElementById('profilePicDisplay').getAttribute('src');
+    } else {
+      imgSrc = document.getElementById('submitPhoto').getAttribute('src');
+    }
+  }
+
+  toggleDefault() {
+    this.useDefaultImg = false;
+  }
+
+  //
+  // imageSrc;
+  // sellersPermitFile: any;
+  // DriversLicenseFile: any;
+  // InteriorPicFile: any;
+  // ExteriorPicFile: any;
+  // //base64s
+  // sellersPermitString: string;
+  // DriversLicenseString: string;
+  // InteriorPicString: string;
+  // ExteriorPicString: string;
+  // //json
+  // finalJson = {};
+  //
+  // currentId: number = 0;
+  //
+  // public picked(event, field) {
+  //   this.currentId = field;
+  //   const fileList: FileList = event.target.files;
+  //   if (fileList.length > 0) {
+  //     const file: File = fileList[0];
+  //     if (field == 1) {
+  //       this.sellersPermitFile = file;
+  //       this.handleInputChange(file); //turn into base64
+  //     }
+  //     else if (field == 2) {
+  //       this.DriversLicenseFile = file;
+  //       this.handleInputChange(file); //turn into base64
+  //     }
+  //     else if (field == 3) {
+  //       this.InteriorPicFile = file;
+  //       this.handleInputChange(file); //turn into base64
+  //     }
+  //     else if (field == 4) {
+  //       this.ExteriorPicFile = file;
+  //       this.handleInputChange(file); //turn into base64
+  //
+  //     }
+  //   }
+  //   else {
+  //     alert("No file selected");
+  //   }
+  // }
+  //
+  // handleInputChange(files) {
+  //   var file = files;
+  //   var pattern = /image-*/;
+  //   var reader = new FileReader();
+  //   if (!file.type.match(pattern)) {
+  //     alert('invalid format');
+  //     return;
+  //   }
+  //   reader.onloadend = this._handleReaderLoaded.bind(this);
+  //   reader.readAsDataURL(file);
+  // }
+  //
+  // _handleReaderLoaded(e) {
+  //   const reader = e.target;
+  //   var base64result = reader.result.substr(reader.result.indexOf(',') + 1);
+  //   //this.imageSrc = base64result;
+  //   let id = this.currentId;
+  //   switch (id) {
+  //     case 1:
+  //       this.sellersPermitString = base64result;
+  //       break;
+  //     case 2:
+  //       this.DriversLicenseString = base64result;
+  //       break;
+  //     case 3:
+  //       this.InteriorPicString = base64result;
+  //       break;
+  //     case 4:
+  //       this.ExteriorPicString = base64result;
+  //       break
+  //   }
+  //
+  //   this.log();
+  // }
 }
