@@ -9,17 +9,19 @@
              data-target="#addPersonModal2">person_add</a>
         </div>
         <div class="card-body">
+          <!--Search Bar Starts Here-->
           <div class="input-group">
             <div class="input-group-prepend">
               <span class="input-group-text">
                 <i class="material-icons">search</i>
               </span>
             </div>
-            <input type="text" class="form-control" id="searchInput" placeholder="Search for a user..."
+            <input type="text" class="form-control" id="searchInput" placeholder="Search for a person..."
                    onkeyup="searchFunc('blackListTable', 1)">
           </div>
+          <!--Table Starts Here-->
           <div class="table-responsive table-striped">
-            <table class="table" id="blackListTable">
+            <table class="table center" id="blackListTable">
               <thead class="text-primary">
               <th>
                 Picture

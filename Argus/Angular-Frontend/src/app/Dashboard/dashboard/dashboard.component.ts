@@ -2,14 +2,20 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {WebcamImage} from 'ngx-webcam';
 import {Observable, Subject} from 'rxjs';
 import {TitleService} from '../../title.service';
+// import {Chart} from 'chart.js';
+// import {ChartService} from '../charts/chart.service';
+import {getLocaleDateFormat} from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit
 {
+  currentDate = new Date();
+
+  // ----------------------
   title = 'argus-app';
 
   @ViewChild('video')
@@ -34,10 +40,12 @@ export class DashboardComponent implements OnInit
     this.camImg = img;
   }
 
-  constructor(private appService: TitleService) { }
+  constructor(private appService: TitleService ) {}
+  // private ChartItems: ChartService;
 
   ngOnInit(): void {
     this.appService.setTitle('Dashboard');
+    // this.getChartDetails();
   }
 
   public toggleCam(): void {
@@ -47,5 +55,104 @@ export class DashboardComponent implements OnInit
   public get triggerObservable(): Observable<void> {
     return this.snapTrigger.asObservable();
   }
+
+  /*public getChartDetails() {
+    this.ChartItems.getChart().subscribe(data => {
+        console.log(data);
+        const chartLable = [];
+        const chartDetails = [];
+
+        // tslint:disable-next-line:prefer-for-of
+        for (let i = 0; i < data.chartDetails[0].chartData.length; i++) {
+          chartLable.push(data.chartDetails[0].chartData[i].x);
+          chartDetails.push(data.chartDetails[0].chartData[i].y);
+        }
+
+
+        const ctx = document.getElementById('myChart') as HTMLCanvasElement;
+        ctx.getContext('2d');
+        const myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: chartLable,
+            datasets: [{
+              label: '# of Votes',
+              data: chartDetails,
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+              ],
+              borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }]
+            }
+          }
+        });
+      }
+    );
+  }
+   */
+
+  /*
+  public generateCharts()
+
+  {
+    const canvas = document.getElementById('myChart') as HTMLCanvasElement;
+    canvas.getContext('webgl');
+
+    if (!canvas) {
+      canvas.getContext('experimental-webgl');
+    }
+    const myChart = new Chart(canvas, {
+      type: 'bar',
+      data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+          label: '# of Votes',
+          data: [12, 19, 3, 5, 2, 3],
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+  }
+   */
 
 }

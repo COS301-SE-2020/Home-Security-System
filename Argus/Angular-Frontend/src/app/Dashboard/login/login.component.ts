@@ -31,7 +31,16 @@ export class LoginComponent implements OnInit {
       alert('Error, please enter an email address');
     }
   }
-
+  enterLogin(){
+    const passInp = document.getElementById('passwordField') as HTMLInputElement;
+    // tslint:disable-next-line:only-arrow-functions
+    passInp.addEventListener('keyup', function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        document.getElementById('loginBtn').click();
+      }
+    });
+  }
   makeSession(){
     const emailVar = document.getElementById('emailInput') as HTMLInputElement;
     const passVar = document.getElementById('passwordField') as HTMLInputElement;
@@ -79,6 +88,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.enterLogin();
     this.sessionS.retrieveUserInfo();
   }
 }

@@ -186,12 +186,13 @@ function openDrop() {
     var reader = new FileReader()
     reader.readAsDataURL(file)
     reader.onloadend = function () {
-      document.getElementById("profilePicDisplay").style.display = "none";
-      var img = document.createElement('img')
-      img.src = reader.result
-      img.width = 150;
-      document.getElementById('preview').appendChild(img)
-      document.getElementById('preview').firstChild.id = 'submitPhoto';
+      document.getElementById('submitPhoto').setAttribute('src', reader.result);
+      // document.getElementById("profilePicDisplay").style.display = "none";
+      // var img = document.createElement('img')
+      // img.src = reader.result
+      // img.width = 150;
+      // document.getElementById('preview').appendChild(img)
+      // document.getElementById('preview').firstChild.id = 'submitPhoto';
     }
   }
 }
@@ -201,7 +202,7 @@ function openDrop() {
 // ******************************************************** //
 function searchFunc(tableID, colNum) {
   let input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("searchInput");
+  input = document.getElementById('searchInput');
   filter = input.value.toUpperCase();
   table = document.getElementById(tableID);
   tr = table.getElementsByTagName("tr");
@@ -216,6 +217,13 @@ function searchFunc(tableID, colNum) {
       }
     }
   }
+}
+
+function changeSearchFunc(tableID ,placeholder ,colNum)
+{
+  let currentSearch = document.getElementById('searchInput');
+  currentSearch.setAttribute('placeholder', placeholder);
+  currentSearch.setAttribute('onkeyup', "searchFunc('" + tableID + "', " + colNum + ")")
 }
 
 function sortTable(tableID, colNum) {
@@ -284,3 +292,5 @@ function sortTable(tableID, colNum) {
     }
   }
 }
+
+

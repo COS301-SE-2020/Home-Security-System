@@ -31,50 +31,39 @@
         <!-- ROW 2 -->
         <div class="row">
             <!-- MONTHLY ALERTS CARD -->
-            <div class="col-lg-6 col-md-5 col-sm-5">
+            <div class="col-lg-10 col-md-5 col-sm-5">
                 <div class="card card-chart">
                     <div class="card-header card-header-color">
-                        <div class="ct-chart" id="websiteViewsChart"></div>
+                          <h4 class="card-title">Alerts for the past 7 days</h4>
                     </div>
-                    <div class="card-body">
-                        <h4 class="card-title">Monthly Alerts</h4>
+                    <div class="card-body" style="width: 550px">
+                      <!-- <canvas id="myChart" width="200" height="200"></canvas> -->
+                      <img src="assets/Images/recentDetections.PNG" width="400px">
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">access_time</i> Last updated 2 minutes ago
+                            <i class="material-icons">access_time</i> Last updated {{currentDate | date:'dd-MM-yyyy'}}
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- OTHER STATS PLACEHOLDER CARD -->
-            <div class="col-lg-6 col-md-5 col-sm-5">
+            <!-- <div class="col-lg-10 col-md-5 col-sm-5">
                 <div class="card card-chart">
                     <div class="card-header card-header-color">
                         <h4 class="card-title">Other Stats Placeholder</h4>
                     </div>
                     <div class="card-body">
-                        STATS GO HERE
+                      <canvas id="myChart" width="200" height="200"></canvas>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">access_time</i> Last updated 2 minutes ago
+                            <i class="material-icons">access_time</i> Last updated {{currentDate | date:'dd-MM-yyyy'}}
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
-    </div>
-
-    <!-- ROW 3 -->
-    <div class="row">
-<!--        &lt;!&ndash; WHITE LIST CARD &ndash;&gt;-->
-<!--        <app-people-white></app-people-white>-->
-
-<!--        &lt;!&ndash; BLACK LIST CARD &ndash;&gt;-->
-<!--        <app-people-black></app-people-black>-->
-
-<!--        &lt;!&ndash; LICENSE PLATE CARD &ndash;&gt;-->
-<!--        <app-vehicles-white></app-vehicles-white>-->
     </div>
 </div>
