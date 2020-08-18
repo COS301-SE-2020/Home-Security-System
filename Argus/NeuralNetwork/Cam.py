@@ -131,7 +131,7 @@ def cam_feed():
                 for f_num, face in enumerate(features):
                     min_match = 1.0
                     f_name = 'Unknown'
-                    f_type = 'grey'
+                    f_type = 'Grey'
                     for feat in all_f_features:
                         match = cosine(face, feat[1])
                         if match <= threshold:
@@ -143,7 +143,7 @@ def cam_feed():
                     frame = c.putText(frame, f_name, (0, 20), c.FONT_HERSHEY_DUPLEX, 1, (0, 0, 255), thickness=2)
                     if f_name == 'Unknown':
                         temp_face = 'u' + str(time.time())
-                        np.save('models/grey/' + temp_face + '.npy', face)
+                        np.save('models/Grey/' + temp_face + '.npy', face)
                         message = {'personId': 0, 'type': 'Grey',
                                    'exists': False,
                                    'imageStr': 'data:image/jpg;base64,' +
@@ -161,14 +161,14 @@ def cam_feed():
                             if f_name[0] == 'u':
                                 f_name = '0'
 
-                            if f_type == 'black':
+                            if f_type == 'Black':
                                 message = {'personId': int(f_name), 'type': 'Black',
                                            'imageStr': 'data:image/jpg;base64,' +
                                                        str(b64.b64encode(c.imencode('.jpg', frame)[1]).decode('utf-8'))}
                                 message_channel.basic_publish(exchange='sigma.direct',
                                                               routing_key='alertKey',
                                                               body=json.dumps(message))
-                            elif f_type == 'grey':
+                            elif f_type == 'Grey':
                                 message = {'personId': int(f_name), 'type': 'Grey',
                                            'imageStr': 'data:image/jpg;base64,' +
                                                        str(b64.b64encode(c.imencode('.jpg', frame)[1]).decode('utf-8'))}
@@ -199,7 +199,10 @@ def rabbit_consume():
     def feature_update(ch, method, props, body):
         global up_face
         message = json.loads(body)
-
+        if message['faceStr'] is None:
+            img = c.imread(np.frombuffer(b64.b64decode(message['imageStr']), dtype=np.uint8), flags=c.IMREAD_COLOR)
+        else:
+            # Feature Add
         up_face = True
 
     message_channel.basic_consume(queue='personQueue',
