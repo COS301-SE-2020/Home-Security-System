@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.ws.server.endpoint.interceptor.DelegatingSmartEndpointInterceptor;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -44,35 +45,59 @@ public class RabbitConsumer{
         ssession.getSessionDetails();
         Optional<User> u =  userService.getUserById(Long.valueOf(1));
 
-        Optional<Person> p =  personService.getPersonById(alert.getPersonId());
+        if(alert.getPersonId() != 0)
+        {
+            Optional<Person> p =  personService.getPersonById(alert.getPersonId());
 
-        // Image img = new Image(alert.getImageStr());
-        // imageService.createImage(img);
+            // Image img = new Image(alert.getImageStr());
+            // imageService.createImage(img);
 
-        try {
-            if(p.isPresent() && u.isPresent()) {
-                String email = u.get().getEmail();
-                Boolean notify = u.get().getNotifyEmail();
+            try {
+                if(p.isPresent() && u.isPresent()) {
+                    String email = u.get().getEmail();
+                    Boolean notify = u.get().getNotifyEmail();
 
-                if (alert.getType().equalsIgnoreCase("Grey")) {
-                    nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
-                        "Person: " + p.get().getFname(), u.get()));
+                    if (alert.getType().equalsIgnoreCase("Grey")) {
+                        nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
+                            "Person: " + p.get().getFname(), u.get()));
 
-                    if(notify) {
-                        mailer.sendWithAttatchGL(email);
-                    }
-                } else {
-                    nservice.createNotification(new Notification(alert.getImageStr(), "Threat",
-                        "Intruder: " + p.get().getFname() + " " + p.get().getLname(), u.get()));
+                        if(notify) {
+                            mailer.sendWithAttatchGL(email);
+                        }
+                    } else {
+                        nservice.createNotification(new Notification(alert.getImageStr(), "Threat",
+                            "Intruder: " + p.get().getFname() + " " + p.get().getLname(), u.get()));
 
-                    if(notify) {
-                        mailer.sendWithAttatchBL(email);
+                        if(notify) {
+                            mailer.sendWithAttatchBL(email);
+                        }
                     }
                 }
             }
+            catch (NoSuchElementException ex) {
+                LOGGER.info(String.valueOf(ex));
+            }
         }
-        catch (NoSuchElementException ex) {
-            LOGGER.info(String.valueOf(ex));
+        else
+        {
+            try {
+                if(u.isPresent()) {
+                    String email = u.get().getEmail();
+                    Boolean notify = u.get().getNotifyEmail();
+
+                    if (alert.getType().equalsIgnoreCase("Grey")) {
+                        nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
+                                "Person: " + "Unknown", u.get()));
+
+                        if (notify) {
+                            mailer.sendWithAttatchGL(email);
+                        }
+                    }
+                }
+            }
+            catch (NoSuchElementException ex) {
+                LOGGER.info(String.valueOf(ex));
+            }
         }
 
         LOGGER.info("Notification Created");
