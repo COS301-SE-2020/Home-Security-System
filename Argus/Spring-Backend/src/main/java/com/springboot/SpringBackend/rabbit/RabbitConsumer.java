@@ -1,6 +1,7 @@
 package com.springboot.SpringBackend.rabbit;
 
 import com.springboot.SpringBackend.controller.MailerController;
+import com.springboot.SpringBackend.controller.SessionController;
 import com.springboot.SpringBackend.model.*;
 import com.springboot.SpringBackend.service.*;
 import org.slf4j.Logger;
@@ -22,23 +23,26 @@ public class RabbitConsumer{
     private final FaceService faceService;
     private final ImageService imageService;
     private MailerController mailer;
+    private SessionController ssession;
 
     @Autowired
     public RabbitConsumer(NotificationService ns, PersonService ps,
-                          UserService us, FaceService fs, ImageService is, MailerController mc) {
+                          UserService us, FaceService fs, ImageService is,
+                          MailerController mc, SessionController sc) {
         this.nservice = ns;
         this.personService = ps;
         this.userService = us;
         this.faceService = fs;
         this.imageService = is;
         this.mailer = mc;
+        this.ssession = sc;
     }
 
     @RabbitListener(queues = {"alertQueue"})
     public void receivedAlert(RabbitAlert alert) {
         // User session id
-        Long num = Long.valueOf(1);
-        Optional<User> u =  userService.getUserById(num);
+        ssession.getSessionDetails();
+        Optional<User> u =  userService.getUserById(Long.valueOf(1));
 
         Optional<Person> p =  personService.getPersonById(alert.getPersonId());
 
@@ -48,18 +52,22 @@ public class RabbitConsumer{
         try {
             if(p.isPresent() && u.isPresent()) {
                 String email = u.get().getEmail();
+                Boolean notify = u.get().getNotifyEmail();
 
                 if (alert.getType().equalsIgnoreCase("Grey")) {
                     nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
                         "Person: " + p.get().getFname(), u.get()));
 
-                    mailer.sendWithAttatchGL(email);
-
+                    if(notify) {
+                        mailer.sendWithAttatchGL(email);
+                    }
                 } else {
                     nservice.createNotification(new Notification(alert.getImageStr(), "Threat",
                         "Intruder: " + p.get().getFname() + " " + p.get().getLname(), u.get()));
 
-                    mailer.sendWithAttatchBL(email);
+                    if(notify) {
+                        mailer.sendWithAttatchBL(email);
+                    }
                 }
             }
         }
@@ -73,7 +81,7 @@ public class RabbitConsumer{
     @RabbitListener(queues = {"featureQueue"})
     public void receivePerson(RabbitPerson psn) {
         // Creating a Grey-list person from Python
-        if(psn.getType().equalsIgnoreCase("Grey")) {
+        if(psn.getPersonId() == 0) {
             // Image img = new Image(psn.getImageStr());
             // imageService.createImage(img);
 
