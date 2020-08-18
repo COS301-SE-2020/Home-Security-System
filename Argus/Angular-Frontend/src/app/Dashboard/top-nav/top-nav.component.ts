@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {TitleService} from '../../title.service';
-import { BackendsessionService } from '../../model/backendsession.service';
+import { SessionService } from '../../model/session.service';
 import {Session} from '../../../assets/js/SessionStorage';
 import {UserService} from '../../model/user.service';
 import {User} from '../../model/user';
@@ -19,7 +19,7 @@ export class TopNavComponent implements OnInit {
   cnt = 0 ;
   newObj: JsonObject;
 
-  constructor(private noteService: NotificationService, private sessService: BackendsessionService, private appService: TitleService,
+  constructor(private noteService: NotificationService, private sessService: SessionService, private appService: TitleService,
               private userService: UserService) { }
 
   clearUserSession(){

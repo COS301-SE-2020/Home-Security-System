@@ -10,6 +10,7 @@ import pika as pi
 import time
 import json
 import base64 as b64
+import threading
 
 
 phys = tf.config.experimental.list_physical_devices('GPU')
@@ -25,8 +26,8 @@ successive_detection_ignore = 300.0
 rabbit_conn = pi.BlockingConnection(pi.ConnectionParameters(rabbit_host))
 message_channel = rabbit_conn.channel()
 message_channel.queue_declare(queue='alertQueue')
+message_channel.queue_declare(queue='personQueue')
 message_channel.queue_declare(queue='featureQueue')
-
 face_d = MTCNN()
 face_r = VGGFace(include_top=False, model=mod_name, input_shape=(224, 224, 3), pooling='avg')
 
@@ -39,6 +40,7 @@ while cam_check:
     else:
         cam_check = False
     temp.release()
+up_face = False
 
 
 def load_faces(path):
@@ -82,6 +84,7 @@ def save_face(path, image, f_d=face_d, f_r=face_r):
 
 
 def cam_feed():
+    global up_face
     cams = list()
     frames = list()
     for x in range(num_cams):
@@ -125,7 +128,7 @@ def cam_feed():
 
             if len(inp_features) > 0:
                 features = face_r.predict(inp_features)
-                for face in features:
+                for f_num, face in enumerate(features):
                     min_match = 1.0
                     f_name = 'Unknown'
                     f_type = 'grey'
@@ -141,19 +144,22 @@ def cam_feed():
                     if f_name == 'Unknown':
                         temp_face = 'u' + str(time.time())
                         np.save('models/grey/' + temp_face + '.npy', face)
-                        temp_face_stored = open('models/grey/' + temp_face + '.npy', 'rb').read()
-                        message = {'personId': 'Unknown', 'type': 'Grey',
-                                   'faceStr': str(b64.b64encode(temp_face_stored).decode('utf-8')),
+                        message = {'personId': 0, 'type': 'Grey',
+                                   'exists': False,
                                    'imageStr': 'data:image/jpg;base64,' +
                                                str(b64.b64encode(c.imencode('.jpg', frame)[1]).decode('utf-8')),
-                                   'exists': False}
+                                   'features': False,
+                                   }
                         message_channel.basic_publish(exchange='sigma.direct',
-                                                      routing_key='alertKey',
+                                                      routing_key='personKey',
                                                       body=json.dumps(message))
-                        all_f_features, time_dict = load_faces(path_features)
+                        up_face = True
                     else:
                         if time.time() - time_dict[f_name] > successive_detection_ignore:
                             time_dict[f_name] = time.time()
+
+                            if f_name[0] == 'u':
+                                f_name = '0'
 
                             if f_type == 'black':
                                 message = {'personId': int(f_name), 'type': 'Black',
@@ -172,6 +178,9 @@ def cam_feed():
 
             c.imshow("view", frame)
 
+            if up_face:
+                all_f_features, time_dict = load_faces(path_features)
+
             for cam in cams:
                 frames = list()
                 t, fr = cam.read()
@@ -186,5 +195,19 @@ def cam_feed():
                 break
 
 
+def rabbit_consume():
+    def feature_update(ch, method, props, body):
+        global up_face
+        message = json.loads(body)
+        up_face = True
+
+    message_channel.basic_consume(queue='',
+                                  auto_ack=True,
+                                  on_message_callback=feature_update)
+    message_channel.start_consuming()
+
+
+consumer = threading.Thread(target=rabbit_consume)
+consumer.start()
 cam_feed()
 rabbit_conn.close()

@@ -49,10 +49,10 @@
                   <td><img alt="Profile Picture" src="{{user.profilePhoto}}" class="listPic ImgClassName"></td>
                   <td>{{user.fname}}&nbsp;{{user.lname}}</td>
                   <td>{{user.userRole}}</td>
-                  <td *ngIf="info.userRole != 'Basic'">
-                    <a id="editBtn" class="material-icons listPageIcons" (click)="updateUser(user.userId)">edit</a>
-                    <a *ngIf="info.userRole != 'Advanced'" id="deleteBtn" class="material-icons listPageIcons"
-                       (click)="removeUser(user.userId)">delete</a>
+                  <td>
+                    <a id="viewBtn" class="material-icons listPageIcons" (click)="viewUser(user.userId)">visibility</a>
+                    <a *ngIf="info.userRole != 'Basic'" id="editBtn" class="material-icons listPageIcons" (click)="updateUser(user.userId)">edit</a>
+                    <a *ngIf="info.userRole == 'Admin'" id="deleteBtn" class="material-icons listPageIcons" (click)="removeUser(user.userId)">delete</a>
                   </td>
                 </tr>
               </ng-container>
@@ -63,7 +63,7 @@
       </div>
     </div>
   </div>
-  <a *ngIf="info.userRole != 'Basic'" class="btn btn-primary float-right" (click)="restoreUser()">Restore</a>
+  <a *ngIf="info.userRole == 'Admin'" class="btn btn-primary float-right" (click)="restoreUser()">Restore</a>
 </div>
 
 <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">

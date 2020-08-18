@@ -1,4 +1,4 @@
-package com.springboot.SpringBackend.rabbit;
+package com.springboot.SpringBackend.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

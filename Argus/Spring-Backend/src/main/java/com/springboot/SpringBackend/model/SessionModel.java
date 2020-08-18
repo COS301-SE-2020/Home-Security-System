@@ -1,7 +1,5 @@
 package com.springboot.SpringBackend.model;
 
-import com.springboot.SpringBackend.service.SessionService;
-
 public class SessionModel {
 
     private final String id;

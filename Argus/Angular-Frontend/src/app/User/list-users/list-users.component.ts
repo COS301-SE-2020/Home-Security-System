@@ -32,7 +32,7 @@ export class ListUsersComponent implements OnInit {
 
   removeUser(id: number) {
     const user = this.sessionS.retrieveUserInfo();
-    if ( user.id === id )
+    if (user.id === id )
     {
       alert('You are unfortunately not able to delete yourself as a user on this page.');
     }

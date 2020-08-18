@@ -23,7 +23,7 @@ public class RabbitMQConfig {
     public static final String FEATURE_QUEUE = "featureQueue";
     public static final String ALERT_KEY = "alertKey";
     public static final String PERSON_KEY = "personKey";
-    public static final String FEATURE_KEY = "personKey";
+    public static final String FEATURE_KEY = "featureKey";
 
     @Bean
     Queue alertQueue()
