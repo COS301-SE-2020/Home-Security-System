@@ -10,6 +10,7 @@ import pika as pi
 import time
 import json
 import base64 as b64
+import threading
 
 
 phys = tf.config.experimental.list_physical_devices('GPU')
@@ -39,6 +40,7 @@ while cam_check:
     else:
         cam_check = False
     temp.release()
+up_face = False
 
 
 def load_faces(path):
@@ -82,6 +84,7 @@ def save_face(path, image, f_d=face_d, f_r=face_r):
 
 
 def cam_feed():
+    global up_face
     cams = list()
     frames = list()
     for x in range(num_cams):
@@ -143,12 +146,13 @@ def cam_feed():
                         np.save('models/grey/' + temp_face + '.npy', face)
                         message = {'personId': 0, 'type': 'Grey',
                                    'imageStr': 'data:image/jpg;base64,' +
-                                               str(b64.b64encode(c.imencode('.jpg', face_pix[f_num])[1]).decode('utf-8')),
+                                               str(b64.b64encode(c.imencode('.jpg',
+                                                                            face_pix[f_num])[1]).decode('utf-8')),
                                    'exists': False}
                         message_channel.basic_publish(exchange='sigma.direct',
                                                       routing_key='featureKey',
                                                       body=json.dumps(message))
-                        all_f_features, time_dict = load_faces(path_features)
+                        up_face = True
                     else:
                         if time.time() - time_dict[f_name] > successive_detection_ignore:
                             time_dict[f_name] = time.time()
@@ -173,6 +177,9 @@ def cam_feed():
 
             c.imshow("view", frame)
 
+            if up_face:
+                all_f_features, time_dict = load_faces(path_features)
+
             for cam in cams:
                 frames = list()
                 t, fr = cam.read()
@@ -187,5 +194,19 @@ def cam_feed():
                 break
 
 
+def rabbit_consume():
+    def feature_update(ch, method, props, body):
+        global up_face
+        message = json.loads(body)
+        up_face = True
+
+    message_channel.basic_consume(queue='',
+                                  auto_ack=True,
+                                  on_message_callback=feature_update)
+    message_channel.start_consuming()
+
+
+consumer = threading.Thread(target=rabbit_consume)
+consumer.start()
 cam_feed()
 rabbit_conn.close()
