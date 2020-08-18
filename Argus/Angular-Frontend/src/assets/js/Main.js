@@ -200,7 +200,7 @@ function openDrop() {
 // ******************************************************** //
 function searchFunc(tableID, colNum) {
   let input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("searchInput");
+  input = document.getElementById('searchInput');
   filter = input.value.toUpperCase();
   table = document.getElementById(tableID);
   tr = table.getElementsByTagName("tr");
@@ -215,6 +215,13 @@ function searchFunc(tableID, colNum) {
       }
     }
   }
+}
+
+function changeSearchFunc(placeholder ,colNum)
+{
+  let currentSearch = document.getElementById('searchInput');
+  currentSearch.setAttribute('placeholder', placeholder);
+  currentSearch.setAttribute('onkeyup', "searchFunc('notificationsTable', " + colNum + ")")
 }
 
 function sortTable(tableID, colNum) {
