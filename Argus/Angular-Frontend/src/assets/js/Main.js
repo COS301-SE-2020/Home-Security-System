@@ -185,12 +185,13 @@ function openDrop() {
     var reader = new FileReader()
     reader.readAsDataURL(file)
     reader.onloadend = function () {
-      document.getElementById("profilePicDisplay").style.display = "none";
-      var img = document.createElement('img')
-      img.src = reader.result
-      img.width = 150;
-      document.getElementById('preview').appendChild(img)
-      document.getElementById('preview').firstChild.id = 'submitPhoto';
+      document.getElementById('submitPhoto').setAttribute('src', reader.result);
+      // document.getElementById("profilePicDisplay").style.display = "none";
+      // var img = document.createElement('img')
+      // img.src = reader.result
+      // img.width = 150;
+      // document.getElementById('preview').appendChild(img)
+      // document.getElementById('preview').firstChild.id = 'submitPhoto';
     }
   }
 }
