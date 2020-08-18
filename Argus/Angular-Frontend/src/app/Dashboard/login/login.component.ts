@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserService } from '../../model/user.service';
-import { BackendsessionService } from '../../model/backendsession.service';
+import { SessionService } from '../../model/session.service';
 import { User } from '../../model/user';
 import { Session } from '../../../assets/js/SessionStorage.js';
 import { RecoverPasswordEmail } from '../../../assets/js/RecoverPasswordEmail.js';
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   sessionS = new Session();
   users: Observable<User[]>;
 
-  constructor(private userService: UserService, private sessService: BackendsessionService, private router: Router) { }
+  constructor(private userService: UserService, private sessService: SessionService, private router: Router) { }
 
   recoverPasswordEmail(){
     const emailInp = document.getElementById('emailIn') as HTMLInputElement;

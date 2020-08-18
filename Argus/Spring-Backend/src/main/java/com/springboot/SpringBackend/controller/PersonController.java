@@ -2,10 +2,8 @@ package com.springboot.SpringBackend.controller;
 
 import com.springboot.SpringBackend.config.RabbitMQConfig;
 import com.springboot.SpringBackend.exception.ResourceNotFoundException;
-import com.springboot.SpringBackend.model.Face;
-import com.springboot.SpringBackend.model.Image;
 import com.springboot.SpringBackend.model.Person;
-import com.springboot.SpringBackend.rabbit.RabbitPerson;
+import com.springboot.SpringBackend.model.RabbitPerson;
 import com.springboot.SpringBackend.service.FaceService;
 import com.springboot.SpringBackend.service.PersonService;
 import org.springframework.amqp.core.AmqpTemplate;
@@ -47,9 +45,8 @@ public class PersonController {
 
     @PostMapping("/people")
     public Person addPerson(@Valid @RequestBody Person x) {
-        //RabbitPerson p = new RabbitPerson(x.getPersonId(), x.getPersonListed(), "null", x.getPersonImg().getPhoto(), true);
-        //amqpTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.PERSON_KEY, p);
-
+        RabbitPerson p = new RabbitPerson(x.getPersonId(), x.getPersonListed(), true, x.getPersonImg(), false);
+        amqpTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.PERSON_KEY, p);
         return service.createPerson(x);
     }
 
@@ -75,22 +72,15 @@ public class PersonController {
 
         final Person updatedPerson = service.updatePerson(x);
 
-        /*
-        List<Face> list = faceService.getAllFaces();
-        Face faceStr = null;
-        for (Face f: list) {
-            if(f.getPerson().getPersonId() == updatedPerson.getPersonId()) {
-                faceStr = f;
-                break;
-            }
-        }
-
-        if(faceStr != null){
-            RabbitPerson p = new RabbitPerson(updatedPerson.getPersonId(), updatedPerson.getPersonListed(),
-                    faceStr.getFeatures(), updatedPerson.getPersonImg().getPhoto(), true);
+        if(details.getPersonDeleted() != null) {
+            RabbitPerson p = new RabbitPerson(x.getPersonId(), x.getPersonListed(), true, x.getPersonImg(), true);
             amqpTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.PERSON_KEY, p);
         }
-        */
+        else
+        {
+            RabbitPerson p = new RabbitPerson(x.getPersonId(), x.getPersonListed(), false, x.getPersonImg(), true);
+            amqpTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.PERSON_KEY, p);
+        }
 
         return ResponseEntity.ok(updatedPerson);
     }
