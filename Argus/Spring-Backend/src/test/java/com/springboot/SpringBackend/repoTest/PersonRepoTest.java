@@ -17,8 +17,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class PersonRepoTest {
     private static final String IMAGE_URL = "http://an-imageurl.com/image1.jpg";
 
-    @Autowired
-    private ImageRepo irepo;
+    // @Autowired
+    // private ImageRepo irepo;
     @Autowired
     private PersonRepo prepo;
 
@@ -29,15 +29,16 @@ public class PersonRepoTest {
 
     @Test
     public void testPersistence() {
-        Image img = new Image(IMAGE_URL);
-        irepo.save(img);
+        // Image img = new Image(IMAGE_URL);
+        // irepo.save(img);
 
-        Person person = new Person(img);
+        Person person = new Person(IMAGE_URL);
         prepo.save(person);
 
         Assert.assertNotNull(person.getPersonId());
         Person newPsn = prepo.findById(person.getPersonId()).orElse(null);
         Assert.assertEquals((Long) 1L, newPsn.getPersonId());
+        Assert.assertEquals(IMAGE_URL, newPsn.getPersonImg());
         Assert.assertEquals("Unknown", newPsn.getFname());
         Assert.assertEquals("Unknown", newPsn.getLname());
         Assert.assertEquals("Grey", newPsn.getPersonListed());

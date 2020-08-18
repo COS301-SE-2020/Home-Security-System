@@ -20,8 +20,8 @@ public class FaceRepoTest {
     private static final String IMAGE_URL = "http://an-imageurl.com/image1.jpg";
     private static final String FEATURES = "Face";
 
-    @Autowired
-    private ImageRepo irepo;
+    // @Autowired
+    // private ImageRepo irepo;
     @Autowired
     private PersonRepo prepo;
     @Autowired
@@ -34,10 +34,10 @@ public class FaceRepoTest {
 
     @Test
     public void testPersistence() {
-        Image img = new Image(IMAGE_URL);
-        irepo.save(img);
+        // Image img = new Image(IMAGE_URL);
+        // irepo.save(img);
 
-        Person person = new Person(img);
+        Person person = new Person(IMAGE_URL);
         prepo.save(person);
 
         Face face = new Face(person, FEATURES);

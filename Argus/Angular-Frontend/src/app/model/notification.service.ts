@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +14,11 @@ export class NotificationService {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
-  addNotification(notification: Object): Observable<Object> {
+  addNotification(notification: any): Observable<any> {
     return this.http.post(`${this.baseUrl}`, notification);
   }
 
-  updateNotification(id: number, value: any): Observable<Object> {
+  updateNotification(id: number, value: any): Observable<any> {
     return this.http.put(`${this.baseUrl}/${id}`, value);
   }
 
@@ -29,10 +28,5 @@ export class NotificationService {
 
   getNotificationList(): Observable<any> {
     return this.http.get(`${this.baseUrl}`);
-  }
-
-  private handleError(error: Response)
-  {
-    return Observable.throw(error);
   }
 }

@@ -29,12 +29,11 @@ public class NotificationController {
 
     @GetMapping("/notifications")
     public List<Notification> getAllNotifications() {
-        List<Notification> notify = service.getAllNotifications();
-        return  notify;
+       return service.getAllNotifications();
     }
 
     @GetMapping("/notifications/{id}")
-    public ResponseEntity<Notification> getUserById(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
+    public ResponseEntity<Notification> getNotificationById(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
         Notification x = service.getNotificationById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Notification not found for this id :: " + id));
         return ResponseEntity.ok().body(x);
@@ -46,7 +45,7 @@ public class NotificationController {
     }
 
     @PutMapping("/notifications/{id}")
-    public ResponseEntity<Notification> editUser(@PathVariable(value = "id") Long id,
+    public ResponseEntity<Notification> editNotification(@PathVariable(value = "id") Long id,
                                          @Valid @RequestBody Notification details) throws ResourceNotFoundException {
         Notification x = service.getNotificationById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Notification not found for this id :: " + id));

@@ -31,7 +31,7 @@ public class ImageController {
     }
 
     @GetMapping("/images/{id}")
-    public ResponseEntity<Image> getUserById(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
+    public ResponseEntity<Image> getImageById(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
         Image x = service.getImageById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Image not found for this id :: " + id));
         return ResponseEntity.ok().body(x);
@@ -43,7 +43,7 @@ public class ImageController {
     }
 
     @PutMapping("/images/{id}")
-    public ResponseEntity<Image> editUser(@PathVariable(value = "id") Long id,
+    public ResponseEntity<Image> editImage(@PathVariable(value = "id") Long id,
                                                  @Valid @RequestBody Image details) throws ResourceNotFoundException {
         Image x = service.getImageById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Image not found for this id :: " + id));

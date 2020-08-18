@@ -15,7 +15,7 @@ public class Vehicle implements Serializable {
     private static final long serialVersionUID = -5448294771628276088L;
 
     public enum vehicleType {
-        White, Grey, Black;
+        White, Grey, Black
     }
 
     @Id
@@ -23,9 +23,10 @@ public class Vehicle implements Serializable {
     @Column(name = "vehicle_id", nullable = false)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name="image_id", nullable = false)
-    private Image vehicleImg;
+    // @ManyToOne
+    // @JoinColumn(name="image_id", nullable = false)
+    @Column(name = "image", nullable = false)
+    private String vehicleImg;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "vehiclelisted", nullable = false)
@@ -50,7 +51,7 @@ public class Vehicle implements Serializable {
 
     public Vehicle() { }
 
-    public Vehicle(Image img, String listed, String licenseNo) {
+    public Vehicle(String img, String listed, String licenseNo) {
         this.vehicleImg = img;
 
         if(listed.equalsIgnoreCase("White"))
@@ -73,7 +74,7 @@ public class Vehicle implements Serializable {
         this.vehicleCreated = LocalDate.now();
     }
 
-    public Vehicle(Image img, String licenseNo) {
+    public Vehicle(String img, String licenseNo) {
         this.vehicleImg = img;
         //this.vehicleListed = "Grey";
         this.vehicleListed = vehicleType.Grey;
@@ -81,7 +82,7 @@ public class Vehicle implements Serializable {
         this.vehicleCreated = LocalDate.now();
     }
 
-    public Vehicle(Image img, String listed, String licenseNo, Person p) {
+    public Vehicle(String img, String listed, String licenseNo, Person p) {
         this.vehicleImg = img;
 
         if(listed.equalsIgnoreCase("White"))
@@ -105,7 +106,7 @@ public class Vehicle implements Serializable {
         this.person = p;
     }
 
-    public Vehicle(Image img, String licenseNo, Person p) {
+    public Vehicle(String img, String licenseNo, Person p) {
         this.vehicleImg = img;
         //this.vehicleListed = "Grey";
         this.vehicleListed = vehicleType.Grey;
@@ -121,11 +122,11 @@ public class Vehicle implements Serializable {
         this.id = id;
     }
 
-    public Long getVehicleImgId() { return this.vehicleImg.getImageId(); }
-    public Image getVehicleImg() {
+    // public Long getVehicleImgId() { return this.vehicleImg.getImageId(); }
+    public String getVehicleImg() {
         return this.vehicleImg;
     }
-    public void setVehicleImg(Image img) {
+    public void setVehicleImg(String img) {
         if (img != null) {
             this.vehicleImg = img;
         }
