@@ -4,6 +4,7 @@ import com.springboot.SpringBackend.controller.MailerController;
 import com.springboot.SpringBackend.controller.SessionController;
 import com.springboot.SpringBackend.model.*;
 import com.springboot.SpringBackend.service.*;
+import net.minidev.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -42,12 +43,18 @@ public class RabbitConsumer{
     @RabbitListener(queues = {"alertQueue"})
     public void receivedAlert(RabbitAlert alert) {
         // User session id
-        ssession.getSessionDetails();
-        Optional<User> u =  userService.getUserById(Long.valueOf(1));
+        JSONArray arr = ssession.getSessionDetails();
+        Long id;
+
+        //for (int i = 0; i < arr.size(); i++) {
+            id = (Long) arr.get(0);
+        //}
+
+        Optional<User> u =  userService.getUserById(id);
 
         if(alert.getPersonId() != 0)
         {
-            Optional<Person> p =  personService.getPersonById(alert.getPersonId());
+            Optional<Person> p = personService.getPersonById(alert.getPersonId());
 
             // Image img = new Image(alert.getImageStr());
             // imageService.createImage(img);

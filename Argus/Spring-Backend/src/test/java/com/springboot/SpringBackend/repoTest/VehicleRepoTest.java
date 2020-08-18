@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest
 public class VehicleRepoTest {
     private static final String IMAGE_URL = "http://an-imageurl.com/image1.jpg";
-    private static final String LICENCE = "36FW58GP";
+    private static final String LICENCE = "CW36FWGP";
 
     @Autowired
     private ImageRepo irepo;
