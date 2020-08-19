@@ -159,6 +159,7 @@ def cam_feed():
                                                       body=json.dumps(message))
                         up_face = True
                     else:
+                        c.imshow("view", frame)
                         if time.time() - time_dict[f_name] > successive_detection_ignore:
                             time_dict[f_name] = time.time()
 
@@ -180,10 +181,9 @@ def cam_feed():
                                                               routing_key='alertKey',
                                                               body=json.dumps(message))
 
-            c.imshow("view", frame)
-
             if up_face:
                 all_f_features, time_dict = load_faces(path_features)
+                up_face = False
 
             for cam in cams:
                 frames = list()
@@ -223,7 +223,7 @@ def rabbit_consume():
     message_channel.start_consuming()
 
 
-consumer = threading.Thread(target=rabbit_consume, daemon=True)
-consumer.start()
+# consumer = threading.Thread(target=rabbit_consume, daemon=True)
+# consumer.start()
 cam_feed()
 rabbit_conn.close()
