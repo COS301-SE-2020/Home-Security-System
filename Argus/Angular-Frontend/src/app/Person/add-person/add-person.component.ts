@@ -93,6 +93,7 @@ export class AddPersonComponent implements OnInit {
 
   onSubmit() {
     this.addPerson();
+    location.reload();
   }
 
   gotoList() {

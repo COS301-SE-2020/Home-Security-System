@@ -29,13 +29,17 @@ export class TopNavComponent implements OnInit {
     this.sessionS.deleteSession();
   }
 
-  ngOnInit(): void {
-    // this.appService.getTitle().subscribe(appTitle => title = appTitle);
+  displayProfilePic(){
     const uPic = document.getElementById('profilePic') as HTMLImageElement;
     this.userService.getUserById(this.sessionS.retrieveUserInfo().id).subscribe(
       data => {
         uPic.src = data.profilePhoto;
       });
+  }
+
+  ngOnInit(): void {
+    // this.appService.getTitle().subscribe(appTitle => title = appTitle);
+   this.displayProfilePic();
     // this.countNotifications();
   }
 
