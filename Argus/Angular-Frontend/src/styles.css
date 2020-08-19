@@ -1,3 +1,11 @@
+.ImgClassName {
+  transition: transform 0.5s;
+}
+
+.ImgClassName:hover {
+  transform: scale(1.5);
+}
+
 .center {
   text-align: center;
 }
@@ -156,11 +164,11 @@ a:hover {
 /*    text-decoration: none;*/
 /*}*/
 
-a:not([href]):not([tabindex]):hover,
-a:not([href]):not([tabindex]):focus {
-  color: inherit;
-  text-decoration: none;
-}
+/*a:not([href]):not([tabindex]):hover,*/
+/*a:not([href]):not([tabindex]):focus {*/
+/*  color: inherit;*/
+/*  text-decoration: none;*/
+/*}*/
 
 a:not([href]):not([tabindex]):focus {
   outline: 0;
@@ -562,11 +570,11 @@ a:hover {
 /*    text-decoration: none;*/
 /*}*/
 
-a:not([href]):not([tabindex]):hover,
-a:not([href]):not([tabindex]):focus {
-  color: inherit;
-  text-decoration: none;
-}
+/*a:not([href]):not([tabindex]):hover,*/
+/*a:not([href]):not([tabindex]):focus {*/
+/*  color: inherit;*/
+/*  text-decoration: none;*/
+/*}*/
 
 a:not([href]):not([tabindex]):focus {
   outline: 0;
@@ -3516,12 +3524,13 @@ tbody.collapse.show {
   width: 0;
   height: 0;
   margin-left: 0.255em;
-  vertical-align: 0.255em;
   content: "";
   border-top: 0.3em solid;
   border-right: 0.3em solid transparent;
   border-bottom: 0;
   border-left: 0.3em solid transparent;
+  font-size: 200%;
+  vertical-align: middle;
 }
 
 .dropdown-toggle:empty::after {
@@ -9272,7 +9281,6 @@ a.text-dark:focus {
 }
 
 .text-hide {
-  font: 0/0 a;
   color: transparent;
   text-shadow: none;
   background-color: transparent;
@@ -19772,53 +19780,6 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
   transition: all 0.2s ease-in-out;
 }
 
-.open-modal:hover {
-  opacity: 0.5;
-}
-
-/*PICTURE UPLOAD*/
-input[type="file"] {
-  display: none;
-}
-
-.custom-file-upload {
-  height: 50%;
-  background: #DCDCDC;
-  color: #696969;
-  display: block;
-  padding: 10px 15px;
-  cursor: pointer;
-  outline: 3px dashed #ccc;
-  outline-offset: -7px;
-  border-radius: 5px;
-}
-
-.custom-file-upload:hover {
-  background: #D3D3D3;
-  outline: 3px dashed #C0C0C0;
-}
-
-.add-photo-icon {
-  font-size: 200%;
-}
-
-.picture-center {
-  width: 100px;
-  margin: auto;
-  display: block;
-}
-
-.output {
-  width: 100px;
-  margin: auto;
-  display: block;
-}
-
-.squarePhoto
-{
-  width: 100px;
-  height: 100px;
-}
 
 .modal-header
 {
@@ -19890,66 +19851,6 @@ input[type="file"] {
 }
 
 /*Settings Styles*/
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 45px;
-  height: 25px;
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 13px;
-  width: 13px;
-  left: 2px;
-  bottom: 2px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .slider {
-  background-color: #d4af37;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #d4af37;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(20px);
-  -ms-transform: translateX(20px);
-  transform: translateX(20px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 17px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-
 .settingsCells{
   padding: 10px;
 }
@@ -19959,8 +19860,6 @@ input:checked + .slider:before {
   color: rgb(51,51,51);
 }
 
-
-/*HHHHHHHHHHHHHHHHH*/
 input[type="checkbox"].switch_2{
   appearance: none;
   width: 40px;
@@ -19995,4 +19894,83 @@ input[type="checkbox"].switch_2:before{
 input[type="checkbox"].switch_2:checked:before{
   left: calc(100% - 17px);
   background: #d4af37;
+}
+
+#saveBtn{
+  padding: 10px;
+  font-size: 13px;
+  color: rgb(51,51,51);
+  text-transform: none;
+}
+/*MODIFY ICONS*/
+.listPageIcons{
+  color: black;
+  padding: 5px;
+}
+
+.listPageIcons:hover{
+  cursor: pointer;
+  color: #6c757d;
+  transition-duration: .2s;
+  }
+
+/*PICTURE UPLOAD*/
+input[type="file"] {
+  display: none;
+}
+
+#profilePicInput {
+  height: 50%;
+  background: #DCDCDC;
+  color: #696969;
+  display: block;
+  padding: 10px 15px;
+  cursor: pointer;
+  outline: 3px dashed #ccc;
+  outline-offset: -7px;
+  border-radius: 5px;
+}
+
+#profilePicInput:hover {
+  background: #D3D3D3;
+  outline: 3px dashed #C0C0C0;
+}
+
+#profilePicInput.highlight {
+  background: #D3D3D3;
+  outline: 3px dashed #C0C0C0;
+}
+
+.add-photo-icon {
+  font-size: 200%;
+}
+
+.picture-center {
+  width: 100px;
+  margin: auto;
+  display: block;
+}
+
+#preview img {
+  width: 150px;
+}
+
+.squarePhoto
+{
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.squarePhoto:hover {opacity: 0.7;}
+
+.hoverPointer{
+  cursor: pointer;
+}
+
+dropdown-fontInc
+{
+  color: red;
 }

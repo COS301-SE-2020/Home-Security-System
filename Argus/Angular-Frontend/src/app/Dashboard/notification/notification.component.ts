@@ -5,6 +5,7 @@ import {Notification} from '../../model/notification';
 import {NotificationService} from '../../model/notification.service';
 import {TitleService} from '../../title.service';
 import {Router} from '@angular/router';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-notification',
@@ -12,35 +13,39 @@ import {Router} from '@angular/router';
   styleUrls: ['./notification.component.css']
 })
 
-
 export class NotificationComponent implements OnInit {
   notification: Observable<Notification[]>;
+  note: Notification;
 
-  constructor(private notificationService: NotificationService, private appService: TitleService) {
-  }
+  constructor(private notificationService: NotificationService, private SpinnerService: NgxSpinnerService,
+              private appService: TitleService) { }
 
   reloadData() {
+    this.note = new Notification();
     this.notification = this.notificationService.getNotificationList();
-    this.notificationService.getNotificationList()
-      .subscribe(
-        data => {
-          console.log(data);
-        },
-        error => console.log(error));
   }
 
   removeNotification(id: number) {
-    this.notificationService.deleteNotification(id)
+    this.SpinnerService.show();
+    this.notificationService.getNotificationById(id)
       .subscribe(
-        data => {
-          console.log(data);
-          this.reloadData();
-        },
-        error => console.log(error));
+      data => {
+        // console.log(data);
+        this.note = data;
+        this.note.notificationDeleted = new Date();
+        this.notificationService.updateNotification(id, this.note)
+          .subscribe(value => {
+            // console.log(value);
+            setTimeout(() => {
+              this.SpinnerService.hide();
+            }, 500);
+            this.reloadData();
+          }, error => console.log(error));
+      }, error => console.log(error));
   }
 
   ngOnInit(): void {
-    this.appService.setTitle('Black List');
+    this.appService.setTitle('Notifications');
     this.reloadData();
   }
 }

@@ -11,7 +11,7 @@
   <h1 class="loginHead">Welcome to</h1>
   <div class="loginLogo">
     <a class="simple-text">
-      <img src="assets/Images/ArgusLogo.png" width="50%">
+      <img src="assets/Images/ArgusLogo.png" width="50%" alt="Argus Logo">
     </a>
   </div>
   <i class="material-icons login-close-btn" onclick="closeLogin()">close</i>
@@ -25,7 +25,7 @@
       <i class="material-icons" id="passwordVisibility" onclick="showPassword('')">visibility_off</i>
     </label>
 
-    <a class="loginButton" (click)="makeSession()">Log in</a>
+    <a class="loginButton" (click)="makeSession()" id="loginBtn">Log in</a>
     <div id="remember-container">
       <span id="forgotten" onclick="forgot()">Forgot password?</span>
     </div>
@@ -40,8 +40,8 @@
 
   <form>
     <label class="loginFields">
-      <input class="loginInputs" type="email" name="email" placeholder="E-mail">
+      <input class="loginInputs" id="emailIn" type="email" name="email" placeholder="E-mail">
     </label>
-    <a [routerLink]="['/reset-password']" class="loginButton loginInputs loginButton">Send Password Reset Link</a>
+    <a class="loginButton loginInputs loginButton" (click)="recoverPasswordEmail()">Next</a>
   </form>
 </div>

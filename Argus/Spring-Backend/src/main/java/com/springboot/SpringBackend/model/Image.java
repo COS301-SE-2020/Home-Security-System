@@ -22,9 +22,10 @@ public class Image implements Serializable {
     @Column(name = "photo", nullable = false)
     private String photo;
 
-    @Column(name = "imagedeleted", nullable = true)
+    @Column(name = "imagedeleted")
     private LocalDate imageDeleted = null;
 
+    /*
     @JsonIgnore
     @OneToMany(mappedBy="profilePhoto", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<User> users;
@@ -37,6 +38,7 @@ public class Image implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy="notificationImg", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Notification> notifications = null;
+    */
 
     public Image() { }
     public Image(String img) {
@@ -63,7 +65,11 @@ public class Image implements Serializable {
         }
         return null;
     }
-    public void setImageDeleted() {
-        this.imageDeleted = LocalDate.now();
+    public void setImageDeleted(LocalDate date) {
+        if (date != null) {
+            this.imageDeleted = LocalDate.now();
+        } else {
+            this.imageDeleted = null;
+        }
     }
 }

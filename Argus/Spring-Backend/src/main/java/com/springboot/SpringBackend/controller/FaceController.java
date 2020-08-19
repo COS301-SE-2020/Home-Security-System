@@ -24,24 +24,24 @@ public class FaceController {
     }
 
     @GetMapping("/faces")
-    public List<Face> getPeopleList() {
+    public List<Face> getFaceList() {
         return service.getAllFaces();
     }
 
     @GetMapping("/faces/{id}")
-    public ResponseEntity<Face> getPersonById(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
+    public ResponseEntity<Face> getFaceById(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
         Face x = service.getFaceById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Face not found for this id :: " + id));
         return ResponseEntity.ok().body(x);
     }
 
     @PostMapping("/faces")
-    public Face addPerson(@Valid @RequestBody Face x) {
+    public Face addFace(@Valid @RequestBody Face x) {
         return service.createFace(x);
     }
 
     @PutMapping("/faces/{id}")
-    public ResponseEntity<Face> editPerson(@PathVariable(value = "id") Long id,
+    public ResponseEntity<Face> editFace(@PathVariable(value = "id") Long id,
                                              @Valid @RequestBody Face details) throws ResourceNotFoundException {
         Face x = service.getFaceById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Face not found for this id :: " + id));
@@ -51,12 +51,13 @@ public class FaceController {
             x.setPerson(details.getPerson());
         }
         x.setFeatures(details.getFeatures());
-        final Face updatedPerson = service.updateFace(x);
-        return ResponseEntity.ok(updatedPerson);
+        x.setFaceDeleted(details.getFaceDeleted());
+        final Face updatedFace = service.updateFace(x);
+        return ResponseEntity.ok(updatedFace);
     }
 
     @DeleteMapping("/faces/{id}")
-    public Map<String, Boolean> deletePerson(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
+    public Map<String, Boolean> deleteFace(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
         Face x = service.getFaceById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Face not found for this id :: " + id));
 

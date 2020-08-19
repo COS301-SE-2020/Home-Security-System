@@ -1,8 +1,12 @@
 package com.springboot.SpringBackend.controller;
 
+import com.springboot.SpringBackend.config.RabbitMQConfig;
 import com.springboot.SpringBackend.exception.ResourceNotFoundException;
 import com.springboot.SpringBackend.model.Person;
+import com.springboot.SpringBackend.model.RabbitPerson;
+import com.springboot.SpringBackend.service.FaceService;
 import com.springboot.SpringBackend.service.PersonService;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +21,14 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:4200")
 public class PersonController {
     private final PersonService service;
+    private final FaceService faceService;
+    private AmqpTemplate amqpTemplate;
 
     @Autowired
-    public PersonController(PersonService service) {
+    public PersonController(PersonService service, FaceService faceService, AmqpTemplate template) {
         this.service = service;
+        this.faceService = faceService;
+        this.amqpTemplate = template;
     }
 
     @GetMapping("/people")
@@ -37,6 +45,8 @@ public class PersonController {
 
     @PostMapping("/people")
     public Person addPerson(@Valid @RequestBody Person x) {
+        RabbitPerson p = new RabbitPerson(x.getPersonId(), x.getPersonListed(), true, x.getPersonImg(), false);
+        amqpTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.UPDATE_KEY, p);
         return service.createPerson(x);
     }
 
@@ -58,7 +68,20 @@ public class PersonController {
             x.setLname(details.getLname());
         }
         x.setPersonListed(details.getPersonListed());
+        x.setPersonDeleted(details.getPersonDeleted());
+
         final Person updatedPerson = service.updatePerson(x);
+
+        if(details.getPersonDeleted() != null) {
+            RabbitPerson p = new RabbitPerson(x.getPersonId(), x.getPersonListed(), true, x.getPersonImg(), true);
+            amqpTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.UPDATE_KEY, p);
+        }
+        else
+        {
+            RabbitPerson p = new RabbitPerson(x.getPersonId(), x.getPersonListed(), false, x.getPersonImg(), true);
+            amqpTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.UPDATE_KEY, p);
+        }
+
         return ResponseEntity.ok(updatedPerson);
     }
 
@@ -71,6 +94,7 @@ public class PersonController {
 
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
+
         return response;
     }
 }

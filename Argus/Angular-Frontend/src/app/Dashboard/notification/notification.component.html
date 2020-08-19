@@ -1,39 +1,71 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header card-header-primary">
-                    <h4 class="card-title">Notifications</h4>
-                    <p class="card-category">A history of all the notifications sent to you</p>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header card-header-primary">
+          <h4 class="card-title">Notifications</h4>
+          <p class="card-category">A history of all the notifications sent to you</p>
+        </div>
+        <div class="card-body">
+          <!--Search Bar Starts Here-->
+          <div class="row">
+            <div class="col-11">
+              <div class="input-group">
+                <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="material-icons">search</i>
+              </span>
                 </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                      <table id ="notificationsTable">
-                        <thead class="text-primary">
-                        <tr>
-                          <th>Date-Time</th>
-                          <th>Message</th>
-                          <th>Image</th>
-                          <th>Remove</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <ng-container *ngFor="let note of notification | async">
-                          <tr>
-                            <td>{{note.onDate}}&nbsp;{{note.atTime}}</td>
-                            <td>{{note.message}}</td>
-                            <td><img src="{{note.notificationImg.photo}}" class="squarePhoto"></td>
-                            <td>
-                              <a class="btn btn-primary" (click)="removeNotification(note.notificationId)">Dismiss</a>
-                            </td>
-                          </tr>
-                        </ng-container>
-                        </tbody>
-                      </table>
-                  </div>
+                <input type="text" class="form-control" id="searchInput" placeholder="Search by Date..."
+                       onkeyup="searchFunc('notificationsTable', 0)">
               </div>
+            </div>
+            <a class="dropdown-toggle btn-sm hoverPointer" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a class="dropdown-item hoverPointer" onclick="changeSearchFunc('notificationsTable','Search by Date...', 0)">Search by
+                Date</a>
+              <a class="dropdown-item hoverPointer" onclick="changeSearchFunc('notificationsTable','Search by Type...',1)">Search by Type</a>
+              <a class="dropdown-item hoverPointer" onclick="changeSearchFunc('notificationsTable','Search by Message...',2)">Search by
+                Message</a>
+            </div>
           </div>
+          <br>
+          <!--Table Starts Here-->
+          <div class="table-responsive table-striped">
+            <table class="table center" id="notificationsTable">
+              <thead class="text-primary">
+              <th class="hoverPointer" onclick="sortTable('notificationsTable', 0)">Date-Time</th>
+              <th class="hoverPointer" onclick="sortTable('notificationsTable', 1)">Type</th>
+              <th class="hoverPointer" onclick="sortTable('notificationsTable', 2)">Message</th>
+              <th>Image</th>
+              <th>Remove</th>
+              </thead>
+              <tbody>
+              <ng-container *ngFor="let note of notification | async">
+                <tr *ngIf="note.notificationDeleted == null">
+                  <td>{{note.onDate}}&nbsp;{{note.atTime}}</td>
+                  <td>{{note.listed}}</td>
+                  <td>{{note.message}}</td>
+                  <td>
+                    <img alt="Image" id="noteImg{{note.notificationId}}" src="{{note.notificationImg}}"
+                         class="squarePhoto">
+                  </td>
+                  <td>
+                    <a class="material-icons listPageIcons" (click)="removeNotification(note.notificationId)">delete</a>
+                  </td>
+                </tr>
+              </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
+    </div>
   </div>
 </div>
 
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+  <p style="color: white">Please Wait. </p>
+</ngx-spinner>

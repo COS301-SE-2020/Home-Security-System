@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,8 +13,12 @@ export class ImageService {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
-  addImage(notification: Object): Observable<Object> {
-    return this.http.post(`${this.baseUrl}`, notification);
+  addImage(image: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}`, image);
+  }
+
+  updateImage(id: number, value: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/${id}`, value);
   }
 
   deleteImage(id: number): Observable<any> {
@@ -24,10 +27,5 @@ export class ImageService {
 
   getImageList(): Observable<any> {
     return this.http.get(`${this.baseUrl}`);
-  }
-
-  private handleError(error: Response)
-  {
-    return Observable.throw(error);
   }
 }

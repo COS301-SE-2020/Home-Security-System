@@ -38,7 +38,7 @@ public class Face implements Serializable {
     public Long getFaceId() { return this.id; }
     public void setFaceId(Long fid) { this.id = fid; }
 
-    //public Long getPersonId() { return this.person.getPersonId(); }
+    public Long getPersonId() { return this.person.getPersonId(); }
     public Person getPerson() {
         return this.person;
     }
@@ -59,5 +59,11 @@ public class Face implements Serializable {
         }
         return null;
     }
-    public void setFaceDeleted() { this.faceDeleted = LocalDate.now(); }
+    public void setFaceDeleted(LocalDate date) {
+        if (date != null) {
+            this.faceDeleted = LocalDate.now();
+        } else {
+            this.faceDeleted = null;
+        }
+    }
 }
