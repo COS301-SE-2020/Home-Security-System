@@ -124,11 +124,12 @@ export class UserProfileComponent implements OnInit {
   }
 
   updateUserPic() {
-    const uPicUploaded = document.getElementById('profilePicInputUP') as HTMLImageElement;
+    const photoInp = document.getElementById('submitPhoto').getAttribute('src');
+
     let userObj;
     userObj = this.sessionS.retrieveUserInfo();
 
-    this.user.profilePhoto = uPicUploaded.src;
+    this.user.profilePhoto = photoInp;
 
     this.userService.updateUser(userObj.id, this.user).subscribe(data => {
       // console.log(data);
