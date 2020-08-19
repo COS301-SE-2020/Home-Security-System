@@ -92,21 +92,21 @@ def save_face(path, image, f_d=face_d, f_r=face_r):
 def cam_feed():
     global up_face, all_f_features, time_dict
     cams = list()
-    frames = list()
+    windows = list()
     for x in range(num_cams):
         cams.append(c.VideoCapture(x))
-
-    c.namedWindow("view")
+        windows.append(str(x))
+        c.namedWindow(str(x))
 
     f = True
+    frames = list()
     for cam in cams:
-        frames = list()
         t, fr = cam.read()
         frames.append(fr)
         f = f and t
 
     while f:
-        for frame in frames:
+        for w_num, frame in enumerate(frames):
             pix = np.asarray(frame)
             faces = face_d.detect_faces(pix)
             face_pix = list()
@@ -159,7 +159,6 @@ def cam_feed():
                                                       body=json.dumps(message))
                         up_face = True
                     else:
-                        c.imshow("view", frame)
                         if time.time() - time_dict[f_name] > successive_detection_ignore:
                             time_dict[f_name] = time.time()
 
@@ -181,22 +180,24 @@ def cam_feed():
                                                               routing_key='alertKey',
                                                               body=json.dumps(message))
 
-            if up_face:
-                all_f_features, time_dict = load_faces(path_features)
-                up_face = False
+            c.imshow(str(w_num), frame)
 
+        if up_face:
+            all_f_features, time_dict = load_faces(path_features)
+            up_face = False
+
+        frames = list()
+        for cam in cams:
+            t, fr = cam.read()
+            frames.append(fr)
+            f = f and t
+
+        key = c.waitKey(5)
+        if key == 27:
             for cam in cams:
-                frames = list()
-                t, fr = cam.read()
-                frames.append(fr)
-                f = f and t
-
-            key = c.waitKey(5)
-            if key == 27:
-                for cam in cams:
-                    cam.release()
-                c.destroyWindow("view")
-                break
+                cam.release()
+            c.destroyAllWindows()
+            break
 
 
 def rabbit_consume():
