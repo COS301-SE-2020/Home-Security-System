@@ -8,6 +8,7 @@ import {Observable, Subject} from 'rxjs';
 import {Image} from '../../model/image';
 import {ImageService} from '../../model/image.service';
 import {Session} from '../../../assets/js/SessionStorage';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-add-user',
@@ -24,7 +25,7 @@ export class AddUserComponent implements OnInit {
   useDefaultImg = true;
 
   constructor(private usersService: UserService, private imageService: ImageService,
-              private appService: TitleService, private router: Router) {
+              private appService: TitleService, private router: Router, private SpinnerService: NgxSpinnerService) {
   }
 
   // noinspection JSAnnotator
@@ -132,7 +133,7 @@ export class AddUserComponent implements OnInit {
         }, error => console.log(error));
 
       this.gotoList();
-    } 
+    }
     else {
       this.submitted = false;
       alert('Cannot add a new user. Not all the fields are filled in.');
@@ -149,7 +150,11 @@ export class AddUserComponent implements OnInit {
 
   gotoList() {
     // const cardV = document.getElementsByClassName('modal') ;
-    this.router.navigate(['/user-list']);
+    setTimeout(() => {
+      this.SpinnerService.hide();
+    }, 500);
+    location.reload();
+    // this.router.navigate(['/user-list']);
   }
 
   getDefaultImage(): string {
