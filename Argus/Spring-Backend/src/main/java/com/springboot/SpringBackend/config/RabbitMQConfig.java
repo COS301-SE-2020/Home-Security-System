@@ -21,9 +21,11 @@ public class RabbitMQConfig {
     public static final String ALERT_QUEUE = "alertQueue";
     public static final String PERSON_QUEUE = "personQueue";
     public static final String FEATURE_QUEUE = "featureQueue";
+    public static final String UPDATE_QUEUE = "updateQueue";
     public static final String ALERT_KEY = "alertKey";
     public static final String PERSON_KEY = "personKey";
     public static final String FEATURE_KEY = "featureKey";
+    public static final String UPDATE_KEY = "updateKey";
 
     @Bean
     Queue alertQueue()
@@ -44,6 +46,12 @@ public class RabbitMQConfig {
     }
 
     @Bean
+    Queue updateQueue()
+    {
+        return new Queue(UPDATE_QUEUE, false);
+    }
+
+    @Bean
     DirectExchange exchange(){
         return new DirectExchange(EXCHANGE_NAME);
     }
@@ -61,6 +69,11 @@ public class RabbitMQConfig {
     @Bean
     public Binding featureBinding() {
         return BindingBuilder.bind(featureQueue()).to(exchange()).with(FEATURE_KEY);
+    }
+
+    @Bean
+    public Binding updateBinding() {
+        return BindingBuilder.bind(updateQueue()).to(exchange()).with(UPDATE_KEY);
     }
 
     @Bean
