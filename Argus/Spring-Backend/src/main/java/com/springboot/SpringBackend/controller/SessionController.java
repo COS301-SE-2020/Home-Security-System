@@ -6,6 +6,7 @@ import net.minidev.json.JSONObject;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,13 +18,19 @@ public class SessionController {
     SessionModel sessionStore;
 
     // http://localhost:8080/springboot/sessions/addSession/
-    @PostMapping(value = "/addSession/{id}/{email}/{password}/{role}")
+    @PostMapping(value = "/addSession")
+    public String addSession(@Valid @RequestBody SessionModel sm) {
+        sessionStore = new SessionModel(sm.getID(), sm.getEmail(), sm.getPassword(), sm.getRole());
+        tableData.add(sessionStore);
+        return "Added user to session";
+    }
+    /*@PostMapping(value = "/addSession/{id}/{email}/{password}/{role}")
     public String addSession(@PathVariable("id") String id, @PathVariable("email") String email,
                           @PathVariable("password") String password, @PathVariable("role") String role) {
         sessionStore = new SessionModel(id, email, password, role);
         tableData.add(sessionStore);
         return "Added user to session";
-    }
+    }*/
     // http://localhost:8080/springboot/sessions/getEmails/
     @GetMapping(value = "/getAllEmails")
     public String[] getAllEmails() {

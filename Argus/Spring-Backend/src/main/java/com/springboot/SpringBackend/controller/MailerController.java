@@ -73,7 +73,7 @@ public class MailerController {
     public void setImage(String b64Image){
         try {
             byte image[] = Base64.decodeBase64(b64Image);
-            FileOutputStream fos = new FileOutputStream(new File("c:/decode/abc.bmp"));
+            FileOutputStream fos = new FileOutputStream(new File(imagePath + "/abc.bmp"));
             fos.write(image);
             fos.close();
         }

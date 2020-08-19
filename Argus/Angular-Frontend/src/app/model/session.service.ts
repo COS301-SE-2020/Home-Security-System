@@ -20,11 +20,11 @@ export class SessionService {
     return this.http.get(`${this.baseUrl}/getAllEmails`);
   }
 
-  addToSession(id: string, email: string, password: string, role: string) {
-    return this.http.get(`${this.baseUrl}/addSession/${id}/${email}/${password}/${role}`);
+  addToSession(session: any) {
+    return this.http.post(`${this.baseUrl}/addSession`, session);
   }
 
   deleteSessionById(id: string) {
-    return this.http.get(`${this.baseUrl}/deleteSessionId/${id}`);
+    return this.http.delete(`${this.baseUrl}/deleteSessionId/${id}`);
   }
 }

@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { UserService } from '../../model/user.service';
 import { SessionService } from '../../model/session.service';
 import { User } from '../../model/user';
+import { SessionClass } from '../../model/session';
 import { Session } from '../../../assets/js/SessionStorage.js';
 import { RecoverPasswordEmail } from '../../../assets/js/RecoverPasswordEmail.js';
 import {forEachComment} from 'tslint';
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
   mailer = new RecoverPasswordEmail();
   sessionS = new Session();
   users: Observable<User[]>;
+  sessClass = new SessionClass();
 
   constructor(private userService: UserService, private sessService: SessionService, private router: Router) { }
 
@@ -52,8 +54,15 @@ export class LoginComponent implements OnInit {
           if (( (data[counter].email.toLowerCase() === emailVar.value.toLowerCase()) || (data[counter].username === emailVar.value) )
             && (data[counter].userPass === passVar.value)){
             this.sessionS.createSession(data[counter].email, passVar.value, data[counter].userId, data[counter].userRole);
-            this.sessService.addToSession(data[counter].userId.toString(), data[counter].email.toString(),
-              passVar.value.toString(), data[counter].userRole.toString()).subscribe();
+
+            this.sessClass.id = data[counter].userId.toString();
+            this.sessClass.email = data[counter].email.toString();
+            this.sessClass.password = passVar.value.toString();
+            this.sessClass.role = data[counter].userRole.toString();
+
+            this.sessService.addToSession(this.sessClass).subscribe();
+            /*this.sessService.addToSession(data[counter].userId.toString(), data[counter].email.toString(),
+              passVar.value.toString(), data[counter].userRole.toString()).subscribe();*/
             // alert('You are logged in, welcome to Argus');
             this.sessionS.retrieveUserInfo();
             this.router.navigate(['/dashboard']);
