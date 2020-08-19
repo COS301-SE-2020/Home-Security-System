@@ -84,6 +84,8 @@ def save_face(path, image, f_d=face_d, f_r=face_r):
         buff = np.asarray(buff)
         feat = f_r.predict(buff)
         np.save(path, feat)
+        return feat
+    return False
 
 
 def cam_feed():
@@ -149,7 +151,7 @@ def cam_feed():
                                    'exists': False,
                                    'imageStr': 'data:image/jpg;base64,' +
                                                str(b64.b64encode(c.imencode('.jpg', frame)[1]).decode('utf-8')),
-                                   'features': False,
+                                   'features': False
                                    }
                         message_channel.basic_publish(exchange='sigma.direct',
                                                       routing_key='personKey',
