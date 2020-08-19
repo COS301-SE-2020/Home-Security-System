@@ -18,6 +18,9 @@ This is how the branches will be laid out
 master 
 └── nueralnetwork
 └── postgreCRUD
+└── firebase-Master
+└── firebaseFrontEnd
+└── smtpBackend
 ```
 
 ## Group Members
