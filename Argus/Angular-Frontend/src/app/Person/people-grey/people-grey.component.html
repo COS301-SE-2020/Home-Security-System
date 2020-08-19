@@ -26,8 +26,8 @@
                                 <td>{{p.personId}}</td>
                                 <td><img alt="Photo" src="{{p.personImg}}" class="listPic ImgClassName"></td>
                                 <td *ngIf="info.userRole != 'Basic'">
-                                  <a class="btn btn-primary" (click)="addToWhiteList(p.personId)">Add to White-list</a>
-                                  <a class="btn btn-primary" (click)="addToBlackList(p.personId)">Add to Black-list</a>
+                                  <a class="btn btn-primary" (click)="addToWhiteList(p.personId)">Add to Cleared List</a>
+                                  <a class="btn btn-primary" (click)="addToBlackList(p.personId)">Add to Threat List</a>
                                 </td>
                               </tr>
                             </ng-container>

@@ -136,7 +136,7 @@ function saveChanges() {
 //                    Drag and Drop                         //
 // ******************************************************** //
 function openDrop() {
-  var dropArea = document.getElementById("profilePicInput")
+  const dropArea = document.getElementById("profilePicInput")
 
 // Prevent default drag behaviors
   ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
