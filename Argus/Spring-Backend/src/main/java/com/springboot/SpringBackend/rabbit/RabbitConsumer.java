@@ -25,7 +25,7 @@ public class RabbitConsumer{
     private final FaceService faceService;
     private final ImageService imageService;
     private MailerController mailer;
-    private SessionController ssession;
+    private SessionController session;
 
     @Autowired
     public RabbitConsumer(NotificationService ns, PersonService ps,
@@ -37,14 +37,14 @@ public class RabbitConsumer{
         this.faceService = fs;
         this.imageService = is;
         this.mailer = mc;
-        this.ssession = sc;
+        this.session = sc;
     }
 
     @RabbitListener(queues = {"alertQueue"})
     public void receivedAlert(RabbitAlert alert) {
         // User session id
         Long id = Long.valueOf(1);
-        //JSONArray arr = ssession.getSessionDetails();
+        //JSONArray arr = session.getSessionDetails();
 
         //for (int i = 0; i < arr.size(); i++) {
             //id = (Long) arr.get(0);
@@ -76,7 +76,7 @@ public class RabbitConsumer{
                             "Intruder: " + p.get().getFname() + " " + p.get().getLname(), u.get()));
 
                         if(notify) {
-                            mailer.sendWithAttatchBL(email);
+                            // mailer.sendWithAttatchBL(email);
                         }
                     }
                 }
@@ -97,7 +97,7 @@ public class RabbitConsumer{
                                 "Person: " + "Unknown", u.get()));
 
                         if (notify) {
-                            mailer.sendWithAttatchGL(email);
+                            // mailer.sendWithAttatchGL(email);
                         }
                     }
                 }
