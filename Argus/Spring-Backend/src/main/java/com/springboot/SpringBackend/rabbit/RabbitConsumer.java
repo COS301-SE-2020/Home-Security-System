@@ -43,11 +43,11 @@ public class RabbitConsumer{
     @RabbitListener(queues = {"alertQueue"})
     public void receivedAlert(RabbitAlert alert) {
         // User session id
-        JSONArray arr = ssession.getSessionDetails();
-        Long id;
+        Long id = Long.valueOf(1);
+        //JSONArray arr = ssession.getSessionDetails();
 
         //for (int i = 0; i < arr.size(); i++) {
-            id = (Long) arr.get(0);
+            //id = (Long) arr.get(0);
         //}
 
         Optional<User> u =  userService.getUserById(id);
@@ -113,7 +113,7 @@ public class RabbitConsumer{
     @RabbitListener(queues = {"personQueue"})
     public void receivePerson(RabbitPerson psn) {
         // Creating a Grey-list person from Python
-        if(!psn.getExists()) {
+        if(psn.getPersonId() == 0) {
             // Image img = new Image(psn.getImageStr());
             // imageService.createImage(img);
 

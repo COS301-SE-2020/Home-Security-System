@@ -62,6 +62,7 @@ public class PersonControllerTest {
         int id = 1;
         Person x = restTemplate.getForObject(getRootUrl() + id, Person.class);
         x.setPersonImg("Image");
+        x.setPersonListed("Black");
         restTemplate.put(getRootUrl() +  id, x);
         Person updatedPerson = restTemplate.getForObject(getRootUrl() + id, Person.class);
         assertNotNull(updatedPerson);

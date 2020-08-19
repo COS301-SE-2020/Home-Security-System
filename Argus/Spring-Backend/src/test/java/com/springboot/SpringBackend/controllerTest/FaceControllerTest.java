@@ -42,7 +42,7 @@ public class FaceControllerTest {
         repo.save(person);
         Face x = new Face();
         x.setPerson(person);
-        x.setFeatures("Feature");
+        x.setFeatures("Face");
         ResponseEntity<Face> postResponse = restTemplate.postForEntity(getRootUrl(), x, Face.class);
         System.out.println(" postResponse -> " + postResponse);
         assertNotNull(postResponse);
