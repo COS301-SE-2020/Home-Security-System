@@ -28,6 +28,7 @@ message_channel = rabbit_conn.channel()
 message_channel.queue_declare(queue='alertQueue')
 message_channel.queue_declare(queue='personQueue')
 message_channel.queue_declare(queue='featureQueue')
+message_channel.queue_declare(queue='updateQueue')
 face_d = MTCNN()
 face_r = VGGFace(include_top=False, model=mod_name, input_shape=(224, 224, 3), pooling='avg')
 
@@ -59,6 +60,9 @@ def load_faces(path):
     return np.asarray(feats), t_dict
 
 
+all_f_features, time_dict = load_faces(path_features)
+
+
 def save_face(path, image, f_d=face_d, f_r=face_r):
     face_image = c.imread(image)
     image_pixels = np.asarray(face_image)
@@ -81,16 +85,16 @@ def save_face(path, image, f_d=face_d, f_r=face_r):
         buff = np.asarray(buff)
         feat = f_r.predict(buff)
         np.save(path, feat)
+        return feat
+    return False
 
 
 def cam_feed():
-    global up_face
+    global up_face, all_f_features, time_dict
     cams = list()
     frames = list()
     for x in range(num_cams):
         cams.append(c.VideoCapture(x))
-
-    all_f_features, time_dict = load_faces(path_features)
 
     c.namedWindow("view")
 
@@ -131,7 +135,7 @@ def cam_feed():
                 for f_num, face in enumerate(features):
                     min_match = 1.0
                     f_name = 'Unknown'
-                    f_type = 'grey'
+                    f_type = 'Grey'
                     for feat in all_f_features:
                         match = cosine(face, feat[1])
                         if match <= threshold:
@@ -143,12 +147,12 @@ def cam_feed():
                     frame = c.putText(frame, f_name, (0, 20), c.FONT_HERSHEY_DUPLEX, 1, (0, 0, 255), thickness=2)
                     if f_name == 'Unknown':
                         temp_face = 'u' + str(time.time())
-                        np.save('models/grey/' + temp_face + '.npy', face)
+                        np.save(path_features + 'Grey/' + temp_face + '.npy', face)
                         message = {'personId': 0, 'type': 'Grey',
                                    'exists': False,
                                    'imageStr': 'data:image/jpg;base64,' +
                                                str(b64.b64encode(c.imencode('.jpg', frame)[1]).decode('utf-8')),
-                                   'features': False,
+                                   'features': False
                                    }
                         message_channel.basic_publish(exchange='sigma.direct',
                                                       routing_key='personKey',
@@ -161,14 +165,14 @@ def cam_feed():
                             if f_name[0] == 'u':
                                 f_name = '0'
 
-                            if f_type == 'black':
+                            if f_type == 'Black':
                                 message = {'personId': int(f_name), 'type': 'Black',
                                            'imageStr': 'data:image/jpg;base64,' +
                                                        str(b64.b64encode(c.imencode('.jpg', frame)[1]).decode('utf-8'))}
                                 message_channel.basic_publish(exchange='sigma.direct',
                                                               routing_key='alertKey',
                                                               body=json.dumps(message))
-                            elif f_type == 'grey':
+                            elif f_type == 'Grey':
                                 message = {'personId': int(f_name), 'type': 'Grey',
                                            'imageStr': 'data:image/jpg;base64,' +
                                                        str(b64.b64encode(c.imencode('.jpg', frame)[1]).decode('utf-8'))}
@@ -197,17 +201,29 @@ def cam_feed():
 
 def rabbit_consume():
     def feature_update(ch, method, props, body):
-        global up_face
+        global up_face, all_f_features
         message = json.loads(body)
+        if message['features'] is False:
+            img = np.frombuffer(b64.b64decode(message['imageStr']), dtype=np.uint8)
+            save_face(path_features + message['type'] + '/' + message['personId'] + '.npy', img)
+        else:
+            for feat in all_f_features:
+                if message['personId'] == feat[0]:
+                    if message['exists'] is True:
+                        os.rename(path_features + feat[2] + '/' + feat[0] + '.npy',
+                                  path_features + message['type'] + '/' + feat[0] + '.npy')
+                    else:
+                        os.rename(path_features + feat[2] + '/' + feat[0] + '.npy',
+                                  path_features + 'Deleted/' + feat[0] + '.npy')
         up_face = True
 
-    message_channel.basic_consume(queue='',
+    message_channel.basic_consume(queue='updateQueue',
                                   auto_ack=True,
                                   on_message_callback=feature_update)
     message_channel.start_consuming()
 
 
-consumer = threading.Thread(target=rabbit_consume)
+consumer = threading.Thread(target=rabbit_consume, daemon=True)
 consumer.start()
 cam_feed()
 rabbit_conn.close()
