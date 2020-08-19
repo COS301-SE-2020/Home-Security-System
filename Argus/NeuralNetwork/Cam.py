@@ -59,6 +59,9 @@ def load_faces(path):
     return np.asarray(feats), t_dict
 
 
+all_f_features, time_dict = load_faces(path_features)
+
+
 def save_face(path, image, f_d=face_d, f_r=face_r):
     face_image = c.imread(image)
     image_pixels = np.asarray(face_image)
@@ -84,13 +87,11 @@ def save_face(path, image, f_d=face_d, f_r=face_r):
 
 
 def cam_feed():
-    global up_face
+    global up_face, all_f_features, time_dict
     cams = list()
     frames = list()
     for x in range(num_cams):
         cams.append(c.VideoCapture(x))
-
-    all_f_features, time_dict = load_faces(path_features)
 
     c.namedWindow("view")
 
@@ -143,7 +144,7 @@ def cam_feed():
                     frame = c.putText(frame, f_name, (0, 20), c.FONT_HERSHEY_DUPLEX, 1, (0, 0, 255), thickness=2)
                     if f_name == 'Unknown':
                         temp_face = 'u' + str(time.time())
-                        np.save('models/Grey/' + temp_face + '.npy', face)
+                        np.save(path_features + 'Grey/' + temp_face + '.npy', face)
                         message = {'personId': 0, 'type': 'Grey',
                                    'exists': False,
                                    'imageStr': 'data:image/jpg;base64,' +
@@ -197,12 +198,14 @@ def cam_feed():
 
 def rabbit_consume():
     def feature_update(ch, method, props, body):
-        global up_face
+        global up_face, all_f_features
         message = json.loads(body)
         if message['faceStr'] is None:
-            img = c.imread(np.frombuffer(b64.b64decode(message['imageStr']), dtype=np.uint8), flags=c.IMREAD_COLOR)
+            img = np.frombuffer(b64.b64decode(message['imageStr']), dtype=np.uint8)
+            save_face(path_features + message['type'] + '/' + message['personId'] + '.npy', img)
         else:
             # Feature Add
+            print('noerror')
         up_face = True
 
     message_channel.basic_consume(queue='personQueue',
@@ -211,7 +214,7 @@ def rabbit_consume():
     message_channel.start_consuming()
 
 
-consumer = threading.Thread(target=rabbit_consume)
+consumer = threading.Thread(target=rabbit_consume, daemon=True)
 consumer.start()
 cam_feed()
 rabbit_conn.close()
