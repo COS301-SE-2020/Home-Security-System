@@ -25,9 +25,11 @@ master
 
 ## Group Members
 
-### Britney Chu - Previous Team Leader (u18176951) [GitHub Profile](https://github.com/BritneyChu), [CV](https://britneychu.github.io/), [LinkedIn](https://www.linkedin.com/in/britney-chu-ab434a1a3/)
+### Britney Chu (u18176951) [GitHub Profile](https://github.com/BritneyChu), [CV](https://britneychu.github.io/), [LinkedIn](https://www.linkedin.com/in/britney-chu-ab434a1a3/)
 
 <img src="https://github.com/BritneyChu.png" width = 200/>
+
+Previous Team Leader, unfortunately she had to drop out of the degree due to Osteosarcoma.
 
 <details><summary>Expand details</summary>
 <div class="right">
@@ -70,7 +72,7 @@ Milky Way Tutors, Computer Science
 
 </details>
 
-### Brad Zietsman Team Leader (u15228194) [GitHub Profile](https://github.com/Bradford-700), [CV](https://bradford-700.github.io/online-cv), [LinkedIn](https://www.linkedin.com/in/brad-zietsman/)
+### Brad Zietsman - Team Leader (u15228194) [GitHub Profile](https://github.com/Bradford-700), [CV](https://bradford-700.github.io/online-cv), [LinkedIn](https://www.linkedin.com/in/brad-zietsman/)
 
 <img src="https://github.com/Bradford-700.png" width = 200/>
 
