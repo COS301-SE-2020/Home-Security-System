@@ -28,6 +28,7 @@ message_channel = rabbit_conn.channel()
 message_channel.queue_declare(queue='alertQueue')
 message_channel.queue_declare(queue='personQueue')
 message_channel.queue_declare(queue='featureQueue')
+message_channel.queue_declare(queue='updateQueue')
 face_d = MTCNN()
 face_r = VGGFace(include_top=False, model=mod_name, input_shape=(224, 224, 3), pooling='avg')
 
@@ -202,15 +203,21 @@ def rabbit_consume():
     def feature_update(ch, method, props, body):
         global up_face, all_f_features
         message = json.loads(body)
-        if message['faceStr'] is None:
+        if message['features'] is False:
             img = np.frombuffer(b64.b64decode(message['imageStr']), dtype=np.uint8)
             save_face(path_features + message['type'] + '/' + message['personId'] + '.npy', img)
         else:
-            # Feature Add
-            print('noerror')
+            for feat in all_f_features:
+                if message['personId'] == feat[0]:
+                    if message['exists'] is True:
+                        os.rename(path_features + feat[2] + '/' + feat[0] + '.npy',
+                                  path_features + message['type'] + '/' + feat[0] + '.npy')
+                    else:
+                        os.rename(path_features + feat[2] + '/' + feat[0] + '.npy',
+                                  path_features + 'Deleted/' + feat[0] + '.npy')
         up_face = True
 
-    message_channel.basic_consume(queue='personQueue',
+    message_channel.basic_consume(queue='updateQueue',
                                   auto_ack=True,
                                   on_message_callback=feature_update)
     message_channel.start_consuming()
