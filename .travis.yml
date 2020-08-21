@@ -2,26 +2,30 @@ matrix:
   include:
     - language: java
       jdk:
-        - openjdk8
+        - openjdk14
       env:
         - NODE_VERSION="0.12"
       before_install:
         - nvm install $NODE_VERSION
 
     - language: node_js
-      node_js: 7
+      node_js: 
+         - 7
       before_install: npm i -g npm@7
       
     - language: python
-      python: 3.7
-
+      python: 
+        - 3.8
+      script:
+        - pytest
+        
 branches:
   only:
     - master
+before_install: 
+  - cd /Argus/Spring-Backend
 before_script:
   - npm install -g @angular/cli
-before_install: 
-  - cd Argus/Spring-Backend
 
 # Deploy the app on Heroku
 deploy:
