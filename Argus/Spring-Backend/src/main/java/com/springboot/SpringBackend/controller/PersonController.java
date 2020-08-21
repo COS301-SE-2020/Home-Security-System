@@ -73,12 +73,14 @@ public class PersonController {
         final Person updatedPerson = service.updatePerson(x);
 
         if(details.getPersonDeleted() != null) {
-            RabbitPerson p = new RabbitPerson(x.getPersonId(), x.getPersonListed(), true, x.getPersonImg(), true);
+            //RabbitPerson p = new RabbitPerson(updatedPerson.getPersonId(), updatedPerson.getPersonListed(), true, updatedPerson.getPersonImg(), true);
+            RabbitPerson p = new RabbitPerson(updatedPerson.getPersonId(), updatedPerson.getPersonListed(), true,"Image", true);
             amqpTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.UPDATE_KEY, p);
         }
         else
         {
-            RabbitPerson p = new RabbitPerson(x.getPersonId(), x.getPersonListed(), false, x.getPersonImg(), true);
+            //RabbitPerson p = new RabbitPerson(updatedPerson.getPersonId(), updatedPerson.getPersonListed(), false, updatedPerson.getPersonImg(), true);
+            RabbitPerson p = new RabbitPerson(updatedPerson.getPersonId(), updatedPerson.getPersonListed(), false, "Image", true);
             amqpTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.UPDATE_KEY, p);
         }
 

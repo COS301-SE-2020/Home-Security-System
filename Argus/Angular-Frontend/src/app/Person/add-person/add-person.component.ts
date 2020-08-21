@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import {TitleService} from '../../title.service';
 import {WebcamImage} from 'ngx-webcam';
 import {ImageService} from '../../model/image.service';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-add-person',
@@ -20,7 +21,7 @@ export class AddPersonComponent implements OnInit {
   submitted = false;
 
   constructor(private personService: PersonService, private imageService: ImageService,
-              private appService: TitleService, private router: Router) {
+              private appService: TitleService, private router: Router,  private SpinnerService: NgxSpinnerService) {
   }
 
   // noinspection JSAnnotator
@@ -87,23 +88,27 @@ export class AddPersonComponent implements OnInit {
     this.personService.addPerson(this.newPerson)
       .subscribe(value => {
         // console.log(value);
-        this.gotoList();
       }, error => console.log(error));
+    this.gotoList();
   }
 
   onSubmit() {
     this.addPerson();
-    location.reload();
   }
 
   gotoList() {
-    if (this.newPerson.personListed === 'White')
+    this.SpinnerService.show();
+    setTimeout(() => {
+      this.SpinnerService.hide();
+    }, 500);
+    // location.reload();
+    /*if (this.newPerson.personListed === 'White')
     {
       this.router.navigate(['/people-white']);
     }
     else
     {
       this.router.navigate(['/people-black']);
-    }
+    }*/
   }
 }
