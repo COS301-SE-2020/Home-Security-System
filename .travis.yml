@@ -30,5 +30,6 @@ deploy:
 
 # Test & Build SpringBoot app
 script:
+  - cd Argus/Spring-Backend
   - mvn test
   - mvn clean package
