@@ -106,14 +106,15 @@ export class AddPersonComponent implements OnInit {
       this.SpinnerService.hide();
     }, 500);
     // location.reload();
-    /*if (this.newPerson.personListed === 'White')
+    if (this.newPerson.personListed === 'White')
     {
       this.router.navigate(['/people-white']);
     }
     else
     {
       this.router.navigate(['/people-black']);
-    }*/
+    }
+    location.reload();
   }
 
   getDefaultImage(): string {

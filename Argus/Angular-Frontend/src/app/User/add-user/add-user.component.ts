@@ -154,7 +154,7 @@ export class AddUserComponent implements OnInit {
     setTimeout(() => {
       this.SpinnerService.hide();
     }, 500);
-    // location.reload();
+    location.reload();
     // this.router.navigate(['/user-list']);
   }
 }
