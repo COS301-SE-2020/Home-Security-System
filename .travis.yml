@@ -20,6 +20,7 @@ branches:
     - master
 before_script:
   - npm install -g @angular/cli
+  - cd Argus/Spring-Backend
 
 # Deploy the app on Heroku
 deploy:
@@ -30,6 +31,5 @@ deploy:
 
 # Test & Build SpringBoot app
 script:
-  - cd Argus/Spring-Backend
   - mvn test
   - mvn clean package
