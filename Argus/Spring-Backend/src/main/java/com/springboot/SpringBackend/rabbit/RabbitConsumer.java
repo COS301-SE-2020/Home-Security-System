@@ -44,11 +44,13 @@ public class RabbitConsumer{
     public void receivedAlert(RabbitAlert alert) {
         // User session id
         Long id = Long.valueOf(1);
-        //JSONArray arr = session.getSessionDetails();
+        /*mailer.setImagePath("C:\\Users\\Brad\\Home-Security-System\\Argus\\Angular-Frontend\\src\\assets\\Images\\Argus.png");
+        JSONArray arr = session.getSessionDetails();
 
-        //for (int i = 0; i < arr.size(); i++) {
-            //id = (Long) arr.get(0);
-        //}
+        for (int i = 0; i < arr.size(); i++) {
+            id = (Long) arr.get(0);
+        }
+        */
 
         Optional<User> u =  userService.getUserById(id);
 

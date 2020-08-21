@@ -80,9 +80,5 @@ public class MailerController {
         catch (Exception e){
             System.out.println("Error with storing the image in the file. Please check if the file path exists");
         }
-
-
-
-
     }
 }

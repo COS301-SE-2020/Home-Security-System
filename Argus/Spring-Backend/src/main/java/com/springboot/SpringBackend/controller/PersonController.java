@@ -45,8 +45,8 @@ public class PersonController {
 
     @PostMapping("/people")
     public Person addPerson(@Valid @RequestBody Person x) {
-        RabbitPerson p = new RabbitPerson(x.getPersonId(), x.getPersonListed(), true, x.getPersonImg(), false);
-        amqpTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.UPDATE_KEY, p);
+        //RabbitPerson p = new RabbitPerson(x.getPersonId(), x.getPersonListed(), true, x.getPersonImg(), false);
+        //amqpTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.UPDATE_KEY, p);
         return service.createPerson(x);
     }
 
@@ -72,7 +72,7 @@ public class PersonController {
 
         final Person updatedPerson = service.updatePerson(x);
 
-        if(details.getPersonDeleted() != null) {
+        if(details.getPersonDeleted() == null) {
             //RabbitPerson p = new RabbitPerson(updatedPerson.getPersonId(), updatedPerson.getPersonListed(), true, updatedPerson.getPersonImg(), true);
             RabbitPerson p = new RabbitPerson(updatedPerson.getPersonId(), updatedPerson.getPersonListed(), true,"Image", true);
             amqpTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.UPDATE_KEY, p);
