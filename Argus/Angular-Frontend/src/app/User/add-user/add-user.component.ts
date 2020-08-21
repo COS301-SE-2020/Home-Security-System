@@ -97,12 +97,12 @@ export class AddUserComponent implements OnInit {
     const advancedRole = document.getElementById('advanced') as HTMLInputElement;
     const basicRole = document.getElementById('basic') as HTMLInputElement;
 
-    if (adminRole.checked === true) {
-      return 'Admin';
+    if (basicRole.checked === true) {
+      return 'Basic';
     } else if (advancedRole.checked === true) {
       return 'Advanced';
-    } else if (basicRole.checked === true) {
-      return 'Basic';
+    } else if (adminRole.checked === true) {
+      return 'Admin';
     }
   }
 
