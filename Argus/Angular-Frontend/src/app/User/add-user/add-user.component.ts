@@ -70,6 +70,7 @@ export class AddUserComponent implements OnInit {
     const usernameInp = document.getElementById('username') as HTMLInputElement;
     const emailInp = document.getElementById('email') as HTMLInputElement;
 
+    // This doesnt work
     this.usersService.getUserList().subscribe(
       data => {
         if (data[counter].username === usernameInp.value) {

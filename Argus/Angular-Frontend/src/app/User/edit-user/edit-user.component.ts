@@ -33,18 +33,19 @@ export class EditUserComponent implements OnInit {
 
   checkIfExists(): boolean {
     let counter = 0;
+    this.id = this.route.snapshot.params.id;
     const usernameInp = document.getElementById('username') as HTMLInputElement;
     const emailInp = document.getElementById('email') as HTMLInputElement;
 
-    this.userService.getUserList().subscribe(
+    this.userService.getUserById(this.id).subscribe(
       data => {
-        if (data[counter].username === usernameInp.value){
+        if (data.username === usernameInp.value){
           alert('Username is already taken. Please enter another username');
           usernameInp.value = '';
           usernameInp.focus();
           return true;
         }
-        if (data[counter].email.toLowerCase() === emailInp.value.toLowerCase()){
+        if (data.email.toLowerCase() === emailInp.value.toLowerCase()){
           alert('Email address is already in use. Please enter another email address');
           emailInp.value = '';
           emailInp.focus();
@@ -53,7 +54,6 @@ export class EditUserComponent implements OnInit {
         counter++;
       }
     );
-
     return false;
   }
 
