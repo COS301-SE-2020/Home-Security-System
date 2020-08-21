@@ -4,11 +4,13 @@
 Argus is a home security system  capable of instantly identifying threats on multiple video feeds around the home of a user while notifying the user of identified threats.
 
 ## Documents
-<img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Software Requirements Specification](/Documentation/Sigma___SRS_Document(Demo2).pdf)
+<img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Software Requirements Specification](/Documentation/Sigma___SRS_Document(Demo3).pdf)
 
-<img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [User Manual](/Documentation/Argus_User_Manual.pdf)
+<img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [User Manual](/Documentation/Argus_User_Manual_v2.pdf)
 
 <img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Coding Standards](/Documentation/Sigma__Coding_Standards_document.pdf)
+
+<img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Technical Installation Manual](/Documentation/Technical_Installation_Manual.pdf)
 
 <img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Project Management Tool (ClickUp)](https://app.clickup.com/2535636/v/l/s/2669690)
 
