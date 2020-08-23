@@ -75,4 +75,31 @@ export class DeletedUsersComponent implements OnInit {
   back() {
     this.router.navigate(['user-list']);
   }
+
+  // Not tested
+  deleteOld() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth();
+    const day = today.getDay();
+
+    this.userService.getUserList()
+      .subscribe(
+        data => {
+          // console.log(data);
+          const date = new Date(data.userDeleted);
+          console.log('Date:' + date);
+          if (date.getFullYear() === year) {
+            if (date.getMonth() === month) {
+              const num = date.getDay() + 7;
+              if (num === day) {
+                this.userService.deleteUser(data.userId)
+                  .subscribe(value => {
+                    // console.log(value);
+                  }, error => console.log(error));
+              }
+            }
+          }
+        }, error => console.log(error));
+  }
 }

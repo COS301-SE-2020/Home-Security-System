@@ -101,11 +101,6 @@ export class AddPersonComponent implements OnInit {
   }
 
   gotoList() {
-    this.SpinnerService.show();
-    setTimeout(() => {
-      this.SpinnerService.hide();
-    }, 500);
-    // location.reload();
     if (this.newPerson.personListed === 'White')
     {
       this.router.navigate(['/people-white']);
@@ -114,7 +109,11 @@ export class AddPersonComponent implements OnInit {
     {
       this.router.navigate(['/people-black']);
     }
-    location.reload();
+    this.SpinnerService.show();
+    setTimeout(() => {
+      this.SpinnerService.hide();
+      location.reload();
+    }, 500);
   }
 
   getDefaultImage(): string {

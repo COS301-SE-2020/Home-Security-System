@@ -39,9 +39,17 @@ public class RabbitProducer {
     /*
     //@Scheduled(fixedDelay = 10000L)
     public void sendFeature() {
-        RabbitPerson x = new RabbitPerson(Long.valueOf(1),"Facial_Features");
+        RabbitPerson x = new RabbitPerson(Long.valueOf(1),"Features");
         amqpTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.FEATURE_KEY, x);
         LOGGER.info("Feature Sent");
+    }
+    */
+
+    /*
+    //@Scheduled(fixedDelay = 10000L)
+    public void sendMessage() {
+        amqpTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.MESSAGE_KEY, true);
+        LOGGER.info("Message Sent");
     }
     */
 }

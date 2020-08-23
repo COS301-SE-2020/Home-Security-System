@@ -72,4 +72,31 @@ export class PeopleGreyComponent implements OnInit {
     this.appService.setTitle('Grey List');
     this.reloadData();
   }
+
+  // Not tested
+  deleteOld() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth();
+    const day = today.getDay();
+
+    this.personService.getPersonList()
+      .subscribe(
+        data => {
+          // console.log(data);
+          const date = new Date(data.personCreated);
+          console.log('Date:' + date);
+          if (date.getFullYear() === year) {
+            if (date.getMonth() === month) {
+              const num = date.getDay() + 7;
+              if (num === day) {
+                this.personService.deletePerson(data.personId)
+                  .subscribe(value => {
+                    // console.log(value);
+                  }, error => console.log(error));
+              }
+            }
+          }
+        }, error => console.log(error));
+  }
 }

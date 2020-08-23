@@ -56,7 +56,7 @@
                   <td>{{user.fname}}&nbsp;{{user.lname}}</td>
                   <td>{{user.userRole}}</td>
                   <td>{{user.userDeleted}}</td>
-                  <td>
+                  <td *ngIf="info.userRole == 'Admin'">
                     <a class="material-icons listPageIcons" id="restoreBtn" (click)="restoreUser(user.userId)">restore_from_trash</a>
                   </td>
                 </tr>

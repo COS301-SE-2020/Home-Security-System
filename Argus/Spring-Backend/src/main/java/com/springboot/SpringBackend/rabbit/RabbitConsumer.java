@@ -7,16 +7,15 @@ import com.springboot.SpringBackend.service.*;
 import net.minidev.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.ws.server.endpoint.interceptor.DelegatingSmartEndpointInterceptor;
-
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Component
-public class RabbitConsumer{
+public class RabbitConsumer {
     private static final Logger LOGGER = LoggerFactory.getLogger(RabbitConsumer.class);
 
     private final NotificationService nservice;
@@ -24,13 +23,14 @@ public class RabbitConsumer{
     private final UserService userService;
     private final FaceService faceService;
     private final ImageService imageService;
-    private MailerController mailer;
-    private SessionController session;
+    private final MailerController mailer;
+    private final SessionController session;
+    private final AmqpTemplate amqpTemplate;
 
     @Autowired
     public RabbitConsumer(NotificationService ns, PersonService ps,
                           UserService us, FaceService fs, ImageService is,
-                          MailerController mc, SessionController sc) {
+                          MailerController mc, SessionController sc, AmqpTemplate template) {
         this.nservice = ns;
         this.personService = ps;
         this.userService = us;
@@ -38,6 +38,7 @@ public class RabbitConsumer{
         this.imageService = is;
         this.mailer = mc;
         this.session = sc;
+        this.amqpTemplate = template;
     }
 
     @RabbitListener(queues = {"alertQueue"})
@@ -78,7 +79,7 @@ public class RabbitConsumer{
                             "Intruder: " + p.get().getFname() + " " + p.get().getLname(), u.get()));
 
                         if(notify) {
-                            // mailer.sendWithAttatchBL(email);
+                            mailer.sendWithAttatchBL(email);
                         }
                     }
                 }
@@ -99,7 +100,7 @@ public class RabbitConsumer{
                                 "Person: " + "Unknown", u.get()));
 
                         if (notify) {
-                            // mailer.sendWithAttatchGL(email);
+                            mailer.sendWithAttatchGL(email);
                         }
                     }
                 }
@@ -109,6 +110,7 @@ public class RabbitConsumer{
             }
         }
 
+        // Send message to angular
         LOGGER.info("Notification Created");
     }
 
@@ -142,6 +144,6 @@ public class RabbitConsumer{
             LOGGER.info(String.valueOf(ex));
         }
 
-        LOGGER.info("Person updated, added face features");
+        LOGGER.info("Person updated, added facial features");
     }
 }
