@@ -23,6 +23,9 @@ export class NotificationComponent implements OnInit {
   reloadData() {
     this.note = new Notification();
     this.notification = this.notificationService.getNotificationList();
+    setTimeout(() => {
+      this.ngOnInit();
+    }, 300000);
   }
 
   removeNotification(id: number) {

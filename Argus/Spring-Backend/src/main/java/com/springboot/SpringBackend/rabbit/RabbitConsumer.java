@@ -65,20 +65,21 @@ public class RabbitConsumer {
             try {
                 if(p.isPresent() && u.isPresent()) {
                     String email = u.get().getEmail();
-                    Boolean notify = u.get().getNotifyEmail();
+                    Boolean notify1 = u.get().getNotifyEmail();
+                    Boolean notify2 = u.get().getNotifySMS();
 
                     if (alert.getType().equalsIgnoreCase("Grey")) {
                         nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
                             "Person: " + p.get().getFname(), u.get()));
 
-                        if(notify) {
+                        if(notify1) {
                             mailer.sendWithAttatchGL(email);
                         }
                     } else {
                         nservice.createNotification(new Notification(alert.getImageStr(), "Threat",
                             "Intruder: " + p.get().getFname() + " " + p.get().getLname(), u.get()));
 
-                        if(notify) {
+                        if(notify1) {
                             mailer.sendWithAttatchBL(email);
                         }
                     }
@@ -93,13 +94,14 @@ public class RabbitConsumer {
             try {
                 if(u.isPresent()) {
                     String email = u.get().getEmail();
-                    Boolean notify = u.get().getNotifyEmail();
+                    Boolean notify1 = u.get().getNotifyEmail();
+                    Boolean notify2 = u.get().getNotifySMS();
 
                     if (alert.getType().equalsIgnoreCase("Grey")) {
                         nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
                                 "Person: " + "Unknown", u.get()));
 
-                        if (notify) {
+                        if (notify1) {
                             mailer.sendWithAttatchGL(email);
                         }
                     }

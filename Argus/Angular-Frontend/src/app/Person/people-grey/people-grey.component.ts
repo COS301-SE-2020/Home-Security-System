@@ -26,6 +26,9 @@ export class PeopleGreyComponent implements OnInit {
   reloadData() {
     this.psn = new Person();
     this.person = this.personService.getPersonList();
+    setTimeout(() => {
+      this.ngOnInit();
+    }, 300000);
   }
 
   addToWhiteList(id: number) {

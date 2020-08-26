@@ -133,7 +133,7 @@ export class AddUserComponent implements OnInit {
       this.newUser.userPass = passwordInp.value;
       this.newUser.userRole = getRole;
       this.newUser.notifyEmail = true;
-      this.newUser.notifyLocal = true;
+      this.newUser.notifySMS = true;
 
       this.usersService.addUser(this.newUser)
         .subscribe(value => {

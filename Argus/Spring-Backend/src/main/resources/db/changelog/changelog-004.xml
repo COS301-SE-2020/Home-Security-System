@@ -25,7 +25,7 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
             userPass TEXT NOT NULL,
             userRole TEXT NOT NULL,
             notifyEmail BOOLEAN NOT NULL DEFAULT true,
-            notifyLocal BOOLEAN NOT NULL DEFAULT true,
+            notifySMS BOOLEAN NOT NULL DEFAULT true,
             userDeleted DATE,
             PRIMARY KEY (user_id)
             );
