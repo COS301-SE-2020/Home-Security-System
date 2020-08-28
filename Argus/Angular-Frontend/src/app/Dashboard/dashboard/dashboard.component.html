@@ -22,7 +22,7 @@
                     </div>
                     <div class="snapshot" *ngIf="camImg">
                         <h2>Snapshot:</h2>
-                        <img [src]="camImg.imageAsDataUrl" />
+                        <img [src]="camImg.imageAsDataUrl" alt="camera"/>
                     </div>
                 </div>
             </div>
@@ -34,11 +34,12 @@
             <div class="col-lg-10 col-md-5 col-sm-5">
                 <div class="card card-chart" style="width: 450px">
                     <div class="card-header card-header-color">
-                          <h4 class="card-title">Alerts for the past 7 days</h4>
+                          <h4 class="card-title">Number of alerts for this week</h4>
                     </div>
                     <div class="card-body">
+                      <div id="chartContainer" style="height: 370px; width: 100%;"></div>
                       <!-- <canvas id="myChart" width="200" height="200"></canvas> -->
-                      <img src="assets/Images/recentDetections.PNG" width="400px">
+                      <!--<img src="assets/Images/recentDetections.PNG" width="400px">-->
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -54,11 +55,12 @@
             <div class="col-lg-10 col-md-5 col-sm-5">
                 <div class="card card-chart" style="width: 450px">
                     <div class="card-header card-header-color">
-                        <h4 class="card-title">Persons on the database</h4>
+                        <h4 class="card-title">People on the database</h4>
                     </div>
                     <div class="card-body">
+                      <div id="chartContainer2" style="height: 370px; width: 100%;"></div>
                       <!-- <canvas id="myChart" width="200" height="200"></canvas> -->
-                      <img src="assets/Images/totalPersons.PNG" width="400px">
+                      <!--<img src="assets/Images/totalPersons.PNG" width="400px">-->
                     </div>
                     <div class="card-footer">
                         <div class="stats">

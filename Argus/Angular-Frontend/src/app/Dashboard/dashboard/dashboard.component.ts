@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {WebcamImage} from 'ngx-webcam';
 import {Observable, Subject} from 'rxjs';
 import {TitleService} from '../../title.service';
+import * as CanvasJS from '../../../assets/js/canvasjs.min';
 // import {Chart} from 'chart.js';
 // import {ChartService} from '../charts/chart.service';
 import {getLocaleDateFormat} from '@angular/common';
@@ -39,6 +40,53 @@ export class DashboardComponent implements OnInit
   public handleShot(img: WebcamImage): void {
     this.camImg = img;
   }
+  public chart1(): void{
+    const chart = new CanvasJS.Chart('chartContainer', {
+      animationEnabled: true,
+      exportEnabled: true,
+      title: {
+        text: 'Notifications'
+      },
+      data: [{
+        type: 'column',
+        dataPoints: [
+          { y: 5, label: 'Monday' },
+          { y: 4, label: 'Tuesday' },
+          { y: 3, label: 'Wednesday' },
+          { y: 2, label: 'Thursday' },
+          { y: 0, label: 'Friday' },
+          { y: 0, label: 'Saturday' },
+          { y: 0, label: 'Sunday' }
+        ]
+      }]
+    });
+
+    chart.render();
+  }
+  public pieChart(): void{
+    const chart = new CanvasJS.Chart('chartContainer2', {
+      // light2 or dark2
+      theme: 'light2',
+      animationEnabled: true,
+      exportEnabled: true,
+      title: {
+        text: 'Listed people'
+      },
+      data: [{
+        type: 'doughnut',
+        showInLegend: true,
+        toolTipContent: '<b>{name}</b>: {y} (#percent%)',
+        indexLabel: '{name} - #percent%',
+        dataPoints: [
+          { y: 450, name: 'Cleared' },
+          { y: 120, name: 'Threat' },
+          { y: 300, name: 'Suspicious' }
+        ]
+      }]
+    });
+
+    chart.render();
+  }
 
   constructor(private appService: TitleService ) {}
   // private ChartItems: ChartService;
@@ -46,6 +94,8 @@ export class DashboardComponent implements OnInit
   ngOnInit(): void {
     this.appService.setTitle('Dashboard');
     // this.getChartDetails();
+    this.chart1();
+    this.pieChart();
   }
 
   public toggleCam(): void {
