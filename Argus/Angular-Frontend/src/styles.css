@@ -19974,3 +19974,9 @@ dropdown-fontInc
 {
   color: red;
 }
+
+.chartContainer
+{
+  height: 370px;
+  width: 100%;
+}
