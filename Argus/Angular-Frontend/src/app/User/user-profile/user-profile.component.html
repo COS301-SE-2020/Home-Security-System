@@ -62,6 +62,16 @@
               <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-6">
                   <div class="form-group">
+                    <h5 class="text-primary"><b>Contact Number</b></h5>
+                    <!-- <label class="bmd-label-floating">Username</label> -->
+                    <output id="numberDisplay">
+                    </output>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                  <div class="form-group">
                     <h5 class="text-primary"><b>Password</b></h5>
                     <!-- <label class="bmd-label-floating">Last Name</label> -->
                     <output id="passwordDisplay">
@@ -256,6 +266,22 @@
               </div>
               <br>
               <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                  <div class="form-group">
+                    <label for="uNumber">Contact Number</label>
+                    <input id="uNumber" name="contactNo" class="form-control"
+                           required
+                           [(ngModel)]="user.contactNo" #contactNo="ngModel">
+
+                    <div *ngIf="contactNo.invalid && (contactNo.dirty || contactNo.touched)"
+                         class="alert alert-danger">
+
+                      <div *ngIf="contactNo.errors.required">
+                        Contact Number is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div class="col-md-6 col-sm-6 col-xs-6">
                   <div class="form-group">
                     <label for="uPassword">Password</label>

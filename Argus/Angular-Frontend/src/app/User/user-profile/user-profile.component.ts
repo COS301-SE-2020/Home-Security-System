@@ -69,6 +69,7 @@ export class UserProfileComponent implements OnInit {
     const FName = document.getElementById('firstNameDisplay') as HTMLDataElement;
     const SName = document.getElementById('lastNameDisplay') as HTMLDataElement;
     const UName = document.getElementById('usernameDisplay') as HTMLDataElement;
+    const contact = document.getElementById('numberDisplay') as HTMLInputElement;
     const email = document.getElementById('emailDisplay') as HTMLDataElement;
     const password = document.getElementById('passwordDisplay') as HTMLDataElement;
     const uPic = document.getElementById('userPic') as HTMLImageElement;
@@ -77,6 +78,7 @@ export class UserProfileComponent implements OnInit {
       .subscribe(data => {
         FName.value = data.fname;
         SName.value = data.lname;
+        contact.value = data.contactNo;
         UName.value = data.username;
         email.value = data.email;
         password.value = data.userPass;
@@ -89,6 +91,7 @@ export class UserProfileComponent implements OnInit {
     const uName = document.getElementById('uFirstName') as HTMLInputElement;
     const uSurname = document.getElementById('uLastName') as HTMLInputElement;
     const uUsername = document.getElementById('uUsername') as HTMLInputElement;
+    const uNumber = document.getElementById('uNumber') as HTMLInputElement;
     const uEmail = document.getElementById('uEmail') as HTMLInputElement;
     const uPassword = document.getElementById('uPassword') as HTMLInputElement;
     const uPic = document.getElementById('userPic') as HTMLImageElement;
@@ -97,6 +100,7 @@ export class UserProfileComponent implements OnInit {
       .subscribe(data => {
         uName.value = data.fname;
         uSurname.value = data.lname;
+        uNumber.value = data.contactNo;
         uEmail.value = data.email;
         uUsername.value = data.username;
         uPassword.value = data.userPass;
@@ -108,11 +112,13 @@ export class UserProfileComponent implements OnInit {
     const uName = document.getElementById('uFirstName') as HTMLInputElement;
     const uSurname = document.getElementById('uLastName') as HTMLInputElement;
     const uUsername = document.getElementById('uUsername') as HTMLInputElement;
+    const uNumber = document.getElementById('uNumber') as HTMLInputElement;
     const uEmail = document.getElementById('uEmail') as HTMLInputElement;
     const uPassword = document.getElementById('uPassword') as HTMLInputElement;
 
     this.user.fname = uName.value;
     this.user.lname = uSurname.value;
+    this.user.contactNo = uNumber.value;
     this.user.email = uEmail.value;
     this.user.username = uUsername.value;
     this.user.userPass = uPassword.value;
