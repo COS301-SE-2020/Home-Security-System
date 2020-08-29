@@ -23,7 +23,8 @@ export class AddUserComponent implements OnInit {
   newUser: User;
 
   constructor(private usersService: UserService, private imageService: ImageService,
-              private appService: TitleService, private router: Router, private SpinnerService: NgxSpinnerService) {
+              private appService: TitleService, private router: Router,
+              private SpinnerService: NgxSpinnerService) {
   }
 
   // noinspection JSAnnotator

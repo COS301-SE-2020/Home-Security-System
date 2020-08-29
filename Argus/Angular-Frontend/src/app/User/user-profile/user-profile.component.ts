@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {User} from '../../model/user';
 import {WebcamImage} from 'ngx-webcam';
 import {Observable, Subject} from 'rxjs';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-user-profile',
@@ -19,7 +20,8 @@ export class UserProfileComponent implements OnInit {
   user: User;
 
   constructor(private route: ActivatedRoute, private router: Router,
-              private appService: TitleService, private userService: UserService) {}
+              private appService: TitleService, private userService: UserService,
+              private SpinnerService: NgxSpinnerService) {}
 
   public get triggerObservable(): Observable<void> {
     return this.snapTrigger.asObservable();
@@ -118,9 +120,9 @@ export class UserProfileComponent implements OnInit {
     this.userService.updateUser(this.userObj.id, this.user)
       .subscribe(data => {
         // console.log(data);
-        this.populateFields();
+        // this.populateFields();
+        this.gotoList();
       }, error => console.log(error));
-    this.gotoList();
   }
 
   updateUserPic() {
@@ -134,9 +136,9 @@ export class UserProfileComponent implements OnInit {
     this.userService.updateUser(userObj.id, this.user)
       .subscribe(data => {
       // console.log(data);
-      this.populateFields();
+      // this.populateFields();
+      this.gotoList();
     }, error => console.log(error));
-    this.gotoList();
   }
 
   checkIfExists(): boolean {
@@ -178,5 +180,10 @@ export class UserProfileComponent implements OnInit {
 
   gotoList() {
     this.router.navigate(['/user-profile']);
+    this.SpinnerService.show();
+    setTimeout(() => {
+      this.SpinnerService.hide();
+      location.reload();
+    }, 500);
   }
 }
