@@ -37,21 +37,25 @@ export class EditUserComponent implements OnInit {
     const usernameInp = document.getElementById('username') as HTMLInputElement;
     const emailInp = document.getElementById('email') as HTMLInputElement;
 
-    this.userService.getUserById(this.id).subscribe(
+    this.userService.getUserList().subscribe(
       data => {
-        if (data.username === usernameInp.value){
-          alert('Username is already taken. Please enter another username');
-          usernameInp.value = '';
-          usernameInp.focus();
-          return true;
+        while (data != null) {
+          if (data[counter].userDeleted === null && data[counter].userId !== this.id) {
+            if (data[counter].username === usernameInp.value) {
+              alert('Username is already taken. Please enter another username');
+              usernameInp.value = '';
+              usernameInp.focus();
+              return true;
+            }
+            if (data[counter].email.toLowerCase() === emailInp.value.toLowerCase()) {
+              alert('Email address is already in use. Please enter another email address');
+              emailInp.value = '';
+              emailInp.focus();
+              return true;
+            }
+          }
+          counter++;
         }
-        if (data.email.toLowerCase() === emailInp.value.toLowerCase()){
-          alert('Email address is already in use. Please enter another email address');
-          emailInp.value = '';
-          emailInp.focus();
-          return true;
-        }
-        counter++;
       }
     );
     return false;
@@ -71,7 +75,7 @@ export class EditUserComponent implements OnInit {
 
   onSubmit() {
     const tf = this.checkIfExists();
-    if (tf !== true)
+    if (!tf)
     {
       this.updateUser();
       this.submitted = true;

@@ -40,15 +40,15 @@ export class DeletedUsersComponent implements OnInit {
       .subscribe(
         data => {
           // console.log(data);
-          if (this.info.userRole === 'Admin'){
-            restoreBtn.disabled = false;
+          if (this.info.userRole === 'Basic'){
+            restoreBtn.disabled = true;
+            restoreBtn.hidden = true;
           }
           else if (this.info.userRole === 'Advanced'){
             restoreBtn.disabled = false;
           }
-          else if (this.info.userRole === 'Basic'){
-            restoreBtn.disabled = true;
-            restoreBtn.hidden = true;
+          else if (this.info.userRole === 'Admin'){
+            restoreBtn.disabled = false;
           }
         }, error => console.log(error));
   }
@@ -76,8 +76,8 @@ export class DeletedUsersComponent implements OnInit {
     this.router.navigate(['user-list']);
   }
 
-  // Not tested
   deleteOld() {
+    let counter = 0;
     const today = new Date();
     const year = today.getFullYear();
     const month = today.getMonth();
@@ -86,19 +86,22 @@ export class DeletedUsersComponent implements OnInit {
     this.userService.getUserList()
       .subscribe(
         data => {
-          // console.log(data);
-          const date = new Date(data.userDeleted);
-          console.log('Date:' + date);
-          if (date.getFullYear() === year) {
-            if (date.getMonth() === month) {
-              const num = date.getDay() + 7;
-              if (num === day) {
-                this.userService.deleteUser(data.userId)
-                  .subscribe(value => {
-                    // console.log(value);
-                  }, error => console.log(error));
+          while (data != null) {
+            // console.log(data);
+            const date = new Date(data[counter].userDeleted);
+            // console.log('Date:' + date);
+            if (date.getFullYear() === year) {
+              if (date.getMonth() === month) {
+                const num = date.getDay() + 7;
+                if (num === day) {
+                  this.userService.deleteUser(data[counter].userId)
+                    .subscribe(value => {
+                      // console.log(value);
+                    }, error => console.log(error));
+                }
               }
             }
+            counter++;
           }
         }, error => console.log(error));
   }

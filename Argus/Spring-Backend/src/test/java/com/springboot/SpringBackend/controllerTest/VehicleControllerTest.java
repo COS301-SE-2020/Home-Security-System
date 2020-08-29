@@ -30,7 +30,7 @@ public class VehicleControllerTest {
 
     @Test
     public void testCreateVehicle() {
-        Vehicle x = new Vehicle("Photo", "CW36FWGP","Grey");
+        Vehicle x = new Vehicle("Photo", "CW36FWGP", "Hyundi", "i10",  "White");
         ResponseEntity<Vehicle> postResponse = restTemplate.postForEntity(getRootUrl(), x, Vehicle.class);
         System.out.println(" postResponse -> " + postResponse);
         assertNotNull(postResponse);

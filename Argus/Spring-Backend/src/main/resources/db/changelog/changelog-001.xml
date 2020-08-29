@@ -6,7 +6,7 @@
 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <changeSet author="Sigma" id="001">
-        <sql>
+        <!--<sql>
             CREATE SEQUENCE imageID_seq START 1;
         </sql>
         <sql>
@@ -23,7 +23,7 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
         </sql>
         <sql>
             CREATE SEQUENCE faceID_seq START 1;
-        </sql>
+        </sql>-->
         <sql>
             CREATE SEQUENCE hibernate_sequence;
         </sql>

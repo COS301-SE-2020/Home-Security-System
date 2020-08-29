@@ -56,6 +56,8 @@ public class NotificationController {
         }
         x.setListed(details.getListed());
         x.setMessage(details.getMessage());
+        x.setOnDate(details.getOnDate());
+        x.setAtTime(details.getAtTime());
         if(details.getUser() != null) {
             x.setUser(details.getUser());
         }

@@ -6,6 +6,9 @@ export class Vehicle {
   // vehicleImg: Image;
   vehicleImg: string;
   vehicleListed: string;
+  vehicleMake: string;
+  vehicleModel: string;
+  vehicleColour: string;
   licenceNo: string;
   vehicleCreated: string;
   vehicleDeleted: string;

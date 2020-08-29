@@ -5,6 +5,7 @@ import { filter, map } from 'rxjs/operators';
 import { TitleService } from './title.service';
 import {LoginComponent} from './Dashboard/login/login.component';
 import {ResetPasswordComponent} from './Dashboard/reset-password/reset-password.component';
+import {WebSocketAPI} from './WebSocketAPI';
 
 
 @Component({
@@ -13,8 +14,10 @@ import {ResetPasswordComponent} from './Dashboard/reset-password/reset-password.
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-
   title = 'Angular-Frontend';
+  webSocketAPI: WebSocketAPI;
+  notification: any;
+
   constructor(private titleService: Title, private router: Router,
               private activatedRoute: ActivatedRoute) {
   }
@@ -97,5 +100,21 @@ export class AppComponent implements OnInit {
     ).subscribe((ttl: string) => {
       this.titleService.setTitle(ttl);
     });
+
+    // @ts-ignore
+    // this.webSocketAPI = new WebSocketAPI(new AppComponent());
+    // this.connect();
+  }
+
+  connect() {
+    this.webSocketAPI._connect();
+  }
+
+  disconnect() {
+    this.webSocketAPI._disconnect();
+  }
+
+  handleMessage(message) {
+    this.notification = message;
   }
 }
