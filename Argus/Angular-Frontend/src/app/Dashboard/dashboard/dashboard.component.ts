@@ -177,9 +177,6 @@ export class DashboardComponent implements OnInit {
   public barchart(Mon, Tue, Wed, Thu, Fri, Sat, Sun): void{
     const date = new Date();
 
-    const days = [ 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-    let dayName = days[date.getDay()];
-
     const chart = new CanvasJS.Chart('chartContainer', {
       animationEnabled: true,
       exportEnabled: true,
