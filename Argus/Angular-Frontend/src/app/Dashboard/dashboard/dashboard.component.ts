@@ -79,9 +79,6 @@ export class DashboardComponent implements OnInit {
   public calculateNumberOfNotifications(): void{
     this.notificationService.getNotificationList().subscribe(data => {
 
-      this.note = new Notification();
-      this.notification = this.notificationService.getNotificationList();
-      // this.notification;
       // console.log(data[0].onDate);
       // console.log( this.dayTester(0));
 
@@ -118,21 +115,6 @@ export class DashboardComponent implements OnInit {
         else{
         }
       }
-
-
-      /*
-      for (let i = 0; i < data.length; i++){
-        if (data[i].personListed === 'Grey'){
-          suspicious++;
-        }
-        else if (data[i].personListed === 'Black'){
-          threat++;
-        }
-        else{
-          cleared++;
-        }
-      }
-       */
       this.barchart(six, five, four, three, two, one, today );
     });
   }
@@ -207,15 +189,6 @@ export class DashboardComponent implements OnInit {
       data: [{
         type: 'column',
         dataPoints: [
-          /*
-          { y: Mon, label: days[-6 + date.getDay()]},
-          { y: Tue, label: days[-5 + date.getDay()]},
-          { y: Wed, label: days[-4 + date.getDay()]},
-          { y: Thu, label: days[-3 + date.getDay()]},
-          { y: Fri, label: days[-2 + date.getDay()] },
-          { y: Sat, label: days[-1 + date.getDay()] },
-          { y: Sun, label: days[date.getDay()]}
-           */
           { y: Mon, label: this.getCorrectDay(6)},
           { y: Tue, label: this.getCorrectDay(5)},
           { y: Wed, label: this.getCorrectDay(4)},
