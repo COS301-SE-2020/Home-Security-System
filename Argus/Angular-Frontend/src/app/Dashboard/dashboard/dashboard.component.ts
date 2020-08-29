@@ -2,18 +2,23 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {WebcamImage} from 'ngx-webcam';
 import {Observable, Subject} from 'rxjs';
 import {TitleService} from '../../title.service';
+import {PersonService} from '../../model/person.service';
+import {Person} from '../../model/person';
 import * as CanvasJS from '../../../assets/js/canvasjs.min';
-// import {Chart} from 'chart.js';
-// import {ChartService} from '../charts/chart.service';
-import {getLocaleDateFormat} from '@angular/common';
+// import {getLocaleDateFormat} from '@angular/common';
+// import {UserService} from '../../model/user.service';
+// import {User} from '../../model/user';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
-export class DashboardComponent implements OnInit
-{
+export class DashboardComponent implements OnInit {
+
+  constructor(private appService: TitleService, private personService: PersonService) {}
+
+  people: Observable<Person[]>;
   currentDate = new Date();
 
   // ----------------------
@@ -40,7 +45,28 @@ export class DashboardComponent implements OnInit
   public handleShot(img: WebcamImage): void {
     this.camImg = img;
   }
-  public chart1(): void{
+
+  public calculateNumberOfPeople(): void{
+    this.personService.getPersonList().subscribe(data => {
+      let threat = 0;
+      let cleared = 0;
+      let suspicious = 0;
+      for (let i = 0; i < data.length; i++){
+        if (data[i].personListed === 'Grey'){
+          suspicious++;
+        }
+        else if (data[i].personListed === 'Black'){
+          threat++;
+        }
+        else{
+          cleared++;
+        }
+      }
+      this.pieChart(cleared, suspicious, threat);
+    });
+  }
+
+  public barchart(): void{
     const chart = new CanvasJS.Chart('chartContainer', {
       animationEnabled: true,
       exportEnabled: true,
@@ -63,7 +89,7 @@ export class DashboardComponent implements OnInit
 
     chart.render();
   }
-  public pieChart(): void{
+  public pieChart(val1, val2, val3): void{
     const chart = new CanvasJS.Chart('chartContainer2', {
       // light2 or dark2
       theme: 'light2',
@@ -78,9 +104,9 @@ export class DashboardComponent implements OnInit
         toolTipContent: '<b>{name}</b>: {y} (#percent%)',
         indexLabel: '{name} - #percent%',
         dataPoints: [
-          { y: 450, name: 'Cleared' },
-          { y: 120, name: 'Threat' },
-          { y: 300, name: 'Suspicious' }
+          { y: val1, name: 'Cleared' },
+          { y: val3, name: 'Threat' },
+          { y: val2, name: 'Suspicious' }
         ]
       }]
     });
@@ -88,14 +114,15 @@ export class DashboardComponent implements OnInit
     chart.render();
   }
 
-  constructor(private appService: TitleService ) {}
+
   // private ChartItems: ChartService;
 
   ngOnInit(): void {
     this.appService.setTitle('Dashboard');
     // this.getChartDetails();
-    this.chart1();
-    this.pieChart();
+    this.barchart();
+    this.calculateNumberOfPeople();
+    // this.pieChart();
   }
 
   public toggleCam(): void {
