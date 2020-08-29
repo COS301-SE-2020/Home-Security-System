@@ -112,6 +112,7 @@ export class AddUserComponent implements OnInit {
     const nameInp = document.getElementById('fname') as HTMLInputElement;
     const surnameInp = document.getElementById('surname') as HTMLInputElement;
     const emailInp = document.getElementById('email') as HTMLInputElement;
+    const contactInp = document.getElementById('number') as HTMLInputElement;
     const usernameInp = document.getElementById('username') as HTMLInputElement;
     const passwordInp = document.getElementById('pass') as HTMLInputElement;
     const photoInp = document.getElementById('submitPhoto').getAttribute('src');
@@ -130,6 +131,7 @@ export class AddUserComponent implements OnInit {
 
       this.newUser.fname = nameInp.value;
       this.newUser.lname = surnameInp.value;
+      this.newUser.contactNo = contactInp.value;
       this.newUser.email = emailInp.value;
       this.newUser.username = usernameInp.value;
       this.newUser.userPass = passwordInp.value;

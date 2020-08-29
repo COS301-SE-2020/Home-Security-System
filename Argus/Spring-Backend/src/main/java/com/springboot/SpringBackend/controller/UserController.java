@@ -53,6 +53,7 @@ public class UserController {
         }
         x.setFname(details.getFname());
         x.setLname(details.getLname());
+        x.setContactNo(details.getContactNo());
         x.setEmail(details.getEmail());
         x.setUsername(details.getUsername());
         x.setUserPass(details.getUserPass());
