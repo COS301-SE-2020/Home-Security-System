@@ -21,8 +21,6 @@ export class AddUserComponent implements OnInit {
   images: Observable<Image>;
   newImage: Image;
   newUser: User;
-  submitted = false;
-  useDefaultImg = true;
 
   constructor(private usersService: UserService, private imageService: ImageService,
               private appService: TitleService, private router: Router, private SpinnerService: NgxSpinnerService) {
@@ -65,27 +63,30 @@ export class AddUserComponent implements OnInit {
   }
 
   checkIfExists(): boolean {
-    this.submitted = false;
     let counter = 0;
     const usernameInp = document.getElementById('username') as HTMLInputElement;
     const emailInp = document.getElementById('email') as HTMLInputElement;
 
-    // This doesnt work
     this.usersService.getUserList().subscribe(
       data => {
-        if (data[counter].username === usernameInp.value) {
-          alert('Username is already taken. Please enter another username');
-          usernameInp.value = '';
-          usernameInp.focus();
-          return true;
+        while (data != null) {
+          if (data[counter].userDeleted === null)
+          {
+            if (data[counter].username === usernameInp.value) {
+              alert('Username is already taken. Please enter another username');
+              usernameInp.value = '';
+              usernameInp.focus();
+              return true;
+            }
+            if (data[counter].email.toLowerCase() === emailInp.value.toLowerCase()) {
+              alert('Email address is already in use. Please enter another email address');
+              emailInp.value = '';
+              emailInp.focus();
+              return true;
+            }
+          }
+          counter++;
         }
-        if (data[counter].email.toLowerCase() === emailInp.value.toLowerCase()) {
-          alert('Email address is already in use. Please enter another email address');
-          emailInp.value = '';
-          emailInp.focus();
-          return true;
-        }
-        counter++;
       }
     );
 
@@ -143,16 +144,14 @@ export class AddUserComponent implements OnInit {
       this.gotoList();
     }
     else {
-      this.submitted = false;
       alert('Cannot add a new user. Not all the fields are filled in.');
     }
   }
 
   onSubmit() {
     const tf = this.checkIfExists();
-    if (tf !== true) {
+    if (!tf) {
       this.save();
-      this.submitted = true;
     }
   }
 

@@ -55,7 +55,7 @@ export class PeopleWhiteComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.appService.setTitle('White List');
+    this.appService.setTitle('Person White-List');
     this.reloadData();
   }
 

@@ -131,15 +131,49 @@ export class UserProfileComponent implements OnInit {
 
     this.user.profilePhoto = photoInp;
 
-    this.userService.updateUser(userObj.id, this.user).subscribe(data => {
+    this.userService.updateUser(userObj.id, this.user)
+      .subscribe(data => {
       // console.log(data);
       this.populateFields();
     }, error => console.log(error));
     this.gotoList();
   }
 
+  checkIfExists(): boolean {
+    let counter = 0;
+    const usernameInp = document.getElementById('uUsername') as HTMLInputElement;
+    const emailInp = document.getElementById('uEmail') as HTMLInputElement;
+
+    this.userService.getUserList().subscribe(
+      data => {
+        while (data != null) {
+          if (data[counter].userDeleted === null && data[counter].userId !== this.userObj.id) {
+            if (data[counter].username === usernameInp.value) {
+              alert('Username is already taken. Please enter another username');
+              usernameInp.value = '';
+              usernameInp.focus();
+              return true;
+            }
+            if (data[counter].email.toLowerCase() === emailInp.value.toLowerCase()) {
+              alert('Email address is already in use. Please enter another email address');
+              emailInp.value = '';
+              emailInp.focus();
+              return true;
+            }
+          }
+          counter++;
+        }
+      }
+    );
+
+    return false;
+  }
+
   onSubmit() {
-    this.updateUser();
+    const tf = this.checkIfExists();
+    if (!tf) {
+      this.updateUser();
+    }
   }
 
   gotoList() {

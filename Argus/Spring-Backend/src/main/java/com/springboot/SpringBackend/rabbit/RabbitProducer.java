@@ -48,7 +48,7 @@ public class RabbitProducer {
     /*
     //@Scheduled(fixedDelay = 10000L)
     public void sendMessage() {
-        amqpTemplate.convertAndSend(RabbitMQConfig.FANOUT_EXCHANGE, true);
+        amqpTemplate.convertAndSend(RabbitMQConfig.FANOUT_EXCHANGE, "Notification");
         LOGGER.info("Message Sent");
     }
     */

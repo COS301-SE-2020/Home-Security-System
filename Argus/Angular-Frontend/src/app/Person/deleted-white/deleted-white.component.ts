@@ -57,8 +57,8 @@ export class DeletedWhiteComponent implements OnInit {
     this.router.navigate(['people-white']);
   }
 
-  // Not tested
   deleteOld() {
+    let counter = 0;
     const today = new Date();
     const year = today.getFullYear();
     const month = today.getMonth();
@@ -67,19 +67,22 @@ export class DeletedWhiteComponent implements OnInit {
     this.personService.getPersonList()
       .subscribe(
         data => {
-          // console.log(data);
-          const date = new Date(data.personDeleted);
-          console.log('Date:' + date);
-          if (date.getFullYear() === year) {
-            if (date.getMonth() === month) {
-              const num = date.getDay() + 7;
-              if (num === day) {
-                this.personService.deletePerson(data.personId)
-                  .subscribe(value => {
-                    // console.log(value);
-                  }, error => console.log(error));
+          while (data != null) {
+            // console.log(data);
+            const date = new Date(data[counter].personDeleted);
+            console.log('Date:' + date);
+            if (date.getFullYear() === year) {
+              if (date.getMonth() === month) {
+                const num = date.getDay() + 7;
+                if (num === day) {
+                  this.personService.deletePerson(data[counter].personId)
+                    .subscribe(value => {
+                      // console.log(value);
+                    }, error => console.log(error));
+                }
               }
             }
+            counter++;
           }
         }, error => console.log(error));
   }

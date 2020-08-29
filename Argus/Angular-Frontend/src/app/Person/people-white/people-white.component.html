@@ -5,7 +5,7 @@
         <div class="card-header card-header-primary">
           <h4 class="card-title">Cleared Person List</h4>
           <p class="card-category">Family, Friends or Neighbors.</p>
-          <a id="addWhite" class="material-icons open-modal listPageIcons" data-toggle="modal"
+          <a *ngIf="info.userRole != 'Basic'" id="addWhite" class="material-icons open-modal listPageIcons" data-toggle="modal"
              data-target="#addPersonModal1" onclick="openDrop()">person_add</a>
         </div>
         <div class="card-body">
