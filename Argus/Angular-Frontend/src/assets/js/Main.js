@@ -331,19 +331,30 @@ function resizeImage(file:File, maxWidth:number, maxHeight:number):Promise<Blob>
   });
 }
 
-document.getElementById('fileElem').addEventListener('change', (o) => {
-  //If you don't need to resize the image, you can get the blob to upload from the
-  //FileList (e.g. doUpload(o.target.files[0]);
+function changePicSize( file:File )
+{
+  resizeImage(file, 300, 300);
+}
 
-  if(o.target.files.length > 0) {
-    resizeImage(o.target.files[0], 300, 300).then(blob => {
-      //You can upload the resized image: doUpload(blob)
-      document.getElementById('submitPhoto').src = URL.createObjectURL(blob);
-    }, err => {
-      console.error("Photo error", err);
-    });
-  }});
+
+function changePreview() {
+  document.getElementById('fileElem').addEventListener('change', (o) => {
+    //If you don't need to resize the image, you can get the blob to upload from the
+    //FileList (e.g. doUpload(o.target.files[0]);
+
+    if (o.target.files.length > 0) {
+      resizeImage(o.target.files[0], 300, 300).then(blob => {
+        //You can upload the resized image: doUpload(blob)
+        document.getElementById('submitPhoto').src = URL.createObjectURL(blob);
+      }, err => {
+        console.error("Photo error", err);
+      });
+    }
+  });
+}
+
  */
+
 
 
 
