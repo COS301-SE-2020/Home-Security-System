@@ -3,4 +3,5 @@ export class SessionClass {
   email: string;
   password: string;
   role: string;
+  c: string;
 }
