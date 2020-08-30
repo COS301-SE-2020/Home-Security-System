@@ -1,4 +1,3 @@
-
 /*==================================================================*/
 
 function ValidateEmail() {
@@ -197,6 +196,11 @@ function openDrop() {
   }
 }
 
+function previewFileFromCam() {
+  const cam = document.getElementById('confirmPic').getAttribute('src');
+  document.getElementById('submitPhoto').setAttribute('src', cam);
+}
+
 // ******************************************************** //
 //                    Table Functions                       //
 // ******************************************************** //
@@ -219,8 +223,7 @@ function searchFunc(tableID, colNum) {
   }
 }
 
-function changeSearchFunc(tableID ,placeholder ,colNum)
-{
+function changeSearchFunc(tableID, placeholder, colNum) {
   let currentSearch = document.getElementById('searchInput');
   currentSearch.setAttribute('placeholder', placeholder);
   currentSearch.setAttribute('onkeyup', "searchFunc('" + tableID + "', " + colNum + ")")
