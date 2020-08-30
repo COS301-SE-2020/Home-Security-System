@@ -19975,15 +19975,41 @@ dropdown-fontInc
   color: red;
 }
 
-.chartContainer
+#chartContainer
 {
   height: 370px;
   width: 100%;
 }
 
-.chartContainer2
+#chartContainer2
 {
   height: 370px;
   width: 100%;
+}
+
+#chart1
+{
+  width: 450px;
+}
+
+#chart2
+{
+  width: 450px;
+}
+
+#icon1
+{
+  color: #ff0000;
+  font-size: small;
+}
+
+#logoLoginPage
+{
+  width: 50%;
+}
+
+#logoSideBar
+{
+  width: 50%
 }
 
