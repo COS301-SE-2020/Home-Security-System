@@ -209,6 +209,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-websocket</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.twilio.sdk</groupId>
+			<artifactId>twilio</artifactId>
+			<version>7.55.0</version>
+		</dependency>
     </dependencies>
 
 	<!--<dependencyManagement>

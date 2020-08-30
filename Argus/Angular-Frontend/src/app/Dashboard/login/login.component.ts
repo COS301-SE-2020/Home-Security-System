@@ -8,6 +8,7 @@ import { Session } from '../../../assets/js/SessionStorage.js';
 import { RecoverPasswordEmail } from '../../../assets/js/RecoverPasswordEmail.js';
 import {forEachComment} from 'tslint';
 import {Router} from '@angular/router';
+import {count} from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -54,11 +55,13 @@ export class LoginComponent implements OnInit {
           while (data != null) {
             if (((data[counter].email.toLowerCase() === emailVar.value.toLowerCase()) || (data[counter].username === emailVar.value))
               && (data[counter].userPass === passVar.value)) {
-              this.sessionS.createSession(data[counter].email, passVar.value, data[counter].userId, data[counter].userRole);
 
+              // tslint:disable-next-line:max-line-length
+              this.sessionS.createSession(data[counter].email, passVar.value, data[counter].userId, data[counter].userRole, data[counter].contactNo);
               this.sessClass.id = data[counter].userId.toString();
               this.sessClass.email = data[counter].email.toString();
               this.sessClass.password = passVar.value.toString();
+              this.sessClass.c = this.sessionS.retrieveUserInfo().cellno.toString();
               this.sessClass.role = data[counter].userRole.toString();
 
               this.sessService.addToSession(this.sessClass).subscribe();
