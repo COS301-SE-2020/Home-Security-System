@@ -222,6 +222,7 @@ def rabbit_consume():
                         if message['exists'] is True:
                             os.rename(path_features + feat[2] + '/' + str(feat[0]) + '.npy',
                                       path_features + message['type'] + '/' + str(feat[0]) + '.npy')
+                            print(path_features + message['type'] + '/' + str(feat[0]) + '.npy')
                         else:
                             os.rename(path_features + feat[2] + '/' + feat[0] + '.npy',
                                       path_features + 'Deleted/' + feat[0] + '.npy')
