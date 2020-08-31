@@ -217,7 +217,9 @@ def rabbit_consume():
             save_face(path_features + message['type'] + '/' + message['personId'] + '.npy', img)
         else:
             if message['tempId'] == '0':
+                print(message['personId'])
                 for feat in all_f_features:
+                    print(feat[0])
                     if message['personId'] == feat[0]:
                         if message['exists'] is True:
                             os.rename(path_features + feat[2] + '/' + str(feat[0]) + '.npy',
@@ -233,8 +235,8 @@ def rabbit_consume():
                         os.rename(path_features + 'Grey/' + str(message['tempId']) + '.npy',
                                   path_features + 'Grey/' + str(message['personId']) + '.npy')
                         named = True
-                    except OSError as e:
-                        print('Still writing file')
+                    except OSError:
+                        pass
         up_face = True
 
     message_channel.basic_consume(queue='updateQueue',
