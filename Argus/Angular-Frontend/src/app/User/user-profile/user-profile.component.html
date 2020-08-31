@@ -217,7 +217,7 @@
                   <div class="form-group">
                     <label for="uNumber">Contact Number</label>
                     <input id="uNumber" name="contactNo" class="form-control"
-                           required pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$"
+                           required pattern="(^\(+27\)\ \d{3}\ \d{4})|(^+27\d{7})|(^+27\-\d{3}\-\d{4})|(^+27\ \d{3}\-\d{4})"
                            [(ngModel)]="user.contactNo" #contactNo="ngModel">
 
                     <div *ngIf="contactNo.invalid && (contactNo.dirty || contactNo.touched)"
@@ -228,11 +228,12 @@
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-6">
                   <div class="form-group">
-                    <label for="uPassword">Password</label>
-                    <input type="password" id="uPassword" name="uPassword" class="form-control"
+                    <label for="passwordField">Password</label>
+                    <input type="password" id="passwordField" name="uPassword" class="form-control"
                            required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                            [(ngModel)]="user.userPass" #userPass="ngModel">
-
+<!--                    <input class="loginInputs" id="passwordField" type="password" name="pass" placeholder="Password">-->
+                    <i class="material-icons hoverPointer" id="passwordVisibility" onclick="showPassword('')">visibility_off</i>
                     <div *ngIf="userPass.invalid && (userPass.dirty || userPass.touched)"
                          class="alert alert-danger">
                       <ul>

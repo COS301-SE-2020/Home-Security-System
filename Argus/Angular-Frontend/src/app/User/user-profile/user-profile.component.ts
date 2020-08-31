@@ -71,7 +71,7 @@ export class UserProfileComponent implements OnInit {
     const UName = document.getElementById('usernameDisplay') as HTMLDataElement;
     const contact = document.getElementById('numberDisplay') as HTMLInputElement;
     const email = document.getElementById('emailDisplay') as HTMLDataElement;
-    const password = document.getElementById('passwordDisplay') as HTMLDataElement;
+    const password = document.getElementById('passwordField') as HTMLDataElement;
     const uPic = document.getElementById('userPic') as HTMLImageElement;
 
     this.userService.getUserById(this.userObj.id)
@@ -93,7 +93,7 @@ export class UserProfileComponent implements OnInit {
     const uUsername = document.getElementById('uUsername') as HTMLInputElement;
     const uNumber = document.getElementById('uNumber') as HTMLInputElement;
     const uEmail = document.getElementById('uEmail') as HTMLInputElement;
-    const uPassword = document.getElementById('uPassword') as HTMLInputElement;
+    const uPassword = document.getElementById('passwordField') as HTMLInputElement;
     const uPic = document.getElementById('userPic') as HTMLImageElement;
 
     this.userService.getUserById(this.userObj.id)
@@ -114,7 +114,7 @@ export class UserProfileComponent implements OnInit {
     const uUsername = document.getElementById('uUsername') as HTMLInputElement;
     const uNumber = document.getElementById('uNumber') as HTMLInputElement;
     const uEmail = document.getElementById('uEmail') as HTMLInputElement;
-    const uPassword = document.getElementById('uPassword') as HTMLInputElement;
+    const uPassword = document.getElementById('passwordField') as HTMLInputElement;
 
     this.user.fname = uName.value;
     this.user.lname = uSurname.value;
