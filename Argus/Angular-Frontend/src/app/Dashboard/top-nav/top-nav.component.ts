@@ -16,8 +16,8 @@ export class TopNavComponent implements OnInit {
   title: string;
   sessionS = new Session();
   user: User;
-  cnt = 0 ;
   newObj: JsonObject;
+  cnt = 0;
 
   constructor(private noteService: NotificationService, private sessService: SessionService, private appService: TitleService,
               private userService: UserService) { }
@@ -39,12 +39,45 @@ export class TopNavComponent implements OnInit {
 
   ngOnInit(): void {
     // this.appService.getTitle().subscribe(appTitle => title = appTitle);
-   this.displayProfilePic();
-    // this.countNotifications();
+    this.displayProfilePic();
+    this.countNotifications();
+
+    let counter = 0;
+    let num = 0;
+    this.noteService.getNotificationList().subscribe(data => {
+      // console.log(data);
+      while (data[counter] != null) {
+        if (data[counter].notificationDeleted === null) {
+          num += 1;
+        }
+        counter++;
+      }
+
+      this.cnt = num;
+    });
   }
 
   countNotifications() {
-    this.noteService.getNotificationList().forEach(data => { this.cnt += 1; });
-    document.getElementById('noteCnt').innerHTML = this.cnt.toString() ;
+    setTimeout(() => {
+      let counter = 0;
+      let num = 0;
+      this.noteService.getNotificationList().subscribe(data => {
+        // console.log(data);
+        while (data[counter] != null) {
+          if (data[counter].notificationDeleted === null) {
+            num += 1;
+          }
+          counter++;
+        }
+        num = num - this.cnt;
+        document.getElementById('noteCnt').innerHTML = num.toString();
+      });
+      this.countNotifications();
+    }, 1000);
+  }
+
+  clearNotifications() {
+    document.getElementById('noteCnt').innerHTML = '0';
+    this.ngOnInit();
   }
 }

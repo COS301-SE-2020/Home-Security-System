@@ -1,5 +1,5 @@
 "use strict";
-export class Session{
+export class Session {
 
   recoverySess(email){
     let recoveryDetails = {};
@@ -11,13 +11,15 @@ export class Session{
     return JSON.parse(retrievedMail);
   }
 
-  createSession(email, passw, id, role){
+  createSession(email, passw, id, role, cellno/*, sms*/){
     let newUser = {};
 
     newUser.email = email;
     newUser.userPass = passw;
     newUser.id = id;
     newUser.userRole = role;
+    newUser.cellno = cellno;
+    /*newUser.prompt = sms;*/
 
     sessionStorage.setItem('userDetails', JSON.stringify(newUser));
   }
@@ -28,7 +30,7 @@ export class Session{
 
   retrieveUserInfo(){
     let retrievedObject = sessionStorage.getItem('userDetails');
-    console.log(JSON.parse(retrievedObject));
+    // console.log(JSON.parse(retrievedObject));
     return JSON.parse(retrievedObject);
   }
 }

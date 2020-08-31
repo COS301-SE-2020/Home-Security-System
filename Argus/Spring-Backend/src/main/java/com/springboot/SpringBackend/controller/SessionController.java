@@ -20,7 +20,7 @@ public class SessionController {
     // http://localhost:8080/springboot/sessions/addSession/
     @PostMapping(value = "/addSession")
     public String addSession(@Valid @RequestBody SessionModel sm) {
-        sessionStore = new SessionModel(sm.getID(), sm.getEmail(), sm.getPassword(), sm.getRole());
+        sessionStore = new SessionModel(sm.getId(), sm.getEmail(), sm.getPassword(), sm.getCellphone(), sm.getRole());
         tableData.add(sessionStore);
         return "Added user to session";
     }
@@ -43,6 +43,17 @@ public class SessionController {
 
         return print;
     }
+    // http://localhost:8080/springboot/sessions/getCellNumbersByAllowed/
+    /*@GetMapping(value = "getCellNumbersByAllowed")
+    public String[] getAllCellByAllow(){
+        String cellNumbers[];
+        cellNumbers = new String[tableData.size()];
+        System.out.println("List of numbers: ");
+        for (int i = 0; i < tableData.size(); i++) {
+            cellNumbers[i] = tableData.get(i).getCell();
+        }
+        return cellNumbers;
+    }*/
     // http://localhost:8080/springboot/sessions/getSessionDetails/
     @GetMapping(value = "/getSessionDetails")
     public JSONArray getSessionDetails() {
@@ -50,20 +61,24 @@ public class SessionController {
         JSONObject obj = new JSONObject();
 
         for (SessionModel tableDatum : tableData) {
-            obj.put("id", tableDatum.getID());
+            obj.put("id", tableDatum.getId());
             obj.put("email", tableDatum.getEmail());
             obj.put("password", tableDatum.getPassword());
             obj.put("role", tableDatum.getRole());
+            obj.put("cellphone", tableDatum.getCellphone());
+            /*obj.put("cellno", tableDatum.getCell());*/
+            /*obj.put("sms", tableDatum.getPromptSms());*/
             array.add(obj);
         }
 
         return array;
     }
 
+
     @DeleteMapping(value = "/deleteSessionId/{id}")
     public String deleteSessionId(@PathVariable("id") String id) {
         for (int i = 0;i < tableData.size(); i++) {
-            if (tableData.get(i).getID().equals(id)) {
+            if (tableData.get(i).getId().equals(id)) {
                 tableData.remove(i);
             }
         }

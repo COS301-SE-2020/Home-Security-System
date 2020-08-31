@@ -8,6 +8,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { WebcamModule } from 'ngx-webcam';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { environment } from '../environments/environment';
 
@@ -48,7 +49,6 @@ import { VehicleService } from './model/vehicle.service';
 import { ImageService } from './model/image.service';
 import { SessionService } from './model/session.service';
 
-
 const appRoutes: Routes = [];
 
 @NgModule({
@@ -86,6 +86,7 @@ const appRoutes: Routes = [];
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     WebcamModule,
     RouterModule.forRoot(appRoutes),

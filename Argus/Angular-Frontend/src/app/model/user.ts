@@ -6,6 +6,7 @@ export class User {
   profilePhoto: string;
   fname: string;
   lname: string;
+  contactNo: string;
   email: string;
   username: string;
   userPass: string;

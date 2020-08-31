@@ -29,6 +29,7 @@ public class NotificationRepoTest {
     private static final String ROLE = "Admin";
     private static final String MSG = "Hello World";
     private static final String LISTED = "Suspicious";
+    private static final String CONTACT = "0840763231";
 
     // @Autowired
     // private ImageRepo irepo;
@@ -47,7 +48,7 @@ public class NotificationRepoTest {
         // Image img = new Image(IMAGE_URL);
         // irepo.save(img);
 
-        User user = new User(FNAME,LNAME,EMAIL,USERNAME,PASS,ROLE);
+        User user = new User(FNAME,LNAME, CONTACT,EMAIL,USERNAME,PASS,ROLE);
         urepo.save(user);
 
         Notification note = new Notification(IMAGE_URL,MSG,user);

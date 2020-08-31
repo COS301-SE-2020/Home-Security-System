@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {User} from '../../model/user';
 import {WebcamImage} from 'ngx-webcam';
 import {Observable, Subject} from 'rxjs';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-user-profile',
@@ -19,12 +20,14 @@ export class UserProfileComponent implements OnInit {
   user: User;
 
   constructor(private route: ActivatedRoute, private router: Router,
-              private appService: TitleService, private userService: UserService) {}
+              private appService: TitleService, private userService: UserService,
+              private SpinnerService: NgxSpinnerService) {}
 
   public get triggerObservable(): Observable<void> {
     return this.snapTrigger.asObservable();
   }
 
+  conPass = '';
   /* ======================================================== */
   /*         START of Camera for taking profile picture       */
   /* ======================================================== */
@@ -67,14 +70,16 @@ export class UserProfileComponent implements OnInit {
     const FName = document.getElementById('firstNameDisplay') as HTMLDataElement;
     const SName = document.getElementById('lastNameDisplay') as HTMLDataElement;
     const UName = document.getElementById('usernameDisplay') as HTMLDataElement;
+    const contact = document.getElementById('numberDisplay') as HTMLInputElement;
     const email = document.getElementById('emailDisplay') as HTMLDataElement;
-    const password = document.getElementById('passwordDisplay') as HTMLDataElement;
+    const password = document.getElementById('passwordField1') as HTMLDataElement;
     const uPic = document.getElementById('userPic') as HTMLImageElement;
 
     this.userService.getUserById(this.userObj.id)
       .subscribe(data => {
         FName.value = data.fname;
         SName.value = data.lname;
+        contact.value = data.contactNo;
         UName.value = data.username;
         email.value = data.email;
         password.value = data.userPass;
@@ -87,14 +92,16 @@ export class UserProfileComponent implements OnInit {
     const uName = document.getElementById('uFirstName') as HTMLInputElement;
     const uSurname = document.getElementById('uLastName') as HTMLInputElement;
     const uUsername = document.getElementById('uUsername') as HTMLInputElement;
+    const uNumber = document.getElementById('uNumber') as HTMLInputElement;
     const uEmail = document.getElementById('uEmail') as HTMLInputElement;
-    const uPassword = document.getElementById('uPassword') as HTMLInputElement;
+    const uPassword = document.getElementById('passwordField1') as HTMLInputElement;
     const uPic = document.getElementById('userPic') as HTMLImageElement;
 
     this.userService.getUserById(this.userObj.id)
       .subscribe(data => {
         uName.value = data.fname;
         uSurname.value = data.lname;
+        uNumber.value = data.contactNo;
         uEmail.value = data.email;
         uUsername.value = data.username;
         uPassword.value = data.userPass;
@@ -106,11 +113,13 @@ export class UserProfileComponent implements OnInit {
     const uName = document.getElementById('uFirstName') as HTMLInputElement;
     const uSurname = document.getElementById('uLastName') as HTMLInputElement;
     const uUsername = document.getElementById('uUsername') as HTMLInputElement;
+    const uNumber = document.getElementById('uNumber') as HTMLInputElement;
     const uEmail = document.getElementById('uEmail') as HTMLInputElement;
-    const uPassword = document.getElementById('uPassword') as HTMLInputElement;
+    const uPassword = document.getElementById('passwordField1') as HTMLInputElement;
 
     this.user.fname = uName.value;
     this.user.lname = uSurname.value;
+    this.user.contactNo = uNumber.value;
     this.user.email = uEmail.value;
     this.user.username = uUsername.value;
     this.user.userPass = uPassword.value;
@@ -118,9 +127,9 @@ export class UserProfileComponent implements OnInit {
     this.userService.updateUser(this.userObj.id, this.user)
       .subscribe(data => {
         // console.log(data);
-        this.populateFields();
+        // this.populateFields();
+        this.gotoList();
       }, error => console.log(error));
-    this.gotoList();
   }
 
   updateUserPic() {
@@ -134,9 +143,9 @@ export class UserProfileComponent implements OnInit {
     this.userService.updateUser(userObj.id, this.user)
       .subscribe(data => {
       // console.log(data);
-      this.populateFields();
+      // this.populateFields();
+      this.gotoList();
     }, error => console.log(error));
-    this.gotoList();
   }
 
   checkIfExists(): boolean {
@@ -146,7 +155,7 @@ export class UserProfileComponent implements OnInit {
 
     this.userService.getUserList().subscribe(
       data => {
-        while (data != null) {
+        while (data[counter] != null) {
           if (data[counter].userDeleted === null && data[counter].userId !== this.userObj.id) {
             if (data[counter].username === usernameInp.value) {
               alert('Username is already taken. Please enter another username');
@@ -178,5 +187,10 @@ export class UserProfileComponent implements OnInit {
 
   gotoList() {
     this.router.navigate(['/user-profile']);
+    this.SpinnerService.show();
+    setTimeout(() => {
+      this.SpinnerService.hide();
+      location.reload();
+    }, 500);
   }
 }

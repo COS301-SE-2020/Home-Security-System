@@ -39,7 +39,7 @@ export class EditUserComponent implements OnInit {
 
     this.userService.getUserList().subscribe(
       data => {
-        while (data != null) {
+        while (data[counter] != null) {
           if (data[counter].userDeleted === null && data[counter].userId !== this.id) {
             if (data[counter].username === usernameInp.value) {
               alert('Username is already taken. Please enter another username');
