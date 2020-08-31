@@ -51,28 +51,30 @@ export class LoginComponent implements OnInit {
     this.userService.getUserList()
       .subscribe(
         data => {
-          if (( (data[counter].email.toLowerCase() === emailVar.value.toLowerCase()) || (data[counter].username === emailVar.value) )
-            && (data[counter].userPass === passVar.value)){
-            this.sessionS.createSession(data[counter].email, passVar.value, data[counter].userId, data[counter].userRole);
+          while (data != null) {
+            if (((data[counter].email.toLowerCase() === emailVar.value.toLowerCase()) || (data[counter].username === emailVar.value))
+              && (data[counter].userPass === passVar.value)) {
+              this.sessionS.createSession(data[counter].email, passVar.value, data[counter].userId, data[counter].userRole);
 
-            this.sessClass.id = data[counter].userId.toString();
-            this.sessClass.email = data[counter].email.toString();
-            this.sessClass.password = passVar.value.toString();
-            this.sessClass.role = data[counter].userRole.toString();
+              this.sessClass.id = data[counter].userId.toString();
+              this.sessClass.email = data[counter].email.toString();
+              this.sessClass.password = passVar.value.toString();
+              this.sessClass.role = data[counter].userRole.toString();
 
-            this.sessService.addToSession(this.sessClass).subscribe();
-            /*this.sessService.addToSession(data[counter].userId.toString(), data[counter].email.toString(),
-              passVar.value.toString(), data[counter].userRole.toString()).subscribe();*/
-            // alert('You are logged in, welcome to Argus');
-            this.sessionS.retrieveUserInfo();
-            this.router.navigate(['/dashboard']);
+              this.sessService.addToSession(this.sessClass).subscribe();
+              /*this.sessService.addToSession(data[counter].userId.toString(), data[counter].email.toString(),
+                passVar.value.toString(), data[counter].userRole.toString()).subscribe();*/
+              // alert('You are logged in, welcome to Argus');
+              this.sessionS.retrieveUserInfo();
+              this.router.navigate(['/dashboard']);
+            }
+            if (((data[counter].email.toLowerCase() === emailVar.value.toLowerCase()) || (data[counter].username === emailVar.value)) &&
+              (data[counter].userPass !== passVar.value)) {
+              alert('The password you entered seems to be incorrect, please retry entering your password.');
+              passVar.value = '';
+            }
+            counter++;
           }
-          if (((data[counter].email.toLowerCase() === emailVar.value.toLowerCase() ) || (data[counter].username === emailVar.value)) &&
-            (data[counter].userPass !== passVar.value)){
-            alert('The password you entered seems to be incorrect, please retry entering your password.');
-            passVar.value = '';
-          }
-          counter++;
         },
         error => console.log(error));
 

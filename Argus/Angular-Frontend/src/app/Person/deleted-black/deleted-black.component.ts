@@ -7,7 +7,7 @@ import {UserService} from '../../model/user.service';
 import Session from '../../../assets/js/SessionStorage';
 import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
-import {NgxSpinnerService} from "ngx-spinner";
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-deleted-black',
@@ -26,27 +26,6 @@ export class DeletedBlackComponent implements OnInit {
   reloadData() {
     this.person = this.personService.getPersonList();
     // this.activateButtons();
-  }
-
-  activateButtons(){
-    const restoreBtn = document.getElementById('restoreBtn') as HTMLButtonElement;
-    const user = this.sessionS.retrieveUserInfo();
-
-    this.userService.getUserList()
-      .subscribe(
-        data => {
-          // console.log(data);
-          if (user.userRole === 'Admin'){
-            restoreBtn.disabled = false;
-          }
-          else if (user.userRole === 'Advanced'){
-            restoreBtn.disabled = false;
-          }
-          else if (user.userRole === 'Basic'){
-            restoreBtn.disabled = true;
-            restoreBtn.hidden = true;
-          }
-        }, error => console.log(error));
   }
 
   restorePerson(id: number){
@@ -74,7 +53,37 @@ export class DeletedBlackComponent implements OnInit {
     this.reloadData();
   }
 
-  back(){
+  back() {
     this.router.navigate(['people-black']);
+  }
+
+  deleteOld() {
+    let counter = 0;
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth();
+    const day = today.getDay();
+
+    this.personService.getPersonList()
+      .subscribe(
+        data => {
+          while (data != null) {
+            // console.log(data);
+            const date = new Date(data[counter].personDeleted);
+            console.log('Date:' + date);
+            if (date.getFullYear() === year) {
+              if (date.getMonth() === month) {
+                const num = date.getDay() + 7;
+                if (num === day) {
+                  this.personService.deletePerson(data[counter].personId)
+                    .subscribe(value => {
+                      // console.log(value);
+                    }, error => console.log(error));
+                }
+              }
+            }
+            counter++;
+          }
+        }, error => console.log(error));
   }
 }

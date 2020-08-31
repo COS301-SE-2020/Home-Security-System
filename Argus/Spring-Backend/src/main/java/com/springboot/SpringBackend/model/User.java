@@ -55,8 +55,8 @@ public class User implements Serializable {
     @Column(name = "notifyemail", nullable = false)
     private Boolean notifyEmail;
 
-    @Column(name = "notifylocal", nullable = false)
-    private Boolean notifyLocal;
+    @Column(name = "notifysms", nullable = false)
+    private Boolean notifySMS;
 
     @Column(name = "userdeleted", nullable = true)
     private LocalDate userDeleted = null;
@@ -101,7 +101,7 @@ public class User implements Serializable {
         }
 
         this.notifyEmail = true;
-        this.notifyLocal = true;
+        this.notifySMS = true;
     }
 
     public User(String name, String surname, String email, String username, String password, String role) {
@@ -129,7 +129,7 @@ public class User implements Serializable {
         }
 
         this.notifyEmail = true;
-        this.notifyLocal = true;
+        this.notifySMS = true;
     }
 
     public Long getUserId() {
@@ -206,11 +206,11 @@ public class User implements Serializable {
         this.notifyEmail = tf;
     }
 
-    public Boolean getNotifyLocal() {
-        return this.notifyLocal;
+    public Boolean getNotifySMS() {
+        return this.notifySMS;
     }
-    public void setNotifyLocal(Boolean tf) {
-        this.notifyLocal = tf;
+    public void setNotifySMS(Boolean tf) {
+        this.notifySMS = tf;
     }
 
     public LocalDate getUserDeleted() {

@@ -23,6 +23,9 @@ export class NotificationComponent implements OnInit {
   reloadData() {
     this.note = new Notification();
     this.notification = this.notificationService.getNotificationList();
+    setTimeout(() => {
+      this.ngOnInit();
+    }, 300000);
   }
 
   removeNotification(id: number) {
@@ -47,5 +50,35 @@ export class NotificationComponent implements OnInit {
   ngOnInit(): void {
     this.appService.setTitle('Notifications');
     this.reloadData();
+  }
+
+  deleteOld() {
+    let counter = 0;
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth();
+    const day = today.getDay();
+
+    this.notificationService.getNotificationList()
+      .subscribe(
+        data => {
+          while (data != null) {
+            // console.log(data);
+            const date = new Date(data[counter].onDate);
+            console.log('Date:' + date);
+            if (date.getFullYear() === year) {
+              if (date.getMonth() === month) {
+                const num = date.getDay() + 7;
+                if (num === day) {
+                  this.notificationService.deleteNotification(data[counter].notificationId)
+                    .subscribe(value => {
+                      // console.log(value);
+                    }, error => console.log(error));
+                }
+              }
+            }
+            counter++;
+          }
+        }, error => console.log(error));
   }
 }

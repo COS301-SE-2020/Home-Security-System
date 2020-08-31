@@ -51,6 +51,9 @@ public class VehicleController {
             x.setVehicleImg(details.getVehicleImg());
         }
         x.setVehicleListed(details.getVehicleListed());
+        x.setVehicleMake(details.getVehicleMake());
+        x.setVehicleModel(details.getVehicleModel());
+        x.setVehicleColour(details.getVehicleColour());
         x.setLicenseNo(details.getLicenseNo());
         x.setVehicleDeleted(details.getVehicleDeleted());
         final Vehicle updatedVehicle = service.updateVehicle(x);

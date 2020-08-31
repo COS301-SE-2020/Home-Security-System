@@ -16,12 +16,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
 public class RabbitMQConfig {
-    //@Value("${sigma.rabbitmq.exchange}")
-    public static final String EXCHANGE_NAME = "sigma.direct";
+    public static final String DIRECT_EXCHANGE = "sigma.direct";
+    public static final String FANOUT_EXCHANGE = "sigma.fanout";
     public static final String ALERT_QUEUE = "alertQueue";
     public static final String PERSON_QUEUE = "personQueue";
     public static final String FEATURE_QUEUE = "featureQueue";
     public static final String UPDATE_QUEUE = "updateQueue";
+    public static final String MESSAGE_QUEUE = "messageQueue";
     public static final String ALERT_KEY = "alertKey";
     public static final String PERSON_KEY = "personKey";
     public static final String FEATURE_KEY = "featureKey";
@@ -52,28 +53,44 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    DirectExchange exchange(){
-        return new DirectExchange(EXCHANGE_NAME);
+    Queue messageQueue()
+    {
+        return new Queue(MESSAGE_QUEUE, false);
+    }
+
+    @Bean
+    DirectExchange directExchange(){
+        return new DirectExchange(DIRECT_EXCHANGE);
+    }
+
+    @Bean
+    FanoutExchange fanoutExchange(){
+        return new FanoutExchange(FANOUT_EXCHANGE);
     }
 
     @Bean
     public Binding alertBinding() {
-        return BindingBuilder.bind(alertQueue()).to(exchange()).with(ALERT_KEY);
+        return BindingBuilder.bind(alertQueue()).to(directExchange()).with(ALERT_KEY);
     }
 
     @Bean
     public Binding personBinding() {
-        return BindingBuilder.bind(personQueue()).to(exchange()).with(PERSON_KEY);
+        return BindingBuilder.bind(personQueue()).to(directExchange()).with(PERSON_KEY);
     }
 
     @Bean
     public Binding featureBinding() {
-        return BindingBuilder.bind(featureQueue()).to(exchange()).with(FEATURE_KEY);
+        return BindingBuilder.bind(featureQueue()).to(directExchange()).with(FEATURE_KEY);
     }
 
     @Bean
     public Binding updateBinding() {
-        return BindingBuilder.bind(updateQueue()).to(exchange()).with(UPDATE_KEY);
+        return BindingBuilder.bind(updateQueue()).to(directExchange()).with(UPDATE_KEY);
+    }
+
+    @Bean
+    public Binding messageBinding() {
+        return BindingBuilder.bind(messageQueue()).to(fanoutExchange());
     }
 
     @Bean

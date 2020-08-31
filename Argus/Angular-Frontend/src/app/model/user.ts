@@ -10,7 +10,7 @@ export class User {
   username: string;
   userPass: string;
   userRole: string;
-  notifyLocal: boolean;
+  notifySMS: boolean;
   notifyEmail: boolean;
   userDeleted: any;
 }

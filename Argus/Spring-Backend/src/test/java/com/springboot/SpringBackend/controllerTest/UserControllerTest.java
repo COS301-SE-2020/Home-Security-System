@@ -39,7 +39,7 @@ public class UserControllerTest {
         u.setUsername("Bradford");
         u.setUserPass("123qweASD!");
         u.setUserRole("Admin");
-        u.setNotifyLocal(true);
+        u.setNotifySMS(true);
         u.setNotifyEmail(true);
         ResponseEntity<User> postResponse = restTemplate.postForEntity(getRootUrl(), u, User.class);
         System.out.println(" postResponse -> " + postResponse);

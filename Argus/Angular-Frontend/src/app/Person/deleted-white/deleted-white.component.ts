@@ -7,7 +7,7 @@ import {TitleService} from '../../title.service';
 import {Observable} from 'rxjs';
 import Session from '../../../assets/js/SessionStorage';
 import {Router} from '@angular/router';
-import {NgxSpinnerService} from "ngx-spinner";
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-deleted-white',
@@ -17,6 +17,7 @@ import {NgxSpinnerService} from "ngx-spinner";
 export class DeletedWhiteComponent implements OnInit {
   sessionS = new Session();
   info: User = this.sessionS.retrieveUserInfo();
+  list: Observable<Person[]>;
   person: Observable<Person[]>;
   psn: Person;
 
@@ -28,33 +29,12 @@ export class DeletedWhiteComponent implements OnInit {
     // this.activateButtons();
   }
 
-  activateButtons(){
-    const restoreBtn = document.getElementById('restoreBtn') as HTMLButtonElement;
-    const user = this.sessionS.retrieveUserInfo();
-
-    this.userService.getUserList()
-      .subscribe(
-        data => {
-          // console.log(data);
-          if (user.userRole === 'Admin'){
-            restoreBtn.disabled = false;
-          }
-          else if (user.userRole === 'Advanced'){
-            restoreBtn.disabled = false;
-          }
-          else if (user.userRole === 'Basic'){
-            restoreBtn.disabled = true;
-            restoreBtn.hidden = true;
-          }
-        }, error => console.log(error));
-  }
-
   restorePerson(id: number){
     this.SpinnerService.show();
     this.personService.getPersonById(id)
       .subscribe(
         data => {
-          console.log(data);
+          // console.log(data);
           this.psn = data;
           this.psn.personDeleted = '';
           this.personService.updatePerson(id, this.psn)
@@ -73,7 +53,37 @@ export class DeletedWhiteComponent implements OnInit {
     this.reloadData();
   }
 
-  back(){
+  back() {
     this.router.navigate(['people-white']);
+  }
+
+  deleteOld() {
+    let counter = 0;
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth();
+    const day = today.getDay();
+
+    this.personService.getPersonList()
+      .subscribe(
+        data => {
+          while (data != null) {
+            // console.log(data);
+            const date = new Date(data[counter].personDeleted);
+            console.log('Date:' + date);
+            if (date.getFullYear() === year) {
+              if (date.getMonth() === month) {
+                const num = date.getDay() + 7;
+                if (num === day) {
+                  this.personService.deletePerson(data[counter].personId)
+                    .subscribe(value => {
+                      // console.log(value);
+                    }, error => console.log(error));
+                }
+              }
+            }
+            counter++;
+          }
+        }, error => console.log(error));
   }
 }
