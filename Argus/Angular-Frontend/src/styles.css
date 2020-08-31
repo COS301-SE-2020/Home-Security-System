@@ -13803,8 +13803,9 @@ fieldset[disabled] .form-group .form-control {
   border: 0;
   border-radius: 3px;
   position: relative;
-  padding: 20px 15px;
-  line-height: 20px;
+  padding: 10px;
+  line-height: 12px;
+  font-size: 12px;
 }
 
 .alert b {
@@ -13877,8 +13878,9 @@ fieldset[disabled] .form-group .form-control {
 }
 
 .alert.alert-danger {
-  background-color: #f55145;
-  color: #ffffff;
+  background-color: #f44336;
+  color: white;
+  opacity: 0.8;
 }
 
 .alert.alert-danger a,

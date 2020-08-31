@@ -278,22 +278,40 @@
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-6">
                   <div class="form-group">
-                    <label for="passwordField">Password</label>
-                    <input type="password" id="passwordField" name="uPassword" class="form-control"
+                    <label for="passwordField1">Password</label>
+                    <input type="password" id="passwordField1" name="uPassword" class="form-control"
                            required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                            [(ngModel)]="user.userPass" #userPass="ngModel">
 <!--                    <input class="loginInputs" id="passwordField" type="password" name="pass" placeholder="Password">-->
-                    <i class="material-icons hoverPointer" id="passwordVisibility" onclick="showPassword('')">visibility_off</i>
+                    <i class="material-icons hoverPointer" id="passwordVisibility1" onclick="showPassword('1')">visibility_off</i>
                     <div *ngIf="userPass.invalid && (userPass.dirty || userPass.touched)"
                          class="alert alert-danger">
                       <ul>
-                        <h4>Must contain:</h4>
+                        <h6>Must contain:</h6>
                         <li>At least eight characters</li>
                         <li>At least one uppercase letter</li>
                         <li>At least one lowercase letter</li>
                         <li>One number</li>
                         <li>One special character</li>
                       </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="userPass.dirty">
+                <div class="row">
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="form-group">
+                      <label for="passwordField2">Confirm Password</label>
+                      <input type="password" id="passwordField2" name="confirmPassword" class="form-control"
+                             [(ngModel)]="conPass" #confirm="ngModel">
+                      <i class="material-icons hoverPointer" id="passwordVisibility2" onclick="showPassword('2')">visibility_off</i>
+                      <div *ngIf="userPass.value != conPass.valueOf()"
+                           class="alert alert-danger">
+                        Passwords do not match
+                      </div>
                     </div>
                   </div>
                 </div>
