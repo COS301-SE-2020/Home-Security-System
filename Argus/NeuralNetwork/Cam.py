@@ -217,14 +217,11 @@ def rabbit_consume():
             save_face(path_features + message['type'] + '/' + message['personId'] + '.npy', img)
         else:
             if message['tempId'] == '0':
-                print('Searching for: ' + message['personId'])
                 for feat in all_f_features:
-                    print('Checking: ' + feat[0])
-                    if message['personId'] == feat[0]:
+                    if str(message['personId']) == str(feat[0]):
                         if message['exists'] is True:
                             os.rename(path_features + feat[2] + '/' + str(feat[0]) + '.npy',
                                       path_features + message['type'] + '/' + str(feat[0]) + '.npy')
-                            print(path_features + message['type'] + '/' + str(feat[0]) + '.npy')
                         else:
                             os.rename(path_features + feat[2] + '/' + feat[0] + '.npy',
                                       path_features + 'Deleted/' + feat[0] + '.npy')
