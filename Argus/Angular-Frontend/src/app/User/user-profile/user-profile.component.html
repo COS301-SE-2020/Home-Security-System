@@ -12,7 +12,9 @@
             <div class="image-cropper">
               <img class="userPic" id="userPic">
               <div class="middle">
-                <button class="btn btn-primary" data-toggle="modal" data-target="#changeProfilePicModal" onclick="openDrop()">Change</button>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#changeProfilePicModal"
+                        onclick="openDrop()">Change
+                </button>
               </div>
             </div>
           </div>
@@ -64,67 +66,19 @@
                     </output>
                   </div>
                 </div>
-                <div class="col-md-6 col-sm-6 col-xs-6">
-                  <div class="form-group">
-                    <h5 class="text-primary"><b>Password</b></h5>
-                    <!-- <label class="bmd-label-floating">Last Name</label> -->
-                    <output id="passwordDisplay">
-                    </output>
-                  </div>
-                </div>
+                <!--                <div class="col-md-6 col-sm-6 col-xs-6">-->
+                <!--                  <div class="form-group">-->
+                <!--                    <h5 class="text-primary"><b>Password</b></h5>-->
+                <!--                    &lt;!&ndash; <label class="bmd-label-floating">Last Name</label> &ndash;&gt;-->
+                <!--                    <output id="passwordDisplay">-->
+                <!--                    </output>-->
+                <!--                  </div>-->
+                <!--                </div>-->
               </div>
               <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#changeModal"
-                      (click)="loadModal()">Change
+                      (click)="loadModal()">Update Details
               </button>
             </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!--Change Profile Picture Modal-->
-<div class="container">
-  <div class="modal fade" id="changeProfilePicModal" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-body center">
-          <i class="material-icons modal-close-btn" data-dismiss="modal">close</i>
-          <div class="card">
-            <div class="card-header card-header-color">
-              <h4 class="card-title">Change Profile Picture</h4>
-            </div>
-            <div class="card-body">
-              <!--Profile Picture-->
-              <div class="form-group">
-                <div class="picture-container">
-                  <!--            <div class="output" width="150px">-->
-                  <div id="preview">
-                    <img alt="Default Picture" id="submitPhoto" src="/assets/Images/blank.jpg">
-                  </div>
-                  <br>
-                </div>
-
-                <label id="profilePicInput" for="fileElem">
-                  <i class="material-icons add-photo-icon">add_photo_alternate</i><br>
-                  <input type="file" id="fileElem" accept="image/*" onchange="previewFile(this.file)"            >
-                  Drag and Drop an image<br>
-                  <!--or<br>Click to add-->
-                </label>
-
-                or
-                <br>
-
-                <a class="hoverPointer" data-toggle="modal" data-target="#pictureModal">
-                  capture a photo from camera
-                </a>
-              </div>
-              <button type="submit" class="btn btn-primary justify-content-center" data-dismiss="modal"
-                      (click)="updateUserPic()">Update
-              </button>
-            </div>
           </div>
         </div>
       </div>
@@ -169,7 +123,6 @@
     </div>
   </div>
 </div>
-
 
 <!--Update Info Modal-->
 <div class="container">
@@ -260,7 +213,6 @@
               </div>
               <br>
               <div class="row">
-
                 <div class="col-md-6 col-sm-6 col-xs-6">
                   <div class="form-group">
                     <label for="uNumber">Contact Number</label>
@@ -277,13 +229,12 @@
                 <div class="col-md-6 col-sm-6 col-xs-6">
                   <div class="form-group">
                     <label for="uPassword">Password</label>
-                    <input id="uPassword" name="uPassword" class="form-control"
+                    <input type="password" id="uPassword" name="uPassword" class="form-control"
                            required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                            [(ngModel)]="user.userPass" #userPass="ngModel">
 
                     <div *ngIf="userPass.invalid && (userPass.dirty || userPass.touched)"
                          class="alert alert-danger">
-
                       <ul>
                         <h4>Must contain:</h4>
                         <li>At least eight characters</li>
@@ -300,7 +251,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal" (click)="onSubmit()" [disabled]="changeForm.invalid"> Save
+          <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal" (click)="onSubmit()"
+                  [disabled]="changeForm.invalid"> Save
             Changes
           </button>
         </div>
