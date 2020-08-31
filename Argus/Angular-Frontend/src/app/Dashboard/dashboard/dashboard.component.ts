@@ -4,7 +4,6 @@ import {Observable, Subject} from 'rxjs';
 import {TitleService} from '../../title.service';
 import {PersonService} from '../../model/person.service';
 import {Person} from '../../model/person';
-import {UserService} from '../../model/user.service';
 import * as CanvasJS from '../../../assets/js/canvasjs.min';
 import {Notification} from '../../model/notification';
 import {NotificationService} from '../../model/notification.service';
@@ -28,7 +27,7 @@ export class DashboardComponent implements OnInit {
   note: Notification;
 
   // ----------------------
-  title = 'argus-app';
+  title = 'Dashboard';
 
   @ViewChild('video')
   public webcam: ElementRef;
@@ -58,10 +57,11 @@ export class DashboardComponent implements OnInit {
     this.personService.getPersonList().subscribe(data => {
       let threat = 0;
       let cleared = 0;
-      let suspicious = 0;
+      let unknown = 0;
+      // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < data.length; i++){
         if (data[i].personListed === 'Grey'){
-          suspicious++;
+          unknown++;
         }
         else if (data[i].personListed === 'Black'){
           threat++;
@@ -70,7 +70,7 @@ export class DashboardComponent implements OnInit {
           cleared++;
         }
       }
-      this.pieChart(cleared, suspicious, threat);
+      this.pieChart(cleared, unknown, threat);
     });
   }
 
@@ -90,6 +90,7 @@ export class DashboardComponent implements OnInit {
       let one = 0;
       let today = 0;
 
+      // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < data.length; i++){
         if (data[i].onDate === this.dayTester(0)){
           today++;
@@ -137,6 +138,7 @@ export class DashboardComponent implements OnInit {
     {
       daySmall = ('0' + month).toString();
     }
+
     const year = last.getFullYear();
 
     if ( monthSmall === '' && daySmall === '')
@@ -217,9 +219,9 @@ export class DashboardComponent implements OnInit {
         toolTipContent: '<b>{name}</b>: {y} (#percent%)',
         indexLabel: '{name} - #percent%',
         dataPoints: [
+          { y: val2, name: 'Unknown' },
           { y: val1, name: 'Cleared' },
-          { y: val3, name: 'Threat' },
-          { y: val2, name: 'Suspicious' }
+          { y: val3, name: 'Threat' }
         ]
       }]
     });
@@ -234,9 +236,9 @@ export class DashboardComponent implements OnInit {
     this.appService.setTitle('Dashboard');
     // this.getChartDetails();
     // this.barchart();
+    // this.pieChart();
     this.calculateNumberOfPeople();
     this.calculateNumberOfNotifications();
-    // this.pieChart();
   }
 
   public toggleCam(): void {

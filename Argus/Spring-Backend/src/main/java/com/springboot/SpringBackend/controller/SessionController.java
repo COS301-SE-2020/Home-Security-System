@@ -20,7 +20,7 @@ public class SessionController {
     // http://localhost:8080/springboot/sessions/addSession/
     @PostMapping(value = "/addSession")
     public String addSession(@Valid @RequestBody SessionModel sm) {
-        sessionStore = new SessionModel(sm.getID(), sm.getEmail(), sm.getPassword(), sm.getCell(), sm.getRole());
+        sessionStore = new SessionModel(sm.getId(), sm.getEmail(), sm.getPassword(), sm.getCellphone(), sm.getRole());
         tableData.add(sessionStore);
         return "Added user to session";
     }
@@ -61,11 +61,11 @@ public class SessionController {
         JSONObject obj = new JSONObject();
 
         for (SessionModel tableDatum : tableData) {
-            obj.put("id", tableDatum.getID());
+            obj.put("id", tableDatum.getId());
             obj.put("email", tableDatum.getEmail());
             obj.put("password", tableDatum.getPassword());
             obj.put("role", tableDatum.getRole());
-            obj.put("cellphone", tableDatum.getCell());
+            obj.put("cellphone", tableDatum.getCellphone());
             /*obj.put("cellno", tableDatum.getCell());*/
             /*obj.put("sms", tableDatum.getPromptSms());*/
             array.add(obj);
@@ -78,7 +78,7 @@ public class SessionController {
     @DeleteMapping(value = "/deleteSessionId/{id}")
     public String deleteSessionId(@PathVariable("id") String id) {
         for (int i = 0;i < tableData.size(); i++) {
-            if (tableData.get(i).getID().equals(id)) {
+            if (tableData.get(i).getId().equals(id)) {
                 tableData.remove(i);
             }
         }

@@ -38,7 +38,7 @@ export class SettingsComponent implements OnInit {
     this.userService.getUserById(userObj.id).subscribe(
       data => {
         // console.log(data);
-        smsSettings.checked = data.notifyLocal;
+        smsSettings.checked = data.notifySMS;
         emailSettings.checked = data.notifyEmail;
         this.user = data;
       }

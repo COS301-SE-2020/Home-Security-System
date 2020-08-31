@@ -154,7 +154,7 @@ export class UserProfileComponent implements OnInit {
 
     this.userService.getUserList().subscribe(
       data => {
-        while (data != null) {
+        while (data[counter] != null) {
           if (data[counter].userDeleted === null && data[counter].userId !== this.userObj.id) {
             if (data[counter].username === usernameInp.value) {
               alert('Username is already taken. Please enter another username');

@@ -38,7 +38,7 @@
             </p>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" [routerLink]="['/notification']">Recent notifications</a>
+            <a class="dropdown-item" [routerLink]="['/notification']" (click)="clearNotifications()">Recent notifications</a>
           </div>
         </li>
 

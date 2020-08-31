@@ -70,7 +70,7 @@ export class AddUserComponent implements OnInit {
 
     this.usersService.getUserList().subscribe(
       data => {
-        while (data != null) {
+        while (data[counter] != null) {
           if (data[counter].userDeleted === null)
           {
             if (data[counter].username === usernameInp.value) {

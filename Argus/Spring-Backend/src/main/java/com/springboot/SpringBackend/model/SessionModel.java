@@ -19,6 +19,7 @@ public class SessionModel {
         /*this.cellNo = "";*/
         /*this.promptSms = false;*/
     }
+
     public SessionModel(String id, String email, String password, String cellphone, String role){
         System.out.println("cellNumb: " + cellphone);
         this.id = id;
@@ -29,7 +30,8 @@ public class SessionModel {
         /*this.cellNo = cellNo;*/
         /*this.promptSms = sms;*/
     }
-    public String getID(){
+
+    public String getId(){
         return this.id;
     }
     public String getEmail(){
@@ -41,7 +43,7 @@ public class SessionModel {
     public String getRole(){
         return this.role;
     }
-    public String getCell(){ return this.cellphone; }
+    public String getCellphone(){ return this.cellphone; }
     /*public Boolean getPromptSms(){return this.promptSms;}*/
 
 }
