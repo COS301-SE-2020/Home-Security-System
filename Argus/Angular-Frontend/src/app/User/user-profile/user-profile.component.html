@@ -266,19 +266,17 @@
               </div>
               <br>
               <div class="row">
+
                 <div class="col-md-6 col-sm-6 col-xs-6">
                   <div class="form-group">
                     <label for="uNumber">Contact Number</label>
                     <input id="uNumber" name="contactNo" class="form-control"
-                           required
+                           required pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$"
                            [(ngModel)]="user.contactNo" #contactNo="ngModel">
 
                     <div *ngIf="contactNo.invalid && (contactNo.dirty || contactNo.touched)"
                          class="alert alert-danger">
-
-                      <div *ngIf="contactNo.errors.required">
-                        Contact Number is required.
-                      </div>
+                      Please enter a valid phone number.
                     </div>
                   </div>
                 </div>
