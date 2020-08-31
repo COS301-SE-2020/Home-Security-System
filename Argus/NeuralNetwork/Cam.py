@@ -224,7 +224,7 @@ def rabbit_consume():
     message_channel.start_consuming()
 
 
-# consumer = threading.Thread(target=rabbit_consume, daemon=True)
-# consumer.start()
+consumer = threading.Thread(target=rabbit_consume, daemon=True)
+consumer.start()
 cam_feed()
 rabbit_conn.close()

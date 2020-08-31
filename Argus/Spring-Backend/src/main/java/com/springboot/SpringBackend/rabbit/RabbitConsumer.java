@@ -1,5 +1,6 @@
 package com.springboot.SpringBackend.rabbit;
 
+import com.springboot.SpringBackend.config.RabbitMQConfig;
 import com.springboot.SpringBackend.controller.MailerController;
 import com.springboot.SpringBackend.controller.SessionController;
 import com.springboot.SpringBackend.model.*;
@@ -69,16 +70,15 @@ public class RabbitConsumer {
                     if (alert.getType().equalsIgnoreCase("Grey")) {
                         nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
                             "Person: " + p.get().getFname(), u.get()));
-
-                        if(notify1) {
-                            mailer.sendWithAttatchGL(email);
-                        }
                     } else {
                         nservice.createNotification(new Notification(alert.getImageStr(), "Threat",
                             "Intruder: " + p.get().getFname() + " " + p.get().getLname(), u.get()));
 
                         if(notify1) {
                             mailer.sendWithAttatchBL(email);
+                        }
+                        if(notify2) {
+                            //send SMS
                         }
                     }
                 }
@@ -91,17 +91,9 @@ public class RabbitConsumer {
         {
             try {
                 if(u.isPresent()) {
-                    String email = u.get().getEmail();
-                    Boolean notify1 = u.get().getNotifyEmail();
-                    Boolean notify2 = u.get().getNotifySMS();
-
                     if (alert.getType().equalsIgnoreCase("Grey")) {
                         nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
                                 "Person: " + "Unknown", u.get()));
-
-                        if (notify1) {
-                            mailer.sendWithAttatchGL(email);
-                        }
                     }
                 }
             }
@@ -122,6 +114,9 @@ public class RabbitConsumer {
 
             Person p = new Person(psn.getImageStr());
             personService.createPerson(p);
+
+            RabbitPerson updatePerson = new RabbitPerson(p.getPersonId(), psn.getTempId(),psn.getType(), true, psn.getImageStr(), true);
+            amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_KEY, updatePerson);
 
             LOGGER.info("Grey-list Person Added");
         }
