@@ -210,7 +210,7 @@ def rabbit_consume():
             img = np.frombuffer(b64.b64decode(message['imageStr']), dtype=np.uint8)
             save_face(path_features + message['type'] + '/' + message['personId'] + '.npy', img)
         else:
-            if message['tempId'] == '0':
+            if message['tempId'] == 0:
                 for feat in all_f_features:
                     if message['personId'] == feat[0]:
                         if message['exists'] is True:
