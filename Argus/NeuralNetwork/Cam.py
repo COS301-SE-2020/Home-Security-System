@@ -151,8 +151,10 @@ def cam_feed():
                         message = {'personId': 0, 'type': 'Grey',
                                    'exists': False,
                                    'imageStr': 'data:image/jpg;base64,' +
-                                               str(b64.b64encode(c.imencode('.jpg', face_pix[f_num])[1]).decode('utf-8')),
-                                   'features': False
+                                               str(b64.b64encode(c.imencode('.jpg',
+                                                                            face_pix[f_num])[1]).decode('utf-8')),
+                                   'features': False,
+                                   'tempId': temp_face
                                    }
                         message_channel.basic_publish(exchange='sigma.direct',
                                                       routing_key='personKey',
@@ -208,14 +210,18 @@ def rabbit_consume():
             img = np.frombuffer(b64.b64decode(message['imageStr']), dtype=np.uint8)
             save_face(path_features + message['type'] + '/' + message['personId'] + '.npy', img)
         else:
-            for feat in all_f_features:
-                if message['personId'] == feat[0]:
-                    if message['exists'] is True:
-                        os.rename(path_features + feat[2] + '/' + feat[0] + '.npy',
-                                  path_features + message['type'] + '/' + feat[0] + '.npy')
-                    else:
-                        os.rename(path_features + feat[2] + '/' + feat[0] + '.npy',
-                                  path_features + 'Deleted/' + feat[0] + '.npy')
+            if message['tempId'] == 0:
+                for feat in all_f_features:
+                    if message['personId'] == feat[0]:
+                        if message['exists'] is True:
+                            os.rename(path_features + feat[2] + '/' + feat[0] + '.npy',
+                                      path_features + message['type'] + '/' + feat[0] + '.npy')
+                        else:
+                            os.rename(path_features + feat[2] + '/' + feat[0] + '.npy',
+                                      path_features + 'Deleted/' + feat[0] + '.npy')
+            else:
+                os.rename(path_features + 'Grey/' + message['tempId'] + '.npy',
+                          path_features + 'Grey/' + message['personId'] + '.npy')
         up_face = True
 
     message_channel.basic_consume(queue='updateQueue',
