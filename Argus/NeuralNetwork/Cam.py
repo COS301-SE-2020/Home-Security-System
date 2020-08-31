@@ -219,8 +219,14 @@ def rabbit_consume():
                             os.rename(path_features + feat[2] + '/' + feat[0] + '.npy',
                                       path_features + 'Deleted/' + feat[0] + '.npy')
             else:
-                os.rename(path_features + 'Grey/' + str(message['tempId']) + '.npy',
-                          path_features + 'Grey/' + str(message['personId']) + '.npy')
+                named = False
+                while not named:
+                    try:
+                        os.rename(path_features + 'Grey/' + str(message['tempId']) + '.npy',
+                                  path_features + 'Grey/' + str(message['personId']) + '.npy')
+                        named = True
+                    except OSError as e:
+                        print('Still writing file')
         up_face = True
 
     message_channel.basic_consume(queue='updateQueue',
