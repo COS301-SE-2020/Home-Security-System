@@ -220,10 +220,8 @@ def rabbit_consume():
                             os.rename(path_features + feat[2] + '/' + feat[0] + '.npy',
                                       path_features + 'Deleted/' + feat[0] + '.npy')
             else:
-                for feat in all_f_features:
-                    if message['tempId'] == feat[0]:
-                        os.rename(path_features + 'Grey/' + feat[0] + '.npy',
-                                  path_features + 'Grey/' + message['personId'] + '.npy')
+                os.rename(path_features + 'Grey/' + message['tempId'] + '.npy',
+                          path_features + 'Grey/' + message['personId'] + '.npy')
         up_face = True
 
     message_channel.basic_consume(queue='updateQueue',
