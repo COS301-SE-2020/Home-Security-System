@@ -45,17 +45,24 @@ up_face = False
 
 
 def load_faces(path):
-    feats = list()
-    t_dict = dict()
-    for root, folder, files in os.walk(path, topdown=False):
-        for file in files:
-            f_feat = list()
-            f_feat.append(str(os.path.splitext(file)[0]))
-            f_feat.append(np.load(os.path.join(root, file)))
-            f_feat.append(root.split('/')[2])
-            print(str(os.path.splitext(file)[0]))
-            feats.append(f_feat)
-            t_dict[f_feat[0]] = 0.0
+    success = False
+    while not success:
+        success = True
+        feats = list()
+        t_dict = dict()
+        for root, folder, files in os.walk(path, topdown=False):
+            for file in files:
+                f_feat = list()
+                f_feat.append(str(os.path.splitext(file)[0]))
+                try:
+                    f_feat.append(np.load(os.path.join(root, file)))
+                except OSError:
+                    success = False
+                    print('File renamed, restarting')
+                f_feat.append(root.split('/')[2])
+                print(str(os.path.splitext(file)[0]))
+                feats.append(f_feat)
+                t_dict[f_feat[0]] = 0.0
 
     return np.asarray(feats), t_dict
 
@@ -209,7 +216,7 @@ def rabbit_consume():
             img = np.frombuffer(b64.b64decode(message['imageStr']), dtype=np.uint8)
             save_face(path_features + message['type'] + '/' + message['personId'] + '.npy', img)
         else:
-            if message['tempId'] == 0:
+            if message['tempId'] == '0':
                 for feat in all_f_features:
                     if message['personId'] == feat[0]:
                         if message['exists'] is True:
