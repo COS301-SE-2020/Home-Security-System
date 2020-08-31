@@ -4,7 +4,6 @@ import com.springboot.SpringBackend.controller.MailerController;
 import com.springboot.SpringBackend.controller.SessionController;
 import com.springboot.SpringBackend.model.*;
 import com.springboot.SpringBackend.service.*;
-import net.minidev.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.AmqpTemplate;
@@ -17,15 +16,14 @@ import java.util.Optional;
 @Component
 public class RabbitConsumer {
     private static final Logger LOGGER = LoggerFactory.getLogger(RabbitConsumer.class);
-
     private final NotificationService nservice;
     private final PersonService personService;
     private final UserService userService;
     private final FaceService faceService;
     private final ImageService imageService;
-    private final MailerController mailer;
-    private final SessionController session;
-    private final AmqpTemplate amqpTemplate;
+    private MailerController mailer;
+    private SessionController session;
+    private AmqpTemplate amqpTemplate;
 
     @Autowired
     public RabbitConsumer(NotificationService ns, PersonService ps,
@@ -112,7 +110,6 @@ public class RabbitConsumer {
             }
         }
 
-        // Send message to angular
         LOGGER.info("Notification Created");
     }
 

@@ -1,5 +1,5 @@
 "use strict";
-export class Session{
+export class Session {
 
   recoverySess(email){
     let recoveryDetails = {};
@@ -30,7 +30,7 @@ export class Session{
 
   retrieveUserInfo(){
     let retrievedObject = sessionStorage.getItem('userDetails');
-    console.log(JSON.parse(retrievedObject));
+    // console.log(JSON.parse(retrievedObject));
     return JSON.parse(retrievedObject);
   }
 }

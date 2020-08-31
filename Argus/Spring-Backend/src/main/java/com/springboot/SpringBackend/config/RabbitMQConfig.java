@@ -17,12 +17,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Configuration
 public class RabbitMQConfig {
     public static final String DIRECT_EXCHANGE = "sigma.direct";
-    public static final String FANOUT_EXCHANGE = "sigma.fanout";
+    // public static final String FANOUT_EXCHANGE = "sigma.fanout";
     public static final String ALERT_QUEUE = "alertQueue";
     public static final String PERSON_QUEUE = "personQueue";
     public static final String FEATURE_QUEUE = "featureQueue";
     public static final String UPDATE_QUEUE = "updateQueue";
-    public static final String MESSAGE_QUEUE = "messageQueue";
+    // public static final String MESSAGE_QUEUE = "messageQueue";
     public static final String ALERT_KEY = "alertKey";
     public static final String PERSON_KEY = "personKey";
     public static final String FEATURE_KEY = "featureKey";
@@ -52,21 +52,16 @@ public class RabbitMQConfig {
         return new Queue(UPDATE_QUEUE, false);
     }
 
-    @Bean
-    Queue messageQueue()
-    {
-        return new Queue(MESSAGE_QUEUE, false);
-    }
+    // @Bean
+    // Queue messageQueue() { return new Queue(MESSAGE_QUEUE, false); }
 
     @Bean
     DirectExchange directExchange(){
         return new DirectExchange(DIRECT_EXCHANGE);
     }
 
-    @Bean
-    FanoutExchange fanoutExchange(){
-        return new FanoutExchange(FANOUT_EXCHANGE);
-    }
+    // @Bean
+    // FanoutExchange fanoutExchange(){ return new FanoutExchange(FANOUT_EXCHANGE); }
 
     @Bean
     public Binding alertBinding() {
@@ -88,10 +83,8 @@ public class RabbitMQConfig {
         return BindingBuilder.bind(updateQueue()).to(directExchange()).with(UPDATE_KEY);
     }
 
-    @Bean
-    public Binding messageBinding() {
-        return BindingBuilder.bind(messageQueue()).to(fanoutExchange());
-    }
+    // @Bean
+    // public Binding messageBinding() { return BindingBuilder.bind(messageQueue()).to(fanoutExchange()); }
 
     @Bean
     public MessageConverter jsonMessageConverter(){
