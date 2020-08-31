@@ -148,13 +148,12 @@ def cam_feed():
                     if f_name == 'Unknown':
                         temp_face = 'u' + str(time.time())
                         np.save(path_features + 'Grey/' + temp_face + '.npy', face)
-                        message = {'personId': 0, 'type': 'Grey',
-                                   'exists': False,
+                        message = {'personId': 0, 'tempId': temp_face,
+                                   'type': 'Grey', 'exists': False,
                                    'imageStr': 'data:image/jpg;base64,' +
                                                str(b64.b64encode(c.imencode('.jpg',
                                                                             face_pix[f_num])[1]).decode('utf-8')),
-                                   'features': False,
-                                   'tempId': temp_face
+                                   'features': False
                                    }
                         message_channel.basic_publish(exchange='sigma.direct',
                                                       routing_key='personKey',
@@ -220,8 +219,8 @@ def rabbit_consume():
                             os.rename(path_features + feat[2] + '/' + feat[0] + '.npy',
                                       path_features + 'Deleted/' + feat[0] + '.npy')
             else:
-                os.rename(path_features + 'Grey/' + message['tempId'] + '.npy',
-                          path_features + 'Grey/' + message['personId'] + '.npy')
+                os.rename(path_features + 'Grey/' + str(message['tempId']) + '.npy',
+                          path_features + 'Grey/' + str(message['personId']) + '.npy')
         up_face = True
 
     message_channel.basic_consume(queue='updateQueue',
