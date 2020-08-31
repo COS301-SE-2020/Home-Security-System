@@ -8,14 +8,12 @@ public class SessionModel {
     private final String cellphone;
     private final String role;
 
-
     public SessionModel(){
         this.id = "";
         this.email = "";
         this.password = "";
         this.role = "";
         this.cellphone = "";
-
     }
 
     public SessionModel(String id, String email, String password, String cellphone, String role){
@@ -25,7 +23,6 @@ public class SessionModel {
         this.password = password;
         this.role = role;
         this.cellphone = cellphone;
-
     }
 
     public String getId(){

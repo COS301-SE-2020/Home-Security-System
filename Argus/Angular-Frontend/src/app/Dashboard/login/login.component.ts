@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
       alert('Error, please enter an email address');
     }
   }
+
   enterLogin(){
     const passInp = document.getElementById('passwordField') as HTMLInputElement;
     // tslint:disable-next-line:only-arrow-functions
@@ -44,6 +45,7 @@ export class LoginComponent implements OnInit {
       }
     });
   }
+
   makeSession() {
     const emailVar = document.getElementById('emailInput') as HTMLInputElement;
     const passVar = document.getElementById('passwordField') as HTMLInputElement;
@@ -65,10 +67,9 @@ export class LoginComponent implements OnInit {
                 this.sessClass.cellphone = data[counter].contactNo.toString();
                 this.sessClass.role = data[counter].userRole.toString();
 
-                this.sessService.addToSession(this.sessClass).subscribe();
-                /*this.sessService.addToSession(data[counter].userId.toString(), data[counter].email.toString(),
-                  passVar.value.toString(), data[counter].userRole.toString()).subscribe();*/
-                // alert('You are logged in, welcome to Argus');
+                this.sessService.addToSession(this.sessClass).subscribe(value => {
+                  // console.log(value);
+                }, error => console.log(error));
                 this.sessionS.retrieveUserInfo();
                 this.router.navigate(['/dashboard']);
               }
@@ -86,6 +87,5 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.enterLogin();
-    this.sessionS.retrieveUserInfo();
   }
 }
