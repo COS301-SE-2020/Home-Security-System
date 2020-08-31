@@ -153,7 +153,8 @@ def cam_feed():
                                    'imageStr': 'data:image/jpg;base64,' +
                                                str(b64.b64encode(c.imencode('.jpg',
                                                                             face_pix[f_num])[1]).decode('utf-8')),
-                                   'features': False
+                                   'features': False,
+                                   'tempId': temp_face
                                    }
                         message_channel.basic_publish(exchange='sigma.direct',
                                                       routing_key='personKey',
@@ -209,14 +210,20 @@ def rabbit_consume():
             img = np.frombuffer(b64.b64decode(message['imageStr']), dtype=np.uint8)
             save_face(path_features + message['type'] + '/' + message['personId'] + '.npy', img)
         else:
-            for feat in all_f_features:
-                if message['personId'] == feat[0]:
-                    if message['exists'] is True:
-                        os.rename(path_features + feat[2] + '/' + feat[0] + '.npy',
-                                  path_features + message['type'] + '/' + feat[0] + '.npy')
-                    else:
-                        os.rename(path_features + feat[2] + '/' + feat[0] + '.npy',
-                                  path_features + 'Deleted/' + feat[0] + '.npy')
+            if message['tempId'] == 0:
+                for feat in all_f_features:
+                    if message['personId'] == feat[0]:
+                        if message['exists'] is True:
+                            os.rename(path_features + feat[2] + '/' + feat[0] + '.npy',
+                                      path_features + message['type'] + '/' + feat[0] + '.npy')
+                        else:
+                            os.rename(path_features + feat[2] + '/' + feat[0] + '.npy',
+                                      path_features + 'Deleted/' + feat[0] + '.npy')
+            else:
+                for feat in all_f_features:
+                    if message['tempId'] == feat[0]:
+                        os.rename(path_features + 'Grey/' + feat[0] + '.npy',
+                                  path_features + 'Grey/' + message['personId'] + '.npy')
         up_face = True
 
     message_channel.basic_consume(queue='updateQueue',
@@ -225,7 +232,7 @@ def rabbit_consume():
     message_channel.start_consuming()
 
 
-# consumer = threading.Thread(target=rabbit_consume, daemon=True)
-# consumer.start()
+consumer = threading.Thread(target=rabbit_consume, daemon=True)
+consumer.start()
 cam_feed()
 rabbit_conn.close()
