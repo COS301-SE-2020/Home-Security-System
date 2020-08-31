@@ -151,7 +151,8 @@ def cam_feed():
                         message = {'personId': 0, 'type': 'Grey',
                                    'exists': False,
                                    'imageStr': 'data:image/jpg;base64,' +
-                                               str(b64.b64encode(c.imencode('.jpg', face_pix[f_num])[1]).decode('utf-8')),
+                                               str(b64.b64encode(c.imencode('.jpg',
+                                                                            face_pix[f_num])[1]).decode('utf-8')),
                                    'features': False
                                    }
                         message_channel.basic_publish(exchange='sigma.direct',
