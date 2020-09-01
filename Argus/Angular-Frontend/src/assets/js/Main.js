@@ -296,22 +296,13 @@ function sortTable(tableID, colNum) {
   }
 }
 
-angular.module('images-resizer', []);
-angular.module('app', ['images-resizer']);
+// -------------------------------------------------------------------------------------------------------------------
 
-// angular.module('app', ['resizeService', '$scope',
-//   resizeService.resizeImage('ressources/imageToResize', {size: 100, sizeScale: 'ko', otherOptions: ''}, function(err, image){
-//     if(err) {
-//       console.error(err);
-//       return;
-//     }
-//
-//     //Add the resized image into the
-//     var imageResized = document.createElement('img');
-//     imageResized.src = image;
-//     $('body').appendChild(imageResized);
-//   });S
-// }]);
+// -------------------------------------------------------------------------------------------------------------------
+
+
+
+// -------------------------------------------------------------------------------------------------------------------
 
 /*
 function resizeImage(file:File, maxWidth:number, maxHeight:number):Promise<Blob> {
