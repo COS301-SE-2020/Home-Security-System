@@ -75,7 +75,7 @@ public class RabbitConsumer {
                             "Intruder: " + p.get().getFname() + " " + p.get().getLname(), u.get()));
 
                         if(notify1) {
-                            mailer.sendWithAttatchBL(email);
+                            //mailer.sendWithAttatchBL(email);
                         }
                         if(notify2) {
                             //send SMS

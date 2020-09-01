@@ -61,10 +61,10 @@ public class PersonController {
         if(details.getPersonImg() != null) {
             x.setPersonImg(details.getPersonImg());
         }
-        if(details.getFname() != "") {
+        if(details.getFname().isEmpty()) {
             x.setFname(details.getFname());
         }
-        if(details.getLname() != "")
+        if(details.getLname().isEmpty())
         {
             x.setLname(details.getLname());
         }
@@ -83,7 +83,7 @@ public class PersonController {
             RabbitPerson p = new RabbitPerson(updatedPerson.getPersonId(), "0",updatedPerson.getPersonListed(), false, updatedPerson.getPersonImg(), true);
             //RabbitPerson p = new RabbitPerson(updatedPerson.getPersonId(), updatedPerson.getPersonListed(), false, "Image", true);
             amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_KEY, p);
-            System.out.println("Person Updated");
+            System.out.println("Person Deleted");
         }
 
         return ResponseEntity.ok(updatedPerson);
