@@ -38,14 +38,13 @@ export class DeletedBlackComponent implements OnInit {
           this.psn = data;
           this.psn.personDeleted = null;
           this.personService.updatePerson(id, this.psn)
-            .subscribe(value => {
-              // console.log(value);
+            .subscribe(() => {
               setTimeout(() => {
                 this.SpinnerService.hide();
               }, 500);
               this.reloadData();
-            }, error => console.log(error));
-        }, error => console.log(error));
+            });
+        });
   }
 
   ngOnInit(): void {
@@ -56,6 +55,25 @@ export class DeletedBlackComponent implements OnInit {
 
   back() {
     this.router.navigate(['people-black']);
+  }
+
+  deleteAll() {
+    let counter = 0;
+    this.SpinnerService.show();
+    this.personService.getPersonList()
+      .subscribe(data => {
+        while (data[counter] != null) {
+          if (data[counter].personDeleted != null && data[counter].personListed === 'Black') {
+            this.personService.deletePerson(data[counter].personId)
+              .subscribe();
+          }
+          counter++;
+        }
+        setTimeout(() => {
+          this.SpinnerService.hide();
+        }, 10000);
+        this.reloadData();
+      });
   }
 
   deleteOld() {
@@ -83,16 +101,14 @@ export class DeletedBlackComponent implements OnInit {
                   num = this.getDay(Number(tempMonth), Number(tempDay));
                   if (num === day) {
                     this.personService.deletePerson(data[counter].personId)
-                      .subscribe(value => {
-                        // console.log(value);
-                      }, error => console.log(error));
+                      .subscribe();
                   }
                 }
               }
             }
             counter++;
           }
-        }, error => console.log(error));
+        });
   }
 
   getDay(month: number, day: number): number {
