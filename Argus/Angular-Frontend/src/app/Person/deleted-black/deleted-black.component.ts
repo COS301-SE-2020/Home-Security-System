@@ -71,7 +71,7 @@ export class DeletedBlackComponent implements OnInit {
         }
         setTimeout(() => {
           this.SpinnerService.hide();
-        }, 5000);
+        }, 10000);
         this.reloadData();
       });
   }
