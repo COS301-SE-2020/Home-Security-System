@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {AppComponent} from '../../app.component';
-import {from, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {Notification} from '../../model/notification';
 import {NotificationService} from '../../model/notification.service';
 import {TitleService} from '../../title.service';
-import {Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
@@ -17,8 +15,8 @@ export class NotificationComponent implements OnInit {
   notification: Observable<Notification[]>;
   note: Notification;
 
-  constructor(private notificationService: NotificationService, private SpinnerService: NgxSpinnerService,
-              private appService: TitleService) { }
+  constructor(private notificationService: NotificationService,
+              private SpinnerService: NgxSpinnerService, private appService: TitleService) { }
 
   reloadData() {
     this.note = new Notification();
@@ -37,20 +35,38 @@ export class NotificationComponent implements OnInit {
         this.note = data;
         this.note.notificationDeleted = new Date();
         this.notificationService.updateNotification(id, this.note)
-          .subscribe(value => {
-            // console.log(value);
+          .subscribe(() => {
             setTimeout(() => {
               this.SpinnerService.hide();
             }, 500);
             this.reloadData();
-          }, error => console.log(error));
-      }, error => console.log(error));
+          });
+      });
   }
 
   ngOnInit(): void {
     this.appService.setTitle('Notifications');
     this.deleteOld();
     this.reloadData();
+  }
+
+  deleteAll() {
+    let counter = 0;
+    this.SpinnerService.show();
+    this.notificationService.getNotificationList()
+      .subscribe(data => {
+          while (data[counter] != null) {
+            this.note = data[counter];
+            this.note.notificationDeleted = new Date();
+            this.notificationService.updateNotification(data[counter].notificationId, this.note)
+              .subscribe();
+            counter++;
+          }
+          setTimeout(() => {
+            this.SpinnerService.hide();
+          }, 5000);
+          this.reloadData();
+        });
   }
 
   deleteOld() {
@@ -77,10 +93,7 @@ export class NotificationComponent implements OnInit {
                 if (tempMonth === month || x === y) {
                   num = this.getDay(Number(tempMonth), Number(tempDay));
                   if (num === day) {
-                    this.notificationService.deleteNotification(data[counter].notificationId)
-                      .subscribe(value => {
-                        // console.log(value);
-                      }, error => console.log(error));
+                    this.notificationService.deleteNotification(data[counter].notificationId).subscribe();
                   }
                 }
               }

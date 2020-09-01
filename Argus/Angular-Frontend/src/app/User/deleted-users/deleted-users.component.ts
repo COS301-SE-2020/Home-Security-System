@@ -23,12 +23,12 @@ export class DeletedUsersComponent implements OnInit {
   }
 
   reloadData() {
-    this.user = new User();
     this.users = this.userService.getUserList();
     // this.activateButtons();
   }
 
   ngOnInit(): void {
+    this.user = new User();
     this.appService.setTitle('Deleted Users');
     this.deleteOld();
     this.reloadData();
@@ -39,7 +39,7 @@ export class DeletedUsersComponent implements OnInit {
 
     this.userService.getUserList()
       .subscribe(
-        data => {
+        () => {
           // console.log(data);
           if (this.info.userRole === 'Basic'){
             restoreBtn.disabled = true;
@@ -51,7 +51,7 @@ export class DeletedUsersComponent implements OnInit {
           else if (this.info.userRole === 'Admin'){
             restoreBtn.disabled = false;
           }
-        }, error => console.log(error));
+        });
   }
 
   restoreUser(id: number) {
@@ -63,18 +63,36 @@ export class DeletedUsersComponent implements OnInit {
           this.user = data;
           this.user.userDeleted = '';
           this.userService.updateUser(id, this.user)
-            .subscribe(value => {
-              // console.log(data);
+            .subscribe(() => {
               setTimeout(() => {
                 this.SpinnerService.hide();
               }, 500);
               this.reloadData();
-            }, error => console.log(error));
-        }, error => console.log(error));
+            });
+        });
   }
 
   back() {
     this.router.navigate(['user-list']);
+  }
+
+  deleteAll() {
+    let counter = 0;
+    this.SpinnerService.show();
+    this.userService.getUserList()
+      .subscribe(data => {
+        while (data[counter] != null) {
+          if (data[counter].userDeleted != null) {
+            this.userService.deleteUser(data[counter].userId)
+              .subscribe();
+          }
+          counter++;
+        }
+        setTimeout(() => {
+          this.SpinnerService.hide();
+        }, 5000);
+        this.reloadData();
+      });
   }
 
   deleteOld() {
@@ -102,16 +120,14 @@ export class DeletedUsersComponent implements OnInit {
                   num = this.getDay(Number(tempMonth), Number(tempDay));
                   if (num === day) {
                     this.userService.deleteUser(data[counter].userId)
-                      .subscribe(value => {
-                        // console.log(value);
-                      }, error => console.log(error));
+                      .subscribe();
                   }
                 }
               }
             }
             counter++;
           }
-        }, error => console.log(error));
+        });
   }
 
   getDay(month: number, day: number): number {

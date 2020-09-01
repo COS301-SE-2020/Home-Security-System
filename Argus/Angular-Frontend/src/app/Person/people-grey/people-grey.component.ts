@@ -3,7 +3,6 @@ import {TitleService} from '../../title.service';
 import {Observable} from 'rxjs';
 import {Person} from '../../model/person';
 import {PersonService} from '../../model/person.service';
-import {Router} from '@angular/router';
 import {User} from '../../model/user';
 import Session from '../../../assets/js/SessionStorage';
 import {NgxSpinnerService} from 'ngx-spinner';
@@ -20,7 +19,7 @@ export class PeopleGreyComponent implements OnInit {
   psn: Person;
 
   constructor(private personService: PersonService, private appService: TitleService,
-              private SpinnerService: NgxSpinnerService, private router: Router) {
+              private SpinnerService: NgxSpinnerService) {
   }
 
   reloadData() {
@@ -40,15 +39,14 @@ export class PeopleGreyComponent implements OnInit {
           this.psn = data;
           this.psn.personListed = 'White';
           this.personService.updatePerson(id, this.psn)
-            .subscribe(value =>
+            .subscribe(() =>
             {
-              // console.log(value);
               setTimeout(() => {
                 this.SpinnerService.hide();
               }, 500);
               this.reloadData();
-            }, error => console.log(error));
-        }, error => console.log(error));
+            });
+        });
   }
 
   addToBlackList(id: number) {
@@ -60,21 +58,77 @@ export class PeopleGreyComponent implements OnInit {
           this.psn = data;
           this.psn.personListed = 'Black';
           this.personService.updatePerson(id, this.psn)
-            .subscribe(value =>
+            .subscribe(() =>
             {
               // console.log(value);
               setTimeout(() => {
                 this.SpinnerService.hide();
               }, 500);
               this.reloadData();
-            }, error => console.log(error));
-        }, error => console.log(error));
+            });
+        });
   }
 
   ngOnInit(): void {
     this.appService.setTitle('Person Grey-List');
     this.deleteOld();
     this.reloadData();
+  }
+
+  deleteAll() {
+    let counter = 0;
+    this.SpinnerService.show();
+    this.personService.getPersonList()
+      .subscribe(data => {
+        while (data[counter] != null) {
+          if (data[counter].personListed === 'Grey') {
+            this.psn = data[counter];
+            this.psn.personDeleted = new Date();
+            this.personService.updatePerson(data[counter].personId, this.psn)
+              .subscribe();
+          }
+          counter++;
+        }
+        setTimeout(() => {
+          this.SpinnerService.hide();
+        }, 5000);
+        this.reloadData();
+      });
+  }
+
+  removeCompletely() {
+    let counter = 0;
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = ((today.getMonth() + 1) >= 10) ? (today.getMonth() + 1) : '0' + (today.getMonth() + 1);
+    const day = today.getDate();
+
+    this.personService.getPersonList()
+      .subscribe(
+        data => {
+          while (data[counter] != null) {
+            let num = 0;
+            // console.log(data);
+            const temp = data[counter].personCreated;
+            if (temp != null && data[counter].personListed === 'Grey') {
+              const tempYear = temp.substr(0, 4);
+              const tempMonth = temp.substr(5, 2);
+              const tempDay = temp.substr(8, 2);
+              if (tempYear === year.toString()) {
+                const x = Number(tempMonth) + 1;
+                const y = Number(month) + 1;
+                if (tempMonth === month || x === y) {
+                  num = this.getDay(Number(tempMonth), Number(tempDay));
+                  if (num === day) {
+                    this.personService.deletePerson(data[counter].personId)
+                      .subscribe();
+                  }
+                }
+              }
+            }
+            counter++;
+          }
+        });
   }
 
   deleteOld() {
@@ -91,7 +145,7 @@ export class PeopleGreyComponent implements OnInit {
             let num = 0;
             // console.log(data);
             const temp = data[counter].personCreated;
-            if (temp != null) {
+            if (temp != null && data[counter].personListed === 'Grey') {
               const tempYear = temp.substr(0, 4);
               const tempMonth = temp.substr(5, 2);
               const tempDay = temp.substr(8, 2);
@@ -101,17 +155,18 @@ export class PeopleGreyComponent implements OnInit {
                 if (tempMonth === month || x === y) {
                   num = this.getDay(Number(tempMonth), Number(tempDay));
                   if (num === day) {
-                    this.personService.deletePerson(data[counter].personId)
-                      .subscribe(value => {
-                        // console.log(value);
-                      }, error => console.log(error));
+                    this.psn = new Person();
+                    this.psn = data[counter];
+                    this.psn.personDeleted = new Date();
+                    this.personService.updatePerson(data[counter].personId, this.psn)
+                      .subscribe();
                   }
                 }
               }
             }
             counter++;
           }
-        }, error => console.log(error));
+        });
   }
 
   getDay(month: number, day: number): number {
