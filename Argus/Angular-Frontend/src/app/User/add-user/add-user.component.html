@@ -1,95 +1,291 @@
-<div class="card">
-  <div class="card-header card-header-color">
-    <h4 class="card-title">Create User</h4>
-  </div>
-  <div class="card-body">
-    <br>
-    <div>
-      <form (ngSubmit)="onSubmit()">
-        <div class="row">
-          <div class="col">
-            <div class="form-group">
-              <label for="fname" class="float-left">First Name</label>
-              <input type="text" class="form-control" id="fname" name="fname">
-            </div>
-            <br>
+<!--<div class="card">-->
+<!--  <div class="card-header card-header-color">-->
+<!--    <h4 class="card-title float-left">Add User</h4>-->
+<!--  </div>-->
+<!--  <div class="card-body">-->
+<!--    <br>-->
+<!--    <div>-->
+<!--      <form (ngSubmit)="onSubmit()">-->
+<!--        <div class="row">-->
+<!--          <div class="col">-->
+<!--            <div class="form-group">-->
+<!--              <label for="fname" class="float-left">First Name</label>-->
+<!--              <input type="text" class="form-control" id="fname" name="fname">-->
+<!--            </div>-->
+<!--            <br>-->
+<!--          </div>-->
+<!--          <div class="col">-->
+<!--            <div class="form-group">-->
+<!--              <label for="surname" class="float-left">Last Name</label>-->
+<!--              <input type="text" class="form-control" id="surname" name="surname">-->
+<!--            </div>-->
+<!--            <br>-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        <div class="form-group">-->
+<!--          <label for="number" class="float-left">Contact Number</label>-->
+<!--          <input type="text" class="form-control" id="number" name="number">-->
+<!--        </div>-->
+<!--        <br>-->
+
+<!--        <div class="form-group">-->
+<!--          <label for="email" class="float-left">Email</label>-->
+<!--          <input type="text" class="form-control" id="email" name="email">-->
+<!--        </div>-->
+<!--        <br>-->
+
+<!--        <div class="form-group">-->
+<!--          <label for="username" class="float-left">Username</label>-->
+<!--          <input type="text" class="form-control" id="username" required name="username">-->
+<!--        </div>-->
+<!--        <br>-->
+
+<!--        <div class="form-group">-->
+<!--          <label for="pass" class="float-left">Password</label>-->
+<!--          <input type="text" class="form-control" id="pass" name="pass">-->
+<!--        </div>-->
+<!--        <br>-->
+
+<!--        <div class="form-group">-->
+<!--          <label class="float-left">Role</label><br><br>-->
+<!--          <label class="radioContainer" *ngIf="info.userRole == 'Admin'">Admin-->
+<!--            <input type="radio" name="role" id="admin" value="Admin">-->
+<!--            <span class="radioCheckmark"></span>-->
+<!--          </label>-->
+<!--          <label class="radioContainer">Advanced-->
+<!--            <input type="radio" checked="checked" name="role" id="advanced" value="Advanced">-->
+<!--            <span class="radioCheckmark"></span>-->
+<!--          </label>-->
+<!--          <label class="radioContainer">Basic-->
+<!--            <input type="radio" name="role" id="basic" value="Basic">-->
+<!--            <span class="radioCheckmark"></span>-->
+<!--          </label>-->
+<!--        </div>-->
+<!--        <br>-->
+
+<!--        &lt;!&ndash;Profile Picture&ndash;&gt;-->
+<!--        <div class="form-group">-->
+<!--          <label for="profilePicInput" class="float-left">Profile Picture</label><br><br>-->
+<!--          <div class="picture-container">-->
+<!--            <div id="preview">-->
+<!--              <img alt="Default Picture" id="submitPhoto" src="/assets/Images/blank.jpg">-->
+<!--            </div>-->
+<!--            <br>-->
+<!--          </div>-->
+
+<!--          <label id="profilePicInput" for="fileElem">-->
+<!--            <i class="material-icons add-photo-icon">add_photo_alternate</i><br>-->
+<!--            <input type="file" id="fileElem" accept="image/jpeg, image/png" onchange="previewFile(this.file)">-->
+<!--            Drag and Drop an image<br>-->
+<!--            &lt;!&ndash;or<br>Click to add&ndash;&gt;-->
+<!--          </label>-->
+
+<!--          or-->
+<!--          <br>-->
+
+<!--          <a class="hoverPointer" data-toggle="modal" data-target="#pictureModal">-->
+<!--            capture a photo from camera-->
+<!--          </a>-->
+<!--        </div>-->
+<!--        <button type="submit" class="btn btn-primary justify-content-center">Submit</button>-->
+<!--      </form>-->
+<!--    </div>-->
+<!--  </div>-->
+
+
+  <!--Add User Modal-->
+  <div class="modal fade" id="addUserModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <i class="material-icons modal-close-btn" data-dismiss="modal">close</i>
+          <h4 class="modal-title">Add User</h4>
+        </div>
+        <div class="modal-body">
+          <div class="card-body">
+            <form #changeForm="ngForm">
+              <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                  <div class="form-group">
+                    <label for="addFirstName">First Name</label>
+                    <input id="addFirstName" name="addFirstName" class="form-control"
+                           required
+                           [(ngModel)]="namePlaceholder" #name="ngModel">
+
+                    <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                         class="alert alert-danger">
+
+                      <div *ngIf="name.errors.required">
+                        First name is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                  <div class="form-group">
+                    <label for="addSurname">Last Name</label>
+                    <input id="addSurname" name="addSurname" class="form-control"
+                           required
+                           [(ngModel)]="surnamePlaceholder" #lname="ngModel">
+
+                    <div *ngIf="lname.invalid && (lname.dirty || lname.touched)"
+                         class="alert alert-danger">
+
+                      <div *ngIf="lname.errors.required">
+                        Last name is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                  <div class="form-group">
+                    <label for="addUsername">Username</label>
+                    <input id="addUsername" name="addUsername" class="form-control"
+                           required
+                           [(ngModel)]="usernamePlaceholder" #username="ngModel">
+
+                    <div *ngIf="username.invalid && (username.dirty || username.touched)"
+                         class="alert alert-danger">
+
+                      <div *ngIf="username.errors.required">
+                        Username is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                  <div class="form-group">
+                    <label for="addEmail">Email</label>
+                    <input id="addEmail" name="addEmail" class="form-control"
+                           required email
+                           [(ngModel)]="emailPlaceholder" #email="ngModel">
+
+                    <div *ngIf="email.invalid && (email.dirty || email.touched)"
+                         class="alert alert-danger">
+
+                      <div *ngIf="email.errors.required">
+                        Email is required.
+                      </div>
+
+                      <div *ngIf="email.errors.email">
+                        Please enter a valid email address.
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                  <div class="form-group">
+                    <label for="addPhone">Contact Number</label>
+                    <input id="addPhone" name="addPhone" class="form-control"
+                           required
+                           pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$"
+                           [(ngModel)]="phonePlaceholder" #contactNo="ngModel">
+
+                    <div *ngIf="contactNo.invalid && (contactNo.dirty || contactNo.touched)"
+                         class="alert alert-danger">
+                      Please enter a valid phone number.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                  <div class="form-group">
+                    <label for="passwordField1">Password</label>
+                    <input type="password" id="passwordField1" name="passwordField1" class="form-control"
+                           required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                           [(ngModel)]="passPlaceholder" #userPass="ngModel">
+                    <!--                    <input class="loginInputs" id="passwordField" type="password" name="pass" placeholder="Password">-->
+                    <i class="material-icons hoverPointer" id="passwordVisibility1" onclick="showPassword('1')">visibility_off</i>
+                    <div *ngIf="userPass.invalid && (userPass.dirty || userPass.touched)"
+                         class="alert alert-danger">
+                      <ul>
+                        <h6>Must contain:</h6>
+                        <li>At least eight characters</li>
+                        <li>At least one uppercase letter</li>
+                        <li>At least one lowercase letter</li>
+                        <li>One number</li>
+                        <li>One special character</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="userPass.dirty">
+                <div class="row">
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="form-group">
+                      <label for="passwordField2">Confirm Password</label>
+                      <input type="password" id="passwordField2" name="confirmPassword" class="form-control"
+                             [(ngModel)]="confirmPassPlaceholder" #confirm="ngModel">
+                      <i class="material-icons hoverPointer" id="passwordVisibility2" onclick="showPassword('2')">visibility_off</i>
+                      <div *ngIf="userPass.value != confirmPassPlaceholder.valueOf()"
+                           class="alert alert-danger">
+                        Passwords do not match
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="float-left">Role</label><br><br>
+                <label class="radioContainer" *ngIf="info.userRole == 'Admin'">Admin
+                  <input type="radio" name="role" id="admin" value="Admin">
+                  <span class="radioCheckmark"></span>
+                </label>
+                <label class="radioContainer">Advanced
+                  <input type="radio" checked="checked" name="role" id="advanced" value="Advanced">
+                  <span class="radioCheckmark"></span>
+                </label>
+                <label class="radioContainer">Basic
+                  <input type="radio" name="role" id="basic" value="Basic">
+                  <span class="radioCheckmark"></span>
+                </label>
+              </div>
+              <!--Profile Picture-->
+              <div class="form-group center">
+                <label for="profilePicInput" class="float-left">Profile Picture</label><br><br>
+                <div class="picture-container">
+                  <div id="preview">
+                    <img alt="Default Picture" id="submitPhoto" src="/assets/Images/blank.jpg">
+                  </div>
+                  <br>
+                </div>
+
+                <label id="profilePicInput" for="fileElem">
+                  <i class="material-icons add-photo-icon">add_photo_alternate</i><br>
+                  <input type="file" id="fileElem" accept="image/jpeg, image/png" onchange="previewFile(this.file)">
+                  Drag and Drop an image<br>
+                  <!--or<br>Click to add-->
+                </label>
+
+                or
+                <br>
+
+                <a class="hoverPointer" data-toggle="modal" data-target="#pictureModal">
+                  capture a photo from camera
+                </a>
+              </div>
+            </form>
           </div>
-          <div class="col">
-            <div class="form-group">
-              <label for="surname" class="float-left">Last Name</label>
-              <input type="text" class="form-control" id="surname" name="surname">
-            </div>
-            <br>
-          </div>
         </div>
-
-        <div class="form-group">
-          <label for="number" class="float-left">Contact Number</label>
-          <input type="text" class="form-control" id="number" name="number">
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal" (click)="onSubmit()"
+                  [disabled]="changeForm.invalid">
+            Add
+          </button>
         </div>
-        <br>
-
-        <div class="form-group">
-          <label for="email" class="float-left">Email</label>
-          <input type="text" class="form-control" id="email" name="email">
-        </div>
-        <br>
-
-        <div class="form-group">
-          <label for="username" class="float-left">Username</label>
-          <input type="text" class="form-control" id="username" required name="username">
-        </div>
-        <br>
-
-        <div class="form-group">
-          <label for="pass" class="float-left">Password</label>
-          <input type="text" class="form-control" id="pass" name="pass">
-        </div>
-        <br>
-
-        <div class="form-group">
-          <label class="float-left">Role</label><br><br>
-          <label class="radioContainer" *ngIf="info.userRole == 'Admin'">Admin
-            <input type="radio" name="role" id="admin" value="Admin">
-            <span class="radioCheckmark"></span>
-          </label>
-          <label class="radioContainer">Advanced
-            <input type="radio" checked="checked" name="role" id="advanced" value="Advanced">
-            <span class="radioCheckmark"></span>
-          </label>
-          <label class="radioContainer">Basic
-            <input type="radio" name="role" id="basic" value="Basic">
-            <span class="radioCheckmark"></span>
-          </label>
-        </div>
-        <br>
-
-        <!--Profile Picture-->
-        <div class="form-group">
-          <label for="profilePicInput" class="float-left">Profile Picture</label><br><br>
-          <div class="picture-container">
-            <div id="preview">
-              <img alt="Default Picture" id="submitPhoto" src="/assets/Images/blank.jpg">
-            </div>
-            <br>
-          </div>
-
-          <label id="profilePicInput" for="fileElem">
-            <i class="material-icons add-photo-icon">add_photo_alternate</i><br>
-            <input type="file" id="fileElem" accept="image/jpeg, image/png" onchange="previewFile(this.file)" >
-            Drag and Drop an image<br>
-            <!--or<br>Click to add-->
-          </label>
-
-          or
-          <br>
-
-          <a class="hoverPointer" data-toggle="modal" data-target="#pictureModal">
-            capture a photo from camera
-          </a>
-        </div>
-        <button type="submit" class="btn btn-primary justify-content-center">Submit</button>
-      </form>
+      </div>
     </div>
   </div>
 
@@ -129,7 +325,7 @@
       </div>
     </div>
   </div>
-</div>
+
 
 <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
   <p style="color: white">Please Wait. </p>

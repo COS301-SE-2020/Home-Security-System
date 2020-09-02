@@ -22,6 +22,14 @@ export class AddUserComponent implements OnInit {
   newImage: Image;
   newUser: User;
 
+  namePlaceholder = '';
+  surnamePlaceholder = '';
+  usernamePlaceholder = '';
+  emailPlaceholder = '';
+  passPlaceholder = '';
+  phonePlaceholder = '';
+  confirmPassPlaceholder = '';
+
   constructor(private usersService: UserService, private imageService: ImageService,
               private appService: TitleService, private router: Router,
               private SpinnerService: NgxSpinnerService) {
@@ -63,35 +71,40 @@ export class AddUserComponent implements OnInit {
     this.appService.setTitle('Add User');
   }
 
-  checkIfExists(): boolean {
+  addIfNew() {
     let counter = 0;
-    const usernameInp = document.getElementById('username') as HTMLInputElement;
-    const emailInp = document.getElementById('email') as HTMLInputElement;
+    const usernameInp = document.getElementById('addUsername') as HTMLInputElement;
+    const emailInp = document.getElementById('addEmail') as HTMLInputElement;
+    let exists = false;
 
     this.usersService.getUserList().subscribe(
       data => {
         while (data[counter] != null) {
-          if (data[counter].userDeleted === null)
-          {
+          if (data[counter].userDeleted === null) {
             if (data[counter].username === usernameInp.value) {
+              exists = true;
               alert('Username is already taken. Please enter another username');
               usernameInp.value = '';
               usernameInp.focus();
-              return true;
             }
             if (data[counter].email.toLowerCase() === emailInp.value.toLowerCase()) {
+              exists = true;
               alert('Email address is already in use. Please enter another email address');
               emailInp.value = '';
               emailInp.focus();
-              return true;
             }
           }
           counter++;
         }
+      },
+      error => {
+      },
+      () => {
+        if (!exists) {
+          this.save();
+        }
       }
     );
-
-    return false;
   }
 
   returnUserRole(): string {
@@ -109,12 +122,12 @@ export class AddUserComponent implements OnInit {
   }
 
   save() {
-    const nameInp = document.getElementById('fname') as HTMLInputElement;
-    const surnameInp = document.getElementById('surname') as HTMLInputElement;
-    const emailInp = document.getElementById('email') as HTMLInputElement;
-    const contactInp = document.getElementById('number') as HTMLInputElement;
-    const usernameInp = document.getElementById('username') as HTMLInputElement;
-    const passwordInp = document.getElementById('pass') as HTMLInputElement;
+    const nameInp = document.getElementById('addFirstName') as HTMLInputElement;
+    const surnameInp = document.getElementById('addSurname') as HTMLInputElement;
+    const emailInp = document.getElementById('addEmail') as HTMLInputElement;
+    const contactInp = document.getElementById('addPhone') as HTMLInputElement;
+    const usernameInp = document.getElementById('addUsername') as HTMLInputElement;
+    const passwordInp = document.getElementById('passwordField1') as HTMLInputElement;
     const photoInp = document.getElementById('submitPhoto').getAttribute('src');
     const getRole = this.returnUserRole();
 
@@ -124,8 +137,7 @@ export class AddUserComponent implements OnInit {
 
       if (photoInp === '/assets/Images/blank.jpg') {
         this.newUser.profilePhoto = this.getDefaultImage();
-      }
-      else {
+      } else {
         this.newUser.profilePhoto = photoInp;
       }
 
@@ -145,17 +157,13 @@ export class AddUserComponent implements OnInit {
         }, error => console.log(error));
 
       this.gotoList();
-    }
-    else {
+    } else {
       alert('Cannot add a new user. Not all the fields are filled in.');
     }
   }
 
   onSubmit() {
-    const tf = this.checkIfExists();
-    if (!tf) {
-      this.save();
-    }
+    this.addIfNew();
   }
 
   gotoList() {

@@ -5,6 +5,7 @@
         <div class="card-header card-header-primary">
           <h4 class="card-title">Deleted Users</h4>
           <p class="card-category">All users removed from your system</p>
+          <a *ngIf="info.userRole == 'Admin'" class="material-icons listPageIcons open-modal" (click)="deleteAll()">auto_delete</a>
         </div>
         <div class="card-body">
           <!--Search Bar Starts Here-->
@@ -43,11 +44,13 @@
           <div class="table-responsive">
             <table class="table center" id="userListTable">
               <thead class="text-primary">
-              <th> Picture</th>
-              <th class="hoverPointer" onclick="sortTable('userListTable', 1)"> Name</th>
-              <th class="hoverPointer" onclick="sortTable('userListTable', 2)"> Role</th>
-              <th class="hoverPointer" onclick="sortTable('userListTable', 3)"> Deletion Date</th>
-              <th> Modify</th>
+                <tr>
+                  <th> Picture</th>
+                  <th class="hoverPointer" onclick="sortTable('userListTable', 1)"> Name</th>
+                  <th class="hoverPointer" onclick="sortTable('userListTable', 2)"> Role</th>
+                  <th class="hoverPointer" onclick="sortTable('userListTable', 3)"> Deletion Date</th>
+                  <th> Modify</th>
+                </tr>
               </thead>
               <tbody id="userTableBody">
               <ng-container *ngFor="let user of users | async">

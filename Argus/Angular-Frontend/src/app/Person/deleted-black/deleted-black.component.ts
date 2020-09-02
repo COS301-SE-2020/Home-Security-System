@@ -38,27 +38,45 @@ export class DeletedBlackComponent implements OnInit {
           this.psn = data;
           this.psn.personDeleted = null;
           this.personService.updatePerson(id, this.psn)
-            .subscribe(value => {
-              // console.log(value);
+            .subscribe(() => {
               setTimeout(() => {
                 this.SpinnerService.hide();
               }, 500);
               this.reloadData();
-            }, error => console.log(error));
-        }, error => console.log(error));
+            });
+        });
   }
 
   ngOnInit(): void {
     this.appService.setTitle('Deleted People');
-    this.deleteOld();
     this.reloadData();
+    this.deleteOld(1);
   }
 
   back() {
     this.router.navigate(['people-black']);
   }
 
-  deleteOld() {
+  deleteAll() {
+    let counter = 0;
+    this.SpinnerService.show();
+    this.personService.getPersonList()
+      .subscribe(data => {
+        while (data[counter] != null) {
+          if (data[counter].personDeleted != null && data[counter].personListed === 'Black') {
+            this.personService.deletePerson(data[counter].personId)
+              .subscribe();
+          }
+          counter++;
+        }
+        setTimeout(() => {
+          this.SpinnerService.hide();
+        }, 10000);
+        this.reloadData();
+      });
+  }
+
+  deleteOld(option: number) {
     let counter = 0;
     const today = new Date();
     const year = today.getFullYear();
@@ -76,23 +94,42 @@ export class DeletedBlackComponent implements OnInit {
               const tempYear = temp.substr(0, 4);
               const tempMonth = temp.substr(5, 2);
               const tempDay = temp.substr(8, 2);
-              if (tempYear === year.toString()) {
-                const x = Number(tempMonth) + 1;
-                const y = Number(month) + 1;
-                if (tempMonth === month || x === y) {
-                  num = this.getDay(Number(tempMonth), Number(tempDay));
-                  if (num === day) {
-                    this.personService.deletePerson(data[counter].personId)
-                      .subscribe(value => {
-                        // console.log(value);
-                      }, error => console.log(error));
+              if (option === 1) {
+                if (tempYear === year.toString()) {
+                  const x = Number(tempMonth) + 1;
+                  const y = Number(month) + 1;
+                  if (tempMonth === month || x === y) {
+                    num = this.getDay(Number(tempMonth), Number(tempDay));
+                    if (num === day) {
+                      this.personService.deletePerson(data[counter].personId)
+                        .subscribe();
+                    }
+                  }
+                }
+              }
+              else if (option === 2) {
+                if (tempYear === year.toString()) {
+                  if (Number(tempMonth) < Number(month)) {
+                    if (Number(tempDay) === day && Number(tempDay) < 28) {
+                      this.personService.deletePerson(data[counter].personId).subscribe();
+                    }
+                    else if (Number(tempDay) === 28) {
+                      this.personService.deletePerson(data[counter].personId).subscribe();
+                    }
+                  }
+                }
+              }
+              else if (option === 3) {
+                if (Number(tempYear) < year) {
+                  if (Number(tempMonth) === Number(month)) {
+                    this.personService.deletePerson(data[counter].personId).subscribe();
                   }
                 }
               }
             }
             counter++;
           }
-        }, error => console.log(error));
+        });
   }
 
   getDay(month: number, day: number): number {

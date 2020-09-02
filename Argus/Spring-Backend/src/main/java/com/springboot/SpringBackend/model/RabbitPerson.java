@@ -10,6 +10,7 @@ public class RabbitPerson implements Serializable {
     private static final long serialVersionUID = 5587161172602265855L;
 
     private Long personId;
+    private String tempId;
     private String type;
     private Boolean exists;
     private String imageStr;
@@ -17,10 +18,11 @@ public class RabbitPerson implements Serializable {
 
     public RabbitPerson() {}
 
-    public RabbitPerson(@JsonProperty("personId") Long pid, @JsonProperty("type") String type,
-                        @JsonProperty("exists") Boolean tf, @JsonProperty("imageStr") String img,
-                        @JsonProperty("features") Boolean face) {
+    public RabbitPerson(@JsonProperty("personId") Long pid, @JsonProperty("tempId") String tid,
+                        @JsonProperty("type") String type, @JsonProperty("exists") Boolean tf,
+                        @JsonProperty("imageStr") String img, @JsonProperty("features") Boolean face) {
         this.personId = pid;
+        this.tempId = tid;
         this.type = type;
         this.exists = tf;
         this.imageStr = img;
@@ -29,6 +31,9 @@ public class RabbitPerson implements Serializable {
 
     public Long getPersonId() { return this.personId; }
     public void setPersonId(Long id) { this.personId = id; }
+
+    public String getTempId() { return this.tempId; }
+    public void setTempId(String tid) { this.tempId = tid; }
 
     public String getType() { return this.type; }
     public void setType(String listed) { this.imageStr = listed; }

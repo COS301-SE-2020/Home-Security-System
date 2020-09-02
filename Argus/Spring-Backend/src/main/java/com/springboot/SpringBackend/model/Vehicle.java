@@ -52,13 +52,23 @@ public class Vehicle implements Serializable {
     private LocalDate vehicleDeleted = null;
 
     @ManyToOne
-    @JoinColumn(name="person_id", nullable = false)
+    @JoinColumn(name="person_id", nullable = true)
     private Person person;
 
     //@ManyToMany(mappedBy = "vehicleList")
     //private List<Person> personList = new ArrayList<>();
 
     public Vehicle() { }
+
+    public Vehicle(String img) {
+        this.vehicleImg = img;
+        this.vehicleListed = vehicleType.Grey;
+        this.licenseNo = "Unknown";
+        this.vehicleMake = "Unknown";
+        this.vehicleModel = "Unknown";
+        this.vehicleColour = "Unknown";
+        this.vehicleCreated = LocalDate.now();
+    }
 
     public Vehicle(String img, String listed, String make, String model,
                    String colour, String licenseNo) {
