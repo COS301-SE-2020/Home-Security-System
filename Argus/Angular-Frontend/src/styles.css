@@ -3,7 +3,7 @@
 }
 
 .ImgClassName:hover {
-  transform: scale(1.5);
+  transform: scale(1.2);
 }
 
 .center {
@@ -5757,8 +5757,7 @@ button.close {
   justify-content: space-between;
   padding: 1rem;
   border-bottom: 1px solid #e9ecef;
-  border-top-left-radius: 0.3rem;
-  border-top-right-radius: 0.3rem;
+  font-weight: bold;
 }
 
 .modal-header .close {
@@ -13803,8 +13802,9 @@ fieldset[disabled] .form-group .form-control {
   border: 0;
   border-radius: 3px;
   position: relative;
-  padding: 20px 15px;
-  line-height: 20px;
+  padding: 10px;
+  line-height: 12px;
+  font-size: 12px;
 }
 
 .alert b {
@@ -13877,8 +13877,9 @@ fieldset[disabled] .form-group .form-control {
 }
 
 .alert.alert-danger {
-  background-color: #f55145;
-  color: #ffffff;
+  background-color: #f44336;
+  color: white;
+  opacity: 0.8;
 }
 
 .alert.alert-danger a,
@@ -14909,7 +14910,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   top: 0;
   bottom: 0;
   left: 0;
-  z-index: 2;
+  z-index: 10000;
   width: 260px;
   background: white;
   box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
@@ -14936,7 +14937,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   height: calc(100vh - 75px);
   overflow: auto;
   width: 260px;
-  z-index: 4;
+  z-index: 10000;
   padding-bottom: 30px;
 }
 
@@ -15093,7 +15094,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 
 .sidebar .sidebar-background {
   position: absolute;
-  z-index: 1;
+  z-index: 1000;
   height: 100%;
   width: 100%;
   display: block;
@@ -15355,7 +15356,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   .sidebar-mini .sidebar {
     display: block;
     font-weight: 200;
-    z-index: 9999;
+    z-index: 10000;
   }
 
   .sidebar-mini .sidebar .logo a.logo-normal {
@@ -18702,11 +18703,11 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
   .nav-open .navbar .container .navbar-wrapper,
   .nav-open .navbar .container {
     left: 0;
-    -webkit-transform: translate3d(-260px, 0, 0);
-    -moz-transform: translate3d(-260px, 0, 0);
-    -o-transform: translate3d(-260px, 0, 0);
-    -ms-transform: translate3d(-260px, 0, 0);
-    transform: translate3d(-260px, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 
   .nav-open .sidebar {
@@ -18785,7 +18786,7 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
     width: 260px;
     right: 0;
     left: auto;
-    z-index: 1032;
+    z-index: 10000;
     visibility: visible;
     background-color: #9A9A9A;
     overflow-y: visible;
@@ -18818,7 +18819,7 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
     height: 100%;
     width: 100%;
     position: absolute;
-    background-color: #282828;
+    background-color: white;
     display: block;
     content: "";
     z-index: 1;
@@ -19761,8 +19762,7 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 }
 
 .modal-close-btn:hover {
-  opacity: 0.9;
-  color: red;
+  opacity: 0.5;
 }
 
 /*MODAL STYLES*/
@@ -19974,3 +19974,42 @@ dropdown-fontInc
 {
   color: red;
 }
+
+#chartContainer
+{
+  height: 370px;
+  width: 100%;
+}
+
+#chartContainer2
+{
+  height: 370px;
+  width: 100%;
+}
+
+#chart1
+{
+  width: 450px;
+}
+
+#chart2
+{
+  width: 450px;
+}
+
+#icon1
+{
+  color: #ff0000;
+  font-size: small;
+}
+
+#logoLoginPage
+{
+  width: 50%;
+}
+
+#logoSideBar
+{
+  width: 50%
+}
+

@@ -2,11 +2,6 @@
 var tot = 0;
 var elmts = [];
 
-/* Local notifications */
-function sendNotification(notficationTypeL){
-  alert(notficationTypeL);
-}
-
 /* enable/disable notification button */
 function toggle(){
   var checked = document.getElementById('toggleBtn').checked;

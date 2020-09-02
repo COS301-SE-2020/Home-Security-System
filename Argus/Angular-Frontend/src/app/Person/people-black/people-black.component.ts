@@ -55,7 +55,7 @@ export class PeopleBlackComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.appService.setTitle('Black List');
+    this.appService.setTitle('Person Black-List');
     this.reloadData();
   }
 

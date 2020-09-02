@@ -14,7 +14,7 @@ import java.io.FileOutputStream;
 public class MailerController {
     @Autowired
     private MailerService emailSender;
-    private String imagePath = "D:\\COS 301\\301 Capstone Demo3\\postgresCRUD(new)\\Home-Security-System\\Argus\\Angular-Frontend\\src\\assets\\Images\\Argus.png";
+    private String imagePath = "C:\\Users\\Brad\\Home-Security-System\\Argus\\Angular-Frontend\\src\\assets\\Images\\Argus.png";
 
     // Usage: get request, http://localhost:8080/springboot/sendmailGrey/{email}
     // @GetMapping(value = "/sendmailGrey/{emailAddress}")
@@ -70,7 +70,7 @@ public class MailerController {
     public void setImagePath(String imgPathVar) {
         imagePath = imgPathVar;
     }
-    public void setImage(String b64Image){
+    /*public void setImage(String b64Image){
         try {
             byte image[] = Base64.decodeBase64(b64Image);
             FileOutputStream fos = new FileOutputStream(new File(imagePath + "/abc.bmp"));
@@ -80,9 +80,5 @@ public class MailerController {
         catch (Exception e){
             System.out.println("Error with storing the image in the file. Please check if the file path exists");
         }
-
-
-
-
-    }
+    }*/
 }

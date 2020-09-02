@@ -5,6 +5,7 @@
         <div class="card-header card-header-primary">
           <h4 class="card-title">Notifications</h4>
           <p class="card-category">A history of all the notifications sent to you</p>
+          <a class="material-icons listPageIcons open-modal" (click)="deleteAll()">auto_delete</a>
         </div>
         <div class="card-body">
           <!--Search Bar Starts Here-->
@@ -37,11 +38,13 @@
           <div class="table-responsive table-striped">
             <table class="table center" id="notificationsTable">
               <thead class="text-primary">
-              <th class="hoverPointer" onclick="sortTable('notificationsTable', 0)">Date-Time</th>
-              <th class="hoverPointer" onclick="sortTable('notificationsTable', 1)">Type</th>
-              <th>Message</th>
-              <th>Image</th>
-              <th>Remove</th>
+                <tr>
+                  <th class="hoverPointer" onclick="sortTable('notificationsTable', 0)">Date-Time</th>
+                  <th class="hoverPointer" onclick="sortTable('notificationsTable', 1)">Type</th>
+                  <th>Message</th>
+                  <th>Image</th>
+                  <th>Dismiss</th>
+                </tr>
               </thead>
               <tbody>
               <ng-container *ngFor="let note of notification | async">

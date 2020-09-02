@@ -27,7 +27,7 @@ export class SettingsComponent implements OnInit {
 
   retrieveSettings(){
     const buttonEl = document.getElementById('saveBtn') as HTMLButtonElement;
-    const localSettings = document.getElementById('localSlider') as HTMLInputElement;
+    const smsSettings = document.getElementById('smsSlider') as HTMLInputElement;
     const emailSettings = document.getElementById('emailSlider') as HTMLInputElement;
 
     buttonEl.style.background = 'grey';
@@ -38,7 +38,7 @@ export class SettingsComponent implements OnInit {
     this.userService.getUserById(userObj.id).subscribe(
       data => {
         // console.log(data);
-        localSettings.checked = data.notifyLocal;
+        smsSettings.checked = data.notifySMS;
         emailSettings.checked = data.notifyEmail;
         this.user = data;
       }
@@ -46,16 +46,12 @@ export class SettingsComponent implements OnInit {
   }
 
   setUserSettings(){
-    const localSet = document.getElementById('localSlider') as HTMLInputElement;
+    const smsSet = document.getElementById('smsSlider') as HTMLInputElement;
     const emailSet = document.getElementById('emailSlider') as HTMLInputElement;
     let userObj;
     userObj = this.sessionS.retrieveUserInfo();
     this.user.notifyEmail = emailSet.checked;
-    this.user.notifyLocal = localSet.checked;
-
-    // console.log(this.user.notifyEmail);
-    // console.log(this.user.notifyLocal);
-
+    this.user.notifySMS = smsSet.checked;
 
     this.SpinnerService.show();
     this.userService.updateUser(userObj.id, this.user)
@@ -72,6 +68,5 @@ export class SettingsComponent implements OnInit {
   ngOnInit(): void {
     this.appService.setTitle('Settings');
     this.retrieveSettings();
-    this.user = new User();
   }
 }

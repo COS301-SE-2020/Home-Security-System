@@ -53,12 +53,13 @@ public class UserController {
         }
         x.setFname(details.getFname());
         x.setLname(details.getLname());
+        x.setContactNo(details.getContactNo());
         x.setEmail(details.getEmail());
         x.setUsername(details.getUsername());
         x.setUserPass(details.getUserPass());
         x.setUserRole(details.getUserRole());
         x.setNotifyEmail(details.getNotifyEmail());
-        x.setNotifyLocal(details.getNotifyLocal());
+        x.setNotifySMS(details.getNotifySMS());
         x.setUserDeleted(details.getUserDeleted());
         final User updatedUser = service.updateUser(x);
         return ResponseEntity.ok(updatedUser);

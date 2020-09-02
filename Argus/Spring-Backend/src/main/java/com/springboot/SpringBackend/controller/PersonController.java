@@ -21,13 +21,11 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:4200")
 public class PersonController {
     private final PersonService service;
-    private final FaceService faceService;
     private AmqpTemplate amqpTemplate;
 
     @Autowired
-    public PersonController(PersonService service, FaceService faceService, AmqpTemplate template) {
+    public PersonController(PersonService service, AmqpTemplate template) {
         this.service = service;
-        this.faceService = faceService;
         this.amqpTemplate = template;
     }
 
@@ -45,8 +43,9 @@ public class PersonController {
 
     @PostMapping("/people")
     public Person addPerson(@Valid @RequestBody Person x) {
-        RabbitPerson p = new RabbitPerson(x.getPersonId(), x.getPersonListed(), true, x.getPersonImg(), false);
-        amqpTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.UPDATE_KEY, p);
+        RabbitPerson p = new RabbitPerson(x.getPersonId(), "0", x.getPersonListed(), true, x.getPersonImg(), false);
+        amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, p);
+        System.out.println("Person Created");
         return service.createPerson(x);
     }
 
@@ -60,10 +59,10 @@ public class PersonController {
         if(details.getPersonImg() != null) {
             x.setPersonImg(details.getPersonImg());
         }
-        if(details.getFname() != "") {
+        if(details.getFname().isEmpty()) {
             x.setFname(details.getFname());
         }
-        if(details.getLname() != "")
+        if(details.getLname().isEmpty())
         {
             x.setLname(details.getLname());
         }
@@ -72,16 +71,15 @@ public class PersonController {
 
         final Person updatedPerson = service.updatePerson(x);
 
-        if(details.getPersonDeleted() != null) {
-            //RabbitPerson p = new RabbitPerson(updatedPerson.getPersonId(), updatedPerson.getPersonListed(), true, updatedPerson.getPersonImg(), true);
-            RabbitPerson p = new RabbitPerson(updatedPerson.getPersonId(), updatedPerson.getPersonListed(), true,"Image", true);
-            amqpTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.UPDATE_KEY, p);
+        if(details.getPersonDeleted() == null) {
+            RabbitPerson p = new RabbitPerson(updatedPerson.getPersonId(), "0", updatedPerson.getPersonListed(), true, updatedPerson.getPersonImg(), true);
+            amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, p);
+            System.out.println("Person Updated");
         }
-        else
-        {
-            //RabbitPerson p = new RabbitPerson(updatedPerson.getPersonId(), updatedPerson.getPersonListed(), false, updatedPerson.getPersonImg(), true);
-            RabbitPerson p = new RabbitPerson(updatedPerson.getPersonId(), updatedPerson.getPersonListed(), false, "Image", true);
-            amqpTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.UPDATE_KEY, p);
+        else if(details.getPersonDeleted() != null) {
+            RabbitPerson p = new RabbitPerson(updatedPerson.getPersonId(), "0", updatedPerson.getPersonListed(), false, updatedPerson.getPersonImg(), true);
+            amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, p);
+            System.out.println("Person Deleted");
         }
 
         return ResponseEntity.ok(updatedPerson);

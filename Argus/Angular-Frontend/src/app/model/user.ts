@@ -6,11 +6,12 @@ export class User {
   profilePhoto: string;
   fname: string;
   lname: string;
+  contactNo: string;
   email: string;
   username: string;
   userPass: string;
   userRole: string;
-  notifyLocal: boolean;
+  notifySMS: boolean;
   notifyEmail: boolean;
   userDeleted: any;
 }

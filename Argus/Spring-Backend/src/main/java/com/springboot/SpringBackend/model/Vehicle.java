@@ -24,14 +24,23 @@ public class Vehicle implements Serializable {
     private Long id;
 
     // @ManyToOne
-    // @JoinColumn(name="image_id", nullable = false)
-    @Column(name = "image", nullable = false)
+    // @JoinColumn(name="image_id", nullable = true)
+    @Column(name = "image", nullable = true)
     private String vehicleImg;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "vehiclelisted", nullable = false)
     private vehicleType vehicleListed;
     //private String vehicleListed;
+
+    @Column(name = "vehiclemake", nullable = false)
+    private String vehicleMake;
+
+    @Column(name = "vehiclemodel", nullable = false)
+    private String vehicleModel;
+
+    @Column(name = "vehiclecolour", nullable = false)
+    private String vehicleColour;
 
     @Column(name = "licenseno", nullable = false)
     private String licenseNo;
@@ -43,7 +52,7 @@ public class Vehicle implements Serializable {
     private LocalDate vehicleDeleted = null;
 
     @ManyToOne
-    @JoinColumn(name="person_id", nullable = false)
+    @JoinColumn(name="person_id", nullable = true)
     private Person person;
 
     //@ManyToMany(mappedBy = "vehicleList")
@@ -51,7 +60,18 @@ public class Vehicle implements Serializable {
 
     public Vehicle() { }
 
-    public Vehicle(String img, String listed, String licenseNo) {
+    public Vehicle(String img) {
+        this.vehicleImg = img;
+        this.vehicleListed = vehicleType.Grey;
+        this.licenseNo = "Unknown";
+        this.vehicleMake = "Unknown";
+        this.vehicleModel = "Unknown";
+        this.vehicleColour = "Unknown";
+        this.vehicleCreated = LocalDate.now();
+    }
+
+    public Vehicle(String img, String listed, String make, String model,
+                   String colour, String licenseNo) {
         this.vehicleImg = img;
 
         if(listed.equalsIgnoreCase("White"))
@@ -71,18 +91,26 @@ public class Vehicle implements Serializable {
         }
 
         this.licenseNo = Jsoup.clean(licenseNo, Whitelist.simpleText());
+        this.vehicleMake = Jsoup.clean(make, Whitelist.simpleText());
+        this.vehicleModel = Jsoup.clean(model, Whitelist.simpleText());
+        this.vehicleColour = Jsoup.clean(colour, Whitelist.simpleText());
         this.vehicleCreated = LocalDate.now();
     }
 
-    public Vehicle(String img, String licenseNo) {
+    public Vehicle(String img, String licenseNo, String make, String model,
+                   String colour) {
         this.vehicleImg = img;
         //this.vehicleListed = "Grey";
         this.vehicleListed = vehicleType.Grey;
         this.licenseNo = Jsoup.clean(licenseNo, Whitelist.simpleText());
+        this.vehicleMake = Jsoup.clean(make, Whitelist.simpleText());
+        this.vehicleModel = Jsoup.clean(model, Whitelist.simpleText());
+        this.vehicleColour = Jsoup.clean(colour, Whitelist.simpleText());
         this.vehicleCreated = LocalDate.now();
     }
 
-    public Vehicle(String img, String listed, String licenseNo, Person p) {
+    public Vehicle(String img, String listed, String licenseNo, String make, String model,
+                   String colour, Person p) {
         this.vehicleImg = img;
 
         if(listed.equalsIgnoreCase("White"))
@@ -102,15 +130,22 @@ public class Vehicle implements Serializable {
         }
 
         this.licenseNo = Jsoup.clean(licenseNo, Whitelist.simpleText());
+        this.vehicleMake = Jsoup.clean(make, Whitelist.simpleText());
+        this.vehicleModel = Jsoup.clean(model, Whitelist.simpleText());
+        this.vehicleColour = Jsoup.clean(colour, Whitelist.simpleText());
         this.vehicleCreated = LocalDate.now();
         this.person = p;
     }
 
-    public Vehicle(String img, String licenseNo, Person p) {
+    public Vehicle(String img, String licenseNo, String make, String model,
+                   String colour, Person p) {
         this.vehicleImg = img;
         //this.vehicleListed = "Grey";
         this.vehicleListed = vehicleType.Grey;
         this.licenseNo = Jsoup.clean(licenseNo, Whitelist.simpleText());
+        this.vehicleMake = Jsoup.clean(make, Whitelist.simpleText());
+        this.vehicleModel = Jsoup.clean(model, Whitelist.simpleText());
+        this.vehicleColour = Jsoup.clean(colour, Whitelist.simpleText());
         this.vehicleCreated = LocalDate.now();
         this.person = p;
     }
@@ -151,6 +186,27 @@ public class Vehicle implements Serializable {
             //this.vehicleListed = "Grey";
             this.vehicleListed = vehicleType.Grey;
         }
+    }
+
+    public String getVehicleMake() {
+        return this.vehicleMake;
+    }
+    public void setVehicleMake(String make) {
+        this.vehicleMake = Jsoup.clean(make, Whitelist.simpleText());
+    }
+
+    public String getVehicleModel() {
+        return this.vehicleModel;
+    }
+    public void setVehicleModel(String model) {
+        this.vehicleModel = Jsoup.clean(model, Whitelist.simpleText());
+    }
+
+    public String getVehicleColour() {
+        return this.vehicleColour;
+    }
+    public void setVehicleColour(String colour) {
+        this.vehicleColour = Jsoup.clean(colour, Whitelist.simpleText());
     }
 
     public String getLicenseNo() {

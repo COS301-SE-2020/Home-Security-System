@@ -11,12 +11,18 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+//@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
 @SpringBootTest
 public class VehicleRepoTest {
     private static final String IMAGE_URL = "http://an-imageurl.com/image1.jpg";
     private static final String LICENCE = "CW36FWGP";
+    private static final String MAKE = "Hyundi";
+    private static final String MODEL = "i10";
+    private static final String COLOUR = "White";
+
 
     @Autowired
     private ImageRepo irepo;
@@ -33,7 +39,7 @@ public class VehicleRepoTest {
         // Image img = new Image(IMAGE_URL);
         // irepo.save(img);
 
-        Vehicle v = new Vehicle(IMAGE_URL,LICENCE);
+        Vehicle v = new Vehicle(IMAGE_URL, MAKE, MODEL, COLOUR, LICENCE);
         vrepo.save(v);
 
         Assert.assertNotNull(v.getVehicleId());

@@ -1,4 +1,3 @@
-
 /*==================================================================*/
 
 function ValidateEmail() {
@@ -197,6 +196,11 @@ function openDrop() {
   }
 }
 
+function previewFileFromCam() {
+  const cam = document.getElementById('confirmPic').getAttribute('src');
+  document.getElementById('submitPhoto').setAttribute('src', cam);
+}
+
 // ******************************************************** //
 //                    Table Functions                       //
 // ******************************************************** //
@@ -219,8 +223,7 @@ function searchFunc(tableID, colNum) {
   }
 }
 
-function changeSearchFunc(tableID ,placeholder ,colNum)
-{
+function changeSearchFunc(tableID, placeholder, colNum) {
   let currentSearch = document.getElementById('searchInput');
   currentSearch.setAttribute('placeholder', placeholder);
   currentSearch.setAttribute('onkeyup', "searchFunc('" + tableID + "', " + colNum + ")")
@@ -292,5 +295,77 @@ function sortTable(tableID, colNum) {
     }
   }
 }
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// -------------------------------------------------------------------------------------------------------------------
+
+
+
+// -------------------------------------------------------------------------------------------------------------------
+
+/*
+function resizeImage(file:File, maxWidth:number, maxHeight:number):Promise<Blob> {
+  return new Promise((resolve, reject) => {
+    let image = new Image();
+    image.src = URL.createObjectURL(file);
+    image.onload = () => {
+      let width = image.width;
+      let height = image.height;
+
+      if (width <= maxWidth && height <= maxHeight) {
+        resolve(file);
+      }
+
+      let newWidth;
+      let newHeight;
+
+      if (width > height) {
+        newHeight = height * (maxWidth / width);
+        newWidth = maxWidth;
+      } else {
+        newWidth = width * (maxHeight / height);
+        newHeight = maxHeight;
+      }
+
+      let canvas = document.createElement('canvas');
+      canvas.width = newWidth;
+      canvas.height = newHeight;
+
+      let context = canvas.getContext('2d');
+
+      context.drawImage(image, 0, 0, newWidth, newHeight);
+
+      canvas.toBlob(resolve, file.type);
+    };
+    image.onerror = reject;
+  });
+}
+
+function changePicSize( file:File )
+{
+  resizeImage(file, 300, 300);
+}
+
+
+function changePreview() {
+  document.getElementById('fileElem').addEventListener('change', (o) => {
+    //If you don't need to resize the image, you can get the blob to upload from the
+    //FileList (e.g. doUpload(o.target.files[0]);
+
+    if (o.target.files.length > 0) {
+      resizeImage(o.target.files[0], 300, 300).then(blob => {
+        //You can upload the resized image: doUpload(blob)
+        document.getElementById('submitPhoto').src = URL.createObjectURL(blob);
+      }, err => {
+        console.error("Photo error", err);
+      });
+    }
+  });
+}
+
+ */
+
+
 
 

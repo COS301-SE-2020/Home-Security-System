@@ -11,8 +11,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+//@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
 @SpringBootTest
 public class ImageRepoTest {
     private static final String IMAGE_URL = "http://an-imageurl.com/image1.jpg";
@@ -34,7 +36,9 @@ public class ImageRepoTest {
 
         Assert.assertNotNull(img.getImageId());
         Image newImg = repo.findById(img.getImageId()).orElse(null);
-        Assert.assertEquals((Long) 1L, newImg.getImageId());
-        Assert.assertEquals(IMAGE_URL, newImg.getPhoto());
+        if(newImg != null) {
+            Assert.assertEquals((Long) 1L, newImg.getImageId());
+            Assert.assertEquals(IMAGE_URL, newImg.getPhoto());
+        }
     }
 }

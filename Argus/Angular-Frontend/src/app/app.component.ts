@@ -6,15 +6,14 @@ import { TitleService } from './title.service';
 import {LoginComponent} from './Dashboard/login/login.component';
 import {ResetPasswordComponent} from './Dashboard/reset-password/reset-password.component';
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-
   title = 'Angular-Frontend';
+
   constructor(private titleService: Title, private router: Router,
               private activatedRoute: ActivatedRoute) {
   }

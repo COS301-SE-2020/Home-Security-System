@@ -4,7 +4,7 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-primary">
-            <h4 class="card-title"><u>User Profile</u></h4>
+            <h4 class="card-title">User Profile</h4>
             <p class="card-category"></p>
             <div class="image-cropper">
               <img class="userPic" id="viewPic">
@@ -18,8 +18,6 @@
                   <output id="firstNameDisplay">{{user.fname}}</output>
                 </div>
               </div>
-            </div>
-            <div class="row">
               <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="form-group">
                   <h5 class="text-primary"><b>Last Name</b></h5>
@@ -28,6 +26,12 @@
               </div>
             </div>
             <div class="row">
+              <div class="col-md-6 col-sm-6 col-xs-6">
+                <div class="form-group">
+                  <h5 class="text-primary"><b>Contact Number</b></h5>
+                  <output id="numberDisplay">{{user.contactNo}}</output>
+                </div>
+              </div>
               <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="form-group">
                   <h5 class="text-primary"><b>Email</b></h5>
