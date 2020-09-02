@@ -48,7 +48,7 @@
 
           <label id="profilePicInput" for="fileElem">
             <i class="material-icons add-photo-icon">add_photo_alternate</i><br>
-            <input type="file" id="fileElem" accept="image/jpeg, image/png" onchange="previewFile(this.file)" >
+            <input type="file" id="fileElem" accept="image/jpeg, image/png" onchange="previewFile(resizeImg(this.file))">
             Drag and Drop an image<br>
             <!--or<br>Click to add-->
           </label>

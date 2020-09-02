@@ -26,9 +26,12 @@ successive_detection_ignore = 300.0
 rabbit_conn = pi.BlockingConnection(pi.ConnectionParameters(rabbit_host))
 message_channel = rabbit_conn.channel()
 message_channel.queue_declare(queue='alertQueue')
+message_channel.queue_declare(queue='notifyQueue')
 message_channel.queue_declare(queue='personQueue')
+message_channel.queue_declare(queue='vehicleQueue')
 message_channel.queue_declare(queue='featureQueue')
-message_channel.queue_declare(queue='updateQueue')
+message_channel.queue_declare(queue='updatePersonQueue')
+message_channel.queue_declare(queue='updateVehicleQueue')
 face_d = MTCNN()
 face_r = VGGFace(include_top=False, model=mod_name, input_shape=(224, 224, 3), pooling='avg')
 
@@ -236,7 +239,7 @@ def rabbit_consume():
                         pass
         up_face = True
 
-    message_channel.basic_consume(queue='updateQueue',
+    message_channel.basic_consume(queue='updatePersonQueue',
                                   auto_ack=True,
                                   on_message_callback=feature_update)
     message_channel.start_consuming()

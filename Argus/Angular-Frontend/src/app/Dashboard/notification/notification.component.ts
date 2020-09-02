@@ -46,8 +46,8 @@ export class NotificationComponent implements OnInit {
 
   ngOnInit(): void {
     this.appService.setTitle('Notifications');
-    this.deleteOld();
     this.reloadData();
+    this.deleteOld(1);
   }
 
   deleteAll() {
@@ -69,7 +69,7 @@ export class NotificationComponent implements OnInit {
         });
   }
 
-  deleteOld() {
+  deleteOld(option: number) {
     let counter = 0;
     const today = new Date();
     const year = today.getFullYear();
@@ -87,12 +87,33 @@ export class NotificationComponent implements OnInit {
               const tempYear = temp.substr(0, 4);
               const tempMonth = temp.substr(5, 2);
               const tempDay = temp.substr(8, 2);
-              if (tempYear === year.toString()) {
-                const x = Number(tempMonth) + 1;
-                const y = Number(month) + 1;
-                if (tempMonth === month || x === y) {
-                  num = this.getDay(Number(tempMonth), Number(tempDay));
-                  if (num === day) {
+              if (option === 1) {
+                if (tempYear === year.toString()) {
+                  const x = Number(tempMonth) + 1;
+                  const y = Number(month) + 1;
+                  if (tempMonth === month || x === y) {
+                    num = this.getDay(Number(tempMonth), Number(tempDay));
+                    if (num === day) {
+                      this.notificationService.deleteNotification(data[counter].notificationId).subscribe();
+                    }
+                  }
+                }
+              }
+              else if (option === 2) {
+                if (tempYear === year.toString()) {
+                  if (Number(tempMonth) < Number(month)) {
+                    if (Number(tempDay) === day && Number(tempDay) < 28) {
+                      this.notificationService.deleteNotification(data[counter].notificationId).subscribe();
+                    }
+                    else if (Number(tempDay) === 28) {
+                      this.notificationService.deleteNotification(data[counter].notificationId).subscribe();
+                    }
+                  }
+                }
+              }
+              else if (option === 3) {
+                if (Number(tempYear) < year) {
+                  if (Number(tempMonth) === Number(month)) {
                     this.notificationService.deleteNotification(data[counter].notificationId).subscribe();
                   }
                 }
@@ -100,7 +121,7 @@ export class NotificationComponent implements OnInit {
             }
             counter++;
           }
-        }, error => console.log(error));
+        });
   }
 
   getDay(month: number, day: number): number {

@@ -1,8 +1,12 @@
 package com.springboot.SpringBackend.controller;
 
+import com.springboot.SpringBackend.config.RabbitMQConfig;
 import com.springboot.SpringBackend.exception.ResourceNotFoundException;
+import com.springboot.SpringBackend.model.RabbitPerson;
+import com.springboot.SpringBackend.model.RabbitVehicle;
 import com.springboot.SpringBackend.model.Vehicle;
 import com.springboot.SpringBackend.service.VehicleService;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +21,12 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:4200")
 public class VehicleController {
     private final VehicleService service;
+    private AmqpTemplate amqpTemplate;
 
     @Autowired
-    public VehicleController(VehicleService service) {
+    public VehicleController(VehicleService service, AmqpTemplate template) {
         this.service = service;
+        this.amqpTemplate = template;
     }
 
     @GetMapping("/vehicles")
@@ -37,6 +43,9 @@ public class VehicleController {
 
     @PostMapping("/vehicles")
     public Vehicle addVehicle(@Valid @RequestBody Vehicle x) {
+        RabbitVehicle v = new RabbitVehicle(x.getPersonId(), "0", x.getVehicleListed(), true, x.getVehicleImg(), false);
+        amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_VEHICLE_KEY, v);
+        System.out.println("Vehicle Created");
         return service.createVehicle(x);
     }
 
@@ -57,6 +66,18 @@ public class VehicleController {
         x.setLicenseNo(details.getLicenseNo());
         x.setVehicleDeleted(details.getVehicleDeleted());
         final Vehicle updatedVehicle = service.updateVehicle(x);
+
+        if(details.getVehicleDeleted() == null) {
+            RabbitVehicle v = new RabbitVehicle(updatedVehicle.getVehicleId(), "0", updatedVehicle.getVehicleListed(), true, updatedVehicle.getVehicleImg(), true);
+            amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_VEHICLE_KEY, v);
+            System.out.println("Vehicle Updated");
+        }
+        else if(details.getVehicleDeleted() != null) {
+            RabbitVehicle v = new RabbitVehicle(updatedVehicle.getPersonId(), "0", updatedVehicle.getVehicleListed(), false, updatedVehicle.getVehicleImg(), true);
+            amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_VEHICLE_KEY, v);
+            System.out.println("Vehicle Deleted");
+        }
+
         return ResponseEntity.ok(updatedVehicle);
     }
 

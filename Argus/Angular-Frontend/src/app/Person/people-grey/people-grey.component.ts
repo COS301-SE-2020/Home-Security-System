@@ -71,7 +71,7 @@ export class PeopleGreyComponent implements OnInit {
 
   ngOnInit(): void {
     this.appService.setTitle('Person Grey-List');
-    this.deleteOld();
+    this.deleteOld(1);
     this.reloadData();
   }
 
@@ -96,7 +96,7 @@ export class PeopleGreyComponent implements OnInit {
       });
   }
 
-  removeCompletely() {
+  removeCompletely(option: number) {
     let counter = 0;
     const today = new Date();
     const year = today.getFullYear();
@@ -114,14 +114,34 @@ export class PeopleGreyComponent implements OnInit {
               const tempYear = temp.substr(0, 4);
               const tempMonth = temp.substr(5, 2);
               const tempDay = temp.substr(8, 2);
-              if (tempYear === year.toString()) {
-                const x = Number(tempMonth) + 1;
-                const y = Number(month) + 1;
-                if (tempMonth === month || x === y) {
-                  num = this.getDay(Number(tempMonth), Number(tempDay));
-                  if (num === day) {
-                    this.personService.deletePerson(data[counter].personId)
-                      .subscribe();
+              if (option === 1) {
+                if (tempYear === year.toString()) {
+                  const x = Number(tempMonth) + 1;
+                  const y = Number(month) + 1;
+                  if (tempMonth === month || x === y) {
+                    num = this.getDay(Number(tempMonth), Number(tempDay));
+                    if (num === day) {
+                      this.personService.deletePerson(data[counter].personId).subscribe();
+                    }
+                  }
+                }
+              }
+              else if (option === 2) {
+                if (tempYear === year.toString()) {
+                  if (Number(tempMonth) < Number(month)) {
+                    if (Number(tempDay) === day && Number(tempDay) < 28) {
+                      this.personService.deletePerson(data[counter].personId).subscribe();
+                    }
+                    else if (Number(tempDay) === 28) {
+                      this.personService.deletePerson(data[counter].personId).subscribe();
+                    }
+                  }
+                }
+              }
+              else if (option === 3) {
+                if (Number(tempYear) < year) {
+                  if (Number(tempMonth) === Number(month)) {
+                    this.personService.deletePerson(data[counter].personId).subscribe();
                   }
                 }
               }
@@ -131,7 +151,7 @@ export class PeopleGreyComponent implements OnInit {
         });
   }
 
-  deleteOld() {
+  deleteOld(option: number) {
     let counter = 0;
     const today = new Date();
     const year = today.getFullYear();
@@ -149,17 +169,37 @@ export class PeopleGreyComponent implements OnInit {
               const tempYear = temp.substr(0, 4);
               const tempMonth = temp.substr(5, 2);
               const tempDay = temp.substr(8, 2);
-              if (tempYear === year.toString()) {
-                const x = Number(tempMonth) + 1;
-                const y = Number(month) + 1;
-                if (tempMonth === month || x === y) {
-                  num = this.getDay(Number(tempMonth), Number(tempDay));
-                  if (num === day) {
-                    this.psn = new Person();
-                    this.psn = data[counter];
-                    this.psn.personDeleted = new Date();
-                    this.personService.updatePerson(data[counter].personId, this.psn)
-                      .subscribe();
+              this.psn = new Person();
+              this.psn = data[counter];
+              this.psn.personDeleted = new Date();
+              if (option === 1) {
+                if (tempYear === year.toString()) {
+                  const x = Number(tempMonth) + 1;
+                  const y = Number(month) + 1;
+                  if (tempMonth === month || x === y) {
+                    num = this.getDay(Number(tempMonth), Number(tempDay));
+                    if (num === day) {
+                      this.personService.updatePerson(data[counter].personId, this.psn).subscribe();
+                    }
+                  }
+                }
+              }
+              else if (option === 2) {
+                if (tempYear === year.toString()) {
+                  if (Number(tempMonth) < Number(month)) {
+                    if (Number(tempDay) === day && Number(tempDay) < 28) {
+                      this.personService.updatePerson(data[counter].personId, this.psn).subscribe();
+                    }
+                    else if (Number(tempDay) === 28) {
+                      this.personService.updatePerson(data[counter].personId, this.psn).subscribe();
+                    }
+                  }
+                }
+              }
+              else if (option === 3) {
+                if (Number(tempYear) < year) {
+                  if (Number(tempMonth) === Number(month)) {
+                    this.personService.updatePerson(data[counter].personId, this.psn).subscribe();
                   }
                 }
               }
