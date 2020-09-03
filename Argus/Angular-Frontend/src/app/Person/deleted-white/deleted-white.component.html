@@ -52,7 +52,7 @@
                   </th>
                 </tr>
               </thead>
-              <tbody id="blackBody">
+              <tbody id="whiteBody">
               <ng-container *ngFor="let p of person | async">
                 <tr *ngIf="p.personListed == 'White' && p.personDeleted != null">
                   <td><img alt="Photo" src="{{p.personImg}}" class="listPic ImgClassName"></td>

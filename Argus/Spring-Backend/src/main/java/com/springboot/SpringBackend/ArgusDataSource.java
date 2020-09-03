@@ -12,6 +12,7 @@ public class ArgusDataSource {
     /*
     @Bean
     @Profile("heroku")
+    @Primary
     //@LiquibaseDataSource
     public javax.sql.DataSource herokuDataSource() {
         String username = System.getenv("JDBC_DATABASE_USERNAME");
