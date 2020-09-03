@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ArgusDataSource {
-
+    /*
     @Bean
     @Profile("heroku")
     @Primary
@@ -25,7 +25,7 @@ public class ArgusDataSource {
                 .password(password)
                 .build();
     }
-    /*
+    */
     @Bean
     @Profile("local")
     @Primary
@@ -37,5 +37,4 @@ public class ArgusDataSource {
                 .password("Argus")
                 .build();
     }
-    */
 }

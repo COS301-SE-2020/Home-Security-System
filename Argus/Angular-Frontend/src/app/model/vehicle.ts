@@ -10,7 +10,7 @@ export class Vehicle {
   vehicleModel: string;
   vehicleColour: string;
   licenceNo: string;
-  vehicleCreated: string;
-  vehicleDeleted: string;
+  vehicleCreated: any;
+  vehicleDeleted: any;
   person: Person;
 }
