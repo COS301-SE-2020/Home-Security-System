@@ -1,13 +1,14 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12">
-      <div class="card">
-        <div class="card-header card-header-primary">
+      <div class="card" >
+        <div class="card-header card-header-primary" id="NotDiv">
           <h4 class="card-title">Notifications</h4>
           <p class="card-category">A history of all the notifications sent to you</p>
           <a class="material-icons listPageIcons open-modal" (click)="deleteAll()">auto_delete</a>
         </div>
         <div class="card-body">
+
           <!--Search Bar Starts Here-->
           <div class="row">
             <div class="col-11">
@@ -34,6 +35,12 @@
             </div>
           </div>
           <br>
+          <!-- Image Zoom modal -->
+          <div id="myModal" class="modal" (click)="modalClick()">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="img01" alt="image" src="">
+            <div id="caption"></div>
+          </div>
           <!--Table Starts Here-->
           <div class="table-responsive table-striped">
             <table class="table center" id="notificationsTable">
@@ -54,7 +61,7 @@
                   <td>{{note.message}}</td>
                   <td>
                     <img alt="Image" id="noteImg{{note.notificationId}}" src="{{note.notificationImg}}"
-                         class="squarePhoto">
+                         class="squarePhoto" (click)="imageClick(note.notificationId)">
                   </td>
                   <td>
                     <a class="material-icons listPageIcons" (click)="removeNotification(note.notificationId)">delete</a>
