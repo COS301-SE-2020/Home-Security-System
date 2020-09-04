@@ -12,7 +12,7 @@
 	<artifactId>Spring-Backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Spring-Backend</name>
-	<description>Database Management</description>
+	<description>Backend</description>
 
 	<properties>
 		<java.version>14</java.version>
@@ -257,6 +257,11 @@
 	</dependencyManagement>-->
 
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
 		<plugins>
 			<!--<plugin>
 				<groupId>org.asciidoctor</groupId>
@@ -291,9 +296,11 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>3.2.0</version>
 				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
 					<webResources>
 						<resource>
-							<directory>../Angular-Frontend/target</directory>
+							<!--<directory>../Angular-Frontend/target</directory>-->
+							<directory>../Angular-Frontend/dist</directory>
 						</resource>
 					</webResources>
 				</configuration>
