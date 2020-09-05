@@ -69,6 +69,30 @@ export class PeopleGreyComponent implements OnInit {
         });
   }
 
+  imageClick(id): void{
+
+    const modal = document.getElementById('myModal') as HTMLElement;
+    const img = document.getElementById('noteImg' + id) as HTMLImageElement;
+    const modalImg = document.getElementById('img01') as HTMLImageElement;
+    // const captionText = document.getElementById('caption') as HTMLElement;
+    modal.style.display = 'block';
+    modalImg.src = img.src;
+    // captionText.innerHTML = img.alt;
+    const notificationBar = document.getElementById('NotDiv') as HTMLElement;
+    document.getElementById('navBars').style.visibility = 'hidden';
+    notificationBar.style.visibility = 'hidden';
+    // const span = document.getElementsByClassName('close')[0];
+
+  }
+  modalClick(): void{
+    const notificationBar = document.getElementById('NotDiv') as HTMLElement;
+    document.getElementById('navBars').style.visibility = 'visible';
+    notificationBar.style.visibility = 'visible';
+    const modal = document.getElementById('myModal') as HTMLElement;
+    modal.style.display = 'none';
+  }
+
+
   ngOnInit(): void {
     this.appService.setTitle('Person Grey-List');
     this.deleteOld(1);

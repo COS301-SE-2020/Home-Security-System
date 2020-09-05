@@ -5,7 +5,7 @@
         <div class="card-header card-header-primary" id="NotDiv">
           <h4 class="card-title">Notifications</h4>
           <p class="card-category">A history of all the notifications sent to you</p>
-          <a class="material-icons listPageIcons open-modal" (click)="deleteAll()">auto_delete</a>
+          <a class="material-icons listPageIcons open-modal" (click)="deleteAll()" title="Delete All">auto_delete</a>
         </div>
         <div class="card-body">
 
@@ -61,10 +61,10 @@
                   <td>{{note.message}}</td>
                   <td>
                     <img alt="Image" id="noteImg{{note.notificationId}}" src="{{note.notificationImg}}"
-                         class="squarePhoto" (click)="imageClick(note.notificationId)">
+                         class="listPic ImgClassName" (click)="imageClick(note.notificationId)">
                   </td>
                   <td>
-                    <a class="material-icons listPageIcons" (click)="removeNotification(note.notificationId)">delete</a>
+                    <a class="material-icons listPageIcons" (click)="removeNotification(note.notificationId)" title="Delete Notification">delete</a>
                   </td>
                 </tr>
               </ng-container>

@@ -6,7 +6,7 @@
           <h4 class="card-title">Threat Person List</h4>
           <p class="card-category">Danger Level High!</p>
           <a *ngIf="info.userRole != 'Basic'" id="addBlack" class="material-icons open-modal listPageIcons" data-toggle="modal"
-             data-target="#addPersonModal2" onclick="openDrop()">person_add</a>
+             data-target="#addPersonModal2" onclick="openDrop()" title="Add New Person">person_add</a>
         </div>
         <div class="card-body">
           <!--Search Bar Starts Here-->
@@ -41,8 +41,8 @@
                   <td><img alt="Photo" src="{{p.personImg}}" class="listPic ImgClassName"></td>
                   <td>{{p.fname}}&nbsp;{{p.lname}}</td>
                   <td *ngIf="info.userRole != 'Basic'">
-                    <a class="material-icons listPageIcons" (click)="updatePerson(p.personId)">edit</a>
-                    <a class="material-icons listPageIcons" (click)="removePerson(p.personId)">delete</a>
+                    <a class="material-icons listPageIcons" (click)="updatePerson(p.personId)" title="Edit Person">edit</a>
+                    <a class="material-icons listPageIcons" (click)="removePerson(p.personId)" title="Delete Person">delete</a>
                   </td>
                 </tr>
               </ng-container>
