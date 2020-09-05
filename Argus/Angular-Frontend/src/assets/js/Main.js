@@ -347,11 +347,15 @@ function resizePhoto(data){
   var resize_width = 300;
   var resize_height = 300;//without px
 
+  var reader = new FileReader();
+
+  reader.onload
+  {
     var img = new Image();//create a image
     img.src = document.getElementById('confirmPic').getAttribute('src');
     img.name = event.target.name;//set name (optional)
     img.size = event.target.size;//set size (optional)
-    img.onload = function(el) {
+    img.onload = function (el) {
       var elem = document.createElement('canvas');//create a canvas
 
       elem.width = resize_width;
@@ -369,6 +373,7 @@ function resizePhoto(data){
       //assign it to thumb src
       document.querySelector('#submitPhoto').src = srcEncoded;
 
+    }
   }
 }
 
