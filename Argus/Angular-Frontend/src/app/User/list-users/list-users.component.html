@@ -6,7 +6,7 @@
           <h4 class="card-title">User List</h4>
           <p class="card-category">All users for your system</p>
           <a *ngIf="info.userRole != 'Basic'" id="addBtn" class="material-icons open-modal listPageIcons"
-             data-toggle="modal" data-target="#addUserModal" onclick="openDrop()">person_add</a>
+             data-toggle="modal" data-target="#addUserModal" title="Add New User" onclick="openDrop()">person_add</a>
         </div>
         <div class="card-body">
           <!--Search Bar Starts Here-->
@@ -55,11 +55,11 @@
                   <td>{{user.fname}}&nbsp;{{user.lname}}</td>
                   <td>{{user.userRole}}</td>
                   <td>
-                    <a id="viewBtn" class="material-icons listPageIcons" (click)="viewUser(user.userId)">visibility</a>
+                    <a id="viewBtn" class="material-icons listPageIcons" (click)="viewUser(user.userId)" title="View User">visibility</a>
                     <a *ngIf="info.userRole != 'Basic'" id="editBtn" class="material-icons listPageIcons"
-                       (click)="updateUser(user.userId)">edit</a>
+                       (click)="updateUser(user.userId)" title="Edit User">edit</a>
                     <a *ngIf="info.userRole == 'Admin'" id="deleteBtn" class="material-icons listPageIcons"
-                       (click)="removeUser(user.userId)">delete</a>
+                       (click)="removeUser(user.userId)" title="Delete User">delete</a>
                   </td>
                 </tr>
               </ng-container>
