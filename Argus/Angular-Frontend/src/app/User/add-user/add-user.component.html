@@ -178,20 +178,15 @@
 
             <div class="row">
               <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="form-group has-success">
+                <div class="form-group">
                   <label for="addPhone">Contact Number</label>
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                        <i class="material-icons">group</i>
-                    </span>
-                  </div>
                   <input id="addPhone" name="addPhone" class="form-control"
                          required
-                         pattern="^((?:\+27|27))(=72|82|73|83|74|84)(\d{7})$"
-                         [(ngModel)]="phonePlaceholder" #contactNo="ngModel">
+                         pattern="^((?:\+27))(=72|82|73|83|74|84|79)(\d{7})$"
+                         [(ngModel)]="phonePlaceholder" #contactNo="ngModel" placeholder="+27*******">
                   <div *ngIf="contactNo.invalid && (contactNo.dirty || contactNo.touched)"
                        class="alert alert-danger">
-                    Please enter a valid phone number.
+                    Please enter a valid phone number starting with +27.
                   </div>
                 </div>
               </div>
