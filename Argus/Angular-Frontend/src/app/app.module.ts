@@ -84,17 +84,17 @@ const appRoutes: Routes = [];
     RemovedBlackComponent,
     RemovedWhiteComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    WebcamModule,
-    RouterModule.forRoot(appRoutes),
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgxSpinnerModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        WebcamModule,
+        RouterModule.forRoot(appRoutes),
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NgxSpinnerModule
+    ],
   providers: [
     NotificationService,
     UserService,

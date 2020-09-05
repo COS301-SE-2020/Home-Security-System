@@ -298,6 +298,54 @@ function sortTable(tableID, colNum) {
 
 // -------------------------------------------------------------------------------------------------------------------
 
+function resize(){
+  //define the width to resize e.g 600px
+  var resize_width = 300;
+  var resize_height = 300;//without px
+
+  //get the image selected
+  var item = document.querySelector('#fileElem').files[0];
+
+  //create a FileReader
+  var reader = new FileReader();
+
+  //image turned to base64-encoded Data URI.
+  reader.readAsDataURL(item);
+  reader.name = item.name;//get the image's name
+  reader.size = item.size; //get the image's size
+  reader.onload = function(event) {
+    var img = new Image();//create a image
+    img.src = event.target.result;//result is base64-encoded Data URI
+    img.name = event.target.name;//set name (optional)
+    img.size = event.target.size;//set size (optional)
+    img.onload = function(el) {
+      var elem = document.createElement('canvas');//create a canvas
+
+      //scale the image to 600 (width) and keep aspect ratio
+      var scaleFactor = resize_width / el.target.width;
+      elem.width = resize_width;
+      // elem.height = el.target.height * scaleFactor;
+
+      elem.height = resize_height;
+
+      //draw in canvas
+      var ctx = elem.getContext('2d');
+      ctx.drawImage(el.target, 0, 0, elem.width, elem.height);
+
+      //get the base64-encoded Data URI from the resize image
+      var srcEncoded = ctx.canvas.toDataURL(el.target, 'image/jpeg', 0);
+
+      //assign it to thumb src
+      document.querySelector('#submitPhoto').src = srcEncoded;
+
+      /*Now you can send "srcEncoded" to the server and
+      convert it to a png o jpg. Also can send
+      "el.target.name" that is the file's name.*/
+
+    }
+  }
+}
+
 // -------------------------------------------------------------------------------------------------------------------
 
 
