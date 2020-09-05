@@ -24,7 +24,7 @@ export class EditPersonComponent implements OnInit {
       .subscribe(data => {
         // console.log(data);
         this.person = data;
-      }, error => console.log(error));
+      });
   }
 
   updatePerson() {
@@ -36,7 +36,7 @@ export class EditPersonComponent implements OnInit {
           this.SpinnerService.hide();
         }, 500);
         this.gotoList();
-      }, error => console.log(error));
+      });
   }
 
   onSubmit() {
@@ -61,6 +61,6 @@ export class EditPersonComponent implements OnInit {
         else {
           this.router.navigate(['/people-grey']);
         }
-      }, error => console.log(error));
+      });
   }
 }

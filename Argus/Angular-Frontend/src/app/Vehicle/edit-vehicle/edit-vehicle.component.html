@@ -1,1 +1,62 @@
-<p>edit-vehicle works!</p>
+<div class="card">
+  <div class="card-header card-header-color">
+    <h4 class="card-title">Edit Vehicle</h4>
+  </div>
+  <div class="card-body">
+    <br>
+    <div>
+      <form (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="vmake">Make</label>
+              <input type="text" class="form-control" id="vmake" required [(ngModel)]="vehicle.vehicleMake" name="vmake">
+            </div><br>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <label for="model">Model</label>
+              <input type="text" class="form-control" id="model" required [(ngModel)]="vehicle.vehicleModel" name="model">
+            </div><br>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="colour">Colour</label>
+              <input type="text" class="form-control" id="colour" required [(ngModel)]="vehicle.vehicleColour" name="colour">
+            </div><br>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <label for="licenceNo">Registration</label>
+              <input type="text" class="form-control" id="licenceNo" required [(ngModel)]="vehicle.licenceNo" name="licenceNo">
+            </div><br>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="float-left">Type</label><br><br>
+          <label class="radioContainer">Cleared
+            <input type="radio" checked="checked" name="listed" id="white" value="White" required [(ngModel)]="vehicle.vehicleListed">
+            <span class="radioCheckmark"></span>
+          </label>
+          <label class="radioContainer">Threat
+            <input type="radio" name="listed" id="black" value="Black" required [(ngModel)]="vehicle.vehicleListed">
+            <span class="radioCheckmark"></span>
+          </label>
+        </div>
+        <br>
+
+        <button type="submit" class="btn btn-primary justify-content-center">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+  <p style="color: white">Please Wait. </p>
+</ngx-spinner>

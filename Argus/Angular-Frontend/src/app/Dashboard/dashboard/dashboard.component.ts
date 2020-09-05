@@ -60,14 +60,17 @@ export class DashboardComponent implements OnInit {
       let unknown = 0;
       // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < data.length; i++){
-        if (data[i].personListed === 'Grey'){
+        if (data[i].personListed === 'Grey' && data[i].personDeleted === null){
           unknown++;
         }
-        else if (data[i].personListed === 'Black'){
+        else if (data[i].personListed === 'Black' && data[i].personDeleted === null){
           threat++;
         }
-        else{
+        else if (data[i].personListed === 'White' && data[i].personDeleted === null){
           cleared++;
+        }
+        else{
+          // cleared++;
         }
       }
       this.pieChart(cleared, unknown, threat);

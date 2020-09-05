@@ -3,7 +3,8 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header card-header-primary">
-          <h4 class="card-title">Deleted Threat List People</h4>
+          <h4 class="card-title">Deleted Threat Listed People</h4>
+          <a *ngIf="info.userRole == 'Admin'" class="material-icons listPageIcons open-modal" (click)="deleteAll()">auto_delete</a>
         </div>
         <div class="card-body">
           <!--Search Bar Starts Here-->
@@ -38,18 +39,20 @@
           <div class="table-responsive table-striped">
             <table class="table center" id="deletedBlackList">
               <thead class="text-primary">
-              <th>
-                Picture
-              </th>
-              <th class="hoverPointer" onclick="sortTable('deletedBlackList', 1)">
-                Alias
-              </th>
-              <th class="hoverPointer" onclick="sortTable('deletedBlackList', 2)">
-                Deletion Date
-              </th>
-              <th>
-                Modify
-              </th>
+                <tr>
+                  <th>
+                    Picture
+                  </th>
+                  <th class="hoverPointer" onclick="sortTable('deletedBlackList', 1)">
+                    Alias
+                  </th>
+                  <th class="hoverPointer" onclick="sortTable('deletedBlackList', 2)">
+                    Deletion Date
+                  </th>
+                  <th>
+                    Modify
+                  </th>
+                </tr>
               </thead>
               <tbody id="blackBody">
               <ng-container *ngFor="let p of person | async">
