@@ -342,15 +342,11 @@ function resize(){
   }
 }
 
-function resizePhoto(data){
+function resizePhoto(){
   //define the width to resize e.g 600px
   var resize_width = 300;
   var resize_height = 300;//without px
 
-  var reader = new FileReader();
-
-  reader.onload
-  {
     var img = new Image();//create a image
     img.src = document.getElementById('confirmPic').getAttribute('src');
     img.name = event.target.name;//set name (optional)
@@ -374,7 +370,6 @@ function resizePhoto(data){
       document.querySelector('#submitPhoto').src = srcEncoded;
 
     }
-  }
 }
 
 // ------------------------------------------------------------------------------------------------------------------

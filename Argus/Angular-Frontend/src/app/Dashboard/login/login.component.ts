@@ -6,6 +6,7 @@ import { User } from '../../model/user';
 import { SessionClass } from '../../model/session';
 import { Session } from '../../../assets/js/SessionStorage.js';
 import { RecoverPasswordEmail } from '../../../assets/js/RecoverPasswordEmail.js';
+import {forEachComment} from 'tslint';
 import {Router} from '@angular/router';
 import {count} from 'rxjs/operators';
 
