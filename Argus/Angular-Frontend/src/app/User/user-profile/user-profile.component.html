@@ -266,12 +266,12 @@
                   <div class="form-group">
                     <label for="uNumber">Contact Number</label>
                     <input id="uNumber" name="contactNo" class="form-control"
-                           required pattern="(^\(+27\)\ \d{3}\ \d{4})|(^+27\d{7})|(^+27\-\d{3}\-\d{4})|(^+27\ \d{3}\-\d{4})"
+                           required pattern="^((?:\+27))(=72|82|73|83|74|84|79)(\d{7})$"
                            [(ngModel)]="user.contactNo" #contactNo="ngModel">
 
                     <div *ngIf="contactNo.invalid && (contactNo.dirty || contactNo.touched)"
                          class="alert alert-danger">
-                      Please enter a valid phone number.
+                      Please enter a valid phone number starting with +27.
                     </div>
                   </div>
                 </div>

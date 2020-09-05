@@ -21,7 +21,8 @@ export class UserProfileComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private router: Router,
               private appService: TitleService, private userService: UserService,
-              private SpinnerService: NgxSpinnerService) {}
+              private SpinnerService: NgxSpinnerService) {
+  }
 
   public get triggerObservable(): Observable<void> {
     return this.snapTrigger.asObservable();
@@ -142,47 +143,61 @@ export class UserProfileComponent implements OnInit {
 
     this.userService.updateUser(userObj.id, this.user)
       .subscribe(data => {
-      // console.log(data);
-      // this.populateFields();
-      this.gotoList();
-    }, error => console.log(error));
+        // console.log(data);
+        // this.populateFields();
+        this.gotoList();
+      }, error => console.log(error));
   }
 
-  checkIfExists(): boolean {
+  addIfNew() {
     let counter = 0;
     const usernameInp = document.getElementById('uUsername') as HTMLInputElement;
     const emailInp = document.getElementById('uEmail') as HTMLInputElement;
+    let exists = false;
+    let email = false;
+    let username = false;
 
     this.userService.getUserList().subscribe(
       data => {
         while (data[counter] != null) {
-          if (data[counter].userDeleted === null && data[counter].userId !== this.userObj.id) {
-            if (data[counter].username === usernameInp.value) {
-              alert('Username is already taken. Please enter another username');
-              usernameInp.value = '';
-              usernameInp.focus();
-              return true;
-            }
-            if (data[counter].email.toLowerCase() === emailInp.value.toLowerCase()) {
-              alert('Email address is already in use. Please enter another email address');
-              emailInp.value = '';
-              emailInp.focus();
-              return true;
+          if (data[counter].userId !== this.user.userId) {
+            if (data[counter].userDeleted === null) {
+              if (data[counter].username === usernameInp.value) {
+                exists = true;
+                username = true;
+                usernameInp.value = '';
+                usernameInp.focus();
+              }
+              if (data[counter].email.toLowerCase() === emailInp.value.toLowerCase()) {
+                exists = true;
+                email = true;
+                emailInp.value = '';
+                emailInp.focus();
+              }
             }
           }
           counter++;
         }
+        if (email && username) {
+          alert('Email address and username are already in use. Please enter another email address and username.');
+        } else if (email) {
+          alert('Email address is already in use. Please enter another email address.');
+        } else if (username) {
+          alert('Username address is already in use. Please enter another username.');
+        }
+      },
+      error => {
+      },
+      () => {
+        if (!exists) {
+          this.updateUser();
+        }
       }
     );
-
-    return false;
   }
 
   onSubmit() {
-    const tf = this.checkIfExists();
-    if (!tf) {
-      this.updateUser();
-    }
+    this.addIfNew();
   }
 
   gotoList() {
