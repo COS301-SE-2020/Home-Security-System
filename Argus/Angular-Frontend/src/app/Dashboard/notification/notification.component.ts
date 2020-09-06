@@ -38,8 +38,8 @@ export class NotificationComponent implements OnInit {
           .subscribe(() => {
             setTimeout(() => {
               this.SpinnerService.hide();
+              this.reloadData();
             }, 500);
-            this.reloadData();
           });
       });
   }
@@ -86,8 +86,8 @@ export class NotificationComponent implements OnInit {
           }
           setTimeout(() => {
             this.SpinnerService.hide();
+            this.reloadData();
           }, 10000);
-          this.reloadData();
         });
   }
 

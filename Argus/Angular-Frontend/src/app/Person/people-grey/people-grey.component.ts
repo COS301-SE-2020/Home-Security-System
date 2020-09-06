@@ -43,8 +43,8 @@ export class PeopleGreyComponent implements OnInit {
             {
               setTimeout(() => {
                 this.SpinnerService.hide();
+                this.reloadData();
               }, 500);
-              this.reloadData();
             });
         });
   }
@@ -63,13 +63,13 @@ export class PeopleGreyComponent implements OnInit {
               // console.log(value);
               setTimeout(() => {
                 this.SpinnerService.hide();
+                this.reloadData();
               }, 500);
-              this.reloadData();
             });
         });
   }
 
-  imageClick(id): void{
+  imageClick(id): void {
 
     const modal = document.getElementById('myModal') as HTMLElement;
     const img = document.getElementById('noteImg' + id) as HTMLImageElement;
@@ -115,8 +115,8 @@ export class PeopleGreyComponent implements OnInit {
         }
         setTimeout(() => {
           this.SpinnerService.hide();
+          this.reloadData();
         }, 10000);
-        this.reloadData();
       });
   }
 

@@ -96,9 +96,7 @@ export class AddUserComponent implements OnInit {
           }
           counter++;
         }
-      },
-      error => {
-      },
+      }, error => {},
       () => {
         if (!exists) {
           this.save();
@@ -151,11 +149,7 @@ export class AddUserComponent implements OnInit {
       this.newUser.notifyEmail = true;
       this.newUser.notifySMS = true;
 
-      this.usersService.addUser(this.newUser)
-        .subscribe(value => {
-          // console.log(value);
-        }, error => console.log(error));
-
+      this.usersService.addUser(this.newUser).subscribe();
       this.gotoList();
     } else {
       alert('Cannot add a new user. Not all the fields are filled in.');

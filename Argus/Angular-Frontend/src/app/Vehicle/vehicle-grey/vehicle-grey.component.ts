@@ -41,8 +41,8 @@ export class VehicleGreyComponent implements OnInit {
             .subscribe(() => {
               setTimeout(() => {
                 this.SpinnerService.hide();
+                this.reloadData();
               }, 500);
-              this.reloadData();
             });
         });
   }
@@ -59,8 +59,8 @@ export class VehicleGreyComponent implements OnInit {
               // console.log(value);
               setTimeout(() => {
                 this.SpinnerService.hide();
+                this.reloadData();
               }, 500);
-              this.reloadData();
             });
         });
   }
@@ -87,8 +87,8 @@ export class VehicleGreyComponent implements OnInit {
         }
         setTimeout(() => {
           this.SpinnerService.hide();
+          this.reloadData();
         }, 10000);
-        this.reloadData();
       });
   }
 

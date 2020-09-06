@@ -160,11 +160,11 @@ function openDrop() {
     e.stopPropagation()
   }
 
-  function highlight(e) {
+  function highlight() {
     dropArea.classList.add('highlight')
   }
 
-  function unhighlight(e) {
+  function unhighlight() {
     dropArea.classList.remove('highlight')
   }
 
@@ -298,7 +298,7 @@ function sortTable(tableID, colNum) {
 
 // -------------------------------------------------------------------------------------------------------------------
 
-function resize(){
+function resize() {
   //define the width to resize e.g 600px
   var resize_width = 300;
   var resize_height = 300;//without px
@@ -321,8 +321,8 @@ function resize(){
     img.onload = function(el) {
       var elem = document.createElement('canvas');//create a canvas
 
-      //scale the image to 600 (width) and keep aspect ratio
-      var scaleFactor = resize_width / el.target.width;
+      // scale the image to 600 (width) and keep aspect ratio
+      // var scaleFactor = resize_width / el.target.width;
       elem.width = resize_width;
       // elem.height = el.target.height * scaleFactor;
 
@@ -342,11 +342,15 @@ function resize(){
   }
 }
 
-function resizePhoto(){
+function resizePhoto() {
   //define the width to resize e.g 600px
   var resize_width = 300;
   var resize_height = 300;//without px
 
+  var reader = new FileReader();
+
+  reader.onload
+  {
     var img = new Image();//create a image
     img.src = document.getElementById('confirmPic').getAttribute('src');
     img.name = event.target.name;//set name (optional)
@@ -370,6 +374,7 @@ function resizePhoto(){
       document.querySelector('#submitPhoto').src = srcEncoded;
 
     }
+  }
 }
 
 // ------------------------------------------------------------------------------------------------------------------

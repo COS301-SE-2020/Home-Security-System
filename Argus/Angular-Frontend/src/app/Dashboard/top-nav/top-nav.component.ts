@@ -74,7 +74,14 @@ export class TopNavComponent implements OnInit {
           }
           counter++;
         }
+
         num = num - this.cnt;
+
+        if (num < 0)
+        {
+          num = 0;
+        }
+
         document.getElementById('noteCnt').innerHTML = num.toString();
       });
       this.countNotifications();

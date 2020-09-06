@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserService } from '../../model/user.service';
 import { SessionService } from '../../model/session.service';
@@ -6,8 +7,8 @@ import { User } from '../../model/user';
 import { SessionClass } from '../../model/session';
 import { Session } from '../../../assets/js/SessionStorage.js';
 import { RecoverPasswordEmail } from '../../../assets/js/RecoverPasswordEmail.js';
+// DO NOT REMOVE THIS
 import {forEachComment} from 'tslint';
-import {Router} from '@angular/router';
 import {count} from 'rxjs/operators';
 
 @Component({
@@ -67,9 +68,7 @@ export class LoginComponent implements OnInit {
                 this.sessClass.cellphone = data[counter].contactNo.toString();
                 this.sessClass.role = data[counter].userRole.toString();
 
-                this.sessService.addToSession(this.sessClass).subscribe(value => {
-                  // console.log(value);
-                }, error => console.log(error));
+                this.sessService.addToSession(this.sessClass).subscribe();
                 this.sessionS.retrieveUserInfo();
                 this.router.navigate(['/dashboard']);
               }
@@ -81,8 +80,7 @@ export class LoginComponent implements OnInit {
             }
             counter++;
           }
-        },
-        error => console.log(error));
+        });
   }
 
   ngOnInit(): void {

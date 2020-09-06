@@ -55,13 +55,12 @@ export class SettingsComponent implements OnInit {
 
     this.SpinnerService.show();
     this.userService.updateUser(userObj.id, this.user)
-      .subscribe(data => {
-          // console.log(data);
+      .subscribe(() => {
           setTimeout(() => {
             this.SpinnerService.hide();
+            this.retrieveSettings();
           }, 500);
-          this.retrieveSettings();
-      }, error => console.log(error));
+      });
     // this.retrieveSettings();
   }
 

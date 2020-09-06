@@ -30,12 +30,11 @@ export class EditVehicleComponent implements OnInit {
   updateVehicle() {
     this.SpinnerService.show();
     this.vehicleService.updateVehicle(this.id, this.vehicle)
-      .subscribe(data => {
-        // console.log(data);
+      .subscribe(() => {
         setTimeout(() => {
           this.SpinnerService.hide();
+          this.gotoList();
         }, 500);
-        this.gotoList();
       });
   }
 

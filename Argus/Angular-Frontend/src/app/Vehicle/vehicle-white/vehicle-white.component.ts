@@ -35,14 +35,13 @@ export class VehicleWhiteComponent implements OnInit {
           this.v = data;
           this.v.vehicleDeleted = new Date();
           this.vehicleService.updateVehicle(id, this.v)
-            .subscribe(value => {
-              // console.log(value);
+            .subscribe(() => {
               setTimeout(() => {
                 this.SpinnerService.hide();
+                this.reloadData();
               }, 500);
-              this.reloadData();
-            }, error => console.log(error));
-        }, error => console.log(error));
+            });
+        });
   }
 
   updateVehicle(id: number){

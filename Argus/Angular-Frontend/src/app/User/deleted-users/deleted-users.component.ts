@@ -34,7 +34,7 @@ export class DeletedUsersComponent implements OnInit {
     this.reloadData();
   }
 
-  activateButtons(){
+  activateButtons() {
     const restoreBtn = document.getElementById('addBtn') as HTMLButtonElement;
 
     this.userService.getUserList()
@@ -66,8 +66,8 @@ export class DeletedUsersComponent implements OnInit {
             .subscribe(() => {
               setTimeout(() => {
                 this.SpinnerService.hide();
+                this.reloadData();
               }, 500);
-              this.reloadData();
             });
         });
   }
@@ -83,15 +83,14 @@ export class DeletedUsersComponent implements OnInit {
       .subscribe(data => {
         while (data[counter] != null) {
           if (data[counter].userDeleted != null) {
-            this.userService.deleteUser(data[counter].userId)
-              .subscribe();
+            this.userService.deleteUser(data[counter].userId).subscribe();
           }
           counter++;
         }
         setTimeout(() => {
           this.SpinnerService.hide();
+          this.reloadData();
         }, 10000);
-        this.reloadData();
       });
   }
 
@@ -120,8 +119,7 @@ export class DeletedUsersComponent implements OnInit {
                   if (tempMonth === month || x === y) {
                     num = this.getDay(Number(tempMonth), Number(tempDay));
                     if (num === day) {
-                      this.userService.deleteUser(data[counter].userId)
-                        .subscribe();
+                      this.userService.deleteUser(data[counter].userId).subscribe();
                     }
                   }
                 }
