@@ -51,8 +51,12 @@ public class UserController {
         if(details.getProfilePhoto() != null) {
             x.setProfilePhoto(details.getProfilePhoto());
         }
-        x.setFname(details.getFname());
-        x.setLname(details.getLname());
+        if(details.getFname() != null) {
+            x.setFname(details.getFname());
+        }
+        if(details.getLname() != null) {
+            x.setLname(details.getLname());
+        }
         x.setContactNo(details.getContactNo());
         x.setEmail(details.getEmail());
         x.setUsername(details.getUsername());

@@ -86,8 +86,20 @@ export class AddPersonComponent implements OnInit {
     else {
       this.newPerson = new Person();
       this.newPerson.personImg = photoInp;
-      this.newPerson.fname = addName.value;
-      this.newPerson.lname = addSurname.value;
+      if (addName.value === '')
+      {
+        this.newPerson.fname = 'Unknown';
+      }
+      else{
+        this.newPerson.fname = addName.value;
+      }
+      if (addSurname.value === '')
+      {
+        this.newPerson.lname = 'Unknown';
+      }
+      else{
+        this.newPerson.lname = addSurname.value;
+      }
       this.newPerson.personListed = getListed;
       this.newPerson.personCreated = new Date();
 

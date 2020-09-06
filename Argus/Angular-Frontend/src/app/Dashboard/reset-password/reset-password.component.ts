@@ -18,7 +18,7 @@ export class ResetPasswordComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   sendMail(){
-     const passwReset = document.getElementById('passwordField2') as HTMLInputElement;
+     // const passwReset = document.getElementById('passwordField2') as HTMLInputElement;
      const obj = this.sessionS.retrieveEmail();
 
      let counter = 0;
@@ -31,8 +31,6 @@ export class ResetPasswordComponent implements OnInit {
          }
          counter++;
         });
-
-
   }
 
   ngOnInit(): void {

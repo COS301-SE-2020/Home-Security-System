@@ -41,8 +41,8 @@ export class RemovedBlackComponent implements OnInit {
             .subscribe(() => {
               setTimeout(() => {
                 this.SpinnerService.hide();
+                this.reloadData();
               }, 500);
-              this.reloadData();
             });
         });
   }
@@ -64,15 +64,14 @@ export class RemovedBlackComponent implements OnInit {
       .subscribe(data => {
         while (data[counter] != null) {
           if (data[counter].vehicleDeleted != null && data[counter].vehicleDeleted === 'Black') {
-            this.vehicleService.deleteVehicle(data[counter].vehicleId)
-              .subscribe();
+            this.vehicleService.deleteVehicle(data[counter].vehicleId).subscribe();
           }
           counter++;
         }
         setTimeout(() => {
           this.SpinnerService.hide();
+          this.reloadData();
         }, 10000);
-        this.reloadData();
       });
   }
 
@@ -101,8 +100,7 @@ export class RemovedBlackComponent implements OnInit {
                   if (tempMonth === month || x === y) {
                     num = this.getDay(Number(tempMonth), Number(tempDay));
                     if (num === day) {
-                      this.vehicleService.deleteVehicle(data[counter].vehicleId)
-                        .subscribe();
+                      this.vehicleService.deleteVehicle(data[counter].vehicleId).subscribe();
                     }
                   }
                 }

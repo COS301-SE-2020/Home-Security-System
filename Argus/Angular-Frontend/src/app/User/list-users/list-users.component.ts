@@ -45,14 +45,13 @@ export class ListUsersComponent implements OnInit {
             this.user = data;
             this.user.userDeleted = new Date();
             this.userService.updateUser(id, this.user)
-              .subscribe(value => {
-                // console.log(value);
+              .subscribe(() => {
                 setTimeout(() => {
                   this.SpinnerService.hide();
+                  this.reloadData();
                 }, 500);
-                this.reloadData();
-              }, error => console.log(error));
-          }, error => console.log(error));
+              });
+          });
     }
   }
 
@@ -83,7 +82,7 @@ export class ListUsersComponent implements OnInit {
             this.router.navigate(['edit-user', id]);
           }
         }
-      }, error => console.log(error));
+      });
   }
 
   viewUser(id: number) {

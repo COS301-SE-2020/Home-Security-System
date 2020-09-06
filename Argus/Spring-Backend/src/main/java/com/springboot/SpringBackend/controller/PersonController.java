@@ -59,10 +59,10 @@ public class PersonController {
         if(details.getPersonImg() != null) {
             x.setPersonImg(details.getPersonImg());
         }
-        if(details.getFname().isEmpty()) {
+        if(details.getFname() != null) {
             x.setFname(details.getFname());
         }
-        if(details.getLname().isEmpty())
+        if(details.getLname() != null)
         {
             x.setLname(details.getLname());
         }

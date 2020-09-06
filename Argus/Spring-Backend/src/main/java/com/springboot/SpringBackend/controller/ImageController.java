@@ -49,7 +49,9 @@ public class ImageController {
                 .orElseThrow(() -> new ResourceNotFoundException("Image not found for this id :: " + id));
 
         x.setImageId(details.getImageId());
-        x.setPhoto(details.getPhoto());
+        if(details.getPhoto() != null) {
+            x.setPhoto(details.getPhoto());
+        }
         x.setImageDeleted(details.getImageDeleted());
         final Image updatedImage = service.updateImage(x);
         return ResponseEntity.ok(updatedImage);

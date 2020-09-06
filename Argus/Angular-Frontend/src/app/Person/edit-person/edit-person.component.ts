@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PersonService} from '../../model/person.service';
 import {Person} from '../../model/person';
-import {NgxSpinnerService} from "ngx-spinner";
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-edit-person',
@@ -30,12 +30,11 @@ export class EditPersonComponent implements OnInit {
   updatePerson() {
     this.SpinnerService.show();
     this.personService.updatePerson(this.id, this.person)
-      .subscribe(data => {
-        // console.log(data);
+      .subscribe(() => {
         setTimeout(() => {
           this.SpinnerService.hide();
+          this.gotoList();
         }, 500);
-        this.gotoList();
       });
   }
 

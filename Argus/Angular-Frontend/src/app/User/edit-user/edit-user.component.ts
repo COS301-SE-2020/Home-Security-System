@@ -28,7 +28,7 @@ export class EditUserComponent implements OnInit {
       .subscribe(data => {
         // console.log(data);
         this.user = data;
-      }, error => console.log(error));
+      });
   }
 
   checkIfExists(): boolean {
@@ -64,13 +64,12 @@ export class EditUserComponent implements OnInit {
   updateUser() {
     this.SpinnerService.show();
     this.userService.updateUser(this.id, this.user)
-      .subscribe(data => {
-        // console.log(data);
+      .subscribe(() => {
         setTimeout(() => {
           this.SpinnerService.hide();
         }, 500);
         this.gotoList();
-      }, error => console.log(error));
+      });
   }
 
   onSubmit() {
