@@ -4,7 +4,7 @@
       <div class="card" >
         <div class="card-header card-header-primary" id="NotDiv">
           <h4 class="card-title">Notifications</h4>
-          <p class="card-category">A history of all the notifications sent to you</p>
+          <p class="card-category" id="cardC">A history of all the notifications sent to you</p>
           <a class="material-icons listPageIcons open-modal" (click)="deleteAll()" title="Delete All">auto_delete</a>
         </div>
         <div class="card-body">
@@ -48,9 +48,9 @@
                 <tr>
                   <th class="hoverPointer" onclick="sortTable('notificationsTable', 0)">Date-Time</th>
                   <th class="hoverPointer" onclick="sortTable('notificationsTable', 1)">Type</th>
-                  <th>Message</th>
-                  <th>Image</th>
-                  <th>Dismiss</th>
+                  <th id="messageHeader">Message</th>
+                  <th id="imageHeader">Image</th>
+                  <th id="dismissHeader">Dismiss</th>
                 </tr>
               </thead>
               <tbody>
