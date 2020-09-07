@@ -4,6 +4,7 @@ import {Notification} from '../../model/notification';
 import {NotificationService} from '../../model/notification.service';
 import {TitleService} from '../../title.service';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {Session} from '../../../assets/js/SessionStorage';
 
 @Component({
   selector: 'app-notification',
@@ -14,6 +15,8 @@ import {NgxSpinnerService} from 'ngx-spinner';
 export class NotificationComponent implements OnInit {
   notification: Observable<Notification[]>;
   note: Notification;
+  sessionS = new Session();
+  userId = this.sessionS.retrieveUserInfo().id;
 
   constructor(private notificationService: NotificationService,
               private SpinnerService: NgxSpinnerService, private appService: TitleService) { }
