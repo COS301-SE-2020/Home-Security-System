@@ -80,8 +80,7 @@ export class NotificationComponent implements OnInit {
           while (data[counter] != null) {
             this.note = data[counter];
             this.note.notificationDeleted = new Date();
-            this.notificationService.updateNotification(data[counter].notificationId, this.note)
-              .subscribe();
+            this.notificationService.updateNotification(data[counter].notificationId, this.note).subscribe();
             counter++;
           }
           setTimeout(() => {

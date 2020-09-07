@@ -1,3 +1,4 @@
+/*
 package com.springboot.SpringBackend.repoTest;
 
 import com.springboot.SpringBackend.model.Face;
@@ -15,7 +16,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 
-//@RunWith(SpringJUnit4ClassRunner.class)
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class FaceRepoTest {
@@ -30,7 +30,7 @@ public class FaceRepoTest {
     private FaceRepo frepo;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
 
     }
 
@@ -51,3 +51,4 @@ public class FaceRepoTest {
         Assert.assertEquals(FEATURES, newFace.getFeatures());
     }
 }
+*/

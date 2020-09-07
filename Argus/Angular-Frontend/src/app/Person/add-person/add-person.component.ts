@@ -103,8 +103,7 @@ export class AddPersonComponent implements OnInit {
       this.newPerson.personListed = getListed;
       this.newPerson.personCreated = new Date();
 
-      this.personService.addPerson(this.newPerson)
-        .subscribe();
+      this.personService.addPerson(this.newPerson).subscribe();
       this.gotoList();
     }
   }

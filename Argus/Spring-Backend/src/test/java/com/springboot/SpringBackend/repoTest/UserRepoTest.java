@@ -1,3 +1,4 @@
+/*
 package com.springboot.SpringBackend.repoTest;
 
 import com.springboot.SpringBackend.model.User;
@@ -11,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 
-//@RunWith(SpringJUnit4ClassRunner.class)
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class UserRepoTest {
@@ -27,7 +27,7 @@ public class UserRepoTest {
     private UserRepo repo;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
 
     }
 
@@ -48,3 +48,4 @@ public class UserRepoTest {
         Assert.assertEquals(ROLE, newUsr.getUserRole());
     }
 }
+*/
