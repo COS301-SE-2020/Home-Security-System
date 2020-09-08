@@ -22,14 +22,21 @@ export class ResetPasswordComponent implements OnInit {
      const obj = this.sessionS.retrieveEmail();
 
      let counter = 0;
+     let sent = false;
      this.userService.getUserList()
       .subscribe(
         data => {
-         if (data[counter].email === obj.email) {
-           this.mailer.sendEmail(obj.email, data[counter].userPass);
-           this.sessionS.deleteSession();
-         }
-         counter++;
+          while (data[counter] != null) {
+            if (data[counter].email === obj.email) {
+              this.mailer.sendEmail(obj.email, data[counter].userPass);
+              sent = true;
+              this.sessionS.deleteSession();
+            }
+            counter++;
+          }
+          if ((data[counter] == null) && (sent === false)){
+            alert('Error, email does not exist in the database');
+          }
         });
   }
 
