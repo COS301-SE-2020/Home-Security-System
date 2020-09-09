@@ -47,8 +47,8 @@ public class User implements Serializable {
     @Column(name = "username", nullable = false)
     private String username;
 
-    @Column(name = "userpass", nullable = false)
     @Size(min=8)
+    @Column(name = "userpass", nullable = false)
     private String userPass;
 
     @Enumerated(EnumType.STRING)
@@ -62,7 +62,7 @@ public class User implements Serializable {
     @Column(name = "notifysms", nullable = false)
     private Boolean notifySMS;
 
-    @Column(name = "userdeleted", nullable = true)
+    @Column(name = "userdeleted")
     private LocalDate userDeleted = null;
 
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

@@ -186,7 +186,9 @@ export class DashboardComponent implements OnInit {
       animationEnabled: true,
       exportEnabled: true,
       title: {
-        text: 'Notifications'
+        text: 'Notifications',
+        fontFamily: 'tahoma',
+        fontWeight: 'bold'
       },
       data: [{
         type: 'column',
@@ -214,7 +216,8 @@ export class DashboardComponent implements OnInit {
       animationEnabled: true,
       exportEnabled: true,
       title: {
-        text: 'Listed people'
+        text: 'Listed people',
+        fontFamily: 'tahoma'
       },
       data: [{
         type: 'doughnut',

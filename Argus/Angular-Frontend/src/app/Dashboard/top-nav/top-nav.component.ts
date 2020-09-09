@@ -39,6 +39,7 @@ export class TopNavComponent implements OnInit {
 
   ngOnInit(): void {
     // this.appService.getTitle().subscribe(appTitle => title = appTitle);
+    this.cnt = 0;
     let counter = 0;
     let num = 0;
     this.noteService.getNotificationList().subscribe(data => {
@@ -50,8 +51,7 @@ export class TopNavComponent implements OnInit {
         counter++;
       }
 
-      if (num < 0)
-      {
+      if (num < 0) {
         num = 0;
       }
 
@@ -74,7 +74,13 @@ export class TopNavComponent implements OnInit {
           }
           counter++;
         }
+
         num = num - this.cnt;
+
+        if (num < 0) {
+          num = 0;
+        }
+
         document.getElementById('noteCnt').innerHTML = num.toString();
       });
       this.countNotifications();
@@ -82,6 +88,7 @@ export class TopNavComponent implements OnInit {
   }
 
   clearNotifications() {
+    this.cnt = 0;
     document.getElementById('noteCnt').innerHTML = '0';
     this.ngOnInit();
   }

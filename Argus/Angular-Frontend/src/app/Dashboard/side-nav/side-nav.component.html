@@ -1,7 +1,7 @@
 <div class="sidebar" data-color="argus">
     <div class="logo">
         <a class="simple-text" [routerLink]="['/dashboard']">
-            <img id="logoSideBar" src="assets/Images/ArgusLogo.png">
+            <img id="logoSideBar" src="assets/Images/ArgusLogo.png" alt="argusLogo">
         </a>
     </div>
     <div class="sidebar-wrapper">
@@ -9,31 +9,31 @@
             <li class="nav-item" routerLinkActive="active">
                 <a class="nav-link" [routerLink]="['/dashboard']">
                     <i class="material-icons">dashboard</i>
-                    <p>Dashboard</p>
+                    <p id="dashLink">Dashboard</p>
                 </a>
             </li>
             <li class="nav-item" routerLinkActive="active">
                 <a class="nav-link" [routerLink]="['/user-list']">
                     <i class="material-icons">person</i>
-                    <p>User List</p>
+                    <p id="userLink">User List</p>
                 </a>
             </li>
             <li class="nav-item" routerLinkActive="active">
                 <a class="nav-link" [routerLink]="['/people-white']">
                     <i class="material-icons">check_circle</i>
-                    <p>Cleared List</p>
+                    <p id="clearedLink">Cleared List</p>
                 </a>
             </li>
             <li class="nav-item" routerLinkActive="active">
                 <a class="nav-link" [routerLink]="['/people-grey']">
                     <i class="material-icons">help</i>
-                    <p>Unknown List</p>
+                    <p id="unknownLink">Unknown List</p>
                 </a>
             </li>
             <li class="nav-item" routerLinkActive="active">
                 <a class="nav-link" [routerLink]="['/people-black']">
                     <i class="material-icons">cancels</i>
-                    <p>Threat List</p>
+                    <p id="threatLink">Threat List</p>
                 </a>
             </li>
         </ul>

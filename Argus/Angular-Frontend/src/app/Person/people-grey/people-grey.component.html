@@ -9,11 +9,20 @@
              title="Delete All">auto_delete</a>
         </div>
         <div class="card-body">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="material-icons">search</i>
+              </span>
+            </div>
+            <input type="text" class="form-control" id="searchInput" placeholder="Search by Date..."
+                   onkeyup="searchFunc('greyListTable', 1)">
+          </div>
           <div class="table-responsive table-striped">
             <table class="table center">
               <thead class="text-primary">
               <tr>
-                <th>
+                <th class="hoverPointer" onclick="sortTable('greyListTable', 1)">
                   Date Added
                 </th>
                 <th>

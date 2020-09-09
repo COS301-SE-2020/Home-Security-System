@@ -25,7 +25,7 @@ export class ViewUserComponent implements OnInit {
         // console.log(data);
         this.user = data;
         uPic.src = data.profilePhoto;
-      }, error => console.log(error));
+      });
   }
 
   back(){

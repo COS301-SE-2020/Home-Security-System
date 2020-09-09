@@ -86,7 +86,7 @@ export class UserProfileComponent implements OnInit {
         password.value = data.userPass;
         uPic.src = data.profilePhoto;
         this.user = data;
-      }, error => console.log(error));
+      });
   }
 
   loadModal() {
@@ -107,7 +107,7 @@ export class UserProfileComponent implements OnInit {
         uUsername.value = data.username;
         uPassword.value = data.userPass;
         uPic.src = data.profilePhoto;
-      }, error => console.log(error));
+      });
   }
 
   updateUser() {
@@ -126,11 +126,9 @@ export class UserProfileComponent implements OnInit {
     this.user.userPass = uPassword.value;
 
     this.userService.updateUser(this.userObj.id, this.user)
-      .subscribe(data => {
-        // console.log(data);
-        // this.populateFields();
+      .subscribe(() => {
         this.gotoList();
-      }, error => console.log(error));
+      });
   }
 
   updateUserPic() {
@@ -142,11 +140,10 @@ export class UserProfileComponent implements OnInit {
     this.user.profilePhoto = photoInp;
 
     this.userService.updateUser(userObj.id, this.user)
-      .subscribe(data => {
-        // console.log(data);
+      .subscribe(() => {
         // this.populateFields();
         this.gotoList();
-      }, error => console.log(error));
+      });
   }
 
   addIfNew() {
@@ -185,9 +182,7 @@ export class UserProfileComponent implements OnInit {
         } else if (username) {
           alert('Username address is already in use. Please enter another username.');
         }
-      },
-      error => {
-      },
+      }, error => {},
       () => {
         if (!exists) {
           this.updateUser();

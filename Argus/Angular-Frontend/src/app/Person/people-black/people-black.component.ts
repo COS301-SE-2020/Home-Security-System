@@ -36,14 +36,13 @@ export class PeopleBlackComponent implements OnInit {
           this.psn = data;
           this.psn.personDeleted = new Date();
           this.personService.updatePerson(id, this.psn)
-            .subscribe(value => {
-              // console.log(value);
+            .subscribe(() => {
               setTimeout(() => {
                 this.SpinnerService.hide();
+                this.reloadData();
               }, 500);
-              this.reloadData();
-            }, error => console.log(error));
-        }, error => console.log(error));
+            });
+        });
   }
 
   updatePerson(id: number){

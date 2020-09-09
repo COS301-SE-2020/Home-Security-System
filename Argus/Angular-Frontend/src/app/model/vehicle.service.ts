@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VehicleService {
 
-  private baseUrl = 'http://localhost:8080/springboot/api/vehicles';
+  private baseUrl = 'http://localhost:9000/springboot/api/vehicles';
 
   constructor(private http: HttpClient) { }
 
@@ -16,11 +15,11 @@ export class VehicleService {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
-  addVehicle(vehicle: Object): Observable<Object> {
+  addVehicle(vehicle: any): Observable<any> {
     return this.http.post(`${this.baseUrl}`, vehicle);
   }
 
-  updateVehicle(id: number, value: any): Observable<Object> {
+  updateVehicle(id: number, value: any): Observable<any> {
     return this.http.put(`${this.baseUrl}/${id}`, value);
   }
 
@@ -30,10 +29,5 @@ export class VehicleService {
 
   getVehicleList(): Observable<any> {
     return this.http.get(`${this.baseUrl}`);
-  }
-
-  private handleError(error: Response)
-  {
-    return Observable.throw(error);
   }
 }

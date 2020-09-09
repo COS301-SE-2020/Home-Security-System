@@ -85,10 +85,34 @@ export class AddVehicleComponent implements OnInit {
     else {
       this.newVehicle = new Vehicle();
       this.newVehicle.vehicleImg = photoInp;
-      this.newVehicle.vehicleMake = addMake.toString();
-      this.newVehicle.vehicleModel = addModel.toString();
-      this.newVehicle.vehicleColour = addColour.toString();
-      this.newVehicle.licenceNo = addReg.toString();
+      if (addMake.value === '')
+      {
+        this.newVehicle.vehicleMake = 'Unknown';
+      }
+      else {
+        this.newVehicle.vehicleMake = addMake.value;
+      }
+      if (addModel.value === '')
+      {
+        this.newVehicle.vehicleModel = 'Unknown';
+      }
+      else {
+        this.newVehicle.vehicleModel = addModel.value;
+      }
+      if (addColour.value === '')
+      {
+        this.newVehicle.vehicleColour = 'Unknown';
+      }
+      else {
+        this.newVehicle.vehicleColour = addColour.value;
+      }
+      if (addReg.value === '')
+      {
+        this.newVehicle.licenceNo = 'Unknown';
+      }
+      else {
+        this.newVehicle.licenceNo = addReg.value;
+      }
       this.newVehicle.vehicleListed = getListed;
       this.newVehicle.vehicleCreated = new Date();
 

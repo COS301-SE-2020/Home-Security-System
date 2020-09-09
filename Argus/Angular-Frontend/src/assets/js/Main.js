@@ -160,11 +160,11 @@ function openDrop() {
     e.stopPropagation()
   }
 
-  function highlight(e) {
+  function highlight() {
     dropArea.classList.add('highlight')
   }
 
-  function unhighlight(e) {
+  function unhighlight() {
     dropArea.classList.remove('highlight')
   }
 
@@ -298,73 +298,86 @@ function sortTable(tableID, colNum) {
 
 // -------------------------------------------------------------------------------------------------------------------
 
-// -------------------------------------------------------------------------------------------------------------------
+function resize() {
+  //define the width to resize e.g 600px
+  var resize_width = 300;
+  var resize_height = 300;//without px
 
+  //get the image selected
+  var item = document.querySelector('#fileElem').files[0];
 
+  //create a FileReader
+  var reader = new FileReader();
 
-// -------------------------------------------------------------------------------------------------------------------
+  //image turned to base64-encoded Data URI.
+  reader.readAsDataURL(item);
+  reader.name = item.name;//get the image's name
+  reader.size = item.size; //get the image's size
+  reader.onload = function(event) {
+    var img = new Image();//create a image
+    img.src = event.target.result;//result is base64-encoded Data URI
+    img.name = event.target.name;//set name (optional)
+    img.size = event.target.size;//set size (optional)
+    img.onload = function(el) {
+      var elem = document.createElement('canvas');//create a canvas
 
-/*
-function resizeImage(file:File, maxWidth:number, maxHeight:number):Promise<Blob> {
-  return new Promise((resolve, reject) => {
-    let image = new Image();
-    image.src = URL.createObjectURL(file);
-    image.onload = () => {
-      let width = image.width;
-      let height = image.height;
+      // scale the image to 600 (width) and keep aspect ratio
+      // var scaleFactor = resize_width / el.target.width;
+      elem.width = resize_width;
+      // elem.height = el.target.height * scaleFactor;
 
-      if (width <= maxWidth && height <= maxHeight) {
-        resolve(file);
-      }
+      elem.height = resize_height;
 
-      let newWidth;
-      let newHeight;
+      //draw in canvas
+      var ctx = elem.getContext('2d');
+      ctx.drawImage(el.target, 0, 0, elem.width, elem.height);
 
-      if (width > height) {
-        newHeight = height * (maxWidth / width);
-        newWidth = maxWidth;
-      } else {
-        newWidth = width * (maxHeight / height);
-        newHeight = maxHeight;
-      }
+      //get the base64-encoded Data URI from the resize image
+      var srcEncoded = ctx.canvas.toDataURL(el.target, 'image/jpeg', 0);
 
-      let canvas = document.createElement('canvas');
-      canvas.width = newWidth;
-      canvas.height = newHeight;
+      //assign it to thumb src
+      document.querySelector('#submitPhoto').src = srcEncoded;
 
-      let context = canvas.getContext('2d');
-
-      context.drawImage(image, 0, 0, newWidth, newHeight);
-
-      canvas.toBlob(resolve, file.type);
-    };
-    image.onerror = reject;
-  });
-}
-
-function changePicSize( file:File )
-{
-  resizeImage(file, 300, 300);
-}
-
-
-function changePreview() {
-  document.getElementById('fileElem').addEventListener('change', (o) => {
-    //If you don't need to resize the image, you can get the blob to upload from the
-    //FileList (e.g. doUpload(o.target.files[0]);
-
-    if (o.target.files.length > 0) {
-      resizeImage(o.target.files[0], 300, 300).then(blob => {
-        //You can upload the resized image: doUpload(blob)
-        document.getElementById('submitPhoto').src = URL.createObjectURL(blob);
-      }, err => {
-        console.error("Photo error", err);
-      });
     }
-  });
+  }
 }
 
- */
+function resizePhoto() {
+  //define the width to resize e.g 600px
+  var resize_width = 300;
+  var resize_height = 300;//without px
+
+  var reader = new FileReader();
+
+  reader.onload
+  {
+    var img = new Image();//create a image
+    img.src = document.getElementById('confirmPic').getAttribute('src');
+    img.name = event.target.name;//set name (optional)
+    img.size = event.target.size;//set size (optional)
+    img.onload = function (el) {
+      var elem = document.createElement('canvas');//create a canvas
+
+      elem.width = resize_width;
+      // elem.height = el.target.height * scaleFactor;
+
+      elem.height = resize_height;
+
+      //draw in canvas
+      var ctx = elem.getContext('2d');
+      ctx.drawImage(el.target, 0, 0, elem.width, elem.height);
+
+      //get the base64-encoded Data URI from the resize image
+      var srcEncoded = ctx.canvas.toDataURL(el.target, 'image/jpeg', 0);
+
+      //assign it to thumb src
+      document.querySelector('#submitPhoto').src = srcEncoded;
+
+    }
+  }
+}
+
+// ------------------------------------------------------------------------------------------------------------------
 
 
 
