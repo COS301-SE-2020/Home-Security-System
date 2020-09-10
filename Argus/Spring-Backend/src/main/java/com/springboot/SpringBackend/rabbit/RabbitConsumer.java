@@ -44,6 +44,7 @@ public class RabbitConsumer {
 
     @RabbitListener(queues = {"alertQueue"})
     public void receivedAlert(RabbitAlert alert) {
+
         // User session id
         Long id = Long.valueOf(1);
         /*mailer.setImagePath("C:\\Users\\Brad\\Home-Security-System\\Argus\\Angular-Frontend\\src\\assets\\Images\\Argus.png");
@@ -63,6 +64,17 @@ public class RabbitConsumer {
             // Image img = new Image(alert.getImageStr());
             // imageService.createImage(img);
 
+            if(p.get() == null) {
+                // Recreate the person
+                Person psn = new Person(alert.getPersonId(),alert.getImageStr());
+                personService.createPerson(psn);
+                // Update them to the correct list
+                RabbitPerson updatePerson = new RabbitPerson(psn.getPersonId(), "0", psn.getPersonListed(), true, alert.getImageStr(), true);
+                amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, updatePerson);
+                // Send notification
+                nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
+                        "Person: " + p.get().getFname(), u.get()));
+            }
             try {
                 if(p.isPresent() && u.isPresent()) {
                     String email = u.get().getEmail();
@@ -71,10 +83,10 @@ public class RabbitConsumer {
 
                     if (alert.getType().equalsIgnoreCase("Grey")) {
                         nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
-                            "Person: " + p.get().getFname(), u.get()));
+                                "Person: " + p.get().getFname(), u.get()));
                     } else {
                         nservice.createNotification(new Notification(alert.getImageStr(), "Threat",
-                            "Intruder: " + p.get().getFname() + " " + p.get().getLname(), u.get()));
+                                "Intruder: " + p.get().getFname() + " " + p.get().getLname(), u.get()));
 
                         if(notify1) {
                             //mailer.sendWithAttatchBL(email);
@@ -128,31 +140,47 @@ public class RabbitConsumer {
             // Image img = new Image(alert.getImageStr());
             // imageService.createImage(img);
 
-            try {
-                if(v.isPresent() && u.isPresent()) {
-                    String email = u.get().getEmail();
-                    Boolean notify1 = u.get().getNotifyEmail();
-                    Boolean notify2 = u.get().getNotifySMS();
+            if(v.get() == null) {
+                // Recreate the vehicle
+                Vehicle vcl = new Vehicle(alert.getPersonId(),alert.getImageStr());
+                vehicleService.createVehicle(vcl);
+                // Update them to the correct list
+                RabbitVehicle updateVehicle = new RabbitVehicle(vcl.getVehicleId(), "0", vcl.getVehicleListed(), true, alert.getImageStr(), true);
+                amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_VEHICLE_KEY, updateVehicle);
+                // Send notification
+                nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
+                        "Vehicle: " + v.get().getLicenseNo(), u.get()));
+            }
+            else if(v.get().getVehicleDeleted() != null)
+            {
 
-                    if (alert.getType().equalsIgnoreCase("Grey")) {
-                        nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
-                                "Vehicle: " + v.get().getLicenseNo(), u.get()));
-                    } else {
-                        nservice.createNotification(new Notification(alert.getImageStr(), "Threat",
-                                v.get().getVehicleColour() + " " + v.get().getVehicleMake() + " " +
-                                        v.get().getVehicleModel() + ", Licence Number: " + v.get().getLicenseNo(), u.get()));
+            }
+            else {
+                try {
+                    if (v.isPresent() && u.isPresent()) {
+                        String email = u.get().getEmail();
+                        Boolean notify1 = u.get().getNotifyEmail();
+                        Boolean notify2 = u.get().getNotifySMS();
 
-                        if(notify1) {
-                            //mailer.sendWithAttatchBL(email);
-                        }
-                        if(notify2) {
-                            //send SMS
+                        if (alert.getType().equalsIgnoreCase("Grey")) {
+                            nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
+                                    "Vehicle: " + v.get().getLicenseNo(), u.get()));
+                        } else {
+                            nservice.createNotification(new Notification(alert.getImageStr(), "Threat",
+                                    v.get().getVehicleColour() + " " + v.get().getVehicleMake() + " " +
+                                            v.get().getVehicleModel() + ", Licence Number: " + v.get().getLicenseNo(), u.get()));
+
+                            if (notify1) {
+                                //mailer.sendWithAttatchBL(email);
+                            }
+                            if (notify2) {
+                                //send SMS
+                            }
                         }
                     }
+                } catch (NoSuchElementException ex) {
+                    LOGGER.info(String.valueOf(ex));
                 }
-            }
-            catch (NoSuchElementException ex) {
-                LOGGER.info(String.valueOf(ex));
             }
         }
         else

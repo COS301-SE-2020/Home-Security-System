@@ -59,7 +59,7 @@ export class DeletedUsersComponent implements OnInit {
     this.userService.getUserById(id)
       .subscribe(
         data => {
-          console.log(data);
+          // console.log(data);
           this.user = data;
           this.user.userDeleted = '';
           this.userService.updateUser(id, this.user)
