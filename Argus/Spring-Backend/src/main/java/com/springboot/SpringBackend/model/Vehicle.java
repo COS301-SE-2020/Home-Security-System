@@ -60,6 +60,17 @@ public class Vehicle implements Serializable {
 
     public Vehicle() { }
 
+    public Vehicle(Long id, String img) {
+        this.id = id;
+        this.vehicleImg = img;
+        this.vehicleListed = vehicleType.Grey;
+        this.licenseNo = "Unknown";
+        this.vehicleMake = "Unknown";
+        this.vehicleModel = "Unknown";
+        this.vehicleColour = "Unknown";
+        this.vehicleCreated = LocalDate.now();
+    }
+
     public Vehicle(String img) {
         this.vehicleImg = img;
         this.vehicleListed = vehicleType.Grey;

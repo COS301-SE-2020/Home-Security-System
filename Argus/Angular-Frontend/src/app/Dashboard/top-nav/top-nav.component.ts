@@ -22,19 +22,19 @@ export class TopNavComponent implements OnInit {
   constructor(private noteService: NotificationService, private sessService: SessionService, private appService: TitleService,
               private userService: UserService) { }
 
-  clearUserSession(){
+  clearUserSession() {
     this.newObj = this.sessionS.retrieveUserInfo();
     const idU = this.newObj.id;
     this.sessService.deleteSessionById(idU.toString()).subscribe();
     this.sessionS.deleteSession();
   }
 
-  displayProfilePic(){
-    const uPic = document.getElementById('profilePic') as HTMLImageElement;
-    this.userService.getUserById(this.sessionS.retrieveUserInfo().id).subscribe(
-      data => {
-        uPic.src = data.profilePhoto;
-      });
+  displayProfilePic() {
+    if (this.sessionS.retrieveUserInfo() != null) {
+      const uPic = document.getElementById('profilePic') as HTMLImageElement;
+      this.userService.getUserById(this.sessionS.retrieveUserInfo().id).subscribe(
+        data => { uPic.src = data.profilePhoto; });
+    }
   }
 
   ngOnInit(): void {

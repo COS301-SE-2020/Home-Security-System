@@ -26,42 +26,42 @@ export class SettingsComponent implements OnInit {
   }
 
   retrieveSettings(){
-    const buttonEl = document.getElementById('saveBtn') as HTMLButtonElement;
-    const smsSettings = document.getElementById('smsSlider') as HTMLInputElement;
-    const emailSettings = document.getElementById('emailSlider') as HTMLInputElement;
+    if (this.sessionS.retrieveUserInfo() != null) {
+      const buttonEl = document.getElementById('saveBtn') as HTMLButtonElement;
+      const smsSettings = document.getElementById('smsSlider') as HTMLInputElement;
+      const emailSettings = document.getElementById('emailSlider') as HTMLInputElement;
 
-    buttonEl.style.background = 'grey';
-    buttonEl.disabled = true;
+      buttonEl.style.background = 'grey';
+      buttonEl.disabled = true;
 
-    let userObj;
-    userObj = this.sessionS.retrieveUserInfo();
-    this.userService.getUserById(userObj.id).subscribe(
-      data => {
-        // console.log(data);
-        smsSettings.checked = data.notifySMS;
-        emailSettings.checked = data.notifyEmail;
-        this.user = data;
-      }
-    );
+      this.userService.getUserById(this.sessionS.retrieveUserInfo().id).subscribe(
+        data => {
+          // console.log(data);
+          smsSettings.checked = data.notifySMS;
+          emailSettings.checked = data.notifyEmail;
+          this.user = data;
+        }
+      );
+    }
   }
 
-  setUserSettings(){
-    const smsSet = document.getElementById('smsSlider') as HTMLInputElement;
-    const emailSet = document.getElementById('emailSlider') as HTMLInputElement;
-    let userObj;
-    userObj = this.sessionS.retrieveUserInfo();
-    this.user.notifyEmail = emailSet.checked;
-    this.user.notifySMS = smsSet.checked;
+  setUserSettings() {
+    if (this.sessionS.retrieveUserInfo() != null) {
+      const smsSet = document.getElementById('smsSlider') as HTMLInputElement;
+      const emailSet = document.getElementById('emailSlider') as HTMLInputElement;
+      this.user.notifyEmail = emailSet.checked;
+      this.user.notifySMS = smsSet.checked;
 
-    this.SpinnerService.show();
-    this.userService.updateUser(userObj.id, this.user)
-      .subscribe(() => {
+      this.SpinnerService.show();
+      this.userService.updateUser(this.sessionS.retrieveUserInfo().id, this.user)
+        .subscribe(() => {
           setTimeout(() => {
             this.SpinnerService.hide();
             this.retrieveSettings();
           }, 500);
-      });
-    // this.retrieveSettings();
+        });
+      // this.retrieveSettings();
+    }
   }
 
   ngOnInit(): void {

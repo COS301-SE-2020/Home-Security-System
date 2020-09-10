@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionService {
-  private baseUrl = 'http://localhost:9000/springboot/sessions';
+  private baseUrl = `${environment.apiUrl}/springboot/sessions`;
 
   constructor(private http: HttpClient) {
   }

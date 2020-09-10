@@ -33,18 +33,18 @@ export class NotificationComponent implements OnInit {
     this.SpinnerService.show();
     this.notificationService.getNotificationById(id)
       .subscribe(
-      data => {
-        // console.log(data);
-        this.note = data;
-        this.note.notificationDeleted = new Date();
-        this.notificationService.updateNotification(id, this.note)
-          .subscribe(() => {
-            setTimeout(() => {
-              this.SpinnerService.hide();
-              this.reloadData();
-            }, 500);
-          });
-      });
+        data => {
+          // console.log(data);
+          this.note = data;
+          this.note.notificationDeleted = new Date();
+          this.notificationService.updateNotification(id, this.note)
+            .subscribe(() => {
+              setTimeout(() => {
+                this.SpinnerService.hide();
+                this.reloadData();
+              }, 500);
+            });
+        });
   }
   imageClick(id): void{
 
@@ -80,18 +80,17 @@ export class NotificationComponent implements OnInit {
     this.SpinnerService.show();
     this.notificationService.getNotificationList()
       .subscribe(data => {
-          while (data[counter] != null) {
-            this.note = data[counter];
-            this.note.notificationDeleted = new Date();
-            this.notificationService.updateNotification(data[counter].notificationId, this.note)
-              .subscribe();
-            counter++;
-          }
-          setTimeout(() => {
-            this.SpinnerService.hide();
-            this.reloadData();
-          }, 10000);
-        });
+        while (data[counter] != null) {
+          this.note = data[counter];
+          this.note.notificationDeleted = new Date();
+          this.notificationService.updateNotification(data[counter].notificationId, this.note).subscribe();
+          counter++;
+        }
+        setTimeout(() => {
+          this.SpinnerService.hide();
+          this.reloadData();
+        }, 10000);
+      });
   }
 
   deleteOld(option: number) {
@@ -102,8 +101,7 @@ export class NotificationComponent implements OnInit {
     const day = today.getDate();
 
     this.notificationService.getNotificationList()
-      .subscribe(
-        data => {
+      .subscribe(data => {
           while (data[counter] != null) {
             let num = 0;
             // console.log(data);

@@ -299,8 +299,7 @@
                       <input type="password" id="passwordField2" name="confirmPassword" class="form-control"
                              [(ngModel)]="conPass" #confirm="ngModel">
                       <i class="material-icons hoverPointer" id="passwordVisibility2" onclick="showPassword('2')">visibility_off</i>
-                      <div *ngIf="userPass.value != conPass.valueOf()"
-                           class="alert alert-danger">
+                      <div *ngIf="userPass.value != conPass.valueOf()" class="alert alert-danger">
                         Passwords do not match
                       </div>
                     </div>
@@ -311,8 +310,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal" (click)="onSubmit()" [disabled]="changeForm.invalid"> Save
-            Changes
+          <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal" (click)="onSubmit()" [disabled]="changeForm.invalid">
+            Save Changes
           </button>
         </div>
       </div>

@@ -1,3 +1,4 @@
+/*
 package com.springboot.SpringBackend.controllerTest;
 
 import static org.junit.Assert.assertEquals;
@@ -84,3 +85,4 @@ public class ImageControllerTest {
 		}
 	}
 }
+*/
