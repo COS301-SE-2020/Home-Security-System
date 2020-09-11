@@ -1,10 +1,8 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
+import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 import { NotificationComponent } from './notification.component';
-import construct = Reflect.construct;
 
 describe('NotificationComponent', () => {
   let component: NotificationComponent;
@@ -12,7 +10,8 @@ describe('NotificationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NotificationComponent ]
+      declarations: [ NotificationComponent ],
+      imports: [HttpClientModule, RouterModule.forRoot([])]
     })
     .compileComponents();
   }));
@@ -22,9 +21,34 @@ describe('NotificationComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-/*
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('header should display correctly', () => {
+    // tslint:disable-next-line:no-shadowed-variable
+    const fixture = TestBed.createComponent(NotificationComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h4').textContent).toContain('Notifications');
   });
-   */
+  it('subheading should display correctly', () => {
+    // tslint:disable-next-line:no-shadowed-variable
+    const fixture = TestBed.createComponent(NotificationComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('#cardC').textContent).toContain('A history of all the notifications sent to you');
+  });
+  it('searchbar should display correctly', () => {
+    // tslint:disable-next-line:no-shadowed-variable
+    const fixture = TestBed.createComponent(NotificationComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('i').textContent).toContain('search');
+  });
+  it('table headers should display correctly', () => {
+    // tslint:disable-next-line:no-shadowed-variable
+    const fixture = TestBed.createComponent(NotificationComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('#messageHeader').textContent).toContain('Message');
+    expect(compiled.querySelector('#imageHeader').textContent).toContain('Image');
+    expect(compiled.querySelector('#dismissHeader').textContent).toContain('Dismiss');
+  });
 });

@@ -18,7 +18,8 @@ import {NotificationService} from '../../model/notification.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private appService: TitleService, private personService: PersonService, private notificationService: NotificationService) {}
+  constructor(private appService: TitleService, private personService: PersonService,
+              private notificationService: NotificationService) {}
 
   people: Observable<Person[]>;
   currentDate = new Date();
@@ -43,13 +44,9 @@ export class DashboardComponent implements OnInit {
 
   public snapTrigger: Subject<void> = new Subject<void>();
 
-  public trigger_s(): void {
-    this.snapTrigger.next();
-  }
+  public trigger_s(): void { this.snapTrigger.next(); }
 
-  public handleShot(img: WebcamImage): void {
-    this.camImg = img;
-  }
+  public handleShot(img: WebcamImage): void { this.camImg = img; }
 
   // ==========================================================================================
 
@@ -186,7 +183,9 @@ export class DashboardComponent implements OnInit {
       animationEnabled: true,
       exportEnabled: true,
       title: {
-        text: 'Notifications'
+        text: 'Notifications',
+        fontFamily: 'tahoma',
+        fontWeight: 'bold'
       },
       data: [{
         type: 'column',
@@ -214,7 +213,8 @@ export class DashboardComponent implements OnInit {
       animationEnabled: true,
       exportEnabled: true,
       title: {
-        text: 'Listed people'
+        text: 'Listed people',
+        fontFamily: 'tahoma'
       },
       data: [{
         type: 'doughnut',

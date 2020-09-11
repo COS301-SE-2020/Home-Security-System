@@ -73,12 +73,12 @@ export class EditUserComponent implements OnInit {
   }
 
   onSubmit() {
-    const tf = this.checkIfExists();
-    if (!tf)
-    {
+    // const tf = this.checkIfExists();
+    // if (!tf)
+    // {
       this.updateUser();
       this.submitted = true;
-    }
+    // }
   }
 
   gotoList() {

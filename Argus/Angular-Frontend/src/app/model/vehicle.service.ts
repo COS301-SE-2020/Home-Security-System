@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {environment} from '../../environments/environment';
+// import {environment} from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VehicleService {
 
-  private baseUrl = 'http://localhost:9000/springboot/api/vehicles';
+  private baseUrl = `${environment.apiUrl}/springboot/api/vehicles`;
 
   constructor(private http: HttpClient) { }
 
