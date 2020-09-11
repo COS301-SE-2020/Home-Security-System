@@ -4,15 +4,17 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.github.sigma</groupId>
-		<artifactId>Argus</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.3.1.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
+	<groupId>com.github.sigma</groupId>
 	<artifactId>Spring-Backend</artifactId>
 	<name>Spring-Backend</name>
-	<packaging>war</packaging>
-	<url>http://maven.apache.org</url>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -208,6 +210,11 @@
             <artifactId>swagger-annotations</artifactId>
             <version>1.5.20</version>
         </dependency>-->
+		<!--<dependency>
+			<groupId>com.github.sigma</groupId>
+			<artifactId>Angular-Frontend</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>-->
 	</dependencies>
 
 	<build>
@@ -231,6 +238,43 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.2.0</version>
+				<configuration>
+					<webResources>
+						<resource>
+							<!--<directory>../Angular-Frontend/target</directory>-->
+							<directory>../Angular-Frontend/dist</directory>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/src/main/resources/static/</outputDirectory>
+							<resources>
+								<resource>
+									<!--<directory>${basedir}/../Angular-Frontend/target</directory>-->
+									<directory>${basedir}/../Angular-Frontend/dist</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.liquibase</groupId>

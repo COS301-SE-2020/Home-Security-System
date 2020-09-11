@@ -3,23 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+  <groupId>com.github.sigma</groupId>
   <artifactId>Angular-Frontend</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
   <name>Angular-Frontend</name>
-  <packaging>war</packaging>
-
-  <parent>
-    <groupId>com.github.sigma</groupId>
-    <artifactId>Argus</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <relativePath>../pom.xml</relativePath>
-  </parent>
-
-  <!--<parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.3.1.RELEASE</version>
-    <relativePath/>
-  </parent>-->
+  <description>Client</description>
+  <packaging>jar</packaging>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -28,13 +17,15 @@
   </properties>
 
   <build>
+    <finalName>client</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-clean-plugin</artifactId>
+        <version>2.5</version>
         <configuration>
           <filesets>
             <fileset>
-              <directory>dist</directory>
+              <directory>target</directory>
               <includes>
                 <include>*</include>
               </includes>
@@ -42,29 +33,32 @@
           </filesets>
         </configuration>
       </plugin>
-      <!--<plugin>
+      <plugin>
         <groupId>com.github.eirslett</groupId>
         <artifactId>frontend-maven-plugin</artifactId>
-        <version>1.8.0</version>
+        <version>1.6</version>
         <configuration>
           <nodeVersion>${node-version}</nodeVersion>
           <npmVersion>${npm-version}</npmVersion>
         </configuration>
-        <executions>
+
+       <executions>
           <execution>
             <id>install node and npm</id>
             <goals>
               <goal>install-node-and-npm</goal>
             </goals>
           </execution>
+
           <execution>
-            <id>run npm install</id>
+            <id>npm install</id>
             <goals>
               <goal>npm</goal>
             </goals>
           </execution>
+
           <execution>
-            <id>run npm build</id>
+            <id>npm run build</id>
             <goals>
               <goal>npm</goal>
             </goals>
@@ -73,39 +67,12 @@
             </configuration>
           </execution>
         </executions>
-      </plugin>-->
-      <plugin>
+      </plugin>
+      <!--<plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
         <version>1.6.0</version>
         <executions>
-          <execution>
-            <id>run npm install</id>
-            <phase>compile</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <configuration>
-              <executable>npm.cmd</executable>
-              <arguments>
-                <argument>install</argument>
-              </arguments>
-            </configuration>
-          </execution>
-          <execution>
-            <id>run npm build</id>
-            <phase>compile</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <configuration>
-              <executable>npm.cmd</executable>
-              <arguments>
-                <argument>run</argument>
-                <argument>build</argument>
-              </arguments>
-            </configuration>
-          </execution>
           <execution>
             <id>delete static folder</id>
             <phase>compile</phase>
@@ -151,13 +118,13 @@
             </configuration>
           </execution>
         </executions>
-      </plugin>
+      </plugin>-->
     </plugins>
-    <!--<resources>
+    <resources>
       <resource>
-        <directory>dist/Angular-Frontend</directory>
-        <targetPath>../Spring-Backend/src/main/resources/static</targetPath>
+        <directory>dist/client</directory>
+        <targetPath>static</targetPath>
       </resource>
-    </resources>-->
+    </resources>
   </build>
 </project>
