@@ -2,23 +2,24 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>Angular-Frontend</artifactId>
-  <name>client</name>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
 
-  <!--<parent>
-    <groupId>com.github.sigma</groupId>
-    <artifactId>argus</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>-->
+  <artifactId>Angular-Frontend</artifactId>
+  <name>Angular-Frontend</name>
+  <packaging>war</packaging>
 
   <parent>
+    <groupId>com.github.sigma</groupId>
+    <artifactId>Argus</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+
+  <!--<parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>2.3.1.RELEASE</version>
     <relativePath/>
-  </parent>
+  </parent>-->
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -27,7 +28,6 @@
   </properties>
 
   <build>
-    <finalName>client</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-clean-plugin</artifactId>
@@ -42,7 +42,7 @@
           </filesets>
         </configuration>
       </plugin>
-      <plugin>
+      <!--<plugin>
         <groupId>com.github.eirslett</groupId>
         <artifactId>frontend-maven-plugin</artifactId>
         <version>1.8.0</version>
@@ -58,13 +58,13 @@
             </goals>
           </execution>
           <execution>
-            <id>npm install</id>
+            <id>run npm install</id>
             <goals>
               <goal>npm</goal>
             </goals>
           </execution>
           <execution>
-            <id>npm run build</id>
+            <id>run npm build</id>
             <goals>
               <goal>npm</goal>
             </goals>
@@ -72,24 +72,92 @@
               <arguments>run build</arguments>
             </configuration>
           </execution>
-          <!--<execution>
-            <id>prod</id>
+        </executions>
+      </plugin>-->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.6.0</version>
+        <executions>
+          <execution>
+            <id>run npm install</id>
+            <phase>compile</phase>
             <goals>
-              <goal>npm</goal>
+              <goal>exec</goal>
             </goals>
             <configuration>
-              <arguments>run-script build</arguments>
+              <executable>npm.cmd</executable>
+              <arguments>
+                <argument>install</argument>
+              </arguments>
             </configuration>
-            <phase>generate-resources</phase>
-          </execution>-->
+          </execution>
+          <execution>
+            <id>run npm build</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>npm.cmd</executable>
+              <arguments>
+                <argument>run</argument>
+                <argument>build</argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>delete static folder</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>rmdir.cmd</executable>
+              <arguments>
+                <argument>../Spring-Backend/src/main/resources/static</argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>create static dir</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>mkdir.cmd</executable>
+              <arguments>
+                <argument>../Spring-Backend/src/main/resources/static</argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>clone dist folder</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>xcopy.cmd</executable>
+              <arguments>
+                <argument>/i</argument>
+                <argument>/q</argument>
+                <argument>/s</argument>
+                <argument>/z</argument>
+                <argument>./dist</argument>
+                <argument>../Spring-Backend/src/main/resources/static/</argument>
+              </arguments>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
     </plugins>
-    <resources>
+    <!--<resources>
       <resource>
-        <directory>target/client</directory>
-        <targetPath>static</targetPath>
+        <directory>dist/Angular-Frontend</directory>
+        <targetPath>../Spring-Backend/src/main/resources/static</targetPath>
       </resource>
-    </resources>
+    </resources>-->
   </build>
 </project>
