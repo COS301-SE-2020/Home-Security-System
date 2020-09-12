@@ -2,21 +2,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.3.1.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<groupId>com.github.sigma</groupId>
+		<artifactId>Argus</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>com.springboot</groupId>
+
 	<artifactId>Spring-Backend</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>Spring-Backend</name>
-	<description>Database Management</description>
+	<packaging>war</packaging>
+	<url>http://maven.apache.org</url>
 
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>14</java.version>
-		<!--<spring-cloud.version>Hoxton.SR6</spring-cloud.version>-->
 	</properties>
 
 	<dependencies>
@@ -210,18 +210,6 @@
         </dependency>-->
 	</dependencies>
 
-	<!--<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${spring-cloud.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>-->
-
 	<build>
 		<plugins>
 			<plugin>
@@ -243,17 +231,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>3.2.0</version>
-				<configuration>
-					<webResources>
-						<resource>
-							<directory>../Angular-Frontend/target</directory>
-						</resource>
-					</webResources>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.liquibase</groupId>
@@ -310,26 +287,6 @@
 									<destFileName>postgres.jar</destFileName>
 								</artifactItem>
 							</artifactItems>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>-->
-			<!--<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>copy-resources</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${project.build.directory}/classes/static/</outputDirectory>
-							<resources>
-								<resource>
-									<directory>../Angular-Frontend/web/dist</directory>
-								</resource>
-							</resources>
 						</configuration>
 					</execution>
 				</executions>
