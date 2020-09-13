@@ -55,7 +55,7 @@
           or
           <br>
 
-          <a class="hoverPointer" data-toggle="modal" data-target="#pictureModal">
+          <a class="hoverPointer" data-toggle="modal" data-target="#pictureModal" (click)="camOn()">
             capture a photo from camera
           </a>
         </div>
@@ -91,7 +91,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#pictureModal" onclick="resizePhoto()">
+          <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#pictureModal" onclick="resizePhoto()" (click)="camOff()">
             Confirm
           </button>
         </div>

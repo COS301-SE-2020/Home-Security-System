@@ -7,6 +7,7 @@ import {Person} from '../../model/person';
 import * as CanvasJS from '../../../assets/js/canvasjs.min';
 import {Notification} from '../../model/notification';
 import {NotificationService} from '../../model/notification.service';
+import {NgxSpinnerService} from 'ngx-spinner';
 // import {getLocaleDateFormat} from '@angular/common';
 // import {UserService} from '../../model/user.service';
 // import {User} from '../../model/user';
@@ -18,7 +19,7 @@ import {NotificationService} from '../../model/notification.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private appService: TitleService, private personService: PersonService,
+  constructor(private spinner: NgxSpinnerService, private appService: TitleService, private personService: PersonService,
               private notificationService: NotificationService) {}
 
   people: Observable<Person[]>;
@@ -183,9 +184,6 @@ export class DashboardComponent implements OnInit {
       animationEnabled: true,
       exportEnabled: true,
       title: {
-        text: 'Notifications',
-        fontFamily: 'tahoma',
-        fontWeight: 'bold'
       },
       data: [{
         type: 'column',
@@ -213,8 +211,6 @@ export class DashboardComponent implements OnInit {
       animationEnabled: true,
       exportEnabled: true,
       title: {
-        text: 'Listed people',
-        fontFamily: 'tahoma'
       },
       data: [{
         type: 'doughnut',
@@ -242,6 +238,7 @@ export class DashboardComponent implements OnInit {
     // this.pieChart();
     this.calculateNumberOfPeople();
     this.calculateNumberOfNotifications();
+    this.getCameras();
   }
 
   public toggleCam(): void {
@@ -252,4 +249,92 @@ export class DashboardComponent implements OnInit {
     return this.snapTrigger.asObservable();
   }
 
+  private getCameras() {
+    this.showSpinner();
+    let numCams = 0;
+    let camAdded = false;
+    let noCamMessage = false;
+    const thisRef = this;
+
+    const camUrls = ['https://192.168.0.102:8080/jsfs.html', 'https://192.168.0.103:8080/jsfs.html'];
+
+    function newCam(currentUrl, currentNum) {
+      const liveFeedDiv = document.getElementById('liveFeedDiv');
+      const newCamFeed = document.createElement('embed');
+      newCamFeed.src = currentUrl;
+      newCamFeed.width = '500';
+      newCamFeed.height = '300';
+      newCamFeed.setAttribute('class', 'liveCamera');
+
+      const camNum = document.createElement('div');
+      camNum.setAttribute('class', 'top-left');
+      camNum.innerHTML = 'Camera ' + currentNum;
+
+      const gridItem = document.createElement('div');
+      gridItem.setAttribute('class', 'grid-item');
+      gridItem.appendChild(camNum);
+      gridItem.appendChild(newCamFeed);
+
+      if (camAdded) {
+        const gridContainer = document.getElementById('cameraGrid');
+        gridContainer.appendChild(gridItem);
+
+
+        liveFeedDiv.appendChild(gridContainer);
+      } else {
+        const gridContainer = document.createElement('div');
+        gridContainer.setAttribute('class', 'grid-container');
+        gridContainer.setAttribute('id', 'cameraGrid');
+        gridContainer.appendChild(gridItem);
+
+
+        liveFeedDiv.appendChild(gridContainer);
+      }
+
+      camAdded = true;
+    }
+
+    camUrls.forEach(item => {
+      const request = new XMLHttpRequest();
+      request.open('GET', item, true);
+      // tslint:disable-next-line:only-arrow-functions
+      request.onreadystatechange = function() {
+        if (request.readyState === 4) {
+          thisRef.stopSpin();
+          if (request.status !== 200) {
+            if (!noCamMessage) {
+              noCamMessage = true;
+              const liveFeedDiv = document.getElementById('liveFeedDiv');
+              const noCam = document.createElement('div');
+              noCam.innerHTML = 'Currently no cameras online';
+
+              const noCamIcon = document.createElement('i');
+              noCamIcon.setAttribute('class', 'material-icons');
+              noCamIcon.innerHTML = 'videocam_off';
+
+              liveFeedDiv.appendChild(noCamIcon);
+              liveFeedDiv.appendChild(noCam);
+            }
+          } else {
+            numCams++;
+            noCamMessage = true;
+            document.getElementById('liveIcon').setAttribute('class', 'material-icons liveIcon-enable');
+            document.getElementById('liveIcon').removeAttribute('liveIcon-disable');
+            newCam(item, numCams);
+          }
+        }
+      };
+      request.send();
+    });
+  }
+
+  showSpinner() {
+    this.spinner.show();
+    document.getElementById('liveFeedDiv').style.height = '200px';
+  }
+
+  stopSpin(){
+    this.spinner.hide();
+    document.getElementById('liveFeedDiv').style.height = 'fit-content';
+  }
 }
