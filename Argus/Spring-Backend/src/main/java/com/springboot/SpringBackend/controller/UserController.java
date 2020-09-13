@@ -15,13 +15,16 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "https://sigma-argus.herokuapp.com")
 public class UserController {
 
     private final UserService service;
+    //private final PasswordEncoder hash;
 
     @Autowired
     public UserController(UserService service) {
         this.service = service;
+        //this.hash = salt;
     }
 
     @GetMapping("/users")
@@ -38,6 +41,8 @@ public class UserController {
 
     @PostMapping("/users")
     public User addUser(@Valid @RequestBody User x) {
+        //String passEncrypt = hash.encode(x.getUserPass());
+        //x.setUserPass(pass);
         return service.createUser(x);
     }
 
@@ -61,6 +66,7 @@ public class UserController {
         x.setEmail(details.getEmail());
         x.setUsername(details.getUsername());
         x.setUserPass(details.getUserPass());
+        //x.setUserPass(hash.encode(details.getUserPass()));
         x.setUserRole(details.getUserRole());
         x.setNotifyEmail(details.getNotifyEmail());
         x.setNotifySMS(details.getNotifySMS());
