@@ -8,7 +8,7 @@ import {environment} from '../../environments/environment';
   providedIn: 'root'
 })
 export class PersonService {
-  private baseUrl = `${environment.apiUrl}/springboot/api/people`;
+  private baseUrl = `${environment.apiUrl}/api/people`;
 
   constructor(private http: HttpClient) { }
 

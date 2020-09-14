@@ -3,12 +3,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.github.sigma</groupId>
+  <parent>
+    <groupId>com.github.sigma</groupId>
+    <artifactId>Argus</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+
   <artifactId>Angular-Frontend</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>Angular-Frontend</name>
-  <description>Client</description>
   <packaging>jar</packaging>
+  <url>http://maven.apache.org</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -25,7 +28,7 @@
         <configuration>
           <filesets>
             <fileset>
-              <directory>target</directory>
+              <directory>dist</directory>
               <includes>
                 <include>*</include>
               </includes>
@@ -33,10 +36,12 @@
           </filesets>
         </configuration>
       </plugin>
+
       <plugin>
         <groupId>com.github.eirslett</groupId>
         <artifactId>frontend-maven-plugin</artifactId>
         <version>1.6</version>
+
         <configuration>
           <nodeVersion>${node-version}</nodeVersion>
           <npmVersion>${npm-version}</npmVersion>
@@ -55,6 +60,9 @@
             <goals>
               <goal>npm</goal>
             </goals>
+            <!--<configuration>
+              <arguments>-no-optional</arguments>
+            </configuration>-->
           </execution>
 
           <execution>
@@ -66,65 +74,34 @@
               <arguments>run build</arguments>
             </configuration>
           </execution>
+
+         <execution>
+           <id>prod</id>
+           <goals>
+             <goal>npm</goal>
+           </goals>
+           <configuration>
+             <arguments>run-script build</arguments>
+           </configuration>
+           <phase>generate-resources</phase>
+         </execution>
         </executions>
       </plugin>
-      <!--<plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
-        <version>1.6.0</version>
-        <executions>
-          <execution>
-            <id>delete static folder</id>
-            <phase>compile</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <configuration>
-              <executable>rmdir.cmd</executable>
-              <arguments>
-                <argument>../Spring-Backend/src/main/resources/static</argument>
-              </arguments>
-            </configuration>
-          </execution>
-          <execution>
-            <id>create static dir</id>
-            <phase>compile</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <configuration>
-              <executable>mkdir.cmd</executable>
-              <arguments>
-                <argument>../Spring-Backend/src/main/resources/static</argument>
-              </arguments>
-            </configuration>
-          </execution>
-          <execution>
-            <id>clone dist folder</id>
-            <phase>compile</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <configuration>
-              <executable>xcopy.cmd</executable>
-              <arguments>
-                <argument>/i</argument>
-                <argument>/q</argument>
-                <argument>/s</argument>
-                <argument>/z</argument>
-                <argument>./dist</argument>
-                <argument>../Spring-Backend/src/main/resources/static/</argument>
-              </arguments>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>-->
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <webResources>
+            <resource>
+              <directory>Angular-Frontend/dist</directory>
+              <targetPath>META-INF/resources</targetPath>
+            </resource>
+          </webResources>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+        </configuration>
+      </plugin>
     </plugins>
-    <resources>
-      <resource>
-        <directory>dist/client</directory>
-        <targetPath>static</targetPath>
-      </resource>
-    </resources>
   </build>
 </project>

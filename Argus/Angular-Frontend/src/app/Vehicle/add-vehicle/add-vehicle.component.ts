@@ -129,11 +129,11 @@ export class AddVehicleComponent implements OnInit {
   gotoList() {
     if (this.newVehicle.vehicleListed === 'White')
     {
-      this.router.navigate(['/vehicle-white']);
+      this.router.navigate(['/vehicles-cleared']);
     }
     else
     {
-      this.router.navigate(['/vehicle-black']);
+      this.router.navigate(['/vehicles-threat']);
     }
     this.SpinnerService.show();
     setTimeout(() => {

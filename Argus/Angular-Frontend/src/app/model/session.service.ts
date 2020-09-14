@@ -8,7 +8,7 @@ import {environment} from '../../environments/environment';
   providedIn: 'root'
 })
 export class SessionService {
-  private baseUrl = `${environment.apiUrl}/springboot/sessions`;
+  private baseUrl = `${environment.apiUrl}/sessions`;
 
   constructor(private http: HttpClient) {
   }

@@ -21,24 +21,24 @@ public class SmsController {
         this.service = service;
     }
 
-    /*Usage: (Post request) http://localhost:9000/springboot/sms/threat
+    /*Usage: (Post request) http://localhost:9000/sms/threat
     NB: Request body(Json data needs to be sent with it)
     {
     "phoneNumb": "enter a phone number"
     }
     */
-    @PostMapping(value = "threat")
+    @PostMapping(value = "/threat")
     public void sendSmsThreat(@Valid @RequestBody SmsRequest req){
         service.sendThreat(req);
     }
 
-    /*Usage: (Post request) http://localhost:9000/springboot/sms/suspicious
+    /*Usage: (Post request) http://localhost:9000/sms/suspicious
     NB: Request body(Json data needs to be sent with it)
     {
     "phoneNumb": "enter a phone number"
     }
      */
-    @PostMapping(value = "suspicious")
+    @PostMapping(value = "/suspicious")
     public void sendSmsSuspicious(@Valid @RequestBody SmsRequest req){
         service.sendSuspicious(req);
     }

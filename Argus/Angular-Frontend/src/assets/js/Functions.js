@@ -6,11 +6,11 @@ var elmts = [];
 function toggle(){
   var checked = document.getElementById('toggleBtn').checked;
   if(checked){
-    document.getElementById('localNotificationBtn').disabled = true;
+    document.getElementById('smsNotificationBtn').disabled = true;
     document.getElementById('emailNotification').disabled = true;
   }
   else{
-    document.getElementById('localNotificationBtn').disabled = false;
+    document.getElementById('smsNotificationBtn').disabled = false;
     document.getElementById('emailNotification').disabled = false;
   }
 

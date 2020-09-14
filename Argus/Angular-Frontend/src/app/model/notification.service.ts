@@ -8,7 +8,7 @@ import {environment} from '../../environments/environment';
   providedIn: 'root'
 })
 export class NotificationService {
-  private baseUrl = `${environment.apiUrl}/springboot/api/notifications`;
+  private baseUrl = `${environment.apiUrl}/api/notifications`;
 
   constructor(private http: HttpClient) { }
 

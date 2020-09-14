@@ -41,28 +41,28 @@ const routes: Routes = [
   {path: 'deleted-users', component: DeletedUsersComponent, data: {title: 'Deleted Users | Argus'}},
   {path: 'edit-user/:id', component: EditUserComponent, data: {title: 'Edit User | Argus'}},
   {path: 'view-user/:id', component: ViewUserComponent, data: {title: 'View User | Argus'}},
-  {path: 'people-white', component: PeopleWhiteComponent, data: {title: 'Person White-List | Argus'}},
-  {path: 'people-grey', component: PeopleGreyComponent, data: {title: 'Person Grey-List | Argus'}},
-  {path: 'people-black', component: PeopleBlackComponent, data: {title: 'Person Black-List | Argus'}},
-  {path: 'deleted-white', component: DeletedWhiteComponent, data: {title: 'Deleted Person White-List | Argus'}},
-  {path: 'deleted-black', component: DeletedBlackComponent, data: {title: 'Deleted Person Black-List | Argus'}},
+  {path: 'people-cleared', component: PeopleWhiteComponent, data: {title: 'Person White-List | Argus'}},
+  {path: 'people-unknown', component: PeopleGreyComponent, data: {title: 'Person Grey-List | Argus'}},
+  {path: 'people-threat', component: PeopleBlackComponent, data: {title: 'Person Black-List | Argus'}},
+  {path: 'deleted-cleared', component: DeletedWhiteComponent, data: {title: 'Deleted Person White-List | Argus'}},
+  {path: 'deleted-threat', component: DeletedBlackComponent, data: {title: 'Deleted Person Black-List | Argus'}},
   {path: 'add-person', component: AddPersonComponent, data: {title: 'Add Person | Argus'}},
   {path: 'edit-person/:id', component: EditPersonComponent, data: {title: 'Edit Person | Argus'}},
   {path: 'settings', component: SettingsComponent, data: {title: 'Notifications | Argus'}},
   {path: 'live-feed', component: LiveFeedComponent, data: {title: 'Live Feed | Argus'}},
   {path: 'notification', component: NotificationComponent, data: {title: 'Notifications | Argus'}},
   {path: 'reset-password', component: ResetPasswordComponent, data: {title: 'Reset Password | Argus'}},
-  {path: 'vehicle-white', component: VehicleWhiteComponent, data: {title: 'Vehicle White-List | Argus'}},
-  {path: 'vehicle-grey', component: VehicleGreyComponent, data: {title: 'Vehicle Grey-List | Argus'}},
-  {path: 'vehicle-black', component: VehicleBlackComponent, data: {title: 'Vehicle Black-List | Argus'}},
-  {path: 'removed-white', component: RemovedWhiteComponent, data: {title: 'Deleted Vehicle White-List | Argus'}},
-  {path: 'removed-black', component: RemovedBlackComponent, data: {title: 'Deleted Vehicle Black-List | Argus'}},
+  {path: 'vehicles-cleared', component: VehicleWhiteComponent, data: {title: 'Vehicle White-List | Argus'}},
+  {path: 'vehicles-unknown', component: VehicleGreyComponent, data: {title: 'Vehicle Grey-List | Argus'}},
+  {path: 'vehicles-threat', component: VehicleBlackComponent, data: {title: 'Vehicle Black-List | Argus'}},
+  {path: 'removed-cleared', component: RemovedWhiteComponent, data: {title: 'Deleted Vehicle White-List | Argus'}},
+  {path: 'removed-threat', component: RemovedBlackComponent, data: {title: 'Deleted Vehicle Black-List | Argus'}},
   {path: 'add-vehicle', component: AddVehicleComponent, data: {title: 'Add Vehicle | Argus'}},
   {path: 'edit-vehicle/:id', component: EditVehicleComponent, data: {title: 'Edit Vehicle | Argus'}}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule]
 })
 

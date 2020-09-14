@@ -115,11 +115,11 @@ export class AddPersonComponent implements OnInit {
   gotoList() {
     if (this.newPerson.personListed === 'White')
     {
-      this.router.navigate(['/people-white']);
+      this.router.navigate(['/people-cleared']);
     }
     else
     {
-      this.router.navigate(['/people-black']);
+      this.router.navigate(['/people-threat']);
     }
     this.SpinnerService.show();
     setTimeout(() => {

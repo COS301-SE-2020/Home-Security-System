@@ -9,7 +9,7 @@ import {environment} from '../../environments/environment';
 })
 export class VehicleService {
 
-  private baseUrl = `${environment.apiUrl}/springboot/api/vehicles`;
+  private baseUrl = `${environment.apiUrl}/api/vehicles`;
 
   constructor(private http: HttpClient) { }
 

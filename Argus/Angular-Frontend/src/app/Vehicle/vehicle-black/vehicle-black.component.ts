@@ -59,6 +59,6 @@ export class VehicleBlackComponent implements OnInit {
   }
 
   restoreVehicle(){
-    this.router.navigate(['removed-black']);
+    this.router.navigate(['removed-threat']);
   }
 }

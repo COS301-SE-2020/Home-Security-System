@@ -59,6 +59,6 @@ export class PeopleBlackComponent implements OnInit {
   }
 
   restorePerson(){
-    this.router.navigate(['deleted-black']);
+    this.router.navigate(['deleted-threat']);
   }
 }

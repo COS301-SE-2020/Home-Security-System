@@ -28,8 +28,9 @@ public class SecurityConfig //extends WebSecurityConfigurerAdapter
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors();
-    }
+		http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest()
+				.authenticated().and().formLogin().and().httpBasic().and().cors();
+	}
 
     @Bean
     public PasswordEncoder encoder() {
