@@ -183,15 +183,12 @@
                   <div class="form-group">
                     <label for="uFirstName">First Name</label>
                     <input id="uFirstName" name="fname" class="form-control"
-                           required
+                           required maxlength="35" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
                            [(ngModel)]="user.fname" #name="ngModel">
 
                     <div *ngIf="name.invalid && (name.dirty || name.touched)"
                          class="alert alert-danger">
-
-                      <div *ngIf="name.errors.required">
-                        First name is required.
-                      </div>
+                      Please enter a valid name.
                     </div>
                   </div>
                 </div>
@@ -199,15 +196,12 @@
                   <div class="form-group">
                     <label for="uLastName">Last Name</label>
                     <input id="uLastName" name="lname" class="form-control"
-                           required
+                           required maxlength="35" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
                            [(ngModel)]="user.lname" #lname="ngModel">
 
                     <div *ngIf="lname.invalid && (lname.dirty || lname.touched)"
                          class="alert alert-danger">
-
-                      <div *ngIf="lname.errors.required">
-                        Last name is required.
-                      </div>
+                      Please enter a valid last name.
                     </div>
                   </div>
                 </div>
@@ -216,9 +210,9 @@
               <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-6">
                   <div class="form-group">
-                    <label for="uUsername">Username</label>
+                    <label for="uUsername">Username (12 Characters)</label>
                     <input id="uUsername" name="username" class="form-control"
-                           required
+                           required maxlength="12"
                            [(ngModel)]="user.username" #username="ngModel">
 
                     <div *ngIf="username.invalid && (username.dirty || username.touched)"

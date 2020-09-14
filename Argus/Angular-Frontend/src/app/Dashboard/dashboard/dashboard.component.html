@@ -1,5 +1,6 @@
 <div class="container-fluid">
   <div class="row">
+    <!-- LIVE FEED CARD -->
     <div class="col-lg-12 col-md-10 col-sm-10">
       <div class="card">
         <div class="card-header">
@@ -12,84 +13,47 @@
           <ngx-spinner [fullScreen]="false" type="ball-spin-clockwise" size="default">
             <p class="loading"></p>
           </ngx-spinner>
-<!--          <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">-->
-<!--            <p style="color: white">Please Wait. </p>-->
-<!--          </ngx-spinner>-->
         </div>
       </div>
     </div>
   </div>
   <div class="row">
-    <!-- ROW 1 -->
+    <!-- ALERTS CARD -->
+    <div class="col-lg-6 col-md-4">
+      <div class="card card-chart" id="chart1">
+        <div class="card-header card-header-color">
+          <h4 class="card-title">Notifications</h4>
+          <p class="card-category">Number of alerts for the past few days</p>
+        </div>
+        <div class="card-body">
+          <div id="chartContainer"></div>
+        </div>
+        <div class="card-footer">
+          <div class="stats">
+            <i class="material-icons"
+               id="access1">access_time</i> Last updated {{currentDate | date:'dd-MM-yyyy'}}
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <!--        <div class="col-lg-12 col-md-10 col-sm-10">-->
-    <!--            <div class="card">-->
-    <!--                <div class="card-header">-->
-    <!--                    <h4 class="card-title">-->
-    <!--                        <i class="material-icons" id="icon1" >stop_circle</i>-->
-    <!--                        Live Feed-->
-    <!--                    </h4>-->
-    <!--                </div>-->
-    <!--                <div id="app">-->
-    <!--                    <div>-->
-    <!--                        <webcam [width]="640" [height]="480" [imageQuality]="0.92" [trigger]="triggerObservable" *ngIf="showCam" (imageCapture)="handleShot($event)">-->
-    <!--                        </webcam>-->
-    <!--                    </div>-->
-    <!--                    <div>-->
-    <!--                        <button class="btn btn-primary" id="tog" (click)="toggleCam();">Toggle Camera</button>-->
-    <!--                        <button class="btn btn-primary" (click)="trigger_s();">Snap</button>-->
-    <!--                    </div>-->
-    <!--                    <div class="snapshot" *ngIf="camImg">-->
-    <!--                        <h2>Snapshot:</h2>-->
-    <!--                        <img [src]="camImg.imageAsDataUrl" alt="camera"/>-->
-    <!--                    </div>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </div>-->
-
-    <!-- ROW 2 -->
-    <span>
-            <!-- MONTHLY ALERTS CARD -->
-            <div class="col-lg-10 col-md-5 col-sm-5">
-                <div class="card card-chart" id="chart1">
-                    <div class="card-header card-header-color">
-                          <h4 class="card-title">Number of alerts for the past few days</h4>
-                    </div>
-                    <div class="card-body">
-                      <div id="chartContainer"></div>
-                      <!-- <canvas id="myChart" width="200" height="200"></canvas> -->
-                      <!--<img src="assets/Images/recentDetections.PNG" width="400px">-->
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons"
-                               id="access1">access_time</i> Last updated {{currentDate | date:'dd-MM-yyyy'}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-      </span>
-
-    <!-- OTHER STATS PLACEHOLDER CARD -->
-    <span>
-            <div class="col-lg-10 col-md-5 col-sm-5">
-                <div class="card card-chart" id="chart2">
-                    <div class="card-header card-header-color">
-                        <h4 class="card-title">People on your system</h4>
-                    </div>
-                    <div class="card-body">
-                      <div id="chartContainer2"></div>
-                      <!-- <canvas id="myChart" width="200" height="200"></canvas> -->
-                      <!--<img src="assets/Images/totalPersons.PNG" width="400px">-->
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons"
-                               id="access2">access_time</i> Last updated {{currentDate | date:'dd-MM-yyyy'}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-      </span>
+    <!-- PEOPLE CARD -->
+    <div class="col-lg-6 col-md-4">
+      <div class="card card-chart" id="chart2">
+        <div class="card-header card-header-color">
+          <h4 class="card-title">People</h4>
+          <p class="card-category">Breakdown of types of people on your system</p>
+        </div>
+        <div class="card-body">
+          <div id="chartContainer2"></div>
+        </div>
+        <div class="card-footer">
+          <div class="stats">
+            <i class="material-icons"
+               id="access2">access_time</i> Last updated {{currentDate | date:'dd-MM-yyyy'}}
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
