@@ -16,7 +16,7 @@ public class MailerController {
     private MailerService emailSender;
     private String imagePath = "C:\\Users\\Brad\\Home-Security-System\\Argus\\Angular-Frontend\\src\\assets\\Images\\Argus.png";
 
-    // Usage: get request, http://localhost:9000/springboot/sendmailGrey/{email}
+    // Usage: get request, http://localhost:8080/springboot/sendmailGrey/{email}
     // @GetMapping(value = "/sendmailGrey/{emailAddress}")
     public String sendmailGrey(/*@PathVariable("emailAddress")*/ String email) {
         String x = "sent";
@@ -28,7 +28,7 @@ public class MailerController {
 
         return x;
     }
-    // Usage: get request, http://localhost:9000/springboot/sendmailBlack/{email}
+    // Usage: get request, http://localhost:8080/springboot/sendmailBlack/{email}
     // @GetMapping(value = "/sendmailBlack/{emailAddress}")
     public String sendmailBlack(/*@PathVariable("emailAddress")*/ String email) {
         String x = "sent";
@@ -40,7 +40,7 @@ public class MailerController {
 
         return x;
     }
-    // Usage: get request, http://localhost:9000/springboot/sendmailBlackAtatchment/{emailAddress}
+    // Usage: get request, http://localhost:8080/springboot/sendmailBlackAtatchment/{emailAddress}
     // @GetMapping(value = "/sendmailBlackAtatchment/{emailAddress}")
     public String sendWithAttatchBL(/*@PathVariable("emailAddress")*/ String email) {
         String x = "sent";
@@ -53,7 +53,7 @@ public class MailerController {
 
         return x;
     }
-    // Usage: get request, http://localhost:9000/springboot/sendmailGreyAtatchment/{emailAddress}
+    // Usage: get request, http://localhost:8080/springboot/sendmailGreyAtatchment/{emailAddress}
     // @GetMapping(value = "/sendmailGreyAtatchment/{emailAddress}")
     public String sendWithAttatchGL(/*@PathVariable("emailAddress")*/ String email) {
         String x = "sent";
