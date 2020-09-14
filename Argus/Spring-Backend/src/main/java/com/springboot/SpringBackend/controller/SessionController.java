@@ -15,10 +15,10 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 //@CrossOrigin(origins = "https://sigma-argus.herokuapp.com")
 public class SessionController {
-    private final List<SessionModel> tableData = new ArrayList<SessionModel>();
+    private final List<SessionModel> tableData = new ArrayList<>();
     SessionModel sessionStore;
 
-    // http://localhost:9000/springboot/sessions/addSession/
+    // http://localhost:9000/sessions/addSession/
     @PostMapping(value = "/addSession")
     public String addSession(@Valid @RequestBody SessionModel sm) {
         sessionStore = new SessionModel(sm.getId(), sm.getEmail(), sm.getPassword(), sm.getCellphone(), sm.getRole());
@@ -32,7 +32,7 @@ public class SessionController {
         tableData.add(sessionStore);
         return "Added user to session";
     }*/
-    // http://localhost:9000/springboot/sessions/getEmails/
+    // http://localhost:9000/sessions/getEmails/
     @GetMapping(value = "/getAllEmails")
     public String[] getAllEmails() {
         String print[];
@@ -44,7 +44,7 @@ public class SessionController {
 
         return print;
     }
-    // http://localhost:9000/springboot/sessions/getCellNumbersByAllowed/
+    // http://localhost:9000/sessions/getCellNumbersByAllowed/
     /*@GetMapping(value = "getCellNumbersByAllowed")
     public String[] getAllCellByAllow(){
         String cellNumbers[];
@@ -55,7 +55,7 @@ public class SessionController {
         }
         return cellNumbers;
     }*/
-    // http://localhost:9000/springboot/sessions/getSessionDetails/
+    // http://localhost:9000/sessions/getSessionDetails/
     @GetMapping(value = "/getSessionDetails")
     public JSONArray getSessionDetails() {
         JSONArray array = new JSONArray();

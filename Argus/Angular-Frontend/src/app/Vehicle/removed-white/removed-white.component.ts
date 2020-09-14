@@ -54,7 +54,7 @@ export class RemovedWhiteComponent implements OnInit {
   }
 
   back() {
-    this.router.navigate(['vehicle-white']);
+    this.router.navigate(['vehicles-cleared']);
   }
 
   deleteAll() {

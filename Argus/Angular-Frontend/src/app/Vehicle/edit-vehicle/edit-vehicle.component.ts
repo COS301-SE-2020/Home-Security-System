@@ -51,14 +51,14 @@ export class EditVehicleComponent implements OnInit {
         this.vehicle = data;
         if ( this.vehicle.vehicleListed === 'White')
         {
-          this.router.navigate(['/vehicle-white']);
+          this.router.navigate(['/vehicles-cleared']);
         }
         else if ( this.vehicle.vehicleListed === 'Black')
         {
-          this.router.navigate(['/vehicle-black']);
+          this.router.navigate(['/vehicles-threat']);
         }
         else {
-          this.router.navigate(['/vehicle-grey']);
+          this.router.navigate(['/vehicles-unknown']);
         }
       });
   }

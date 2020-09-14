@@ -59,6 +59,6 @@ export class PeopleWhiteComponent implements OnInit {
   }
 
   restorePerson(){
-    this.router.navigate(['deleted-white']);
+    this.router.navigate(['deleted-cleared']);
   }
 }

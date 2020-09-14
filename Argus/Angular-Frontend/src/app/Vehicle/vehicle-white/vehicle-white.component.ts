@@ -59,6 +59,6 @@ export class VehicleWhiteComponent implements OnInit {
   }
 
   restoreVehicle(){
-    this.router.navigate(['removed-white']);
+    this.router.navigate(['removed-cleared']);
   }
 }
