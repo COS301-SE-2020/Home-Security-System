@@ -19,11 +19,13 @@ if len(phys) > 0:
 
 mod_name = 'senet50'
 path_features = './models/'
-rabbit_host = 'localhost'
+am_url = 'amqps://ohskvfuw:HN8SBYNGPfuswoGySxiH0CyeC38v9oSP@rattlesnake.rmq.cloudamqp.com/ohskvfuw'
+rabbit_url = os.environ.get('CLOUDAMQP_URL', am_url)
+rabbit_param = pi.URLParameters(rabbit_url)
 threshold = 0.5
 successive_detection_ignore = 300.0
 
-rabbit_conn = pi.BlockingConnection(pi.ConnectionParameters(rabbit_host))
+rabbit_conn = pi.BlockingConnection(rabbit_param)
 message_channel = rabbit_conn.channel()
 message_channel.queue_declare(queue='alertQueue')
 message_channel.queue_declare(queue='notifyQueue')
