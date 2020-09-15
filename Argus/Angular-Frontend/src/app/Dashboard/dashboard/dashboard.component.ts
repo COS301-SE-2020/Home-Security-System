@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {WebcamImage} from 'ngx-webcam';
 import {Observable, Subject} from 'rxjs';
 import {TitleService} from '../../title.service';
@@ -17,10 +17,13 @@ import {NgxSpinnerService} from 'ngx-spinner';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
+
+
 export class DashboardComponent implements OnInit {
 
   constructor(private spinner: NgxSpinnerService, private appService: TitleService, private personService: PersonService,
-              private notificationService: NotificationService) {}
+              private notificationService: NotificationService) {
+  }
 
   people: Observable<Person[]>;
   currentDate = new Date();
@@ -45,29 +48,30 @@ export class DashboardComponent implements OnInit {
 
   public snapTrigger: Subject<void> = new Subject<void>();
 
-  public trigger_s(): void { this.snapTrigger.next(); }
+  public trigger_s(): void {
+    this.snapTrigger.next();
+  }
 
-  public handleShot(img: WebcamImage): void { this.camImg = img; }
+  public handleShot(img: WebcamImage): void {
+    this.camImg = img;
+  }
 
   // ==========================================================================================
 
-  public calculateNumberOfPeople(): void{
+  public calculateNumberOfPeople(): void {
     this.personService.getPersonList().subscribe(data => {
       let threat = 0;
       let cleared = 0;
       let unknown = 0;
       // tslint:disable-next-line:prefer-for-of
-      for (let i = 0; i < data.length; i++){
-        if (data[i].personListed === 'Grey' && data[i].personDeleted === null){
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].personListed === 'Grey' && data[i].personDeleted === null) {
           unknown++;
-        }
-        else if (data[i].personListed === 'Black' && data[i].personDeleted === null){
+        } else if (data[i].personListed === 'Black' && data[i].personDeleted === null) {
           threat++;
-        }
-        else if (data[i].personListed === 'White' && data[i].personDeleted === null){
+        } else if (data[i].personListed === 'White' && data[i].personDeleted === null) {
           cleared++;
-        }
-        else{
+        } else {
           // cleared++;
         }
       }
@@ -77,7 +81,7 @@ export class DashboardComponent implements OnInit {
 
   // ==========================================================================================
 
-  public calculateNumberOfNotifications(): void{
+  public calculateNumberOfNotifications(): void {
     this.notificationService.getNotificationList().subscribe(data => {
 
       // console.log(data[0].onDate);
@@ -92,38 +96,31 @@ export class DashboardComponent implements OnInit {
       let today = 0;
 
       // tslint:disable-next-line:prefer-for-of
-      for (let i = 0; i < data.length; i++){
-        if (data[i].onDate === this.dayTester(0)){
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].onDate === this.dayTester(0)) {
           today++;
-        }
-        else if (data[i].onDate === this.dayTester(1)){
+        } else if (data[i].onDate === this.dayTester(1)) {
           one++;
-        }
-        else if (data[i].onDate === this.dayTester(2)){
+        } else if (data[i].onDate === this.dayTester(2)) {
           two++;
-        }
-        else if (data[i].onDate === this.dayTester(3)){
+        } else if (data[i].onDate === this.dayTester(3)) {
           three++;
-        }
-        else if (data[i].onDate === this.dayTester(4)){
+        } else if (data[i].onDate === this.dayTester(4)) {
           four++;
-        }
-        else if (data[i].onDate === this.dayTester(5)){
+        } else if (data[i].onDate === this.dayTester(5)) {
           five++;
-        }
-        else if (data[i].onDate === this.dayTester(6)){
+        } else if (data[i].onDate === this.dayTester(6)) {
           six++;
-        }
-        else{
+        } else {
         }
       }
-      this.barchart(six, five, four, three, two, one, today );
+      this.barchart(six, five, four, three, two, one, today);
     });
   }
 
   // ==========================================================================================
 
-  public dayTester( days ) {
+  public dayTester(days) {
     const date = new Date();
     const last = new Date(date.getTime() - (days * 24 * 60 * 60 * 1000));
     const day = last.getDate();
@@ -131,42 +128,31 @@ export class DashboardComponent implements OnInit {
     let monthSmall = '';
     let daySmall = '';
 
-    if ( month < 10 )
-    {
+    if (month < 10) {
       monthSmall = ('0' + month).toString();
     }
-    if ( day < 10 )
-    {
+    if (day < 10) {
       daySmall = ('0' + month).toString();
     }
 
     const year = last.getFullYear();
 
-    if ( monthSmall === '' && daySmall === '')
-    {
+    if (monthSmall === '' && daySmall === '') {
       return (year + '-' + month + '-' + day).toString();
-    }
-    else if (monthSmall === '' && daySmall !== '')
-    {
+    } else if (monthSmall === '' && daySmall !== '') {
       return (year + '-' + month + '-' + daySmall).toString();
-    }
-    else if ( monthSmall !== '' && daySmall === '')
-    {
+    } else if (monthSmall !== '' && daySmall === '') {
       return (year + '-' + monthSmall + '-' + day).toString();
-    }
-    else if (monthSmall !== '' && daySmall !== '')
-    {
+    } else if (monthSmall !== '' && daySmall !== '') {
       return (year + '-' + monthSmall + '-' + daySmall).toString();
-    }
-    else
-    {
+    } else {
       return (year + '-' + month + '-' + day).toString();
     }
   }
 
   // ==========================================================================================
 
-  public getCorrectDay( days ) {
+  public getCorrectDay(days) {
     const date = new Date();
     const last = new Date(date.getTime() - (days * 24 * 60 * 60 * 1000));
     const day = last.getDate();
@@ -177,24 +163,23 @@ export class DashboardComponent implements OnInit {
 
   // ==========================================================================================
 
-  public barchart(Mon, Tue, Wed, Thu, Fri, Sat, Sun): void{
-    const date = new Date();
+  public barchart(Mon, Tue, Wed, Thu, Fri, Sat, Sun): void {
+    // const date = new Date();
 
     const chart = new CanvasJS.Chart('chartContainer', {
       animationEnabled: true,
       exportEnabled: true,
-      title: {
-      },
+      title: {},
       data: [{
         type: 'column',
         dataPoints: [
-          { y: Mon, label: this.getCorrectDay(6)},
-          { y: Tue, label: this.getCorrectDay(5)},
-          { y: Wed, label: this.getCorrectDay(4)},
-          { y: Thu, label: this.getCorrectDay(3)},
-          { y: Fri, label: this.getCorrectDay(2)},
-          { y: Sat, label: this.getCorrectDay(1)},
-          { y: Sun, label: this.getCorrectDay(0)}
+          {y: Mon, label: this.getCorrectDay(6)},
+          {y: Tue, label: this.getCorrectDay(5)},
+          {y: Wed, label: this.getCorrectDay(4)},
+          {y: Thu, label: this.getCorrectDay(3)},
+          {y: Fri, label: this.getCorrectDay(2)},
+          {y: Sat, label: this.getCorrectDay(1)},
+          {y: Sun, label: this.getCorrectDay(0)}
         ]
       }]
     });
@@ -204,23 +189,22 @@ export class DashboardComponent implements OnInit {
 
   // ==========================================================================================
 
-  public pieChart(val1, val2, val3): void{
+  public pieChart(val1, val2, val3): void {
     const chart = new CanvasJS.Chart('chartContainer2', {
       // light2 or dark2
       theme: 'light2',
       animationEnabled: true,
       exportEnabled: true,
-      title: {
-      },
+      title: {},
       data: [{
         type: 'doughnut',
         showInLegend: true,
         toolTipContent: '<b>{name}</b>: {y} (#percent%)',
         indexLabel: '{name} - #percent%',
         dataPoints: [
-          { y: val2, name: 'Unknown' },
-          { y: val1, name: 'Cleared' },
-          { y: val3, name: 'Threat' }
+          {y: val2, name: 'Unknown'},
+          {y: val1, name: 'Cleared'},
+          {y: val3, name: 'Threat'}
         ]
       }]
     });
@@ -265,21 +249,37 @@ export class DashboardComponent implements OnInit {
       newCamFeed.width = '500';
       newCamFeed.height = '300';
       newCamFeed.setAttribute('class', 'liveCamera');
+      newCamFeed.setAttribute('id', 'cam' + currentNum);
+      newCamFeed.hidden = false;
+
+      const toggleCam = document.createElement('a');
+      toggleCam.setAttribute('class', 'material-icons toggleCam');
+      toggleCam.setAttribute('title', 'Toggle Camera');
+
+      toggleCam.setAttribute('id', 'toggleCam' + currentNum);
+      toggleCam.innerText = 'videocam';
+      toggleCam.hidden = false;
 
       const camNum = document.createElement('div');
-      camNum.setAttribute('class', 'top-left');
-      camNum.innerHTML = 'Camera ' + currentNum;
+      camNum.className = 'top-left hoverPointer';
+      camNum.innerHTML = 'Camera ' + currentNum + ': ';
+      camNum.appendChild(toggleCam);
+
+      const camOffMsg = document.createElement('div');
+      camOffMsg.className = 'camOffMsg';
+      camOffMsg.innerHTML = 'Camera ' + currentNum + ' is switched off.';
+      camOffMsg.hidden = true;
 
       const gridItem = document.createElement('div');
       gridItem.setAttribute('class', 'grid-item');
+      gridItem.id = 'gridItem' + currentNum;
       gridItem.appendChild(camNum);
+      gridItem.appendChild(camOffMsg);
       gridItem.appendChild(newCamFeed);
 
       if (camAdded) {
         const gridContainer = document.getElementById('cameraGrid');
         gridContainer.appendChild(gridItem);
-
-
         liveFeedDiv.appendChild(gridContainer);
       } else {
         const gridContainer = document.createElement('div');
@@ -287,11 +287,22 @@ export class DashboardComponent implements OnInit {
         gridContainer.setAttribute('id', 'cameraGrid');
         gridContainer.appendChild(gridItem);
 
-
         liveFeedDiv.appendChild(gridContainer);
       }
 
       camAdded = true;
+
+      function camToggleFunc() {
+        newCamFeed.hidden = !newCamFeed.hidden;
+        camOffMsg.hidden = !camOffMsg.hidden;
+        if (toggleCam.innerText === 'videocam') {
+          toggleCam.innerText = 'videocam_off';
+        } else {
+          toggleCam.innerText = 'videocam';
+        }
+      }
+
+      camNum.onclick = camToggleFunc;
     }
 
     camUrls.forEach(item => {
@@ -333,7 +344,7 @@ export class DashboardComponent implements OnInit {
     document.getElementById('liveFeedDiv').style.height = '200px';
   }
 
-  stopSpin(){
+  stopSpin() {
     this.spinner.hide();
     document.getElementById('liveFeedDiv').style.height = 'fit-content';
   }
