@@ -5,6 +5,7 @@ import com.springboot.SpringBackend.model.User;
 import com.springboot.SpringBackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -20,12 +21,12 @@ import java.util.Map;
 public class UserController {
 
     private final UserService service;
-    //private final PasswordEncoder hash;
+    private final PasswordEncoder hash;
 
     @Autowired
-    public UserController(UserService service) {
+    public UserController(UserService service, PasswordEncoder salt) {
         this.service = service;
-        //this.hash = salt;
+        this.hash = salt;
     }
 
     @GetMapping("/users")
@@ -43,7 +44,7 @@ public class UserController {
     @PostMapping("/users")
     public User addUser(@Valid @RequestBody User x) {
         //String passEncrypt = hash.encode(x.getUserPass());
-        //x.setUserPass(pass);
+        //x.setUserPass(passEncrypt);
         return service.createUser(x);
     }
 
