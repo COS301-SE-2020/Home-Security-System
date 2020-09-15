@@ -1,100 +1,4 @@
-<!--<div class="card">-->
-<!--  <div class="card-header card-header-color">-->
-<!--    <h4 class="card-title float-left">Add User</h4>-->
-<!--  </div>-->
-<!--  <div class="card-body">-->
-<!--    <br>-->
-<!--    <div>-->
-<!--      <form (ngSubmit)="onSubmit()">-->
-<!--        <div class="row">-->
-<!--          <div class="col">-->
-<!--            <div class="form-group">-->
-<!--              <label for="fname" class="float-left">First Name</label>-->
-<!--              <input type="text" class="form-control" id="fname" name="fname">-->
-<!--            </div>-->
-<!--            <br>-->
-<!--          </div>-->
-<!--          <div class="col">-->
-<!--            <div class="form-group">-->
-<!--              <label for="surname" class="float-left">Last Name</label>-->
-<!--              <input type="text" class="form-control" id="surname" name="surname">-->
-<!--            </div>-->
-<!--            <br>-->
-<!--          </div>-->
-<!--        </div>-->
-
-<!--        <div class="form-group">-->
-<!--          <label for="number" class="float-left">Contact Number</label>-->
-<!--          <input type="text" class="form-control" id="number" name="number">-->
-<!--        </div>-->
-<!--        <br>-->
-
-<!--        <div class="form-group">-->
-<!--          <label for="email" class="float-left">Email</label>-->
-<!--          <input type="text" class="form-control" id="email" name="email">-->
-<!--        </div>-->
-<!--        <br>-->
-
-<!--        <div class="form-group">-->
-<!--          <label for="username" class="float-left">Username</label>-->
-<!--          <input type="text" class="form-control" id="username" required name="username">-->
-<!--        </div>-->
-<!--        <br>-->
-
-<!--        <div class="form-group">-->
-<!--          <label for="pass" class="float-left">Password</label>-->
-<!--          <input type="text" class="form-control" id="pass" name="pass">-->
-<!--        </div>-->
-<!--        <br>-->
-
-<!--        <div class="form-group">-->
-<!--          <label class="float-left">Role</label><br><br>-->
-<!--          <label class="radioContainer" *ngIf="info.userRole == 'Admin'">Admin-->
-<!--            <input type="radio" name="role" id="admin" value="Admin">-->
-<!--            <span class="radioCheckmark"></span>-->
-<!--          </label>-->
-<!--          <label class="radioContainer">Advanced-->
-<!--            <input type="radio" checked="checked" name="role" id="advanced" value="Advanced">-->
-<!--            <span class="radioCheckmark"></span>-->
-<!--          </label>-->
-<!--          <label class="radioContainer">Basic-->
-<!--            <input type="radio" name="role" id="basic" value="Basic">-->
-<!--            <span class="radioCheckmark"></span>-->
-<!--          </label>-->
-<!--        </div>-->
-<!--        <br>-->
-
-<!--        &lt;!&ndash;Profile Picture&ndash;&gt;-->
-<!--        <div class="form-group">-->
-<!--          <label for="profilePicInput" class="float-left">Profile Picture</label><br><br>-->
-<!--          <div class="picture-container">-->
-<!--            <div id="preview">-->
-<!--              <img alt="Default Picture" id="submitPhoto" src="/assets/Images/blank.jpg">-->
-<!--            </div>-->
-<!--            <br>-->
-<!--          </div>-->
-
-<!--          <label id="profilePicInput" for="fileElem">-->
-<!--            <i class="material-icons add-photo-icon">add_photo_alternate</i><br>-->
-<!--            <input type="file" id="fileElem" accept="image/jpeg, image/png" onchange="previewFile(this.file)">-->
-<!--            Drag and Drop an image<br>-->
-<!--            &lt;!&ndash;or<br>Click to add&ndash;&gt;-->
-<!--          </label>-->
-
-<!--          or-->
-<!--          <br>-->
-
-<!--          <a class="hoverPointer" data-toggle="modal" data-target="#pictureModal">-->
-<!--            capture a photo from camera-->
-<!--          </a>-->
-<!--        </div>-->
-<!--        <button type="submit" class="btn btn-primary justify-content-center">Submit</button>-->
-<!--      </form>-->
-<!--    </div>-->
-<!--  </div>-->
-
-
-<!--Add User Modal-->
+<!--ADD USER MODAL-->
 <div class="modal fade" id="addUserModal" role="dialog">
   <div class="modal-dialog">
     <!-- Modal content-->
@@ -107,46 +11,46 @@
         <div class="card-body">
           <form #changeForm="ngForm">
             <div class="row">
+
+              <!--First Name-->
               <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="form-group">
                   <label for="addFirstName">First Name</label>
                   <input id="addFirstName" name="addFirstName" class="form-control"
-                         required
+                         required maxlength="35" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
                          [(ngModel)]="namePlaceholder" #name="ngModel">
 
                   <div *ngIf="name.invalid && (name.dirty || name.touched)"
                        class="alert alert-danger">
-
-                    <div *ngIf="name.errors.required">
-                      First name is required.
-                    </div>
+                    Please enter a valid name.
                   </div>
                 </div>
               </div>
+
+              <!--Last Name-->
               <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="form-group">
                   <label for="addSurname">Last Name</label>
                   <input id="addSurname" name="addSurname" class="form-control"
-                         required
+                         required maxlength="35" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
                          [(ngModel)]="surnamePlaceholder" #lname="ngModel">
 
                   <div *ngIf="lname.invalid && (lname.dirty || lname.touched)"
                        class="alert alert-danger">
-
-                    <div *ngIf="lname.errors.required">
-                      Last name is required.
-                    </div>
+                    Please enter a valid last name.
                   </div>
                 </div>
               </div>
             </div>
             <br>
             <div class="row">
+
+              <!--Username-->
               <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="form-group">
-                  <label for="addUsername">Username</label>
+                  <label for="addUsername">Username (12 Characters)</label>
                   <input id="addUsername" name="addUsername" class="form-control"
-                         required
+                         required maxlength="12"
                          [(ngModel)]="usernamePlaceholder" #username="ngModel">
 
                   <div *ngIf="username.invalid && (username.dirty || username.touched)"
@@ -158,6 +62,8 @@
                   </div>
                 </div>
               </div>
+
+              <!--Email-->
               <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="form-group">
                   <label for="addEmail">Email</label>
@@ -176,6 +82,8 @@
             <br>
 
             <div class="row">
+
+              <!--Contact Number-->
               <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="form-group">
                   <label for="addPhone">Contact Number</label>
@@ -189,6 +97,8 @@
                   </div>
                 </div>
               </div>
+
+              <!--Password-->
               <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="form-group">
                   <label for="passwordField1">Password</label>
@@ -229,6 +139,7 @@
               </div>
             </div>
 
+            <!--Role-->
             <div class="form-group">
               <label class="float-left">Role</label><br><br>
               <label class="radioContainer" *ngIf="info.userRole == 'Admin'">Admin
@@ -244,6 +155,7 @@
                 <span class="radioCheckmark"></span>
               </label>
             </div>
+
             <!--Profile Picture-->
             <div class="form-group center ">
               <label for="profilePicInput" class="float-left">Profile Picture</label><br><br>
@@ -258,13 +170,12 @@
                 <i class="material-icons add-photo-icon">add_photo_alternate</i><br>
                 <input type="file" id="fileElem" accept="image/jpeg, image/png" onchange="previewFile(this.file)">
                 Drag and Drop an image<br>
-                <!--or<br>Click to add-->
               </label>
 
               or
               <br>
 
-              <a class="hoverPointer" data-toggle="modal" data-target="#pictureModal">
+              <a class="hoverPointer" data-toggle="modal" data-target="#pictureModal" (click)="toggleCam()">
                 capture a photo from camera
               </a>
             </div>
@@ -281,6 +192,7 @@
   </div>
 </div>
 
+<!--TAKE PHOTO MODAL-->
 <div class="container">
   <div class="modal fade picModal" id="pictureModal" role="dialog">
     <div class="modal-dialog">
@@ -309,7 +221,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#pictureModal"
-                  onclick="previewFileFromCam()">
+                  onclick="previewFileFromCam()" (click)="toggleCam()">
             Confirm
           </button>
         </div>
@@ -318,7 +230,7 @@
   </div>
 </div>
 
-
+<!--LOADING SPINNER-->
 <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
   <p style="color: white">Please Wait. </p>
 </ngx-spinner>

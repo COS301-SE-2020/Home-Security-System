@@ -45,7 +45,7 @@ export class AddUserComponent implements OnInit {
 
   public captures: Array<any>;
 
-  public showCam = true;
+  public showCam = false;
 
   public camImg: WebcamImage = null;
 

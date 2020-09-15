@@ -14,3 +14,5 @@
 # Editor-based HTTP Client requests
 /Argus/httpRequests/
 /.idea/
+/Argus/.project
+/Argus/.settings/
