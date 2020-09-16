@@ -26,13 +26,14 @@ public class RabbitConsumer {
     private final UserService userService;
     private final FaceService faceService;
     private final ImageService imageService;
+    private SmsSender smsSender;
     private MailerController mailer;
     private SessionController session;
     private RabbitTemplate amqpTemplate;
 
     @Autowired
     public RabbitConsumer(NotificationService ns, PersonService ps, VehicleService vs,
-                          UserService us, FaceService fs, ImageService is,
+                          UserService us, FaceService fs, ImageService is, SmsSender send,
                           MailerController mc, SessionController sc, RabbitTemplate template) {
         this.nservice = ns;
         this.personService = ps;
@@ -40,6 +41,7 @@ public class RabbitConsumer {
         this.userService = us;
         this.faceService = fs;
         this.imageService = is;
+        this.smsSender = send;
         this.mailer = mc;
         this.session = sc;
         this.amqpTemplate = template;
@@ -66,6 +68,7 @@ public class RabbitConsumer {
                 try {
                     if (p.isPresent() && u.isPresent()) {
                         String email = u.get().getEmail();
+                        String contact = u.get().getContactNo();
                         Boolean notify1 = u.get().getNotifyEmail();
                         Boolean notify2 = u.get().getNotifySMS();
 
@@ -85,7 +88,8 @@ public class RabbitConsumer {
                                     mailer.sendWithAttatchBL(email);
                                 }
                                 if (notify2) {
-                                    //send SMS
+                                    SmsRequest request = new SmsRequest(contact);
+                                    smsSender.sendSmsThreat(request);
                                 }
                             }
                         } else {
@@ -100,7 +104,8 @@ public class RabbitConsumer {
                                     mailer.sendWithAttatchBL(email);
                                 }
                                 if (notify2) {
-                                    //send SMS
+                                    SmsRequest request = new SmsRequest(contact);
+                                    smsSender.sendSmsThreat(request);
                                 }
                             }
                         }
@@ -156,8 +161,10 @@ public class RabbitConsumer {
                 try {
                     if (v.isPresent() && u.isPresent()) {
                         String email = u.get().getEmail();
+                        String contact = u.get().getContactNo();
                         Boolean notify1 = u.get().getNotifyEmail();
                         Boolean notify2 = u.get().getNotifySMS();
+
                         if (v.get().getVehicleDeleted() != null) {
                             v.get().setVehicleDeleted(null);
                             vehicleService.updateVehicle(v.get());
@@ -174,7 +181,8 @@ public class RabbitConsumer {
                                     mailer.sendWithAttatchBL(email);
                                 }
                                 if (notify2) {
-                                    //send SMS
+                                    SmsRequest request = new SmsRequest(contact);
+                                    smsSender.sendSmsThreat(request);
                                 }
                             }
                         } else {
@@ -190,7 +198,8 @@ public class RabbitConsumer {
                                     mailer.sendWithAttatchBL(email);
                                 }
                                 if (notify2) {
-                                    //send SMS
+                                    SmsRequest request = new SmsRequest(contact);
+                                    smsSender.sendSmsThreat(request);
                                 }
                             }
                         }

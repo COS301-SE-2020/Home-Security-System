@@ -1,6 +1,6 @@
 package com.springboot.SpringBackend.controller;
 
-import com.springboot.SpringBackend.service.SmsRequest;
+import com.springboot.SpringBackend.model.SmsRequest;
 import com.springboot.SpringBackend.service.SmsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
