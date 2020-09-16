@@ -7,8 +7,8 @@ import com.springboot.SpringBackend.model.*;
 import com.springboot.SpringBackend.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.NoSuchElementException;
@@ -30,7 +30,7 @@ public class RabbitConsumer {
     @Autowired
     public RabbitConsumer(NotificationService ns, PersonService ps, VehicleService vs,
                           UserService us, FaceService fs, ImageService is,
-                          MailerController mc, SessionController sc, AmqpTemplate template) {
+                          MailerController mc, SessionController sc, RabbitTemplate template) {
         this.nservice = ns;
         this.personService = ps;
         this.vehicleService = vs;
