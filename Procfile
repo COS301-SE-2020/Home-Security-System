@@ -1,1 +1,1 @@
-web: java -jar Spring-Backend/target/Spring-Backend-0.0.1-SNAPSHOT.jar
+web: java -Dserver.port=$PORT -jar Spring-Backend/target/Spring-Backend-0.0.1-SNAPSHOT.jar
