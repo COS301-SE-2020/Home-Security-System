@@ -20,10 +20,19 @@ This is how the branches will be laid out
 master 
 └── neuralnetwork
 └── postgreCRUD
+    └── springSessions
+    └── smtpBackend
+    └── herokuServer
 └── firebase-Master
 └── firebaseFrontEnd
-└── smtpBackend
+└── testion
+└── deploy
+└── deployables
+
 ```
+
+## Server Link
+ <a href="https://sigma-argus.herokuapp.com">Go to Argus</a> 
 
 ## Group Members
 
