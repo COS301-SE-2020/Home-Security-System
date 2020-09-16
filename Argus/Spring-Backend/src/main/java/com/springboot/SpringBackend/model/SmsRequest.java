@@ -1,4 +1,4 @@
-package com.springboot.SpringBackend.service;
+package com.springboot.SpringBackend.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -7,8 +7,6 @@ import javax.validation.constraints.NotBlank;
 public class SmsRequest {
     @NotBlank
     private static String numb;
-    //public final String numb;
-    //public final String msg;
 
     public SmsRequest(@JsonProperty("phoneNumb") String numb) {
         SmsRequest.numb = numb;

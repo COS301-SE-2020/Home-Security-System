@@ -1,6 +1,7 @@
 package com.springboot.SpringBackend.service;
 
 import com.springboot.SpringBackend.config.TwillioConfig;
+import com.springboot.SpringBackend.model.SmsRequest;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.rest.api.v2010.account.MessageCreator;
 import com.twilio.type.PhoneNumber;
