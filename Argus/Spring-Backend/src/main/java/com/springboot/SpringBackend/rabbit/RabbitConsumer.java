@@ -55,8 +55,8 @@ public class RabbitConsumer {
         mailer.setImagePath("C:\\Users\\Brad\\Home-Security-System\\Argus\\Angular-Frontend\\src\\assets\\Images\\Argus.png");
         JSONArray arr = session.getSessionDetails();
 
-        for (int i = 0; i < arr.size(); i++) {
-            id = (Long) arr.get(0);
+        //for (int i = 0; i < arr.size(); i++) {
+            //id = (Long) arr.get(0);
             Optional<User> u = userService.getUserById(id);
 
             if (alert.getPersonId() != 0) {
@@ -92,34 +92,7 @@ public class RabbitConsumer {
                                     smsSender.sendSmsThreat(request);
                                 }
                             }
-                        } else {
-                            if (alert.getType().equalsIgnoreCase("Grey")) {
-                                nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
-                                        "Person: " + p.get().getFname(), u.get()));
-                            } else {
-                                nservice.createNotification(new Notification(alert.getImageStr(), "Threat",
-                                        "Intruder: " + p.get().getFname() + " " + p.get().getLname(), u.get()));
 
-                                if (notify1) {
-                                    mailer.sendWithAttatchBL(email);
-                                }
-                                if (notify2) {
-                                    SmsRequest request = new SmsRequest(contact);
-                                    smsSender.sendSmsThreat(request);
-                                }
-                            }
-                        }
-                    } else {
-                        if (u.isPresent()) {
-                            // Recreate the person
-                            Person psn = new Person(alert.getPersonId(), alert.getImageStr());
-                            personService.createPerson(psn);
-                            // Update them to the correct list
-                            RabbitPerson updatePerson = new RabbitPerson(psn.getPersonId(), "0", psn.getPersonListed(), true, alert.getImageStr(), true);
-                            amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, updatePerson);
-                            // Send notification
-                            nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
-                                    "Person: " + psn.getFname(), u.get()));
                         }
                     }
                 } catch (NoSuchElementException ex) {
@@ -139,7 +112,7 @@ public class RabbitConsumer {
             }
 
             LOGGER.info("Notification Created");
-        }
+        //}
     }
 
     @RabbitListener(queues = {"notifyQueue"})
