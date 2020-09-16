@@ -64,11 +64,9 @@ export class LoginComponent implements OnInit {
                 && (data[counter].userPass === passVar.value)) { // replace passVar.value with pass
 
                 // tslint:disable-next-line:max-line-length
-                this.sessionS.createSession(data[counter].email, passVar.value, data[counter].userId, data[counter].userRole, data[counter].contactNo);
+                this.sessionS.createSession(data[counter].userId, data[counter].userRole, data[counter].email);
                 this.sessClass.id = data[counter].userId.toString();
                 this.sessClass.email = data[counter].email.toString();
-                this.sessClass.password = data[counter].userPass.toString();
-                this.sessClass.cellphone = data[counter].contactNo.toString();
                 this.sessClass.role = data[counter].userRole.toString();
 
                 this.sessService.addToSession(this.sessClass).subscribe();
@@ -81,7 +79,7 @@ export class LoginComponent implements OnInit {
                 passVar.value = '';
               }
             }
-            counter++;
+            counter += 1;
           }
         });
   }

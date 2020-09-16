@@ -3,41 +3,28 @@ package com.springboot.SpringBackend.model;
 public class SessionModel {
 
     private final String id;
-    private final String email;
-    private final String password;
-    private final String cellphone;
     private final String role;
+    private final String email;
 
-    public SessionModel(){
+    public SessionModel() {
         this.id = "";
-        this.email = "";
-        this.password = "";
         this.role = "";
-        this.cellphone = "";
+        this.email = "";
     }
 
-    public SessionModel(String id, String email, String password, String cellphone, String role){
-        // System.out.print("Cell: " + cellphone);
+    public SessionModel(String id, String role, String email) {
         this.id = id;
-        this.email = email;
-        this.password = password;
         this.role = role;
-        this.cellphone = cellphone;
+        this.email = email;
     }
 
     public String getId(){
         return this.id;
     }
-    public String getEmail(){
-        return this.email;
-    }
-    public String getPassword(){
-        return this.password;
-    }
     public String getRole(){
         return this.role;
     }
-    public String getCellphone(){ return this.cellphone; }
-
-
+    public String getEmail(){
+        return this.email;
+    }
 }
