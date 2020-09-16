@@ -6,8 +6,8 @@ import {SessionService} from '../../model/session.service';
 import {User} from '../../model/user';
 import {SessionClass} from '../../model/session';
 import {Session} from '../../../assets/js/SessionStorage.js';
-import {RecoverPasswordEmail} from '../../../assets/js/RecoverPasswordEmail.js';
-import * as bcrypt from 'bcryptjs';
+// import {RecoverPasswordEmail} from '../../../assets/js/RecoverPasswordEmail.js';
+// import * as bcrypt from 'bcryptjs';
 // DO NOT REMOVE THIS
 import {forEachComment} from 'tslint';
 import {count} from 'rxjs/operators';
@@ -18,7 +18,7 @@ import {count} from 'rxjs/operators';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  mailer = new RecoverPasswordEmail();
+  // mailer = new RecoverPasswordEmail();
   sessionS = new Session();
   users: Observable<User[]>;
   sessClass = new SessionClass();
@@ -51,8 +51,8 @@ export class LoginComponent implements OnInit {
   makeSession() {
     const emailVar = document.getElementById('emailInput') as HTMLInputElement;
     const passVar = document.getElementById('passwordField') as HTMLInputElement;
-    const salt = bcrypt.genSaltSync(10);
-    const pass = bcrypt.hashSync(passVar.value, salt);
+    // const salt = bcrypt.genSaltSync(10);
+    // const pass = bcrypt.hashSync(passVar.value, salt);
     let counter = 0;
 
     this.userService.getUserList()
@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
                 && (data[counter].userPass === passVar.value)) { // replace passVar.value with pass
 
                 // tslint:disable-next-line:max-line-length
-                this.sessionS.createSession(data[counter].email, pass, data[counter].userId, data[counter].userRole, data[counter].contactNo);
+                this.sessionS.createSession(data[counter].email, passVar.value, data[counter].userId, data[counter].userRole, data[counter].contactNo);
                 this.sessClass.id = data[counter].userId.toString();
                 this.sessClass.email = data[counter].email.toString();
                 this.sessClass.password = data[counter].userPass.toString();
@@ -77,7 +77,7 @@ export class LoginComponent implements OnInit {
               }
               if (((data[counter].email.toLowerCase() === emailVar.value.toLowerCase()) || (data[counter].username === emailVar.value)) &&
                 (data[counter].userPass !== passVar.value)) { // replace passVar.value with pass
-                alert('The password you entered seems to be incorrect, please retry entering your password.' + pass);
+                alert('The password you entered seems to be incorrect, please retry entering your password.');
                 passVar.value = '';
               }
             }
