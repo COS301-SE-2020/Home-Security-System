@@ -13,6 +13,9 @@ export class EditPersonComponent implements OnInit {
   id: number;
   person: Person;
 
+  namePlaceholder = '';
+  surnamePlaceholder = '';
+
   constructor(private route: ActivatedRoute, private router: Router,
               private SpinnerService: NgxSpinnerService, private personService: PersonService) { }
 
@@ -51,14 +54,14 @@ export class EditPersonComponent implements OnInit {
         this.person = data;
         if ( this.person.personListed === 'White')
         {
-          this.router.navigate(['/people-white']);
+          this.router.navigate(['/people-cleared']);
         }
         else if ( this.person.personListed === 'Black')
         {
-          this.router.navigate(['/people-black']);
+          this.router.navigate(['/people-threat']);
         }
         else {
-          this.router.navigate(['/people-grey']);
+          this.router.navigate(['/people-unknown']);
         }
       });
   }

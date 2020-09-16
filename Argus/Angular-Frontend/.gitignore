@@ -2,10 +2,12 @@
 
 # compiled output
 /dist
+/target
 /tmp
 /out-tsc
 # Only exists if Bazel was run
 /bazel-out
+Angular-Frontend.iml
 
 # dependencies
 /node_modules
@@ -44,4 +46,4 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-/Pom/
+/node

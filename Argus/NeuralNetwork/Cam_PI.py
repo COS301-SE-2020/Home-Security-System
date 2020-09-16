@@ -11,6 +11,8 @@ import time
 import json
 import base64 as b64
 import threading
+from picamera.array import PiRGBArray
+from picamera import PiCamera
 
 
 phys = tf.config.experimental.list_physical_devices('GPU')
@@ -103,15 +105,21 @@ def save_face(path, image, f_d=face_d, f_r=face_r):
 
 def cam_feed():
     global up_face, all_f_features, time_dict
+    pi_cam = PiCamera()
+    raw_cap = PiRGBArray(pi_cam)
     cams = list()
     windows = list()
+    windows.append("0")
+    c.namedWindow(0)
     for x in range(num_cams):
         cams.append(c.VideoCapture(x))
-        windows.append(str(x))
-        c.namedWindow(str(x))
+        windows.append(str(x+1))
+        c.namedWindow(str(x+1))
 
     f = True
     frames = list()
+    pi_cam.capture(raw_cap, format="bgr")
+    frames.append(raw_cap.array)
     for cam in cams:
         t, fr = cam.read()
         frames.append(fr)
@@ -200,6 +208,8 @@ def cam_feed():
             up_face = False
 
         frames = list()
+        pi_cam.capture(raw_cap, format="bgr")
+        frames.append(raw_cap.array)
         for cam in cams:
             t, fr = cam.read()
             frames.append(fr)

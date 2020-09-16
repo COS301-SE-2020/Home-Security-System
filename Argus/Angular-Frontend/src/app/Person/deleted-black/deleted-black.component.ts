@@ -54,7 +54,7 @@ export class DeletedBlackComponent implements OnInit {
   }
 
   back() {
-    this.router.navigate(['people-black']);
+    this.router.navigate(['people-threat']);
   }
 
   deleteAll() {

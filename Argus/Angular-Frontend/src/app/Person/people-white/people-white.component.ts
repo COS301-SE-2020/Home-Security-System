@@ -32,7 +32,7 @@ export class PeopleWhiteComponent implements OnInit {
     this.personService.getPersonById(id)
       .subscribe(
         data => {
-          console.log(data);
+          // console.log(data);
           this.psn = data;
           this.psn.personDeleted = new Date();
           this.personService.updatePerson(id, this.psn)
@@ -59,6 +59,6 @@ export class PeopleWhiteComponent implements OnInit {
   }
 
   restorePerson(){
-    this.router.navigate(['deleted-white']);
+    this.router.navigate(['deleted-cleared']);
   }
 }

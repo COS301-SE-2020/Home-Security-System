@@ -5,6 +5,7 @@ import com.springboot.SpringBackend.model.User;
 import com.springboot.SpringBackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -14,14 +15,18 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:8080")
+//@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://sigma-argus.herokuapp.com")
 public class UserController {
 
     private final UserService service;
+    private final PasswordEncoder hash;
 
     @Autowired
-    public UserController(UserService service) {
+    public UserController(UserService service, PasswordEncoder salt) {
         this.service = service;
+        this.hash = salt;
     }
 
     @GetMapping("/users")
@@ -38,6 +43,8 @@ public class UserController {
 
     @PostMapping("/users")
     public User addUser(@Valid @RequestBody User x) {
+        //String passEncrypt = hash.encode(x.getUserPass());
+        //x.setUserPass(passEncrypt);
         return service.createUser(x);
     }
 
@@ -61,6 +68,7 @@ public class UserController {
         x.setEmail(details.getEmail());
         x.setUsername(details.getUsername());
         x.setUserPass(details.getUserPass());
+        //x.setUserPass(hash.encode(details.getUserPass()));
         x.setUserRole(details.getUserRole());
         x.setNotifyEmail(details.getNotifyEmail());
         x.setNotifySMS(details.getNotifySMS());

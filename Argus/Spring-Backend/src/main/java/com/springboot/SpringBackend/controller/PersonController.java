@@ -6,7 +6,8 @@ import com.springboot.SpringBackend.model.Person;
 import com.springboot.SpringBackend.model.RabbitPerson;
 import com.springboot.SpringBackend.service.FaceService;
 import com.springboot.SpringBackend.service.PersonService;
-import org.springframework.amqp.core.AmqpTemplate;
+
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,13 +19,15 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:8080")
+//@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://sigma-argus.herokuapp.com")
 public class PersonController {
     private final PersonService service;
-    private AmqpTemplate amqpTemplate;
+    private RabbitTemplate amqpTemplate;
 
     @Autowired
-    public PersonController(PersonService service, AmqpTemplate template) {
+    public PersonController(PersonService service, RabbitTemplate template) {
         this.service = service;
         this.amqpTemplate = template;
     }

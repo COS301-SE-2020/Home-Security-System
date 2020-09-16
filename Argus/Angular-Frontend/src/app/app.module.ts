@@ -1,6 +1,6 @@
-
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HashLocationStrategy, LocationStrategy } from "@angular/common";
 // added
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -84,18 +84,19 @@ const appRoutes: Routes = [];
     RemovedBlackComponent,
     RemovedWhiteComponent
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        WebcamModule,
-        RouterModule.forRoot(appRoutes),
-        HttpClientModule,
-        FormsModule,
-        ReactiveFormsModule,
-        NgxSpinnerModule
-    ],
+  imports: [
+      BrowserModule,
+      BrowserAnimationsModule,
+      AppRoutingModule,
+      WebcamModule,
+      RouterModule.forRoot(appRoutes),
+      HttpClientModule,
+      FormsModule,
+      ReactiveFormsModule,
+      NgxSpinnerModule
+  ],
   providers: [
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
     NotificationService,
     UserService,
     PersonService,

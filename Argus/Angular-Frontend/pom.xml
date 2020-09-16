@@ -4,70 +4,104 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.3.1.RELEASE</version>
-    <relativePath/>
+    <groupId>com.github.sigma</groupId>
+    <artifactId>Argus</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <groupId>app</groupId>
   <artifactId>Angular-Frontend</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
-  <name>Angular-Frontend</name>
-  <description>Frontend</description>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <node-version>v12.17.0</node-version>
+    <npm-version>6.14.4</npm-version>
+  </properties>
 
   <build>
     <finalName>client</finalName>
     <plugins>
       <plugin>
-      <groupId>com.github.eirslett</groupId>
-      <artifactId>frontend-maven-plugin</artifactId>
-      <version>1.6</version>
-      <configuration>
-        <nodeVersion>v12.18.0</nodeVersion>
-        <npmVersion>6.14.4</npmVersion>
-      </configuration>
-      <executions>
-        <execution>
-          <id>install node and npm</id>
-          <goals>
-            <goal>install-node-and-npm</goal>
-          </goals>
-        </execution>
-        <execution>
-          <id>npm install</id>
-          <goals>
-            <goal>npm</goal>
-          </goals>
-        </execution>
-        <execution>
-          <id>npm run build</id>
-          <goals>
-            <goal>npm</goal>
-          </goals>
-          <configuration>
-            <arguments>run build</arguments>
-          </configuration>
-        </execution>
-        <!--<execution>
-          <id>prod</id>
-          <goals>
-            <goal>npm</goal>
-          </goals>
-          <configuration>
-            <arguments>run-script build</arguments>
-          </configuration>
-          <phase>generate-resources</phase>
-        </execution>-->
-      </executions>
-    </plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>2.5</version>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>dist</directory>
+              <includes>
+                <include>*</include>
+              </includes>
+            </fileset>
+          </filesets>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>com.github.eirslett</groupId>
+        <artifactId>frontend-maven-plugin</artifactId>
+        <version>1.6</version>
+
+        <configuration>
+          <nodeVersion>${node-version}</nodeVersion>
+          <npmVersion>${npm-version}</npmVersion>
+        </configuration>
+
+       <executions>
+          <execution>
+            <id>install node and npm</id>
+            <goals>
+              <goal>install-node-and-npm</goal>
+            </goals>
+          </execution>
+
+          <execution>
+            <id>npm install</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <!--<configuration>
+              <arguments>-no-optional</arguments>
+            </configuration>-->
+          </execution>
+
+          <execution>
+            <id>npm run build</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <configuration>
+              <arguments>run build</arguments>
+            </configuration>
+          </execution>
+
+         <execution>
+           <id>prod</id>
+           <goals>
+             <goal>npm</goal>
+           </goals>
+           <configuration>
+             <arguments>run-script build</arguments>
+           </configuration>
+           <phase>generate-resources</phase>
+         </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <webResources>
+            <resource>
+              <directory>Angular-Frontend/dist</directory>
+              <targetPath>META-INF/resources</targetPath>
+            </resource>
+          </webResources>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+        </configuration>
+      </plugin>
     </plugins>
-    <resources>
-      <resource>
-        <directory>target/client</directory>
-        <targetPath>static</targetPath>
-      </resource>
-    </resources>
   </build>
 </project>
