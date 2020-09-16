@@ -70,18 +70,7 @@ public class RabbitConsumer {
                     Boolean notify1 = u.get().getNotifyEmail();
                     Boolean notify2 = u.get().getNotifySMS();
 
-                    if(p.get() == null) {
-                        // Recreate the person
-                        Person psn = new Person(alert.getPersonId(),alert.getImageStr());
-                        personService.createPerson(psn);
-                        // Update them to the correct list
-                        RabbitPerson updatePerson = new RabbitPerson(psn.getPersonId(), "0", psn.getPersonListed(), true, alert.getImageStr(), true);
-                        amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, updatePerson);
-                        // Send notification
-                        nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
-                                "Person: " + p.get().getFname(), u.get()));
-                    }
-                    else if(p.get().getPersonDeleted() != null) {
+                   if(p.get().getPersonDeleted() != null) {
 
                         p.get().setPersonDeleted(null);
                         personService.updatePerson(p.get());
@@ -118,6 +107,19 @@ public class RabbitConsumer {
                                 //send SMS
                             }
                         }
+                    }
+                }
+                else {
+                    if (u.isPresent()) {
+                        // Recreate the person
+                        Person psn = new Person(alert.getPersonId(), alert.getImageStr());
+                        personService.createPerson(psn);
+                        // Update them to the correct list
+                        RabbitPerson updatePerson = new RabbitPerson(psn.getPersonId(), "0", psn.getPersonListed(), true, alert.getImageStr(), true);
+                        amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, updatePerson);
+                        // Send notification
+                        nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
+                                "Person: " + psn.getFname(), u.get()));
                     }
                 }
             }
@@ -167,18 +169,7 @@ public class RabbitConsumer {
                     String email = u.get().getEmail();
                     Boolean notify1 = u.get().getNotifyEmail();
                     Boolean notify2 = u.get().getNotifySMS();
-                    if (v.get() == null) {
-                        // Recreate the vehicle
-                        Vehicle vcl = new Vehicle(alert.getPersonId(), alert.getImageStr());
-                        vehicleService.createVehicle(vcl);
-                        // Update them to the correct list
-                        RabbitVehicle updateVehicle = new RabbitVehicle(vcl.getVehicleId(), "0", vcl.getVehicleListed(), true, alert.getImageStr(), true);
-                        amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_VEHICLE_KEY, updateVehicle);
-                        // Send notification
-                        nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
-                                "Vehicle: " + v.get().getLicenseNo(), u.get()));
-                    }
-                    else if (v.get().getVehicleDeleted() != null) {
+                    if (v.get().getVehicleDeleted() != null) {
                         v.get().setVehicleDeleted(null);
                         vehicleService.updateVehicle(v.get());
 
@@ -214,6 +205,19 @@ public class RabbitConsumer {
                                 //send SMS
                             }
                         }
+                    }
+                }
+                else {
+                    if(u.isPresent()) {
+                        // Recreate the vehicle
+                        Vehicle vcl = new Vehicle(alert.getPersonId(), alert.getImageStr());
+                        vehicleService.createVehicle(vcl);
+                        // Update them to the correct list
+                        RabbitVehicle updateVehicle = new RabbitVehicle(vcl.getVehicleId(), "0", vcl.getVehicleListed(), true, alert.getImageStr(), true);
+                        amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_VEHICLE_KEY, updateVehicle);
+                        // Send notification
+                        nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
+                                "Vehicle: " + vcl.getLicenseNo(), u.get()));
                     }
                 }
             }
