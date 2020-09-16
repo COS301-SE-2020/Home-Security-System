@@ -1,0 +1,1 @@
+web : ./Spring-Backend/mvnw spring-boot:run
