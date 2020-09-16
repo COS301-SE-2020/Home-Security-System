@@ -1,0 +1,41 @@
+<div class="sidebar" data-color="argus">
+    <div class="logo">
+        <a class="simple-text" [routerLink]="['/dashboard']">
+            <img id="logoSideBar" src="assets/Images/ArgusLogo.png" alt="argusLogo">
+        </a>
+    </div>
+    <div class="sidebar-wrapper">
+        <ul class="nav">
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['/dashboard']">
+                    <i class="material-icons">dashboard</i>
+                    <p id="dashLink">Dashboard</p>
+                </a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['/user-list']">
+                    <i class="material-icons">person</i>
+                    <p id="userLink">User List</p>
+                </a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['/people-cleared']">
+                    <i class="material-icons">check_circle</i>
+                    <p id="clearedLink">Cleared List</p>
+                </a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['/people-unknown']">
+                    <i class="material-icons">help</i>
+                    <p id="unknownLink">Unknown List</p>
+                </a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['/people-threat']">
+                    <i class="material-icons">cancels</i>
+                    <p id="threatLink">Threat List</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
