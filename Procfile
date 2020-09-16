@@ -1,0 +1,1 @@
+web: java -jar Argus/Spring-Backend/target/Spring-Backend-0.0.1-SNAPSHOT.jar
