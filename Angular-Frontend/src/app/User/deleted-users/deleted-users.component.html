@@ -1,0 +1,81 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header card-header-primary">
+          <h4 class="card-title">Deleted Users</h4>
+          <p class="card-category">All users removed from your system</p>
+          <a *ngIf="info.userRole == 'Admin'" class="material-icons listPageIcons open-modal" (click)="deleteAll()"
+             title="Delete All">auto_delete</a>
+        </div>
+        <div class="card-body">
+          <!--Search Bar Starts Here-->
+          <div class="row">
+            <div class="col-11">
+              <div class="input-group">
+                <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="material-icons">search</i>
+              </span>
+                </div>
+                <input type="text" class="form-control" id="searchInput" placeholder="Search by Name..."
+                       onkeyup="searchFunc('userListTable', 1)">
+              </div>
+            </div>
+            <a class="dropdown-toggle btn-sm hoverPointer" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a class="dropdown-item hoverPointer"
+                 onclick="changeSearchFunc('userListTable','Search by Name...', 1)">
+                Search by Name
+              </a>
+              <a class="dropdown-item hoverPointer"
+                 onclick="changeSearchFunc('userListTable','Search by Role...', 2)">
+                Search by Role
+              </a>
+              <a class="dropdown-item hoverPointer"
+                 onclick="changeSearchFunc('userListTable','Search by Date...',3)">
+                Search by Date
+              </a>
+            </div>
+          </div>
+          <br>
+          <!--Table Starts Here-->
+          <div class="table-responsive">
+            <table class="table center" id="userListTable">
+              <thead class="text-primary">
+              <tr>
+                <th> Picture</th>
+                <th class="hoverPointer" onclick="sortTable('userListTable', 1)"> Name</th>
+                <th class="hoverPointer" onclick="sortTable('userListTable', 2)"> Role</th>
+                <th class="hoverPointer" onclick="sortTable('userListTable', 3)"> Deletion Date</th>
+                <th> Restore</th>
+              </tr>
+              </thead>
+              <tbody id="userTableBody">
+              <ng-container *ngFor="let user of users | async">
+                <tr *ngIf="user.userDeleted != null">
+                  <td><img alt="Profile Picture" src="{{user.profilePhoto}}" class="listPic ImgClassName"></td>
+                  <td>{{user.fname}}&nbsp;{{user.lname}}</td>
+                  <td>{{user.userRole}}</td>
+                  <td>{{user.userDeleted}}</td>
+                  <td *ngIf="info.userRole == 'Admin'">
+                    <a class="material-icons listPageIcons" id="restoreBtn" (click)="restoreUser(user.userId)"
+                       title="Restore User">restore_from_trash</a>
+                  </td>
+                </tr>
+              </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a class="btn btn-primary" (click)="back()">Back</a>
+</div>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+  <p style="color: white">Please Wait. </p>
+</ngx-spinner>

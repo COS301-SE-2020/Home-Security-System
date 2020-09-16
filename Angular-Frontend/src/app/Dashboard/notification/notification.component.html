@@ -1,0 +1,82 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card" >
+        <div class="card-header card-header-primary" id="NotDiv">
+          <h4 class="card-title">Notifications</h4>
+          <p class="card-category" id="cardC">A history of all the notifications sent to you</p>
+          <a class="material-icons listPageIcons open-modal" (click)="deleteAll()" title="Delete All">auto_delete</a>
+        </div>
+        <div class="card-body">
+
+          <!--Search Bar Starts Here-->
+          <div class="row">
+            <div class="col-11">
+              <div class="input-group">
+                <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="material-icons">search</i>
+              </span>
+                </div>
+                <input type="text" class="form-control" id="searchInput" placeholder="Search by Date..."
+                       onkeyup="searchFunc('notificationsTable', 0)">
+              </div>
+            </div>
+            <a class="dropdown-toggle btn-sm hoverPointer" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a class="dropdown-item hoverPointer" onclick="changeSearchFunc('notificationsTable','Search by Date...', 0)">
+                Search by Date-Time
+              </a>
+              <a class="dropdown-item hoverPointer" onclick="changeSearchFunc('notificationsTable','Search by Type...',1)">
+                Search by Type
+              </a>
+            </div>
+          </div>
+          <br>
+          <!-- Image Zoom modal -->
+          <div id="myModal" class="modal" (click)="modalClick()">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="img01" alt="image" src="">
+            <div id="caption"></div>
+          </div>
+          <!--Table Starts Here-->
+          <div class="table-responsive table-striped">
+            <table class="table center" id="notificationsTable">
+              <thead class="text-primary">
+                <tr>
+                  <th class="hoverPointer" onclick="sortTable('notificationsTable', 0)">Date-Time</th>
+                  <th class="hoverPointer" onclick="sortTable('notificationsTable', 1)">Type</th>
+                  <th id="messageHeader">Message</th>
+                  <th id="imageHeader">Image</th>
+                  <th id="dismissHeader">Dismiss</th>
+                </tr>
+              </thead>
+              <tbody>
+              <ng-container *ngFor="let note of notification | async">
+                <tr *ngIf="(note.notificationDeleted == null) && (note.user.userId == userId)">
+                  <td>{{note.onDate}}&nbsp;{{note.atTime}}</td>
+                  <td>{{note.listed}}</td>
+                  <td>{{note.message}}</td>
+                  <td>
+                    <img alt="Image" id="noteImg{{note.notificationId}}" src="{{note.notificationImg}}"
+                         class="listPic ImgClassName " (click)="imageClick(note.notificationId)">
+                  </td>
+                  <td>
+                    <a class="material-icons listPageIcons" (click)="removeNotification(note.notificationId)" title="Delete Notification">delete</a>
+                  </td>
+                </tr>
+              </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+  <p style="color: white">Please Wait. </p>
+</ngx-spinner>
