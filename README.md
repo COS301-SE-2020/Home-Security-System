@@ -6,7 +6,7 @@ Argus is a home security system  capable of instantly identifying threats on mul
 ## Documents
 <img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Software Requirements Specification](/Documentation/Sigma___SRS_Document(Demo3).pdf)
 
-<img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [User Manual](/Documentation/Argus_User_Manual_v2.pdf)
+<img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [User Manual](/Documentation/Argus_User_Manual_v3.pdf)
 
 <img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Coding Standards](/Documentation/Sigma__Coding_Standards_document.pdf)
 
@@ -18,7 +18,7 @@ Argus is a home security system  capable of instantly identifying threats on mul
 This is how the branches will be laid out
 ```
 master 
-└── nueralnetwork
+└── neuralnetwork
 └── postgreCRUD
 └── firebase-Master
 └── firebaseFrontEnd
@@ -31,7 +31,7 @@ master
 
 <img src="https://github.com/BritneyChu.png" width = 200/>
 
-Previous Team Leader, unfortunately she had to drop out of the degree due to Osteosarcoma.
+Previous Team Leader, unfortunately she had to drop out of the degree due to medical reasons.
 
 <details><summary>Expand details</summary>
 <div class="right">
