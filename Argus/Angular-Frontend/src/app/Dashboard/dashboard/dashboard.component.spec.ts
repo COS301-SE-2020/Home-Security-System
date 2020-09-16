@@ -22,13 +22,13 @@ describe('DashboardComponent', () => {
     fixture.detectChanges();
   });
 
-  it('live feed recorder display', () => {
+  /*it('live feed recorder display', () => {
     // tslint:disable-next-line:no-shadowed-variable
     const fixture = TestBed.createComponent(DashboardComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('#icon1').textContent).toContain('stop_circle');
-  });
+  });*/
   it('notifications graph should display updated value date', () => {
     // tslint:disable-next-line:no-shadowed-variable
     const fixture = TestBed.createComponent(DashboardComponent);
