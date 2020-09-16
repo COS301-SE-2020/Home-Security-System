@@ -22,17 +22,21 @@
         <module>Spring-Backend</module>
         <module>Angular-Frontend</module>
     </modules>
-<!--
+
     <build>
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <version>3.2.0</version>
-                </plugin>
+			    <plugin>
+				    <groupId>org.apache.maven.plugins</groupId>
+				    <artifactId>maven-compiler-plugin</artifactId>
+				    <version>3.8.1</version>
+				    <configuration>
+				    	<source>${java.version}</source>
+				    	<target>${java.version}</target>
+				    </configuration>
+			    </plugin>
             </plugins>
         </pluginManagement>
     </build>
--->
+
 </project>
