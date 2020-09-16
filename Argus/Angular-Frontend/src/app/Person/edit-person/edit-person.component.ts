@@ -13,6 +13,9 @@ export class EditPersonComponent implements OnInit {
   id: number;
   person: Person;
 
+  namePlaceholder = '';
+  surnamePlaceholder = '';
+
   constructor(private route: ActivatedRoute, private router: Router,
               private SpinnerService: NgxSpinnerService, private personService: PersonService) { }
 

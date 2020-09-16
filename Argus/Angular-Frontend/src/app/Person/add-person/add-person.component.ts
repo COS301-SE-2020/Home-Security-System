@@ -20,6 +20,9 @@ export class AddPersonComponent implements OnInit {
   newImage: Image;
   submitted = false;
 
+  namePlaceholder = '';
+  surnamePlaceholder = '';
+
   constructor(private personService: PersonService,
               private imageService: ImageService,
               private appService: TitleService,

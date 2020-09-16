@@ -17,6 +17,9 @@ export class EditUserComponent implements OnInit {
   user: User;
   submitted = false;
 
+  namePlaceholder = '';
+  surnamePlaceholder = '';
+
   constructor(private route: ActivatedRoute, private router: Router,
               private SpinnerService: NgxSpinnerService, private userService: UserService) { }
 

@@ -2,11 +2,11 @@ package com.springboot.SpringBackend.controller;
 
 import com.springboot.SpringBackend.config.RabbitMQConfig;
 import com.springboot.SpringBackend.exception.ResourceNotFoundException;
-import com.springboot.SpringBackend.model.RabbitPerson;
 import com.springboot.SpringBackend.model.RabbitVehicle;
 import com.springboot.SpringBackend.model.Vehicle;
 import com.springboot.SpringBackend.service.VehicleService;
 import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,10 +23,10 @@ import java.util.Map;
 //@CrossOrigin(origins = "https://sigma-argus.herokuapp.com")
 public class VehicleController {
     private final VehicleService service;
-    private AmqpTemplate amqpTemplate;
+    private RabbitTemplate amqpTemplate;
 
     @Autowired
-    public VehicleController(VehicleService service, AmqpTemplate template) {
+    public VehicleController(VehicleService service, RabbitTemplate template) {
         this.service = service;
         this.amqpTemplate = template;
     }
