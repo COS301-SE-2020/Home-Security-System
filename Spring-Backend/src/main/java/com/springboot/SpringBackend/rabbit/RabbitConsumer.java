@@ -80,8 +80,8 @@ public class RabbitConsumer {
                                     mailer.sendmailBlack(email);
                                 }
                                 if (notify2) {
-                                    SmsRequest request = new SmsRequest(u.get().getContactNo());
-                                    sender.sendSmsThreat(request);
+                                    //SmsRequest request = new SmsRequest(u.get().getContactNo());
+                                    //sender.sendSmsThreat(request);
                                 }
                             }
                         } else {
@@ -99,13 +99,13 @@ public class RabbitConsumer {
                                     mailer.sendmailBlack(email);
                                 }
                                 if (notify2) {
-                                    SmsRequest request = new SmsRequest(u.get().getContactNo());
-                                    sender.sendSmsThreat(request);
+                                    //SmsRequest request = new SmsRequest(u.get().getContactNo());
+                                    //sender.sendSmsThreat(request);
                                 }
                             }
                         }
                     }
-                    else if (p.get() == null) {
+                    /*else if (p.get() == null) {
                         // Recreate the person
                         Person psn = new Person(alert.getPersonId(), alert.getImageStr());
                         personService.createPerson(psn);
@@ -115,7 +115,7 @@ public class RabbitConsumer {
                         // Send notification
                         nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
                                 "Person: " + p.get().getFname(), u.get()));
-                    }
+                    }*/
 
                 } catch (NoSuchElementException ex) {
                     LOGGER.info(String.valueOf(ex));

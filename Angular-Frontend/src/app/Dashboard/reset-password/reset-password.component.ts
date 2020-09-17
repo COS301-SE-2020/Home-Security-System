@@ -17,7 +17,7 @@ export class ResetPasswordComponent implements OnInit {
 
   constructor(private userService: UserService) { }
 
-  sendMail(){
+  sendMail() {
      // const passwReset = document.getElementById('passwordField2') as HTMLInputElement;
      const obj = this.sessionS.retrieveEmail();
 
