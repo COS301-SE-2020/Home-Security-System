@@ -89,7 +89,7 @@
         <div class="modal-body center">
           <div id="app">
             <div>
-              <webcam [width]="300" [height]="300" [imageQuality]="0.92" [trigger]="triggerObservable"
+              <webcam [width]="120" [height]="120" [imageQuality]="0.92" [trigger]="triggerObservable"
                       *ngIf="showCam"
                       (imageCapture)="handleShot($event)">
               </webcam>
@@ -100,7 +100,7 @@
             </div>
             <div class="snapshot" *ngIf="camImg">
               <h2>Preview:</h2>
-              <img id="confirmPic" width="300px" height="300px" [src]="camImg.imageAsDataUrl" alt="Preview" >
+              <img id="confirmPic" width="120px" height="120px" [src]="camImg.imageAsDataUrl" alt="Preview" >
             </div>
           </div>
         </div>
