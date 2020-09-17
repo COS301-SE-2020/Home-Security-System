@@ -24,9 +24,9 @@ export class NotificationComponent implements OnInit {
   reloadData() {
     this.note = new Notification();
     this.notification = this.notificationService.getNotificationList();
-    setTimeout(() => {
+    /*setTimeout(() => {
       this.ngOnInit();
-    }, 300000);
+    }, 300000);*/
   }
 
   removeNotification(id: number) {
@@ -46,7 +46,7 @@ export class NotificationComponent implements OnInit {
             });
         });
   }
-  imageClick(id): void{
+  imageClick(id): void {
 
     const modal = document.getElementById('myModal') as HTMLElement;
     const img = document.getElementById('noteImg' + id) as HTMLImageElement;
@@ -72,7 +72,7 @@ export class NotificationComponent implements OnInit {
   ngOnInit(): void {
     this.appService.setTitle('Notifications');
     this.reloadData();
-    this.deleteOld(1);
+    //this.deleteOld(1);
   }
 
   deleteAll() {

@@ -25,9 +25,9 @@ export class PeopleGreyComponent implements OnInit {
   reloadData() {
     this.psn = new Person();
     this.person = this.personService.getPersonList();
-    setTimeout(() => {
+    /*setTimeout(() => {
       this.ngOnInit();
-    }, 300000);
+    }, 300000);*/
   }
 
   addToWhiteList(id: number) {
@@ -70,7 +70,6 @@ export class PeopleGreyComponent implements OnInit {
   }
 
   imageClick(id): void {
-
     const modal = document.getElementById('myModal') as HTMLElement;
     const img = document.getElementById('noteImg' + id) as HTMLImageElement;
     const modalImg = document.getElementById('img01') as HTMLImageElement;
@@ -82,9 +81,9 @@ export class PeopleGreyComponent implements OnInit {
     document.getElementById('navBars').style.visibility = 'hidden';
     notificationBar.style.visibility = 'hidden';
     // const span = document.getElementsByClassName('close')[0];
-
   }
-  modalClick(): void{
+
+  modalClick(): void {
     const notificationBar = document.getElementById('NotDiv') as HTMLElement;
     document.getElementById('navBars').style.visibility = 'visible';
     notificationBar.style.visibility = 'visible';
@@ -92,10 +91,9 @@ export class PeopleGreyComponent implements OnInit {
     modal.style.display = 'none';
   }
 
-
   ngOnInit(): void {
     this.appService.setTitle('Person Grey-List');
-    this.deleteOld(1);
+    //this.deleteOld(1);
     this.reloadData();
   }
 

@@ -25,9 +25,9 @@ export class VehicleGreyComponent implements OnInit {
   reloadData() {
     this.v = new Vehicle();
     this.vehicle = this.vehicleService.getVehicleList();
-    setTimeout(() => {
+    /*setTimeout(() => {
       this.ngOnInit();
-    }, 300000);
+    }, 300000);*/
   }
 
   addToWhiteList(id: number) {
@@ -67,7 +67,7 @@ export class VehicleGreyComponent implements OnInit {
 
   ngOnInit(): void {
     this.appService.setTitle('Vehicle Grey-List');
-    this.deleteOld(1);
+    //this.deleteOld(1);
     this.reloadData();
   }
 
