@@ -12,9 +12,6 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/sms")
-//@CrossOrigin(origins = "http://localhost:8080")
-//@CrossOrigin(origins = "http://localhost:4200")
-@CrossOrigin(origins = "https://sigma-argus.herokuapp.com")
 public class SmsController {
 
     private final SmsService service;
