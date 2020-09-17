@@ -13,8 +13,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/sessions")
 //@CrossOrigin(origins = "http://localhost:8080")
-//@CrossOrigin(origins = "http://localhost:4200")
-@CrossOrigin(origins = "https://sigma-argus.herokuapp.com")
+@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "https://sigma-argus.herokuapp.com")
 public class SessionController {
     private final List<SessionModel> tableData = new ArrayList<>();
     SessionModel sessionStore;
