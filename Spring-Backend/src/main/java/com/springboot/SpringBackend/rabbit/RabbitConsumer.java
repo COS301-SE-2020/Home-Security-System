@@ -68,17 +68,7 @@ public class RabbitConsumer {
                         Boolean notify1 = u.get().getNotifyEmail();
                         Boolean notify2 = u.get().getNotifySMS();
 
-                        if (p.get() == null) {
-                            // Recreate the person
-                            Person psn = new Person(alert.getPersonId(), alert.getImageStr());
-                            personService.createPerson(psn);
-                            // Update them to the correct list
-                            RabbitPerson updatePerson = new RabbitPerson(psn.getPersonId(), "0", psn.getPersonListed(), true, alert.getImageStr(), true);
-                            amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, updatePerson);
-                            // Send notification
-                            nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
-                                    "Person: " + p.get().getFname(), u.get()));
-                        } else if (p.get().getPersonDeleted() != null) {
+                        if (p.get().getPersonDeleted() != null) {
 
                             p.get().setPersonDeleted(null);
                             personService.updatePerson(p.get());
@@ -91,10 +81,11 @@ public class RabbitConsumer {
                                         "Intruder: " + p.get().getFname() + " " + p.get().getLname(), u.get()));
 
                                 if (notify1) {
-                                    mailer.sendWithAttatchBL(email);
+                                    mailer.sendmailBlack(email);
                                 }
                                 if (notify2) {
-                                    //send SMS
+                                    SmsRequest request = new SmsRequest(u.get().getContactNo());
+                                    sender.sendSmsThreat(request);
                                 }
                             }
                         } else {
@@ -106,7 +97,7 @@ public class RabbitConsumer {
                                         "Intruder: " + p.get().getFname() + " " + p.get().getLname(), u.get()));
 
                                 if (notify1) {
-                                    mailer.sendWithAttatchBL(email);
+                                    mailer.sendmailBlack(email);
                                 }
                                 if (notify2) {
                                     SmsRequest request = new SmsRequest(u.get().getContactNo());
@@ -114,6 +105,17 @@ public class RabbitConsumer {
                                 }
                             }
                         }
+                    }
+                    else if (p.get() == null) {
+                        // Recreate the person
+                        Person psn = new Person(alert.getPersonId(), alert.getImageStr());
+                        personService.createPerson(psn);
+                        // Update them to the correct list
+                        RabbitPerson updatePerson = new RabbitPerson(psn.getPersonId(), "0", psn.getPersonListed(), true, alert.getImageStr(), true);
+                        amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, updatePerson);
+                        // Send notification
+                        nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
+                                "Person: " + p.get().getFname(), u.get()));
                     }
 
                 } catch (NoSuchElementException ex) {
