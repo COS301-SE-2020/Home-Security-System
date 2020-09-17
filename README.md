@@ -14,6 +14,10 @@ Argus is a home security system  capable of instantly identifying threats on mul
 
 <img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Project Management Tool (ClickUp)](https://app.clickup.com/2535636/v/l/s/2669690)
 
+<img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Project Management Tool (Alternate link)](https://share.clickup.com/c/h/2dc6m-169/098ad26309043f3)
+
+<img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Argus Application (Heroku)](https://sigma-argus.herokuapp.com/)
+
 ## Repository Layout
 This is how the branches will be laid out
 ```
