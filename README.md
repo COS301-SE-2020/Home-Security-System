@@ -12,6 +12,8 @@ Argus is a home security system  capable of instantly identifying threats on mul
 
 <img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Technical Installation Manual](/Documentation/Technical_Installation_Manual.pdf)
 
+<img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Testing Policies](/Documentation/Testing_Policies.pdf)
+
 <img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Project Management Tool (ClickUp)](https://app.clickup.com/2535636/v/l/s/2669690)
 
 ## Repository Layout
