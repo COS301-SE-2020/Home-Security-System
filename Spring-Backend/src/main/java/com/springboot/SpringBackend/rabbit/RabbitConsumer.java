@@ -69,10 +69,6 @@ public class RabbitConsumer {
                         Boolean notify2 = u.get().getNotifySMS();
 
                         if (p.get().getPersonDeleted() != null) {
-
-                            p.get().setPersonDeleted(null);
-                            personService.updatePerson(p.get());
-
                             if (alert.getType().equalsIgnoreCase("Grey")) {
                                 nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
                                         "Person: " + p.get().getFname(), u.get()));
@@ -89,6 +85,9 @@ public class RabbitConsumer {
                                 }
                             }
                         } else {
+                            p.get().setPersonDeleted(null);
+                            personService.updatePerson(p.get());
+                            
                             if (alert.getType().equalsIgnoreCase("Grey")) {
                                 nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
                                         "Person: " + p.get().getFname(), u.get()));
