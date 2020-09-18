@@ -87,7 +87,7 @@ export class TopNavComponent implements OnInit {
           document.getElementById('noteCnt').innerHTML = num.toString();
         });
         this.countNotifications();
-      }, 1000);
+      }, 5000);
     }
   }
 

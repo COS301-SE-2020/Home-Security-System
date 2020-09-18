@@ -24,10 +24,10 @@ public class RabbitConsumer {
     private final UserService userService;
     private final FaceService faceService;
     private final ImageService imageService;
-    private SmsSender sender;
-    private MailerController mailer;
-    private SessionController session;
-    private RabbitTemplate amqpTemplate;
+    private final SmsSender sender;
+    private final MailerController mailer;
+    private final SessionController session;
+    private final RabbitTemplate amqpTemplate;
 
     @Autowired
     public RabbitConsumer(NotificationService ns, PersonService ps, VehicleService vs,
@@ -53,7 +53,7 @@ public class RabbitConsumer {
         //JSONArray arr = session.getSessionDetails();
 
         //for (int i = 0; i < arr.size(); i++) {
-            //id = (Long) arr.get(0);
+            //id = arr.get(0);
             Optional<User> u = userService.getUserById(id);
 
             if (alert.getPersonId() != 0) {

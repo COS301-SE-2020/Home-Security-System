@@ -39,7 +39,7 @@ public class PersonRepoTest {
 
         Assert.assertNotNull(person.getPersonId());
         Person newPsn = prepo.findById(person.getPersonId()).orElse(null);
-        Assert.assertEquals((Long) 1L, newPsn.getPersonId());
+        Assert.assertEquals((long) 1L, newPsn.getPersonId());
         Assert.assertEquals(IMAGE_URL, newPsn.getPersonImg());
         Assert.assertEquals("Unknown", newPsn.getFname());
         Assert.assertEquals("Unknown", newPsn.getLname());

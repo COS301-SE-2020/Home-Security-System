@@ -27,7 +27,7 @@ export class ResetPasswordComponent implements OnInit {
       .subscribe(
         data => {
           while (data[counter] != null) {
-            if (data[counter].email === obj.email) {
+            if (data[counter].email.toLowerCase() === obj.email.toLowerCase()) {
               this.mailer.sendEmail(obj.email, data[counter].userPass);
               sent = true;
               this.sessionS.deleteSession();

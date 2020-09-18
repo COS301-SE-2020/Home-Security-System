@@ -37,7 +37,7 @@ public class ImageRepoTest {
         Assert.assertNotNull(img.getImageId());
         Image newImg = repo.findById(img.getImageId()).orElse(null);
         if(newImg != null) {
-            Assert.assertEquals((Long) 1L, newImg.getImageId());
+            Assert.assertEquals((long) 1L, newImg.getImageId());
             Assert.assertEquals(IMAGE_URL, newImg.getPhoto());
         }
     }

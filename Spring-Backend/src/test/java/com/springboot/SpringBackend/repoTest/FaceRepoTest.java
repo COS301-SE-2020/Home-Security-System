@@ -47,7 +47,7 @@ public class FaceRepoTest {
 
         Assert.assertNotNull(face.getFaceId());
         Face newFace = frepo.findById(face.getFaceId()).orElse(null);
-        Assert.assertEquals((Long) 1L, newFace.getFaceId());
+        Assert.assertEquals((long) 1L, newFace.getFaceId());
         Assert.assertEquals(FEATURES, newFace.getFeatures());
     }
 }

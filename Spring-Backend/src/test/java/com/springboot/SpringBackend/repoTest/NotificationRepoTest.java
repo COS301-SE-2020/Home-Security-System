@@ -56,7 +56,7 @@ public class NotificationRepoTest {
 
         Assert.assertNotNull(note.getNotificationId());
         Notification newNote = nrepo.findById(note.getNotificationId()).orElse(null);
-        Assert.assertEquals((Long) 1L, newNote.getNotificationId());
+        Assert.assertEquals((long) 1L, newNote.getNotificationId());
         Assert.assertEquals(IMAGE_URL, newNote.getNotificationImg());
         Assert.assertEquals(MSG, newNote.getMessage());
         Assert.assertEquals(LISTED, newNote.getListed());

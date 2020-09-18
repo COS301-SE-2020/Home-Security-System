@@ -44,7 +44,7 @@ public class VehicleRepoTest {
 
         Assert.assertNotNull(v.getVehicleId());
         Vehicle newV = vrepo.findById(v.getVehicleId()).orElse(null);
-        Assert.assertEquals((Long) 1L, newV.getVehicleId());
+        Assert.assertEquals((long) 1L, newV.getVehicleId());
         Assert.assertEquals(IMAGE_URL, newV.getVehicleImg());
         Assert.assertEquals(LICENCE, newV.getLicenseNo());
         Assert.assertEquals("Grey", newV.getVehicleListed());

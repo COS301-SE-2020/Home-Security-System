@@ -38,7 +38,7 @@ public class UserRepoTest {
 
         Assert.assertNotNull(user.getUserId());
         User newUsr = repo.findById(user.getUserId()).orElse(null);
-        Assert.assertEquals((Long) 1L, newUsr.getUserId());
+        Assert.assertEquals((long) 1L, newUsr.getUserId());
         Assert.assertEquals(IMAGE_URL, newUsr.getProfilePhoto());
         Assert.assertEquals(FNAME, newUsr.getFname());
         Assert.assertEquals(LNAME, newUsr.getLname());
