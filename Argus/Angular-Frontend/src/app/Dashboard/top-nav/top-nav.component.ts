@@ -38,32 +38,9 @@ export class TopNavComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.appService.getTitle().subscribe(appTitle => title = appTitle);
-    this.cnt = 0;
-    let counter = 0;
-    let num = 0;
-    this.noteService.getNotificationList().subscribe(data => {
-      // console.log(data);
-      while (data[counter] != null) {
-        if (data[counter].notificationDeleted === null) {
-          num += 1;
-        }
-        counter++;
-      }
-
-      if (num < 0) {
-        num = 0;
-      }
-
-      this.cnt = num;
-    });
-
-    this.displayProfilePic();
-    this.countNotifications();
-  }
-
-  countNotifications() {
-    setTimeout(() => {
+    if (this.sessionS.retrieveUserInfo() != null) {
+      // this.appService.getTitle().subscribe(appTitle => title = appTitle);
+      this.cnt = 0;
       let counter = 0;
       let num = 0;
       this.noteService.getNotificationList().subscribe(data => {
@@ -75,16 +52,43 @@ export class TopNavComponent implements OnInit {
           counter++;
         }
 
-        num = num - this.cnt;
-
         if (num < 0) {
           num = 0;
         }
 
-        document.getElementById('noteCnt').innerHTML = num.toString();
+        this.cnt = num;
       });
+
+      this.displayProfilePic();
       this.countNotifications();
-    }, 1000);
+    }
+  }
+
+  countNotifications() {
+    if (this.sessionS.retrieveUserInfo() != null) {
+      setTimeout(() => {
+        let counter = 0;
+        let num = 0;
+        this.noteService.getNotificationList().subscribe(data => {
+          // console.log(data);
+          while (data[counter] != null) {
+            if (data[counter].notificationDeleted === null) {
+              num += 1;
+            }
+            counter++;
+          }
+
+          num = num - this.cnt;
+
+          if (num < 0) {
+            num = 0;
+          }
+
+          document.getElementById('noteCnt').innerHTML = num.toString();
+        });
+        this.countNotifications();
+      }, 1000);
+    }
   }
 
   clearNotifications() {

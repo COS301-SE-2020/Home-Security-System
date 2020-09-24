@@ -18,10 +18,12 @@ export class UserProfileComponent implements OnInit {
   userObj: Session = this.sessionS.retrieveUserInfo();
   id: number;
   user: User;
+  password = '';
 
   constructor(private route: ActivatedRoute, private router: Router,
               private appService: TitleService, private userService: UserService,
-              private SpinnerService: NgxSpinnerService) {}
+              private SpinnerService: NgxSpinnerService) {
+  }
 
   public get triggerObservable(): Observable<void> {
     return this.snapTrigger.asObservable();
@@ -72,7 +74,6 @@ export class UserProfileComponent implements OnInit {
     const UName = document.getElementById('usernameDisplay') as HTMLDataElement;
     const contact = document.getElementById('numberDisplay') as HTMLInputElement;
     const email = document.getElementById('emailDisplay') as HTMLDataElement;
-    const password = document.getElementById('passwordField1') as HTMLDataElement;
     const uPic = document.getElementById('userPic') as HTMLImageElement;
 
     this.userService.getUserById(this.userObj.id)
@@ -82,32 +83,29 @@ export class UserProfileComponent implements OnInit {
         contact.value = data.contactNo;
         UName.value = data.username;
         email.value = data.email;
-        password.value = data.userPass;
         uPic.src = data.profilePhoto;
         this.user = data;
       });
   }
 
-  loadModal() {
-    const uName = document.getElementById('uFirstName') as HTMLInputElement;
-    const uSurname = document.getElementById('uLastName') as HTMLInputElement;
-    const uUsername = document.getElementById('uUsername') as HTMLInputElement;
-    const uNumber = document.getElementById('uNumber') as HTMLInputElement;
-    const uEmail = document.getElementById('uEmail') as HTMLInputElement;
-    const uPassword = document.getElementById('passwordField1') as HTMLInputElement;
-    const uPic = document.getElementById('userPic') as HTMLImageElement;
-
-    this.userService.getUserById(this.userObj.id)
-      .subscribe(data => {
-        uName.value = data.fname;
-        uSurname.value = data.lname;
-        uNumber.value = data.contactNo;
-        uEmail.value = data.email;
-        uUsername.value = data.username;
-        uPassword.value = data.userPass;
-        uPic.src = data.profilePhoto;
-      });
-  }
+  // loadModal() {
+  //   const uName = document.getElementById('uFirstName') as HTMLInputElement;
+  //   const uSurname = document.getElementById('uLastName') as HTMLInputElement;
+  //   const uUsername = document.getElementById('uUsername') as HTMLInputElement;
+  //   const uNumber = document.getElementById('uNumber') as HTMLInputElement;
+  //   const uEmail = document.getElementById('uEmail') as HTMLInputElement;
+  //   const uPic = document.getElementById('userPic') as HTMLImageElement;
+  //
+  //   this.userService.getUserById(this.userObj.id)
+  //     .subscribe(data => {
+  //       uName.value = data.fname;
+  //       uSurname.value = data.lname;
+  //       uNumber.value = data.contactNo;
+  //       uEmail.value = data.email;
+  //       uUsername.value = data.username;
+  //       uPic.src = data.profilePhoto;
+  //     });
+  // }
 
   updateUser() {
     const uName = document.getElementById('uFirstName') as HTMLInputElement;
@@ -124,7 +122,9 @@ export class UserProfileComponent implements OnInit {
     this.user.username = uUsername.value;
     this.user.userPass = uPassword.value;
 
-    this.userService.updateUser(this.userObj.id, this.user).subscribe(() => { this.gotoList(); });
+    this.userService.updateUser(this.userObj.id, this.user).subscribe(() => {
+      this.gotoList();
+    });
   }
 
   updateUserPic() {
@@ -182,9 +182,12 @@ export class UserProfileComponent implements OnInit {
         } else if (username) {
           alert('Username address is already in use. Please enter another username.');
         }
-      }, error => {},
+      }, error => {
+      },
       () => {
-        if (!exists) { this.updateUser(); }
+        if (!exists) {
+          this.updateUser();
+        }
       }
     );
   }

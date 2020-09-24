@@ -10,7 +10,14 @@
           <div class="col">
             <div class="form-group">
               <label for="fname" class="float-left">First Name</label>
-              <input type="text" class="form-control" id="fname" name="fname">
+              <input type="text" class="form-control" id="fname" name="fname"
+                     required maxlength="35" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
+                     [(ngModel)]="namePlaceholder" #name="ngModel">
+
+              <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                   class="alert alert-danger">
+                Please enter a valid name.
+              </div>
             </div>
             <br>
           </div>
@@ -18,7 +25,14 @@
           <div class="col">
             <div class="form-group">
               <label for="lname" class="float-left">Last Name</label>
-              <input type="text" class="form-control" id="lname" name="lname">
+              <input type="text" class="form-control" id="lname" name="lname"
+                     required maxlength="35" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
+                     [(ngModel)]="surnamePlaceholder" #lname="ngModel">
+
+              <div *ngIf="lname.invalid && (lname.dirty || lname.touched)"
+                   class="alert alert-danger">
+                Please enter a valid last name.
+              </div>
             </div>
             <br>
           </div>
@@ -59,7 +73,7 @@
             capture a photo from camera
           </a>
         </div>
-        <button type="submit" class="btn btn-primary justify-content-center">Submit</button>
+        <button type="submit" class="btn btn-primary justify-content-center" onclick="resize()">Submit</button>
       </form>
     </div>
 </div>
@@ -75,7 +89,7 @@
         <div class="modal-body center">
           <div id="app">
             <div>
-              <webcam [width]="300" [height]="300" [imageQuality]="0.92" [trigger]="triggerObservable"
+              <webcam [width]="150" [height]="150" [imageQuality]="0.92" [trigger]="triggerObservable"
                       *ngIf="showCam"
                       (imageCapture)="handleShot($event)">
               </webcam>
@@ -86,7 +100,7 @@
             </div>
             <div class="snapshot" *ngIf="camImg">
               <h2>Preview:</h2>
-              <img id="confirmPic" width="300px" height="300px" [src]="camImg.imageAsDataUrl" alt="Preview" >
+              <img id="confirmPic" width="150px" height="150px" [src]="camImg.imageAsDataUrl" alt="Preview" >
             </div>
           </div>
         </div>

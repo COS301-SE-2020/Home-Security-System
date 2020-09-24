@@ -47,8 +47,8 @@ public class RabbitConsumer {
 
         // User session id
         Long id = Long.valueOf(1);
-        /*mailer.setImagePath("C:\\Users\\Brad\\Home-Security-System\\Argus\\Angular-Frontend\\src\\assets\\Images\\Argus.png");
-        JSONArray arr = session.getSessionDetails();
+        mailer.setImagePath("D:\\COS 301\\301 Capstone Demo3\\postgresCRUD(new)\\Home-Security-System\\Argus\\Angular-Frontend\\src\\assets\\Images\\ArgusIcon.png");
+        /*JSONArray arr = session.getSessionDetails();
 
         for (int i = 0; i < arr.size(); i++) {
             id = (Long) arr.get(0);
@@ -95,7 +95,7 @@ public class RabbitConsumer {
                                     "Intruder: " + p.get().getFname() + " " + p.get().getLname(), u.get()));
 
                             if (notify1) {
-                                //mailer.sendWithAttatchBL(email);
+                                mailer.sendWithAttatchBL(email);
                             }
                             if (notify2) {
                                 //send SMS
@@ -112,7 +112,7 @@ public class RabbitConsumer {
                                     "Intruder: " + p.get().getFname() + " " + p.get().getLname(), u.get()));
 
                             if (notify1) {
-                                //mailer.sendWithAttatchBL(email);
+                                mailer.sendWithAttatchBL(email);
                             }
                             if (notify2) {
                                 //send SMS
@@ -147,8 +147,8 @@ public class RabbitConsumer {
     public void receivedNotification(RabbitAlert alert) {
         // User session id
         Long id = Long.valueOf(1);
-        /*mailer.setImagePath("C:\\Users\\Brad\\Home-Security-System\\Argus\\Angular-Frontend\\src\\assets\\Images\\Argus.png");
-        JSONArray arr = session.getSessionDetails();
+        mailer.setImagePath("C:\\Users\\Brad\\Home-Security-System\\Argus\\Angular-Frontend\\src\\assets\\Images\\Argus.png");
+        /*JSONArray arr = session.getSessionDetails();
 
         for (int i = 0; i < arr.size(); i++) {
             id = (Long) arr.get(0);
@@ -191,7 +191,7 @@ public class RabbitConsumer {
                                             v.get().getVehicleModel() + ", Licence Number: " + v.get().getLicenseNo(), u.get()));
 
                             if (notify1) {
-                                //mailer.sendWithAttatchBL(email);
+                                mailer.sendWithAttatchBL(email);
                             }
                             if (notify2) {
                                 //send SMS
@@ -208,7 +208,7 @@ public class RabbitConsumer {
                                             v.get().getVehicleModel() + ", Licence Number: " + v.get().getLicenseNo(), u.get()));
 
                             if (notify1) {
-                                //mailer.sendWithAttatchBL(email);
+                                mailer.sendWithAttatchBL(email);
                             }
                             if (notify2) {
                                 //send SMS

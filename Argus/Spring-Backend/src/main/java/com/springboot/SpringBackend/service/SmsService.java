@@ -1,5 +1,6 @@
 package com.springboot.SpringBackend.service;
 
+import com.springboot.SpringBackend.model.SmsRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,6 @@ public class SmsService {
     public SmsService(@Qualifier("twillio") TwillioSender sender) {
         this.sender = sender;
     }
-
     public void sendThreat(SmsRequest smsRequest){
         sender.sendSmsThreat(smsRequest);
     }

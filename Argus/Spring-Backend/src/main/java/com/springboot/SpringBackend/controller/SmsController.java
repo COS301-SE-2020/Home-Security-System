@@ -1,6 +1,6 @@
 package com.springboot.SpringBackend.controller;
 
-import com.springboot.SpringBackend.service.SmsRequest;
+import com.springboot.SpringBackend.model.SmsRequest;
 import com.springboot.SpringBackend.service.SmsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +21,7 @@ public class SmsController {
         this.service = service;
     }
 
-    /*Usage: (Post request) http://localhost:9000/sms/threat
+    /*Usage: (Post request) http://localhost:8080/sms/threat
     NB: Request body(Json data needs to be sent with it)
     {
     "phoneNumb": "enter a phone number"
@@ -32,7 +32,7 @@ public class SmsController {
         service.sendThreat(req);
     }
 
-    /*Usage: (Post request) http://localhost:9000/sms/suspicious
+    /*Usage: (Post request) http://localhost:8080/sms/suspicious
     NB: Request body(Json data needs to be sent with it)
     {
     "phoneNumb": "enter a phone number"
