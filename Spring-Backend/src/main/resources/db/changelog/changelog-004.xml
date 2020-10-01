@@ -74,5 +74,18 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
             faceDeleted DATE
             );
         </sql>
+        <sql>
+            CREATE TABLE Network(
+            network_id SERIAL PRIMARY KEY,
+            netName TEXT NOT NULL
+            );
+        </sql>
+        <sql>
+            CREATE TABLE Camera(
+            camera_id SERIAL PRIMARY KEY,
+            network_id INT NOT NULL REFERENCES Network(network_id),
+            serverURL TEXT NOT NULL
+            );
+        </sql>
     </changeSet>
 </databaseChangeLog>

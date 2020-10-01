@@ -2,16 +2,16 @@ package com.springboot.SpringBackend.rabbit;
 
 import com.springboot.SpringBackend.config.RabbitMQConfig;
 import com.springboot.SpringBackend.controller.MailerController;
-import com.springboot.SpringBackend.controller.SessionController;
 import com.springboot.SpringBackend.model.*;
 import com.springboot.SpringBackend.service.*;
-import net.minidev.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -22,111 +22,96 @@ public class RabbitConsumer {
     private final PersonService personService;
     private final VehicleService vehicleService;
     private final UserService userService;
-    private final FaceService faceService;
-    private final ImageService imageService;
     private final SmsSender sender;
     private final MailerController mailer;
-    private final SessionController session;
     private final RabbitTemplate amqpTemplate;
 
     @Autowired
     public RabbitConsumer(NotificationService ns, PersonService ps, VehicleService vs,
-                          UserService us, FaceService fs, ImageService is, SmsSender sms,
-                          MailerController mc, SessionController sc, RabbitTemplate template) {
+                          UserService us, SmsSender sms,
+                          MailerController mc, RabbitTemplate template) {
         this.nservice = ns;
         this.personService = ps;
         this.vehicleService = vs;
         this.userService = us;
-        this.faceService = fs;
-        this.imageService = is;
         this.sender = sms;
         this.mailer = mc;
-        this.session = sc;
         this.amqpTemplate = template;
     }
 
     @RabbitListener(queues = {"alertQueue"})
     public void receivedAlert(RabbitAlert alert) {
+        List<User> arr = userService.getAllUsers();
 
-        // User session id
-        Long id = Long.valueOf(1);
-        //JSONArray arr = session.getSessionDetails();
-
-        //for (int i = 0; i < arr.size(); i++) {
-            //id = arr.get(0);
-            Optional<User> u = userService.getUserById(id);
-
+        for (User u : arr) {
+            //if(u.getNetwork() == alert.getNetwork())
+            //{
             if (alert.getPersonId() != 0) {
                 Optional<Person> p = personService.getPersonById(alert.getPersonId());
 
-                // Image img = new Image(alert.getImageStr());
-                // imageService.createImage(img);
-
                 try {
-                    if (p.isPresent() && u.isPresent()) {
-                        String email = u.get().getEmail();
-                        Boolean notify1 = u.get().getNotifyEmail();
-                        Boolean notify2 = u.get().getNotifySMS();
+                    if (p.isPresent()) {
+                        String email = u.getEmail();
+                        Boolean notify1 = u.getNotifyEmail();
+                        Boolean notify2 = u.getNotifySMS();
 
                         if (p.get().getPersonDeleted() != null) {
                             if (alert.getType().equalsIgnoreCase("Grey")) {
                                 nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
-                                        "Person: " + p.get().getFname(), u.get()));
+                                        "Person: " + p.get().getFname(), u));
                             } else {
                                 nservice.createNotification(new Notification(alert.getImageStr(), "Threat",
-                                        "Intruder: " + p.get().getFname() + " " + p.get().getLname(), u.get()));
+                                        "Intruder: " + p.get().getFname() + " " + p.get().getLname(), u));
 
                                 if (notify1) {
                                     mailer.sendmailBlack(email);
                                 }
                                 if (notify2) {
-                                    //SmsRequest request = new SmsRequest(u.get().getContactNo());
-                                    //sender.sendSmsThreat(request);
+                                    SmsRequest request = new SmsRequest(u.getContactNo());
+                                    sender.sendSmsThreat(request);
                                 }
                             }
                         } else {
                             p.get().setPersonDeleted(null);
                             personService.updatePerson(p.get());
-                            
+
                             if (alert.getType().equalsIgnoreCase("Grey")) {
                                 nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
-                                        "Person: " + p.get().getFname(), u.get()));
+                                        "Person: " + p.get().getFname(), u));
                             } else {
                                 nservice.createNotification(new Notification(alert.getImageStr(), "Threat",
-                                        "Intruder: " + p.get().getFname() + " " + p.get().getLname(), u.get()));
+                                        "Intruder: " + p.get().getFname() + " " + p.get().getLname(), u));
 
                                 if (notify1) {
                                     mailer.sendmailBlack(email);
                                 }
                                 if (notify2) {
-                                    //SmsRequest request = new SmsRequest(u.get().getContactNo());
-                                    //sender.sendSmsThreat(request);
+                                    SmsRequest request = new SmsRequest(u.getContactNo());
+                                    sender.sendSmsThreat(request);
                                 }
                             }
                         }
                     }
-                    /*else if (p.get() == null) {
-                        // Recreate the person
-                        Person psn = new Person(alert.getPersonId(), alert.getImageStr());
-                        personService.createPerson(psn);
-                        // Update them to the correct list
-                        RabbitPerson updatePerson = new RabbitPerson(psn.getPersonId(), "0", psn.getPersonListed(), true, alert.getImageStr(), true);
-                        amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, updatePerson);
-                        // Send notification
-                        nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
-                                "Person: " + p.get().getFname(), u.get()));
-                    }*/
+                            /*else if (p.get() == null) {
+                                // Recreate the person
+                                Person psn = new Person(alert.getPersonId(), alert.getImageStr());
+                                personService.createPerson(psn);
+                                // Update them to the correct list
+                                RabbitPerson updatePerson = new RabbitPerson(psn.getPersonId(), "0", psn.getPersonListed(), true, alert.getImageStr(), true);
+                                amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, updatePerson);
+                                // Send notification
+                                nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
+                                        "Person: " + p.get().getFname(), u));
+                            }*/
 
                 } catch (NoSuchElementException ex) {
                     LOGGER.info(String.valueOf(ex));
                 }
             } else {
                 try {
-                    if (u.isPresent()) {
-                        if (alert.getType().equalsIgnoreCase("Grey")) {
-                            nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
-                                    "Person: " + "Unknown", u.get()));
-                        }
+                    if (alert.getType().equalsIgnoreCase("Grey")) {
+                        nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
+                                "Person: " + "Unknown", u));
                     }
                 } catch (NoSuchElementException ex) {
                     LOGGER.info(String.valueOf(ex));
@@ -134,6 +119,7 @@ public class RabbitConsumer {
             }
 
             LOGGER.info("Notification Created");
+        }
         //}
     }
 
@@ -146,9 +132,6 @@ public class RabbitConsumer {
     public void receivePerson(RabbitPerson psn) {
         // Creating a Grey-list person from Python
         if(psn.getPersonId() == 0) {
-            // Image img = new Image(psn.getImageStr());
-            // imageService.createImage(img);
-
             Person p = new Person(psn.getImageStr());
             personService.createPerson(p);
 
@@ -163,9 +146,6 @@ public class RabbitConsumer {
     public void receiveVehicle(RabbitVehicle motor) {
         // Creating a Grey-list vehicles from Python
         if(motor.getVehicleId() == 0) {
-            // Image img = new Image(motor.getImageStr());
-            // imageService.createImage(img);
-
             Vehicle v = new Vehicle(motor.getImageStr());
             vehicleService.createVehicle(v);
 
@@ -174,24 +154,5 @@ public class RabbitConsumer {
 
             LOGGER.info("Grey-list Vehicle Added");
         }
-    }
-
-    @RabbitListener(queues = {"featureQueue"})
-    public void receiveFeature(RabbitFeature feature)
-    {
-        // Creating features for a new (white/black) listed person from Angular
-        try {
-            Optional<Person> p = personService.getPersonById(feature.getPersonId());
-
-            if(p.isPresent()) {
-                Face f = new Face(p.get(), feature.getFaceStr());
-                faceService.createFace(f);
-            }
-        }
-        catch (NoSuchElementException ex) {
-            LOGGER.info(String.valueOf(ex));
-        }
-
-        LOGGER.info("Added facial features");
     }
 }
