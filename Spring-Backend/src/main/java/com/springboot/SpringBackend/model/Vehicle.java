@@ -55,12 +55,16 @@ public class Vehicle implements Serializable {
     @JoinColumn(name="person_id", nullable = true)
     private Person person;
 
+    @ManyToOne
+    @JoinColumn(name="network_id", nullable = false)
+    private Network network;
+
     //@ManyToMany(mappedBy = "vehicleList")
     //private List<Person> personList = new ArrayList<>();
 
     public Vehicle() { }
 
-    public Vehicle(String img) {
+    public Vehicle(String img, Network n) {
         this.vehicleImg = img;
         this.vehicleListed = vehicleType.Grey;
         this.licenseNo = "Unknown";
@@ -68,10 +72,11 @@ public class Vehicle implements Serializable {
         this.vehicleModel = "Unknown";
         this.vehicleColour = "Unknown";
         this.vehicleCreated = LocalDate.now();
+        this.network = n;
     }
 
     public Vehicle(String img, String listed, String make, String model,
-                   String colour, String licenseNo) {
+                   String colour, String licenseNo, Network n) {
         this.vehicleImg = img;
 
         if(listed.equalsIgnoreCase("White"))
@@ -95,10 +100,11 @@ public class Vehicle implements Serializable {
         this.vehicleModel = Jsoup.clean(model, Whitelist.simpleText());
         this.vehicleColour = Jsoup.clean(colour, Whitelist.simpleText());
         this.vehicleCreated = LocalDate.now();
+        this.network = n;
     }
 
     public Vehicle(String img, String licenseNo, String make, String model,
-                   String colour) {
+                   String colour, Network n) {
         this.vehicleImg = img;
         //this.vehicleListed = "Grey";
         this.vehicleListed = vehicleType.Grey;
@@ -107,10 +113,11 @@ public class Vehicle implements Serializable {
         this.vehicleModel = Jsoup.clean(model, Whitelist.simpleText());
         this.vehicleColour = Jsoup.clean(colour, Whitelist.simpleText());
         this.vehicleCreated = LocalDate.now();
+        this.network = n;
     }
 
     public Vehicle(String img, String listed, String licenseNo, String make, String model,
-                   String colour, Person p) {
+                   String colour, Person p, Network n) {
         this.vehicleImg = img;
 
         if(listed.equalsIgnoreCase("White"))
@@ -135,10 +142,11 @@ public class Vehicle implements Serializable {
         this.vehicleColour = Jsoup.clean(colour, Whitelist.simpleText());
         this.vehicleCreated = LocalDate.now();
         this.person = p;
+        this.network = n;
     }
 
     public Vehicle(String img, String licenseNo, String make, String model,
-                   String colour, Person p) {
+                   String colour, Person p, Network n) {
         this.vehicleImg = img;
         //this.vehicleListed = "Grey";
         this.vehicleListed = vehicleType.Grey;
@@ -148,6 +156,7 @@ public class Vehicle implements Serializable {
         this.vehicleColour = Jsoup.clean(colour, Whitelist.simpleText());
         this.vehicleCreated = LocalDate.now();
         this.person = p;
+        this.network = n;
     }
 
     public Long getVehicleId() {
@@ -236,4 +245,8 @@ public class Vehicle implements Serializable {
     public Long getPersonId() { return this.person.getPersonId(); }
     public Person getPerson() { return this.person; }
     public void setPerson(Person x) { this.person = x; }
+    /*Added*/
+    public Long getNetworkId() { return this.network.getNetworkId(); }
+    public Network getNetwork() { return this.network; }
+    public void setNetwork(Network x) { this.network = x; }
 }

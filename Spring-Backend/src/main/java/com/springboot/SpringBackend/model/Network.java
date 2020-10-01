@@ -26,6 +26,23 @@ public class Network implements Serializable {
     @JsonIgnore
     private List<Camera> camList = new ArrayList<>();
 
+    @OneToMany(mappedBy="network", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<User> userList = new ArrayList<>();
+
+    @OneToMany(mappedBy="network", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Notification> notificationList = new ArrayList<>();
+
+    @OneToMany(mappedBy="network", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Person> personList = new ArrayList<>();
+
+    @OneToMany(mappedBy="network", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Vehicle> vehicleList = new ArrayList<>();
+
+
     public Network() { }
 
     public Network(String name) {
@@ -48,4 +65,17 @@ public class Network implements Serializable {
 
     public List<Camera> getCamList() { return this.camList; }
     public void setCamList(List<Camera> list) { this.camList = list; }
+
+    /*lists for each one*/
+    public List<User> getUserList() { return this.userList; }
+    public void setUserList(List<User> list) { this.userList = list; }
+
+    public List<Notification> getNotificationList() { return this.notificationList; }
+    public void setNotificationList(List<Notification> list) { this.notificationList = list; }
+
+    public List<Person> getPersonList() { return this.personList; }
+    public void setPersonList(List<Person> list) { this.personList = list; }
+
+    public List<Vehicle> getVehicleList() { return this.vehicleList; }
+    public void setVehicleList(List<Vehicle> list) { this.vehicleList = list; }
 }
