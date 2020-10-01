@@ -67,6 +67,10 @@ public class VehicleController {
         x.setVehicleColour(details.getVehicleColour());
         x.setLicenseNo(details.getLicenseNo());
         x.setVehicleDeleted(details.getVehicleDeleted());
+        if(details.getNetwork() != null) {
+            x.setNetwork(details.getNetwork());
+        }
+
         final Vehicle updatedVehicle = service.updateVehicle(x);
 
         if(details.getVehicleDeleted() == null) {
