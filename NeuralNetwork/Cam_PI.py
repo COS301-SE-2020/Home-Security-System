@@ -77,8 +77,11 @@ def load_faces(path):
 all_f_features, time_dict = load_faces(path_features)
 
 
-def save_face(path, image, f_d=face_d, f_r=face_r):
-    face_image = c.imread(image)
+def save_face(path, image, f_d=face_d, f_r=face_r, decode=False):
+    if decode:
+        face_image = c.imdecode(image, c.IMREAD_COLOR)
+    else:
+        face_image = c.imread(image)
     image_pixels = np.asarray(face_image)
     face_box = f_d.detect_faces(image_pixels)
 
@@ -223,7 +226,7 @@ def rabbit_consume():
         message = json.loads(body)
         if message['features'] is False:
             img = np.frombuffer(b64.b64decode(message['imageStr'][22:]), dtype=np.uint8)
-            save_face(path_features + str(message['type']) + '/' + str(message['personId']) + '.npy', img)
+            save_face(path_features + str(message['type']) + '/' + str(message['personId']) + '.npy', img, decode=True)
         else:
             if message['tempId'] == '0':
                 for feat in all_f_features:
