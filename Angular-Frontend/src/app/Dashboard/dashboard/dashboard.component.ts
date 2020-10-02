@@ -234,7 +234,6 @@ export class DashboardComponent implements OnInit {
   }
 
   private getCameras() {
-    this.showSpinner();
     let numCams = 0;
     let camAdded = false;
     let noCamMessage = false;
@@ -339,13 +338,8 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  showSpinner() {
-    // this.spinner.show();
-    document.getElementById('liveFeedDiv').style.height = '200px';
-  }
-
   stopSpin() {
-    this.spinner.hide();
+    document.getElementById('loadingDiv').style.display = 'none';
     document.getElementById('liveFeedDiv').style.height = 'fit-content';
   }
 }

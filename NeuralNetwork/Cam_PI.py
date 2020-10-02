@@ -259,7 +259,7 @@ def streaming():
         t, fr = cam.read()
         while t:
             yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + fr + b'\r\n')
+                   b'Content-Type: image/jpeg\r\n\r\n' + c.imencode('.jpg', fr)[1].tobytes() + b'\r\n')
             t, fr = cam.read()
 
     app = Flask(__name__)
