@@ -24,8 +24,6 @@ import static org.junit.Assert.assertNotNull;
 public class NotificationControllerTest {
     private static final String IMAGE_URL = "http://an-imageurl.com/image1.jpg";
 
-    // @Autowired
-    // private ImageRepo irepo;
     @Autowired
     private UserRepo repo;
     @Autowired

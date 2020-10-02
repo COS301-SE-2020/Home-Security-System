@@ -23,13 +23,6 @@ import {DeletedWhiteComponent} from './Person/deleted-white/deleted-white.compon
 import {DeletedBlackComponent} from './Person/deleted-black/deleted-black.component';
 import {NotificationComponent} from './Dashboard/notification/notification.component';
 import {ResetPasswordComponent} from './Dashboard/reset-password/reset-password.component';
-import {VehicleWhiteComponent} from './Vehicle/vehicle-white/vehicle-white.component';
-import {VehicleBlackComponent} from './Vehicle/vehicle-black/vehicle-black.component';
-import {VehicleGreyComponent} from './Vehicle/vehicle-grey/vehicle-grey.component';
-import {AddVehicleComponent} from './Vehicle/add-vehicle/add-vehicle.component';
-import {EditVehicleComponent} from './Vehicle/edit-vehicle/edit-vehicle.component';
-import {RemovedWhiteComponent} from './Vehicle/removed-white/removed-white.component';
-import {RemovedBlackComponent} from './Vehicle/removed-black/removed-black.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -51,14 +44,7 @@ const routes: Routes = [
   {path: 'settings', component: SettingsComponent, data: {title: 'Notifications | Argus'}},
   {path: 'live-feed', component: LiveFeedComponent, data: {title: 'Live Feed | Argus'}},
   {path: 'notification', component: NotificationComponent, data: {title: 'Notifications | Argus'}},
-  {path: 'reset-password', component: ResetPasswordComponent, data: {title: 'Reset Password | Argus'}},
-  {path: 'vehicles-cleared', component: VehicleWhiteComponent, data: {title: 'Vehicle White-List | Argus'}},
-  {path: 'vehicles-unknown', component: VehicleGreyComponent, data: {title: 'Vehicle Grey-List | Argus'}},
-  {path: 'vehicles-threat', component: VehicleBlackComponent, data: {title: 'Vehicle Black-List | Argus'}},
-  {path: 'removed-cleared', component: RemovedWhiteComponent, data: {title: 'Deleted Vehicle White-List | Argus'}},
-  {path: 'removed-threat', component: RemovedBlackComponent, data: {title: 'Deleted Vehicle Black-List | Argus'}},
-  {path: 'add-vehicle', component: AddVehicleComponent, data: {title: 'Add Vehicle | Argus'}},
-  {path: 'edit-vehicle/:id', component: EditVehicleComponent, data: {title: 'Edit Vehicle | Argus'}}
+  {path: 'reset-password', component: ResetPasswordComponent, data: {title: 'Reset Password | Argus'}}
 ];
 
 @NgModule({

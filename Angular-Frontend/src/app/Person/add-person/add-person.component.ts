@@ -2,12 +2,12 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import { PersonService } from '../../model/person.service';
 import { Person } from '../../model/person';
-import { Image } from '../../model/image';
 import { Router } from '@angular/router';
 import {TitleService} from '../../title.service';
 import {WebcamImage} from 'ngx-webcam';
-import {ImageService} from '../../model/image.service';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {User} from "../../model/user";
+import Session from "../../../assets/js/SessionStorage";
 
 @Component({
   selector: 'app-add-person',
@@ -15,16 +15,15 @@ import {NgxSpinnerService} from 'ngx-spinner';
   styleUrls: ['./add-person.component.css']
 })
 export class AddPersonComponent implements OnInit {
-  images: Observable<Image>;
   newPerson: Person;
-  newImage: Image;
   submitted = false;
+  sessionS = new Session();
+  info: User = this.sessionS.retrieveUserInfo();
 
   namePlaceholder = '';
   surnamePlaceholder = '';
 
   constructor(private personService: PersonService,
-              private imageService: ImageService,
               private appService: TitleService,
               private router: Router,
               private SpinnerService: NgxSpinnerService) {
@@ -105,6 +104,8 @@ export class AddPersonComponent implements OnInit {
       }
       this.newPerson.personListed = getListed;
       this.newPerson.personCreated = new Date();
+
+      this.newPerson.network = this.info.network;
 
       this.personService.addPerson(this.newPerson).subscribe();
       this.gotoList();

@@ -5,7 +5,6 @@ import com.springboot.SpringBackend.model.Image;
 import com.springboot.SpringBackend.model.Notification;
 import com.springboot.SpringBackend.model.Person;
 import com.springboot.SpringBackend.model.User;
-import com.springboot.SpringBackend.repository.ImageRepo;
 import com.springboot.SpringBackend.repository.NotificationRepo;
 import com.springboot.SpringBackend.repository.UserRepo;
 import org.junit.Assert;

@@ -38,10 +38,6 @@ public class Network implements Serializable {
     @JsonIgnore
     private List<Person> personList = new ArrayList<>();
 
-    @OneToMany(mappedBy="network", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<Vehicle> vehicleList = new ArrayList<>();
-
 
     public Network() { }
 
@@ -76,6 +72,4 @@ public class Network implements Serializable {
     public List<Person> getPersonList() { return this.personList; }
     public void setPersonList(List<Person> list) { this.personList = list; }
 
-    public List<Vehicle> getVehicleList() { return this.vehicleList; }
-    public void setVehicleList(List<Vehicle> list) { this.vehicleList = list; }
 }

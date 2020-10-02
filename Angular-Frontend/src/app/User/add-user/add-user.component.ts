@@ -5,8 +5,6 @@ import {Router} from '@angular/router';
 import {User} from '../../model/user';
 import {WebcamImage} from 'ngx-webcam';
 import {Observable, Subject} from 'rxjs';
-import {Image} from '../../model/image';
-import {ImageService} from '../../model/image.service';
 import {Session} from '../../../assets/js/SessionStorage';
 import {NgxSpinnerService} from 'ngx-spinner';
 
@@ -18,8 +16,6 @@ import {NgxSpinnerService} from 'ngx-spinner';
 export class AddUserComponent implements OnInit {
   sessionS = new Session();
   info: User = this.sessionS.retrieveUserInfo();
-  images: Observable<Image>;
-  newImage: Image;
   newUser: User;
 
   namePlaceholder = '';
@@ -30,7 +26,7 @@ export class AddUserComponent implements OnInit {
   phonePlaceholder = '';
   confirmPassPlaceholder = '';
 
-  constructor(private usersService: UserService, private imageService: ImageService,
+  constructor(private usersService: UserService/*, private imageService: ImageService*/,
               private appService: TitleService, private router: Router,
               private SpinnerService: NgxSpinnerService) {
   }
@@ -148,6 +144,7 @@ export class AddUserComponent implements OnInit {
       this.newUser.userRole = getRole;
       this.newUser.notifyEmail = true;
       this.newUser.notifySMS = true;
+      this.newUser.network = this.info.network;
 
       this.usersService.addUser(this.newUser).subscribe();
       this.gotoList();

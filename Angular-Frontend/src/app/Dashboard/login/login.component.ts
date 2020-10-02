@@ -64,10 +64,11 @@ export class LoginComponent implements OnInit {
                 && (data[counter].userPass === passVar.value)) { // replace passVar.value with pass
 
                 // tslint:disable-next-line:max-line-length
-                this.sessionS.createSession(data[counter].userId, data[counter].userRole, data[counter].email);
+                this.sessionS.createSession(data[counter].userId, data[counter].userRole, data[counter].email, data[counter].network);
                 this.sessClass.id = data[counter].userId.toString();
                 this.sessClass.email = data[counter].email.toString();
                 this.sessClass.role = data[counter].userRole.toString();
+                this.sessClass.network = data[counter].network;
 
                 this.sessService.addToSession(this.sessClass).subscribe();
                 this.sessionS.retrieveUserInfo();

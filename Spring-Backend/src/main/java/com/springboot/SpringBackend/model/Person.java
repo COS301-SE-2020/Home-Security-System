@@ -48,14 +48,14 @@ public class Person implements Serializable {
     @Column(name = "persondeleted")
     private LocalDate personDeleted = null;
 
-    @OneToMany(mappedBy="person", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    /*@OneToMany(mappedBy="person", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @BatchSize(size = 1000)
     @JsonIgnore
     private List<Vehicle> vehicleList = new ArrayList<>();
 
     @JsonIgnore
     @OneToOne(mappedBy="person")
-    private Face face;
+    private Face face;*/
 
     @ManyToOne
     @JoinColumn(name="network_id", nullable = false)
@@ -207,8 +207,8 @@ public class Person implements Serializable {
         }
     }
 
-    public List<Vehicle> getVehicleList() { return this.vehicleList; }
-    public void setVehicleList(List<Vehicle> list) {this.vehicleList = list; }
+    /*public List<Vehicle> getVehicleList() { return this.vehicleList; }
+    public void setVehicleList(List<Vehicle> list) {this.vehicleList = list; }*/
     /*Added*/
     public Long getNetworkId() { return this.network.getNetworkId(); }
     public Network getNetwork() { return this.network; }

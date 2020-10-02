@@ -7,28 +7,27 @@ import {environment} from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class ImageService {
-  private baseUrl = `${environment.apiUrl}/api/images`;
-
+export class NetworkService {
+  private baseUrl = `${environment.apiUrl}/api/networks`;
   constructor(private http: HttpClient) { }
 
-  getImageById(id: number): Observable<any> {
+  getAllNetworks(): Observable<any> {
+    return this.http.get(`${this.baseUrl}`);
+  }
+  getNetworkById(id: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
-  addImage(image: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}`, image);
+  addNetwork(network: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}`, network);
   }
 
-  updateImage(id: number, value: any): Observable<any> {
+  editNetwork(id: number, value: any): Observable<any>{
     return this.http.put(`${this.baseUrl}/${id}`, value);
   }
 
-  deleteImage(id: number): Observable<any> {
+  deleteNetwork(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }
 
-  getImageList(): Observable<any> {
-    return this.http.get(`${this.baseUrl}`);
-  }
 }

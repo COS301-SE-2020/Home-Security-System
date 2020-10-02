@@ -34,19 +34,10 @@ import { UserProfileComponent } from './User/user-profile/user-profile.component
 import { DeletedUsersComponent } from './User/deleted-users/deleted-users.component';
 import { DeletedWhiteComponent } from './Person/deleted-white/deleted-white.component';
 import { DeletedBlackComponent } from './Person/deleted-black/deleted-black.component';
-import { AddVehicleComponent } from './Vehicle/add-vehicle/add-vehicle.component';
-import { EditVehicleComponent } from './Vehicle/edit-vehicle/edit-vehicle.component';
-import { VehicleBlackComponent } from './Vehicle/vehicle-black/vehicle-black.component';
-import { VehicleWhiteComponent } from './Vehicle/vehicle-white/vehicle-white.component';
-import { VehicleGreyComponent } from './Vehicle/vehicle-grey/vehicle-grey.component';
-import { RemovedBlackComponent } from './Vehicle/removed-black/removed-black.component';
-import { RemovedWhiteComponent } from './Vehicle/removed-white/removed-white.component';
 
 import { NotificationService } from './model/notification.service';
 import { UserService } from './model/user.service';
 import { PersonService } from './model/person.service';
-import { VehicleService } from './model/vehicle.service';
-import { ImageService } from './model/image.service';
 import { SessionService } from './model/session.service';
 
 const appRoutes: Routes = [];
@@ -75,14 +66,7 @@ const appRoutes: Routes = [];
     ResetPasswordComponent,
     DeletedUsersComponent,
     DeletedWhiteComponent,
-    DeletedBlackComponent,
-    AddVehicleComponent,
-    EditVehicleComponent,
-    VehicleBlackComponent,
-    VehicleWhiteComponent,
-    VehicleGreyComponent,
-    RemovedBlackComponent,
-    RemovedWhiteComponent
+    DeletedBlackComponent
   ],
   imports: [
       BrowserModule,
@@ -100,8 +84,6 @@ const appRoutes: Routes = [];
     NotificationService,
     UserService,
     PersonService,
-    VehicleService,
-    ImageService,
     SessionService],
   bootstrap: [AppComponent]
 })

@@ -20,7 +20,7 @@ public class RabbitConsumer {
     private static final Logger LOGGER = LoggerFactory.getLogger(RabbitConsumer.class);
     private final NotificationService nservice;
     private final PersonService personService;
-    private final VehicleService vehicleService;
+    /*private final VehicleService vehicleService;*/
     private final UserService userService;
     private final NetworkService netServece;
     private final SmsSender sender;
@@ -28,12 +28,12 @@ public class RabbitConsumer {
     private final RabbitTemplate amqpTemplate;
 
     @Autowired
-    public RabbitConsumer(NotificationService ns, PersonService ps, VehicleService vs,
+    public RabbitConsumer(NotificationService ns, PersonService ps, /*VehicleService vs,*/
                           UserService us, NetworkService nets,SmsSender sms,
                           MailerController mc, RabbitTemplate template) {
         this.nservice = ns;
         this.personService = ps;
-        this.vehicleService = vs;
+        /*this.vehicleService = vs;*/
         this.userService = us;
         this.netServece = nets;
         this.sender = sms;
@@ -147,7 +147,7 @@ public class RabbitConsumer {
         }
     }
 
-    @RabbitListener(queues = {"vehicleQueue"})
+    /*@RabbitListener(queues = {"vehicleQueue"})
     public void receiveVehicle(RabbitVehicle motor) {
         // Creating a Grey-list vehicles from Python
         if(motor.getVehicleId() == 0) {
@@ -160,5 +160,5 @@ public class RabbitConsumer {
 
             LOGGER.info("Grey-list Vehicle Added");
         }
-    }
+    }*/
 }

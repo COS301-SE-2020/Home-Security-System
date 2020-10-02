@@ -7,13 +7,6 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <changeSet author="Sigma" id="004">
         <sql>
-            CREATE TABLE Image(
-            image_id SERIAL PRIMARY KEY,
-            photo TEXT NOT NULL,
-            imageDeleted DATE
-            );
-        </sql>
-        <sql>
             CREATE TABLE Network(
             network_id SERIAL PRIMARY KEY,
             netName TEXT NOT NULL
@@ -65,29 +58,6 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
             personCreated DATE NOT NULL DEFAULT CURRENT_DATE,
             personDeleted DATE,
             network_id INT NOT NULL REFERENCES Network(network_id)
-            );
-        </sql>
-        <sql>
-            CREATE TABLE Vehicle(
-            vehicle_id SERIAL PRIMARY KEY,
-            image TEXT,
-            vehicleListed TEXT NOT NULL DEFAULT 'Grey',
-            vehicleMake TEXT NOT NULL,
-            vehicleModel TEXT NOT NULL,
-            vehicleColour TEXT NOT NULL,
-            licenseNo TEXT NOT NULL,
-            vehicleCreated DATE NOT NULL DEFAULT CURRENT_DATE,
-            vehicleDeleted DATE,
-            person_id INT REFERENCES Person(person_id),
-            network_id INT NOT NULL REFERENCES Network(network_id)
-            );
-        </sql>
-        <sql>
-            CREATE TABLE Face(
-            face_id SERIAL PRIMARY KEY,
-            person_id INT NOT NULL REFERENCES Person(person_id),
-            features TEXT NOT NULL,
-            faceDeleted DATE
             );
         </sql>
     </changeSet>

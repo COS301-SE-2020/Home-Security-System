@@ -12,11 +12,12 @@ export class Session {
     return JSON.parse(retrievedMail);
   }
 
-  createSession(id, role, email) {
+  createSession(id, role, email, network) {
     let newUser = {};
     newUser.id = id;
     newUser.userRole = role;
     newUser.email = email;
+    newUser.network = network;
     sessionStorage.setItem('userDetails', JSON.stringify(newUser));
   }
 

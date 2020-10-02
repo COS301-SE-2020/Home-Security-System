@@ -4,7 +4,6 @@ import com.springboot.SpringBackend.config.RabbitMQConfig;
 import com.springboot.SpringBackend.exception.ResourceNotFoundException;
 import com.springboot.SpringBackend.model.Person;
 import com.springboot.SpringBackend.model.RabbitPerson;
-import com.springboot.SpringBackend.service.FaceService;
 import com.springboot.SpringBackend.service.PersonService;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
