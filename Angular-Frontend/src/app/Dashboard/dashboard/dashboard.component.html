@@ -14,9 +14,11 @@
         </h4>
       </div>
       <div class="card-body center" id="liveFeedDiv">
-        <ngx-spinner [fullScreen]="false" type="ball-spin-clockwise" size="default">
-          <p class="loading"></p>
-        </ngx-spinner>
+        <div id="loadingDiv">
+          <i class="material-icons">cached</i>
+          <br>
+          Loading...
+        </div>
         <div class="center"></div>
       </div>
     </div>
