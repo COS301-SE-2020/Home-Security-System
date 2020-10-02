@@ -22,7 +22,7 @@ public class SessionController {
     // http://localhost:8080/sessions/addSession/
     @PostMapping(value = "/addSession")
     public String addSession(@Valid @RequestBody SessionModel sm) {
-        sessionStore = new SessionModel(sm.getId(), sm.getRole(), sm.getEmail());
+        sessionStore = new SessionModel(sm.getId(), sm.getRole(), sm.getEmail(), sm.getNetworkDetails());
         tableData.add(sessionStore);
         return "Added user to session";
     }
@@ -56,6 +56,7 @@ public class SessionController {
             obj.put("id", tableDatum.getId());
             obj.put("role", tableDatum.getRole());
             obj.put("email", tableDatum.getEmail());
+            obj.put("network", tableDatum.getNetworkDetails());
             array.add(obj);
         }
 

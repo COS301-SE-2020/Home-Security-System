@@ -71,6 +71,9 @@ public class PersonController {
         }
         x.setPersonListed(details.getPersonListed());
         x.setPersonDeleted(details.getPersonDeleted());
+        if(details.getNetwork() != null) {
+            x.setNetwork(details.getNetwork());
+        }
 
         final Person updatedPerson = service.updatePerson(x);
 

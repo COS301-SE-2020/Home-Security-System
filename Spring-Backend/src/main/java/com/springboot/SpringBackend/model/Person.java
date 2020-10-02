@@ -57,6 +57,10 @@ public class Person implements Serializable {
     @OneToOne(mappedBy="person")
     private Face face;
 
+    @ManyToOne
+    @JoinColumn(name="network_id", nullable = false)
+    private Network network;
+
     /*
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "PersonVehicle",
@@ -67,15 +71,16 @@ public class Person implements Serializable {
 
     public Person() { }
 
-    public Person(String img) {
+    public Person(String img, Network n) {
         this.personImg = img;
         this.fname = "Unknown";
         this.lname = "Unknown";
         this.personListed = personType.Grey;
         this.personCreated = LocalDate.now();
+        this.network = n;
     }
 
-    public Person(String img, String listed) {
+    public Person(String img, String listed, Network n) {
         this.personImg = img;
         this.fname = "Unknown";
         this.lname = "Unknown";
@@ -97,12 +102,14 @@ public class Person implements Serializable {
         }
 
         this.personCreated = LocalDate.now();
+        this.network = n;
     }
 
-    public Person(String img, String name, String surname, String listed) {
+    public Person(String img, String name, String surname, String listed, Network n) {
         this.personImg = img;
         this.fname = Jsoup.clean(name, Whitelist.simpleText());
         this.lname = Jsoup.clean(surname, Whitelist.simpleText());
+        this.network = n;
 
         if(listed.equalsIgnoreCase("White"))
         {
@@ -123,13 +130,14 @@ public class Person implements Serializable {
         this.personCreated = LocalDate.now();
     }
 
-    public Person(String img, String name, String surname) {
+    public Person(String img, String name, String surname, Network n) {
         this.personImg = img;
         this.fname = Jsoup.clean(name, Whitelist.simpleText());
         this.lname = Jsoup.clean(surname, Whitelist.simpleText());
         //this.personListed = "Grey";
         this.personListed = personType.Grey;
         this.personCreated = LocalDate.now();
+        this.network = n;
     }
 
     public Long getPersonId() {
@@ -201,4 +209,8 @@ public class Person implements Serializable {
 
     public List<Vehicle> getVehicleList() { return this.vehicleList; }
     public void setVehicleList(List<Vehicle> list) {this.vehicleList = list; }
+    /*Added*/
+    public Long getNetworkId() { return this.network.getNetworkId(); }
+    public Network getNetwork() { return this.network; }
+    public void setNetwork(Network x) { this.network = x; }
 }

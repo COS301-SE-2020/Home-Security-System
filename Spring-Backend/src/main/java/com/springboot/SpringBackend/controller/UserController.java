@@ -72,6 +72,10 @@ public class UserController {
         x.setNotifyEmail(details.getNotifyEmail());
         x.setNotifySMS(details.getNotifySMS());
         x.setUserDeleted(details.getUserDeleted());
+        if(details.getNetwork() != null) {
+            x.setNetwork(details.getNetwork());
+        }
+
         final User updatedUser = service.updateUser(x);
         return ResponseEntity.ok(updatedUser);
     }

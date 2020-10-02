@@ -2,7 +2,6 @@ package com.springboot.SpringBackend.controller;
 
 import com.springboot.SpringBackend.exception.ResourceNotFoundException;
 import com.springboot.SpringBackend.model.Notification;
-import com.springboot.SpringBackend.model.User;
 import com.springboot.SpringBackend.repository.UserRepo;
 import com.springboot.SpringBackend.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,8 +59,8 @@ public class NotificationController {
         x.setMessage(details.getMessage());
         x.setOnDate(details.getOnDate());
         x.setAtTime(details.getAtTime());
-        if(details.getUser() != null) {
-            x.setUser(details.getUser());
+        if(details.getNetwork() != null) {
+            x.setNetwork(details.getNetwork());
         }
         x.setNotificationDeleted(details.getNotificationDeleted());
         final Notification updatedNotification = service.updateNotification(x);
