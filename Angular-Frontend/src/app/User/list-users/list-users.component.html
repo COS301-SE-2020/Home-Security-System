@@ -1,4 +1,9 @@
-<div class="container-fluid">
+<div id="navBars">
+  <app-side-nav></app-side-nav>
+  <app-top-nav></app-top-nav>
+</div>
+
+
   <div class="row">
     <div class="col-md-12">
       <div class="card">
@@ -71,7 +76,7 @@
     </div>
   </div>
   <a *ngIf="info.userRole == 'Admin'" class="btn btn-primary float-right" (click)="restoreUser()">Restore</a>
-</div>
+
 
 <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
   <p style="color: white">Please Wait. </p>
@@ -81,3 +86,5 @@
 <div class="container">
   <app-add-user></app-add-user>
 </div>
+
+<app-footer></app-footer>

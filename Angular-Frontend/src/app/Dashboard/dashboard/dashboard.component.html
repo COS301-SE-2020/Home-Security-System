@@ -1,60 +1,65 @@
-<div class="container-fluid">
-  <div class="row">
-    <!-- LIVE FEED CARD -->
-    <div class="col-lg-12 col-md-10 col-sm-10">
-      <div class="card">
-        <div class="card-header">
-          <h4 class="card-title" id="liveFeedHead">
-            <i class="material-icons liveIcon-disable" id="liveIcon">stop_circle</i>
-            Live Feed
-          </h4>
-        </div>
-        <div class="card-body center" id="liveFeedDiv">
-          <ngx-spinner [fullScreen]="false" type="ball-spin-clockwise" size="default">
-            <p class="loading"></p>
-          </ngx-spinner>
-          <div class="center"></div>
+<div id="navBars">
+  <app-side-nav></app-side-nav>
+  <app-top-nav></app-top-nav>
+</div>
+
+<div class="row">
+  <!-- LIVE FEED CARD -->
+  <div class="col-lg-12 col-md-10 col-sm-10">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title" id="liveFeedHead">
+          <i class="material-icons liveIcon-disable" id="liveIcon">stop_circle</i>
+          Live Feed
+        </h4>
+      </div>
+      <div class="card-body center" id="liveFeedDiv">
+        <ngx-spinner [fullScreen]="false" type="ball-spin-clockwise" size="default">
+          <p class="loading"></p>
+        </ngx-spinner>
+        <div class="center"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <!-- ALERTS CARD -->
+  <div class="col-lg-6 col-md-4">
+    <div class="card card-chart" id="chart1">
+      <div class="card-header card-header-color">
+        <h4 class="card-title">Notifications</h4>
+        <p class="card-category">Number of alerts for the past few days</p>
+      </div>
+      <div class="card-body">
+        <div id="chartContainer"></div>
+      </div>
+      <div class="card-footer">
+        <div class="stats">
+          <i class="material-icons"
+             id="access1">access_time</i> Last updated {{currentDate | date:'dd-MM-yyyy'}}
         </div>
       </div>
     </div>
   </div>
-  <div class="row">
-    <!-- ALERTS CARD -->
-    <div class="col-lg-6 col-md-4">
-      <div class="card card-chart" id="chart1">
-        <div class="card-header card-header-color">
-          <h4 class="card-title">Notifications</h4>
-          <p class="card-category">Number of alerts for the past few days</p>
-        </div>
-        <div class="card-body">
-          <div id="chartContainer"></div>
-        </div>
-        <div class="card-footer">
-          <div class="stats">
-            <i class="material-icons"
-               id="access1">access_time</i> Last updated {{currentDate | date:'dd-MM-yyyy'}}
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- PEOPLE CARD -->
-    <div class="col-lg-6 col-md-4">
-      <div class="card card-chart" id="chart2">
-        <div class="card-header card-header-color">
-          <h4 class="card-title">People</h4>
-          <p class="card-category">Breakdown of types of people on your system</p>
-        </div>
-        <div class="card-body">
-          <div id="chartContainer2"></div>
-        </div>
-        <div class="card-footer">
-          <div class="stats">
-            <i class="material-icons"
-               id="access2">access_time</i> Last updated {{currentDate | date:'dd-MM-yyyy'}}
-          </div>
+  <!-- PEOPLE CARD -->
+  <div class="col-lg-6 col-md-4">
+    <div class="card card-chart" id="chart2">
+      <div class="card-header card-header-color">
+        <h4 class="card-title">People</h4>
+        <p class="card-category">Breakdown of types of people on your system</p>
+      </div>
+      <div class="card-body">
+        <div id="chartContainer2"></div>
+      </div>
+      <div class="card-footer">
+        <div class="stats">
+          <i class="material-icons"
+             id="access2">access_time</i> Last updated {{currentDate | date:'dd-MM-yyyy'}}
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<app-footer></app-footer>
