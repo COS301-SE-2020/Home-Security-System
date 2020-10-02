@@ -226,7 +226,7 @@ def rabbit_consume():
         message = json.loads(body)
         if message['features'] is False:
             img = np.frombuffer(b64.b64decode(message['imageStr'][22:]), dtype=np.uint8)
-            save_face(path_features + str(message['type']) + '/' + str(message['personId']) + '.npy', img)
+            save_face(path_features + str(message['type']) + '/' + str(message['personId']) + '.npy', img, decode=True)
         else:
             if message['tempId'] == '0':
                 for feat in all_f_features:
