@@ -15287,7 +15287,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 }
 
 .main-panel > .content {
-  margin-top: 70px;
+  margin-top: 0px;
   padding: 30px 15px;
   min-height: calc(100vh - 123px);
 }
@@ -19385,6 +19385,20 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 /*************************
       LOGIN STYLES
 **************************/
+
+.login-panel {
+  position: relative;
+  float: right;
+  width: 100%;
+  transition: 0.33s, cubic-bezier(0.685, 0.0473, 0.346, 1);
+}
+
+.login-panel > .content {
+  margin-top: 0px;
+  padding: 30px 15px;
+  min-height: 100vh;
+}
+
 .loginBG {
   width: 100%;
   height: 100%;
@@ -19476,19 +19490,19 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0), #d4af37, rgba(0, 0, 0, 0));
 }
 
-.login-close-btn {
-  position: absolute;
-  color: white;
-  top: 10px;
-  right: 10px;
+/*.login-close-btn {*/
+/*  position: absolute;*/
+/*  color: white;*/
+/*  top: 10px;*/
+/*  right: 10px;*/
 
-  cursor: pointer;
-  text-align: center;
-  -webkit-transition: all 2s ease-in-out;
-  -moz-transition: all 2s ease-in-out;
-  -o-transition: all 2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-}
+/*  cursor: pointer;*/
+/*  text-align: center;*/
+/*  -webkit-transition: all 2s ease-in-out;*/
+/*  -moz-transition: all 2s ease-in-out;*/
+/*  -o-transition: all 2s ease-in-out;*/
+/*  transition: all 0.2s ease-in-out;*/
+/*}*/
 
 .login-close-btn:hover {
   opacity: 0.9;
@@ -19520,9 +19534,9 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
   border-radius: 6px;
   border: none;
   background: rgba(3, 3, 3, .1);
-  -webkit-transition: all 2s ease-in-out;
-  -moz-transition: all 2s ease-in-out;
-  -o-transition: all 2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
 

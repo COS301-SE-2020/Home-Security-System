@@ -46,10 +46,11 @@ public class PersonController {
 
     @PostMapping("/people")
     public Person addPerson(@Valid @RequestBody Person x) {
-        RabbitPerson p = new RabbitPerson(x.getPersonId(), "0", x.getPersonListed(), true, x.getPersonImg(), false);
-        amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, p);
+        Person p = service.createPerson(x);
+        RabbitPerson rabbitPsn = new RabbitPerson(p.getPersonId(), "0", p.getPersonListed(), true, p.getPersonImg(), false);
+        amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, rabbitPsn);
         System.out.println("Person Created");
-        return service.createPerson(x);
+        return p;
     }
 
     @PutMapping("/people/{id}")

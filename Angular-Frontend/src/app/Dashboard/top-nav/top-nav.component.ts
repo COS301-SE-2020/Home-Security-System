@@ -17,10 +17,9 @@ export class TopNavComponent implements OnInit {
   sessionS = new Session();
   user: User;
   newObj: JsonObject;
-  cnt = 0;
 
-  constructor(private noteService: NotificationService, private sessService: SessionService, private appService: TitleService,
-              private userService: UserService) { }
+  constructor(private noteService: NotificationService, private sessService: SessionService,
+              private appService: TitleService, private userService: UserService) { }
 
   clearUserSession() {
     this.newObj = this.sessionS.retrieveUserInfo();
@@ -30,70 +29,17 @@ export class TopNavComponent implements OnInit {
   }
 
   displayProfilePic() {
-    if (this.sessionS.retrieveUserInfo() != null) {
       const uPic = document.getElementById('profilePic') as HTMLImageElement;
       this.userService.getUserById(this.sessionS.retrieveUserInfo().id).subscribe(
         data => { uPic.src = data.profilePhoto; });
-    }
+
   }
 
   ngOnInit(): void {
-    if (this.sessionS.retrieveUserInfo() != null) {
-      // this.appService.getTitle().subscribe(appTitle => title = appTitle);
-      this.cnt = 0;
-      let counter = 0;
-      let num = 0;
-      this.noteService.getNotificationList().subscribe(data => {
-        // console.log(data);
-        while (data[counter] != null) {
-          if (data[counter].notificationDeleted === null) {
-            num += 1;
-          }
-          counter++;
-        }
-
-        if (num < 0) {
-          num = 0;
-        }
-
-        this.cnt = num;
-      });
-
       this.displayProfilePic();
-      this.countNotifications();
-    }
-  }
-
-  countNotifications() {
-    if (this.sessionS.retrieveUserInfo() != null) {
-      setTimeout(() => {
-        let counter = 0;
-        let num = 0;
-        this.noteService.getNotificationList().subscribe(data => {
-          // console.log(data);
-          while (data[counter] != null) {
-            if (data[counter].notificationDeleted === null) {
-              num += 1;
-            }
-            counter++;
-          }
-
-          num = num - this.cnt;
-
-          if (num < 0) {
-            num = 0;
-          }
-
-          document.getElementById('noteCnt').innerHTML = num.toString();
-        });
-        this.countNotifications();
-      }, 5000);
-    }
   }
 
   clearNotifications() {
-    this.cnt = 0;
-    document.getElementById('noteCnt').innerHTML = '0';
-    this.ngOnInit();
+    // document.getElementById('noteCnt').innerHTML = '0';
   }
 }

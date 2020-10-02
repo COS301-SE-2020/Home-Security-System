@@ -115,20 +115,20 @@ function loginSlide() {
 
   $('#login-button').fadeOut("slow", function () {
     $("#loginContainer").fadeIn();
-    TweenMax.from("#login-button", .4, {scale: 0, ease: Sine.easeInOut});
-    TweenMax.to("#loginContainer", .4, {scale: 1, ease: Sine.easeInOut});
+    TweenMax.from("#login-button", .2, {scale: 0, ease: Sine.easeInOut});
+    TweenMax.to("#loginContainer", .2, {scale: 1, ease: Sine.easeInOut});
   });
 }
 
-function closeLogin() {
-  $(".login-close-btn").click(function () {
-    TweenMax.from("#loginContainer", .4, {scale: 1, ease: Sine.easeInOut});
-    TweenMax.to("#loginContainer", .4, {left: "0px", scale: 0, ease: Sine.easeInOut});
-    $("#loginContainer, #forgotten-container").fadeOut(800, function () {
-      $("#login-button").fadeIn(800);
-    });
-  });
-}
+// function closeLogin() {
+//   $(".login-close-btn").click(function () {
+//     TweenMax.from("#loginContainer", .2, {scale: 1, ease: Sine.easeInOut});
+//     TweenMax.to("#loginContainer", .2, {left: "0px", scale: 0, ease: Sine.easeInOut});
+//     $("#loginContainer, #forgotten-container").fadeOut(800, function () {
+//       $("#login-button").fadeIn(800);
+//     });
+//   });
+// }
 
 function forgot() {
   /* Forgotten Password */

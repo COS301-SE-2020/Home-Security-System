@@ -300,8 +300,8 @@ function sortTable(tableID, colNum) {
 
 function resize() {
   //define the width to resize e.g 600px
-  var resize_width = 120;
-  var resize_height = 120;//without px
+  var resize_width = 230;
+  var resize_height = 230;//without px
 
   //get the image selected
   var item = document.querySelector('#fileElem').files[0];
@@ -344,8 +344,8 @@ function resize() {
 
 function resizePhoto() {
   //define the width to resize e.g 600px
-  var resize_width = 120;
-  var resize_height = 120;//without px
+  var resize_width = 230;
+  var resize_height = 230;//without px
 
   var reader = new FileReader();
 

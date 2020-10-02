@@ -1,7 +1,7 @@
 <div class="loginBG">
   <div class="loginCover"></div>
 </div>
-<div id="login-button" onclick="loginSlide()">
+<div id="login-button" onmouseover="loginSlide()">
   <img class="loginImg" src="./assets/Images/ArgusIcon.png"
        alt="">
   Log in
@@ -14,11 +14,12 @@
       <img id="logoLoginPage" src="assets/Images/ArgusLogo.png" alt="Argus Logo">
     </a>
   </div>
-  <i class="material-icons login-close-btn" onclick="closeLogin()">close</i>
+  <!--  <i class="material-icons login-close-btn" onclick="closeLogin()">close</i>-->
 
   <form>
     <label class="loginFields">
-      <input class="loginInputs" type="text" name="email" placeholder="Username or E-mail" id="emailInput" maxlength="35">
+      <input class="loginInputs" type="text" name="email" placeholder="Username or E-mail" id="emailInput"
+             maxlength="35">
     </label>
     <label class="loginPassword">
       <input class="loginInputs" id="passwordField" type="password" name="pass" placeholder="Password" maxlength="35">

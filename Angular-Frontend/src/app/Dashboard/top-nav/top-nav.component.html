@@ -29,29 +29,14 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/notification']" (click)="clearNotifications()">
+          <a class="nav-link" [routerLink]="['/notification']">
             <i class="material-icons">notifications</i>
-            <span id="noteCnt" class="notification"></span>
+            <!--<span id="noteCnt" class="notification"></span>-->
             <p class="d-lg-none d-md-block hoverPointer">
               Notifications
             </p>
           </a>
         </li>
-
-<!--        <li class="nav-item dropdown">-->
-<!--          <a class="nav-link" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"-->
-<!--             aria-expanded="false">-->
-<!--            <i class="material-icons">notifications</i>-->
-<!--            <span id="noteCnt" class="notification"></span>-->
-<!--            <p class="d-lg-none d-md-block hoverPointer" [routerLink]="['/notification']" (click)="clearNotifications()">-->
-<!--              Notifications-->
-<!--            </p>-->
-<!--          </a>-->
-<!--          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">-->
-<!--            <a class="dropdown-item" [routerLink]="['/notification']" (click)="clearNotifications()">Recent notifications</a>-->
-<!--          </div>-->
-<!--        </li>-->
-
         <li class="nav-item dropdown">
           <a class="nav-link" id="navbarDropdownSettings" data-toggle="dropdown" aria-haspopup="true"
              aria-expanded="false">

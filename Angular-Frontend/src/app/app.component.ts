@@ -79,19 +79,11 @@ export class AppComponent implements OnInit {
         // console.log(this.isLoginPage());
         if ( this.isLoginPage() === true || this.isResetPasswordPage() === true )
         {
-          document.getElementById('navBars').style.visibility = 'hidden';
-          document.getElementById('displayType').className = 'content';
-          document.getElementById('footerText1').style.color = 'white';
-          document.getElementById('footerText2').style.color = 'white';
-          document.getElementById('footerText3').style.color = 'white';
+          document.getElementById('displayType').className = 'login-panel';
         }
         else
         {
-          document.getElementById('navBars').style.visibility = 'visible';
           document.getElementById('displayType').className = 'main-panel';
-          document.getElementById('footerText1').style.color = 'black';
-          document.getElementById('footerText2').style.color = 'black';
-          document.getElementById('footerText3').style.color = 'black';
         }
 
         // const loginVal = this.loginPageDisplay();
