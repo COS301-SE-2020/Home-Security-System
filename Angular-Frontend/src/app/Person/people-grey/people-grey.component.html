@@ -40,7 +40,7 @@
               </thead>
               <tbody>
               <ng-container *ngFor="let p of person | async">
-                <tr *ngIf="p.personListed == 'Grey' && p.personDeleted == null">
+                <tr *ngIf="(p.personListed == 'Grey') && (p.personDeleted == null) && (p.network.netName == info.network.netName)">
                   <td>{{p.personCreated}}</td>
                   <td>
                     <img alt="Image" id="noteImg{{p.personId}}" src="{{p.personImg}}"
