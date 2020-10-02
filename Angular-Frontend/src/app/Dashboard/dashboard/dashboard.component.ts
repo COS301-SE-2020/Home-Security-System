@@ -340,7 +340,7 @@ export class DashboardComponent implements OnInit {
   }
 
   showSpinner() {
-    this.spinner.show();
+    // this.spinner.show();
     document.getElementById('liveFeedDiv').style.height = '200px';
   }
 
