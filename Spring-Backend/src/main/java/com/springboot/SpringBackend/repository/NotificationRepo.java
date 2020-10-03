@@ -5,6 +5,4 @@ import org.springframework.stereotype.Repository;
 import com.springboot.SpringBackend.model.Notification;
 
 @Repository
-public interface NotificationRepo extends JpaRepository<Notification, Long>{
-    //List<Notification> findNotificationByDate(String date);
-}
+public interface NotificationRepo extends JpaRepository<Notification, Long>{ }

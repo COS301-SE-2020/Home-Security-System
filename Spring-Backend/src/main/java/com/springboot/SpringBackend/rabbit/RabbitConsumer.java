@@ -20,7 +20,6 @@ public class RabbitConsumer {
     private static final Logger LOGGER = LoggerFactory.getLogger(RabbitConsumer.class);
     private final NotificationService nservice;
     private final PersonService personService;
-    /*private final VehicleService vehicleService;*/
     private final UserService userService;
     private final NetworkService netServece;
     private final SmsSender sender;
@@ -28,12 +27,11 @@ public class RabbitConsumer {
     private final RabbitTemplate amqpTemplate;
 
     @Autowired
-    public RabbitConsumer(NotificationService ns, PersonService ps, /*VehicleService vs,*/
+    public RabbitConsumer(NotificationService ns, PersonService ps,
                           UserService us, NetworkService nets,SmsSender sms,
                           MailerController mc, RabbitTemplate template) {
         this.nservice = ns;
         this.personService = ps;
-        /*this.vehicleService = vs;*/
         this.userService = us;
         this.netServece = nets;
         this.sender = sms;
@@ -44,7 +42,7 @@ public class RabbitConsumer {
     @RabbitListener(queues = {"alertQueue"})
     public void receivedAlert(RabbitAlert alert) {
         List<User> arr = userService.getAllUsers();
-        Optional<Network> net = netServece.getNetworkById(Long.valueOf(1));
+        Optional<Network> net = netServece.getNetworkById(alert.getNetworkId());
 
         for (User u : arr) {
             if (net.isPresent()) {
@@ -127,38 +125,19 @@ public class RabbitConsumer {
         }
     }
 
-    @RabbitListener(queues = {"notifyQueue"})
-    public void receivedNotification(RabbitAlert alert) {
-        LOGGER.info("Notification Created");
-    }
-
     @RabbitListener(queues = {"personQueue"})
     public void receivePerson(RabbitPerson psn) {
         // Creating a Grey-list person from Python
         if(psn.getPersonId() == 0) {
-            Optional<Network> net = netServece.getNetworkById(Long.valueOf(1));
-            Person p = new Person(psn.getImageStr(), net.get());
-            personService.createPerson(p);
+            Optional<Network> net = netServece.getNetworkById(psn.getNetworkId());
+            if(net.isPresent()) {
+                Person p = personService.createPerson(new Person(psn.getImageStr(), net.get()));
 
-            RabbitPerson updatePerson = new RabbitPerson(p.getPersonId(), psn.getTempId(),psn.getType(), true, psn.getImageStr(), true);
-            amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, updatePerson);
+                RabbitPerson updatePerson = new RabbitPerson(p.getPersonId(), psn.getTempId(), psn.getType(), true, psn.getImageStr(), true, psn.getNetworkId());
+                amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, updatePerson);
 
-            LOGGER.info("Grey-list Person Added");
+                LOGGER.info("Grey-list Person Added");
+            }
         }
     }
-
-    /*@RabbitListener(queues = {"vehicleQueue"})
-    public void receiveVehicle(RabbitVehicle motor) {
-        // Creating a Grey-list vehicles from Python
-        if(motor.getVehicleId() == 0) {
-            Optional<Network> net = netServece.getNetworkById(Long.valueOf(1));
-            Vehicle v = new Vehicle(motor.getImageStr(), net.get());
-            vehicleService.createVehicle(v);
-
-            RabbitVehicle updateVehicle = new RabbitVehicle(v.getPersonId(), motor.getTempId(),motor.getType(), true, motor.getImageStr(), true);
-            amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_VEHICLE_KEY, updateVehicle);
-
-            LOGGER.info("Grey-list Vehicle Added");
-        }
-    }*/
 }

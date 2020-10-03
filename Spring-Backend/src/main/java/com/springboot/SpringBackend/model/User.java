@@ -1,7 +1,5 @@
 package com.springboot.SpringBackend.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.BatchSize;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 
@@ -9,8 +7,6 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "argususer")
@@ -98,7 +94,7 @@ public class User implements Serializable {
         }
 
         this.notifyEmail = true;
-        this.notifySMS = true;
+        this.notifySMS = false;
     }
 
     public User(String name, String surname, String contact, String email, String username, String password, String role, Network n) {
@@ -128,7 +124,7 @@ public class User implements Serializable {
         }
 
         this.notifyEmail = true;
-        this.notifySMS = true;
+        this.notifySMS = false;
     }
 
     public Long getUserId() {
@@ -228,7 +224,7 @@ public class User implements Serializable {
             this.userDeleted = null;
         }
     }
-    /*Added*/
+
     public Long getNetworkId() { return this.network.getNetworkId(); }
     public Network getNetwork() { return this.network; }
     public void setNetwork(Network x) { this.network = x; }

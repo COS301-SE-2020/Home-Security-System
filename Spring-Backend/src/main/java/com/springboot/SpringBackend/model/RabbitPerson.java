@@ -15,18 +15,21 @@ public class RabbitPerson implements Serializable {
     private Boolean exists;
     private String imageStr;
     private Boolean features;
+    private Long networkId;
 
     public RabbitPerson() {}
 
     public RabbitPerson(@JsonProperty("personId") Long pid, @JsonProperty("tempId") String tid,
                         @JsonProperty("type") String type, @JsonProperty("exists") Boolean tf,
-                        @JsonProperty("imageStr") String img, @JsonProperty("features") Boolean face) {
+                        @JsonProperty("imageStr") String img, @JsonProperty("features") Boolean face,
+                        @JsonProperty("networkId") Long netId) {
         this.personId = pid;
         this.tempId = tid;
         this.type = type;
         this.exists = tf;
         this.imageStr = img;
         this.features = face;
+        this.networkId = netId;
     }
 
     public Long getPersonId() { return this.personId; }
@@ -46,4 +49,7 @@ public class RabbitPerson implements Serializable {
 
     public Boolean getFeatures() { return this.features; }
     public void setFeatures(Boolean tf) { this.features = tf; }
+
+    public Long getNetworkId() { return this.networkId; }
+    public void setNetworkId(Long id) { this.networkId = id; }
 }

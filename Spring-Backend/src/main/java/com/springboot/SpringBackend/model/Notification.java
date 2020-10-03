@@ -22,8 +22,6 @@ public class Notification implements Serializable {
     @Column(name = "notification_id", nullable = false)
     private Long id;
 
-    // @ManyToOne
-    // @JoinColumn(name="image", nullable = false)
     @Column(name = "image", nullable = false)
     private String notificationImg;
 
@@ -139,7 +137,6 @@ public class Notification implements Serializable {
         }
     }
 
-    /*Added*/
     public Long getNetworkId() { return this.network.getNetworkId(); }
     public Network getNetwork() { return this.network; }
     public void setNetwork(Network x) { this.network = x; }
