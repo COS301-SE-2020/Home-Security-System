@@ -30,6 +30,7 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
             username TEXT NOT NULL,
             userPass TEXT NOT NULL,
             userRole TEXT NOT NULL,
+            secureAnswer TEXT NOT NULL,
             notifyEmail BOOLEAN NOT NULL DEFAULT true,
             notifySMS BOOLEAN NOT NULL DEFAULT false,
             userDeleted DATE,

@@ -12,7 +12,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { environment } from '../environments/environment';
 
-import { LiveFeedComponent } from './Dashboard/live-feed/live-feed.component';
 import { DashboardComponent } from './Dashboard/dashboard/dashboard.component';
 import { FooterComponent } from './Dashboard/footer/footer.component';
 import { LoginComponent } from './Dashboard/login/login.component';
@@ -45,7 +44,6 @@ const appRoutes: Routes = [];
 @NgModule({
   declarations: [
     AppComponent,
-    LiveFeedComponent,
     PeopleBlackComponent,
     DashboardComponent,
     FooterComponent,

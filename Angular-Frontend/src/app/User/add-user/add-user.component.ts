@@ -24,9 +24,10 @@ export class AddUserComponent implements OnInit {
   emailPlaceholder = '';
   passPlaceholder = '';
   phonePlaceholder = '';
+  answerPlaceholder = '';
   confirmPassPlaceholder = '';
 
-  constructor(private usersService: UserService/*, private imageService: ImageService*/,
+  constructor(private usersService: UserService,
               private appService: TitleService, private router: Router,
               private SpinnerService: NgxSpinnerService) {
   }
@@ -122,6 +123,7 @@ export class AddUserComponent implements OnInit {
     const contactInp = document.getElementById('addPhone') as HTMLInputElement;
     const usernameInp = document.getElementById('addUsername') as HTMLInputElement;
     const passwordInp = document.getElementById('passwordField1') as HTMLInputElement;
+    const answerInp = document.getElementById('answerField') as HTMLInputElement;
     const photoInp = document.getElementById('submitPhoto').getAttribute('src');
     const getRole = this.returnUserRole();
 
@@ -142,6 +144,7 @@ export class AddUserComponent implements OnInit {
       this.newUser.username = usernameInp.value;
       this.newUser.userPass = passwordInp.value;
       this.newUser.userRole = getRole;
+      this.newUser.secureAnswer = answerInp.value;
       this.newUser.notifyEmail = true;
       this.newUser.notifySMS = false;
       this.newUser.network = this.info.network;

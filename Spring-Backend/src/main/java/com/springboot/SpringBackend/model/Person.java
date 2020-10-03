@@ -4,6 +4,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -24,9 +25,11 @@ public class Person implements Serializable {
     @Column(name = "image", nullable = false)
     private String personImg;
 
+    @Size(max = 35)
     @Column(name = "fname", nullable = false)
     private String fname = "";
 
+    @Size(max = 35)
     @Column(name = "lname", nullable = false)
     private String lname = "";
 
