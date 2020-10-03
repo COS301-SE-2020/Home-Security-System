@@ -9,6 +9,8 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {User} from "../../model/user";
 import Session from "../../../assets/js/SessionStorage";
 
+declare function resizeAll(): any;
+
 @Component({
   selector: 'app-add-person',
   templateUrl: './add-person.component.html',
@@ -82,6 +84,8 @@ export class AddPersonComponent implements OnInit {
     const photoInp = document.getElementById('submitPhoto').getAttribute('src');
     const getListed = this.returnPersonListed();
 
+    resizeAll();
+
     if (photoInp === this.getDefaultImage() || photoInp === '/assets/Images/blank.jpg') {
       alert('Please choose a photo to add.');
     }
@@ -113,6 +117,7 @@ export class AddPersonComponent implements OnInit {
   }
 
   onSubmit() {
+      resizeAll();
       this.addPerson();
   }
 
@@ -143,5 +148,6 @@ export class AddPersonComponent implements OnInit {
   public camOff(): void {
     this.showCam = false;
   }
+
 }
 

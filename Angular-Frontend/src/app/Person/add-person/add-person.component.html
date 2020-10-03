@@ -51,21 +51,23 @@
         </div>
 
         <!--Profile Picture-->
-        <div class="form-group">
+        <div class="form-group" onchange="resizeAll()" ondrop="resizeAll()">
           <label for="profilePicInput" class="float-left">Profile Picture</label><br><br>
           <div class="picture-container">
-            <div id="preview">
+            <div id="preview" onchange="resizeAll()">
               <img alt="Default Picture" id="submitPhoto" src="/assets/Images/blank.jpg">
             </div>
             <br>
           </div>
 
+          <div onchange="resizeAll()" ondrop="resizeAll()">
           <label id="profilePicInput" for="fileElem">
             <i class="material-icons add-photo-icon">add_photo_alternate</i><br>
             <input type="file" id="fileElem" accept="image/jpeg, image/png" onchange="resize()" > <!-- onchange="previewFile(this.file)" -->
             Drag and Drop an image<br>
             <!--or<br>Click to add-->
           </label>
+          </div>
           or
           <br>
 
@@ -73,7 +75,8 @@
             capture a photo from camera
           </a>
         </div>
-        <button type="submit" class="btn btn-primary justify-content-center" onclick = "resize()">Submit</button>
+        <button type="button" class="btn btn-primary justify-content-center" onclick="resizeAll()" >Accept Photo</button>
+        <button type="submit" class="btn btn-primary justify-content-center" >Submit</button>
       </form>
     </div>
 </div>
