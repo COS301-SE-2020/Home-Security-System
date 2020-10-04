@@ -6,8 +6,4 @@ import com.springboot.SpringBackend.model.Person;
 
 
 @Repository
-public interface PersonRepo extends JpaRepository<Person, Long>{
-    //List<Person> findUserByName(String name);
-    //List<Person> findUserBySurname(String name);
-    //List<Person> findUserByFullName(String name);
-}
+public interface PersonRepo extends JpaRepository<Person, Long>{ }

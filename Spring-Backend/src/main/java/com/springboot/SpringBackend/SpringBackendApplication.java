@@ -6,8 +6,6 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 // @EnableJpaRepositories(basePackages={"com.*"}, entityManagerFactoryRef="emf")
-// @EnableWebMvc
-// @EnableAutoConfiguration
 @EnableScheduling
 @SpringBootApplication
 public class SpringBackendApplication extends SpringBootServletInitializer {

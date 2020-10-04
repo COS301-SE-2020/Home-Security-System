@@ -10,6 +10,7 @@ export class User {
   username: string;
   userPass: string;
   userRole: string;
+  secureAnswer: string;
   notifySMS: boolean;
   notifyEmail: boolean;
   userDeleted: any;

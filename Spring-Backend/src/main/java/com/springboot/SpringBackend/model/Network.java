@@ -38,7 +38,6 @@ public class Network implements Serializable {
     @JsonIgnore
     private List<Person> personList = new ArrayList<>();
 
-
     public Network() { }
 
     public Network(String name) {
@@ -62,7 +61,6 @@ public class Network implements Serializable {
     public List<Camera> getCamList() { return this.camList; }
     public void setCamList(List<Camera> list) { this.camList = list; }
 
-    /*lists for each one*/
     public List<User> getUserList() { return this.userList; }
     public void setUserList(List<User> list) { this.userList = list; }
 

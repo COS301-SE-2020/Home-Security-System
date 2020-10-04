@@ -1,9 +1,7 @@
 package com.springboot.SpringBackend.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.io.Serializable;
 
@@ -14,13 +12,16 @@ public class RabbitAlert implements Serializable {
     private Long personId;
     private String type;
     private String imageStr;
+    private Long networkId;
 
     public RabbitAlert() {}
 
-    public RabbitAlert(@JsonProperty("personId") Long id, @JsonProperty("type") String type, @JsonProperty("imageStr") String img) {
+    public RabbitAlert(@JsonProperty("personId") Long id, @JsonProperty("type") String type,
+                       @JsonProperty("imageStr") String img, @JsonProperty("networkId") Long netId) {
         this.personId = id;
         this.type = type;
         this.imageStr = img;
+        this.networkId = netId;
     }
 
     public Long getPersonId() { return this.personId; }
@@ -31,4 +32,7 @@ public class RabbitAlert implements Serializable {
 
     public String getImageStr() { return this.imageStr; }
     public void setImageStr(String img) { this.imageStr = img; }
+
+    public Long getNetworkId() { return this.networkId; }
+    public void setNetworkId(Long id) { this.networkId = id; }
 }

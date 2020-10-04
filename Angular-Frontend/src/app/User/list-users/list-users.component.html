@@ -55,7 +55,7 @@
               </thead>
               <tbody id="userTableBody">
               <ng-container *ngFor="let user of users | async">
-                <tr *ngIf="user.userDeleted == null">
+                <tr *ngIf="(user.userDeleted == null) && (user.network.netName == info.network.netName)">
                   <td><img alt="Profile Picture" src="{{user.profilePhoto}}" class="listPic ImgClassName"></td>
                   <td>{{user.fname}}&nbsp;{{user.lname}}</td>
                   <td>{{user.userRole}}</td>

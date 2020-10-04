@@ -16,7 +16,7 @@ export class NotificationComponent implements OnInit {
   notification: Observable<Notification[]>;
   note: Notification;
   sessionS = new Session();
-  userId = this.sessionS.retrieveUserInfo().id;
+  networkName = this.sessionS.retrieveUserInfo().network.netName;
 
   constructor(private notificationService: NotificationService,
               private SpinnerService: NgxSpinnerService, private appService: TitleService) { }

@@ -8,9 +8,6 @@ import * as CanvasJS from '../../../assets/js/canvasjs.min';
 import {Notification} from '../../model/notification';
 import {NotificationService} from '../../model/notification.service';
 import {NgxSpinnerService} from 'ngx-spinner';
-// import {getLocaleDateFormat} from '@angular/common';
-// import {UserService} from '../../model/user.service';
-// import {User} from '../../model/user';
 
 @Component({
   selector: 'app-dashboard',
@@ -34,9 +31,11 @@ export class DashboardComponent implements OnInit {
   // ----------------------
   title = 'Dashboard';
 
+  // noinspection JSAnnotator
   @ViewChild('video')
   public webcam: ElementRef;
 
+  // noinspection JSAnnotator
   @ViewChild('canvas')
   public canvas: ElementRef;
 

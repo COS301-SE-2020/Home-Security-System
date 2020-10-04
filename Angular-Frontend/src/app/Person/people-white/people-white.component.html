@@ -42,7 +42,7 @@
               </thead>
               <tbody id="whiteBody">
               <ng-container *ngFor="let p of person | async">
-                <tr *ngIf="p.personListed == 'White' && p.personDeleted == null">
+                <tr *ngIf="(p.personListed == 'White') && (p.personDeleted == null) && (p.network.netName == info.network.netName)">
                   <td><img alt="Photo" src="{{p.personImg}}" class="listPic ImgClassName"></td>
                   <td>{{p.fname}}&nbsp;{{p.lname}}</td>
                   <td *ngIf="info.userRole != 'Basic'">

@@ -1,16 +1,12 @@
 package com.springboot.SpringBackend.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.BatchSize;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "person")
@@ -26,14 +22,14 @@ public class Person implements Serializable {
     @Column(name = "person_id", nullable = false)
     private Long id;
 
-    // @ManyToOne
-    // @JoinColumn(name="image_id", nullable = false)
     @Column(name = "image", nullable = false)
     private String personImg;
 
+    @Size(max = 35)
     @Column(name = "fname", nullable = false)
     private String fname = "";
 
+    @Size(max = 35)
     @Column(name = "lname", nullable = false)
     private String lname = "";
 
@@ -48,26 +44,9 @@ public class Person implements Serializable {
     @Column(name = "persondeleted")
     private LocalDate personDeleted = null;
 
-    /*@OneToMany(mappedBy="person", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @BatchSize(size = 1000)
-    @JsonIgnore
-    private List<Vehicle> vehicleList = new ArrayList<>();
-
-    @JsonIgnore
-    @OneToOne(mappedBy="person")
-    private Face face;*/
-
     @ManyToOne
     @JoinColumn(name="network_id", nullable = false)
     private Network network;
-
-    /*
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "PersonVehicle",
-            joinColumns = @JoinColumn(name = "person_id"),
-            inverseJoinColumns = @JoinColumn(name = "vehicle_id"))
-    private List<Vehicle> vehicleList = new ArrayList<>();
-    */
 
     public Person() { }
 
@@ -207,9 +186,6 @@ public class Person implements Serializable {
         }
     }
 
-    /*public List<Vehicle> getVehicleList() { return this.vehicleList; }
-    public void setVehicleList(List<Vehicle> list) {this.vehicleList = list; }*/
-    /*Added*/
     public Long getNetworkId() { return this.network.getNetworkId(); }
     public Network getNetwork() { return this.network; }
     public void setNetwork(Network x) { this.network = x; }

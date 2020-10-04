@@ -15,7 +15,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 })
 export class UserProfileComponent implements OnInit {
   sessionS = new Session();
-  userObj: Session = this.sessionS.retrieveUserInfo();
+  //userObj: User = this.sessionS.retrieveUserInfo();
   id: number;
   user: User;
   password = '';
@@ -30,13 +30,16 @@ export class UserProfileComponent implements OnInit {
   }
 
   conPass = '';
+
   /* ======================================================== */
   /*         START of Camera for taking profile picture       */
   /* ======================================================== */
 
+  // noinspection JSAnnotator
   @ViewChild('video')
   public webcam: ElementRef;
 
+  // noinspection JSAnnotator
   @ViewChild('canvas')
   public canvas: ElementRef;
 
@@ -76,7 +79,7 @@ export class UserProfileComponent implements OnInit {
     const email = document.getElementById('emailDisplay') as HTMLDataElement;
     const uPic = document.getElementById('userPic') as HTMLImageElement;
 
-    this.userService.getUserById(this.userObj.id)
+    this.userService.getUserById(this.sessionS.retrieveUserInfo().id)
       .subscribe(data => {
         FName.value = data.fname;
         SName.value = data.lname;
@@ -87,25 +90,6 @@ export class UserProfileComponent implements OnInit {
         this.user = data;
       });
   }
-
-  // loadModal() {
-  //   const uName = document.getElementById('uFirstName') as HTMLInputElement;
-  //   const uSurname = document.getElementById('uLastName') as HTMLInputElement;
-  //   const uUsername = document.getElementById('uUsername') as HTMLInputElement;
-  //   const uNumber = document.getElementById('uNumber') as HTMLInputElement;
-  //   const uEmail = document.getElementById('uEmail') as HTMLInputElement;
-  //   const uPic = document.getElementById('userPic') as HTMLImageElement;
-  //
-  //   this.userService.getUserById(this.userObj.id)
-  //     .subscribe(data => {
-  //       uName.value = data.fname;
-  //       uSurname.value = data.lname;
-  //       uNumber.value = data.contactNo;
-  //       uEmail.value = data.email;
-  //       uUsername.value = data.username;
-  //       uPic.src = data.profilePhoto;
-  //     });
-  // }
 
   updateUser() {
     const uName = document.getElementById('uFirstName') as HTMLInputElement;
@@ -121,8 +105,9 @@ export class UserProfileComponent implements OnInit {
     this.user.email = uEmail.value;
     this.user.username = uUsername.value;
     this.user.userPass = uPassword.value;
+    this.user.secureAnswer = "Hello";
 
-    this.userService.updateUser(this.userObj.id, this.user).subscribe(() => {
+    this.userService.updateUser(this.sessionS.retrieveUserInfo().id, this.user).subscribe(() => {
       this.gotoList();
     });
   }
@@ -182,8 +167,7 @@ export class UserProfileComponent implements OnInit {
         } else if (username) {
           alert('Username address is already in use. Please enter another username.');
         }
-      }, error => {
-      },
+      }, error => { },
       () => {
         if (!exists) {
           this.updateUser();

@@ -1,13 +1,9 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 
-import {LiveFeedComponent} from './Dashboard/live-feed/live-feed.component';
 import {DashboardComponent} from './Dashboard/dashboard/dashboard.component';
-import {FooterComponent} from './Dashboard/footer/footer.component';
 import {LoginComponent} from './Dashboard/login/login.component';
 import {SettingsComponent} from './Dashboard/settings/settings.component';
-import {SideNavComponent} from './Dashboard/side-nav/side-nav.component';
-import {TopNavComponent} from './Dashboard/top-nav/top-nav.component';
 import {ViewUserComponent} from './User/view-user/view-user.component';
 import {AddUserComponent} from './User/add-user/add-user.component';
 import {EditUserComponent} from './User/edit-user/edit-user.component';
@@ -42,7 +38,6 @@ const routes: Routes = [
   {path: 'add-person', component: AddPersonComponent, data: {title: 'Add Person | Argus'}},
   {path: 'edit-person/:id', component: EditPersonComponent, data: {title: 'Edit Person | Argus'}},
   {path: 'settings', component: SettingsComponent, data: {title: 'Notifications | Argus'}},
-  {path: 'live-feed', component: LiveFeedComponent, data: {title: 'Live Feed | Argus'}},
   {path: 'notification', component: NotificationComponent, data: {title: 'Notifications | Argus'}},
   {path: 'reset-password', component: ResetPasswordComponent, data: {title: 'Reset Password | Argus'}}
 ];

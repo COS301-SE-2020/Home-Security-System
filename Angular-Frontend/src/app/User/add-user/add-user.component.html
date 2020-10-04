@@ -11,7 +11,6 @@
         <div class="card-body">
           <form #changeForm="ngForm">
             <div class="row">
-
               <!--First Name-->
               <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="form-group">
@@ -42,9 +41,10 @@
                 </div>
               </div>
             </div>
-            <br>
-            <div class="row">
 
+            <br>
+
+            <div class="row">
               <!--Username-->
               <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="form-group">
@@ -79,10 +79,10 @@
                 </div>
               </div>
             </div>
+
             <br>
 
             <div class="row">
-
               <!--Contact Number-->
               <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="form-group">
@@ -120,6 +120,7 @@
                 </div>
               </div>
             </div>
+
             <div *ngIf="userPass.dirty">
               <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-6">
@@ -134,6 +135,34 @@
                          class="alert alert-danger">
                       Passwords do not match
                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <br>
+
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group">
+                  <label for="answerField">Security Question:</label>
+                  <br>
+                  <div>
+                    <select name="qestions" id="qestions">
+                      <option value="one">What was the name of your first stuffed animal?</option>
+                      <option value="two">Where were you when you had your first kiss?</option>
+                      <option value="three">What street did you live on in third grade?</option>
+                      <option value="four">What was the name of your childhood bully?</option>
+                      <option value="five">What did you want to name your child but never did?</option>
+                    </select>
+                  </div>
+                  <input id="answerField" name="answerField" class="form-control"
+                         required maxlength="35"
+                         pattern="^[a-zA-Z0-9_.-]*$"
+                         [(ngModel)]="answerPlaceholder" #answer="ngModel">
+                  <div *ngIf="answer.invalid && (answer.dirty || answer.touched)"
+                       class="alert alert-danger">
+                    Please enter a valid response.
                   </div>
                 </div>
               </div>
@@ -172,8 +201,7 @@
                 Drag and Drop an image<br>
               </label>
 
-              or
-              <br>
+              or<br>
 
               <a class="hoverPointer" data-toggle="modal" data-target="#pictureModal" (click)="toggleCam()">
                 capture a photo from camera
