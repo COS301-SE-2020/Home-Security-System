@@ -165,8 +165,8 @@ def cam_feed():
                                    'imageStr': 'data:image/jpg;base64,' +
                                                str(b64.b64encode(c.imencode('.jpg',
                                                                             face_pix[f_num])[1]).decode('utf-8')),
-                                   'features': False
-                                   }
+                                   'features': False,
+                                   'networkId': 1}
                         message_channel.basic_publish(exchange='sigma.direct',
                                                       routing_key='personKey',
                                                       body=json.dumps(message))
