@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {TitleService} from '../../title.service';
-import { SessionService } from '../../model/session.service';
-import {Session} from '../../../assets/js/SessionStorage';
 import {UserService} from '../../model/user.service';
 import {User} from '../../model/user';
 import {NotificationService} from '../../model/notification.service';
 import {JsonObject} from '@angular/compiler-cli/ngcc/src/packages/entry_point';
+import {AuthService} from "../../model/auth.service";
 
 @Component({
   selector: 'app-top-nav',
@@ -14,25 +13,17 @@ import {JsonObject} from '@angular/compiler-cli/ngcc/src/packages/entry_point';
 })
 export class TopNavComponent implements OnInit {
   title: string;
-  sessionS = new Session();
   user: User;
   newObj: JsonObject;
 
-  constructor(private noteService: NotificationService, private sessService: SessionService,
+  constructor(private noteService: NotificationService, public authService:AuthService,
               private appService: TitleService, private userService: UserService) { }
-
-  clearUserSession() {
-    this.newObj = this.sessionS.retrieveUserInfo();
-    const idU = this.newObj.id;
-    this.sessService.deleteSessionById(idU.toString()).subscribe();
-    this.sessionS.deleteSession();
-  }
 
   displayProfilePic() {
       const uPic = document.getElementById('profilePic') as HTMLImageElement;
-      this.userService.getUserById(this.sessionS.retrieveUserInfo().id).subscribe(
-        data => { uPic.src = data.profilePhoto; });
 
+      this.userService.getUserById(this.authService.retrieveUserInfo().id)
+        .subscribe(data => { uPic.src = data.profilePhoto; });
   }
 
   ngOnInit(): void {

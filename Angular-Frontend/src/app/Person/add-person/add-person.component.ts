@@ -1,13 +1,16 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { PersonService } from '../../model/person.service';
 import { Person } from '../../model/person';
 import { Router } from '@angular/router';
-import {TitleService} from '../../title.service';
-import {WebcamImage} from 'ngx-webcam';
-import {NgxSpinnerService} from 'ngx-spinner';
+import { TitleService } from '../../title.service';
+import { WebcamImage } from 'ngx-webcam';
+import { NgxSpinnerService } from 'ngx-spinner';
+import {AuthService} from "../../model/auth.service";
 import {User} from "../../model/user";
-import Session from "../../../assets/js/SessionStorage";
+import {UserService} from "../../model/user.service";
+import {SessionClass} from "../../model/session";
+import {toNumbers} from "@angular/compiler-cli/src/diagnostics/typescript_version";
 
 @Component({
   selector: 'app-add-person',
@@ -17,17 +20,14 @@ import Session from "../../../assets/js/SessionStorage";
 export class AddPersonComponent implements OnInit {
   newPerson: Person;
   submitted = false;
-  sessionS = new Session();
-  info: User = this.sessionS.retrieveUserInfo();
+  info: SessionClass = this.authService.retrieveUserInfo();
 
   namePlaceholder = '';
   surnamePlaceholder = '';
 
-  constructor(private personService: PersonService,
-              private appService: TitleService,
-              private router: Router,
-              private SpinnerService: NgxSpinnerService) {
-  }
+  constructor(private personService: PersonService, private appService: TitleService,
+              private router: Router, private SpinnerService: NgxSpinnerService,
+              private authService: AuthService, private userService: UserService) {}
 
   // noinspection JSAnnotator
   @ViewChild('video')
@@ -105,11 +105,19 @@ export class AddPersonComponent implements OnInit {
       this.newPerson.personListed = getListed;
       this.newPerson.personCreated = new Date();
 
-      this.newPerson.network = this.info.network;
+      this.newPerson.network = this.getNetwork();
 
       this.personService.addPerson(this.newPerson).subscribe();
       this.gotoList();
     }
+  }
+
+  getNetwork(): any {
+    var num = Number(this.info.id);
+    this.userService.getUserById(num)
+      .subscribe(value => {
+        return value.network;
+      });
   }
 
   onSubmit() {
@@ -128,7 +136,7 @@ export class AddPersonComponent implements OnInit {
     this.SpinnerService.show();
     setTimeout(() => {
       this.SpinnerService.hide();
-      location.reload();
+      window.location.reload();
     }, 500);
   }
 

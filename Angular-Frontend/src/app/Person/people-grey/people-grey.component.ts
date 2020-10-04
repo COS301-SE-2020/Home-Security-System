@@ -3,9 +3,9 @@ import {TitleService} from '../../title.service';
 import {Observable} from 'rxjs';
 import {Person} from '../../model/person';
 import {PersonService} from '../../model/person.service';
-import {User} from '../../model/user';
-import Session from '../../../assets/js/SessionStorage';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {AuthService} from "../../model/auth.service";
+import {SessionClass} from "../../model/session";
 
 @Component({
   selector: 'app-people-grey',
@@ -13,13 +13,12 @@ import {NgxSpinnerService} from 'ngx-spinner';
   styleUrls: ['./people-grey.component.css']
 })
 export class PeopleGreyComponent implements OnInit {
-  sessionS = new Session();
-  info: User = this.sessionS.retrieveUserInfo();
+  info: SessionClass = this.authService.retrieveUserInfo();
   person: Observable<Person[]>;
   psn: Person;
 
   constructor(private personService: PersonService, private appService: TitleService,
-              private SpinnerService: NgxSpinnerService) {
+              private SpinnerService: NgxSpinnerService, private authService: AuthService) {
   }
 
   reloadData() {

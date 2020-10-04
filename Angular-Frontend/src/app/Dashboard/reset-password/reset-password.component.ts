@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { RecoverPasswordEmail } from '../../../assets/js/RecoverPasswordEmail.js';
-import {Session} from '../../../assets/js/SessionStorage';
 import { UserService } from '../../model/user.service';
 import { User } from '../../model/user';
-import {Observable} from 'rxjs';
+import { AuthService } from "../../model/auth.service";
 
 @Component({
   selector: 'app-reset-password',
@@ -11,15 +11,14 @@ import {Observable} from 'rxjs';
   styleUrls: ['./reset-password.component.css']
 })
 export class ResetPasswordComponent implements OnInit {
-  sessionS = new Session();
   mailer = new RecoverPasswordEmail();
   users: Observable<User[]>;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private authService: AuthService) { }
 
   sendMail() {
      // const passwReset = document.getElementById('passwordField2') as HTMLInputElement;
-     const obj = this.sessionS.retrieveEmail();
+     const obj = this.authService.retrieveEmail();
 
      let counter = 0;
      let sent = false;
@@ -28,9 +27,9 @@ export class ResetPasswordComponent implements OnInit {
         data => {
           while (data[counter] != null) {
             if (data[counter].email.toLowerCase() === obj.email.toLowerCase()) {
-              this.mailer.sendEmail(obj.email, data[counter].userPass);
+              this.mailer.sendEmail(obj.email.toLowerCase(), data[counter].userPass);
               sent = true;
-              this.sessionS.deleteSession();
+              this.authService.logOut();
             }
             counter++;
           }

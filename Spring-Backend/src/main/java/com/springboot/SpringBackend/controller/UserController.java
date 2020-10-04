@@ -42,8 +42,8 @@ public class UserController {
 
     @PostMapping("/users")
     public User addUser(@Valid @RequestBody User x) {
-        //String passEncrypt = hash.encode(x.getUserPass());
-        //x.setUserPass(passEncrypt);
+        String passEncrypt = hash.encode(x.getUserPass());
+        x.setUserPass(passEncrypt);
         return service.createUser(x);
     }
 
@@ -66,12 +66,14 @@ public class UserController {
         x.setContactNo(details.getContactNo());
         x.setEmail(details.getEmail());
         x.setUsername(details.getUsername());
-        x.setUserPass(details.getUserPass());
-        //x.setUserPass(hash.encode(details.getUserPass()));
+        //x.setUserPass(details.getUserPass());
+        x.setUserPass(hash.encode(details.getUserPass()));
         x.setUserRole(details.getUserRole());
         x.setNotifyEmail(details.getNotifyEmail());
         x.setNotifySMS(details.getNotifySMS());
         x.setUserDeleted(details.getUserDeleted());
+        x.setSecureQuestion(details.getSecureQuestion());
+        x.setSecureAnswer(details.getSecureAnswer());
         if(details.getNetwork() != null) {
             x.setNetwork(details.getNetwork());
         }

@@ -40,9 +40,9 @@
           </div>
         </div>
 
-        <div class="form-group" *ngIf="info.userId != user.userId">
+        <div class="form-group" *ngIf="sessionId != user.userId">
           <label class="float-left">Role</label><br><br>
-          <label class="radioContainer" *ngIf="info.userRole == 'Admin'">Admin
+          <label *ngIf="info.role == 'Admin'"class="radioContainer" >Admin
             <input type="radio" checked="checked" name="role" id="admin" value="Admin" required [(ngModel)]="user.userRole">
             <span class="radioCheckmark"></span>
           </label>

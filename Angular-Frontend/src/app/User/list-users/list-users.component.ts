@@ -3,9 +3,10 @@ import { Observable } from 'rxjs';
 import { UserService } from '../../model/user.service';
 import { User } from '../../model/user';
 import { Router } from '@angular/router';
-import {TitleService} from '../../title.service';
-import { Session } from '../../../assets/js/SessionStorage.js';
-import {NgxSpinnerService} from 'ngx-spinner';
+import { TitleService } from '../../title.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { AuthService } from "../../model/auth.service";
+import {SessionClass} from "../../model/session";
 
 @Component({
   selector: 'app-list-users',
@@ -13,15 +14,14 @@ import {NgxSpinnerService} from 'ngx-spinner';
   styleUrls: ['./list-users.component.css']
 })
 export class ListUsersComponent implements OnInit {
-  sessionS = new Session();
   users: Observable<User[]>;
-  info: User = this.sessionS.retrieveUserInfo();
+  info: SessionClass = this.authService.retrieveUserInfo();
 
   id: number;
   user: User;
   temp: string;
 
-  constructor(private userService: UserService, private appService: TitleService,
+  constructor(private authService: AuthService ,private userService: UserService, private appService: TitleService,
               private SpinnerService: NgxSpinnerService, private router: Router) {
   }
 
@@ -31,8 +31,8 @@ export class ListUsersComponent implements OnInit {
   }
 
   removeUser(id: number) {
-    const user = this.sessionS.retrieveUserInfo();
-    if (user.id === id )
+    const num = Number(this.info.id);
+    if (num === id )
     {
       alert('You are unfortunately not able to delete yourself as a user on this page.');
     }
@@ -55,26 +55,24 @@ export class ListUsersComponent implements OnInit {
     }
   }
 
-  updateUser(id: number){
-    const userInfo = this.sessionS.retrieveUserInfo();
-
+  updateUser(id: number) {
     this.user = new User();
-
+    const num = Number(this.info.id);
     this.userService.getUserById(id)
       .subscribe(data => {
         // console.log(data);
         this.user = data;
         this.temp = data.userRole;
 
-        if ( this.user.userRole === 'Admin' && this.info.userRole === 'Advanced')
+        if ( this.user.userRole === 'Admin' && this.info.role === 'Advanced')
         {
           alert('Sorry, you can not edit a user with more privileges than yourself.');
         }
-        else if ((userInfo.userRole === 'Basic')) {
+        else if (this.info.role === 'Basic') {
           alert('You are unfortunately not able to edit a user on this page.');
         }
         else {
-          if ( userInfo.id === id )
+          if (num === id )
           {
             alert('Sorry, you can not edit yourself from user list.');
           }

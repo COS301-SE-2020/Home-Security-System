@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../model/user.service';
 import {User} from '../../model/user';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Session} from '../../../assets/js/SessionStorage';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {AuthService} from "../../model/auth.service";
+import {SessionClass} from "../../model/session";
 
 @Component({
   selector: 'app-edit-user',
@@ -11,16 +12,13 @@ import {NgxSpinnerService} from 'ngx-spinner';
   styleUrls: ['./edit-user.component.css']
 })
 export class EditUserComponent implements OnInit {
-  sessionS = new Session();
-  info: User = this.sessionS.retrieveUserInfo();
+  info: SessionClass = this.authService.retrieveUserInfo();
+  sessionId = Number(this.info.id);
   id: number;
   user: User;
   submitted = false;
 
-  namePlaceholder = '';
-  surnamePlaceholder = '';
-
-  constructor(private route: ActivatedRoute, private router: Router,
+  constructor(private route: ActivatedRoute, private router: Router,private authService: AuthService,
               private SpinnerService: NgxSpinnerService, private userService: UserService) { }
 
   ngOnInit() {

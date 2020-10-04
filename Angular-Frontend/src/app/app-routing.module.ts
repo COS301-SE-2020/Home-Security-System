@@ -3,6 +3,7 @@ import {Routes, RouterModule} from '@angular/router';
 
 import {DashboardComponent} from './Dashboard/dashboard/dashboard.component';
 import {LoginComponent} from './Dashboard/login/login.component';
+import { LogoutComponent } from './Dashboard/logout/logout.component';
 import {SettingsComponent} from './Dashboard/settings/settings.component';
 import {ViewUserComponent} from './User/view-user/view-user.component';
 import {AddUserComponent} from './User/add-user/add-user.component';
@@ -20,26 +21,29 @@ import {DeletedBlackComponent} from './Person/deleted-black/deleted-black.compon
 import {NotificationComponent} from './Dashboard/notification/notification.component';
 import {ResetPasswordComponent} from './Dashboard/reset-password/reset-password.component';
 
+import { AuthGuardService } from './model/auth-guard.service';
+
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent, data: {title: 'Login | Argus'}},
-  {path: 'dashboard', component: DashboardComponent, data: {title: 'Dashboard | Argus'}},
-  {path: 'user-profile', component: UserProfileComponent, data: {title: 'User Profile | Argus'}},
-  {path: 'user-list', component: ListUsersComponent, data: {title: 'User List | Argus'}},
-  {path: 'add-user', component: AddUserComponent, data: {title: 'Add User | Argus'}},
-  {path: 'deleted-users', component: DeletedUsersComponent, data: {title: 'Deleted Users | Argus'}},
-  {path: 'edit-user/:id', component: EditUserComponent, data: {title: 'Edit User | Argus'}},
-  {path: 'view-user/:id', component: ViewUserComponent, data: {title: 'View User | Argus'}},
-  {path: 'people-cleared', component: PeopleWhiteComponent, data: {title: 'Person White-List | Argus'}},
-  {path: 'people-unknown', component: PeopleGreyComponent, data: {title: 'Person Grey-List | Argus'}},
-  {path: 'people-threat', component: PeopleBlackComponent, data: {title: 'Person Black-List | Argus'}},
-  {path: 'deleted-cleared', component: DeletedWhiteComponent, data: {title: 'Deleted Person White-List | Argus'}},
-  {path: 'deleted-threat', component: DeletedBlackComponent, data: {title: 'Deleted Person Black-List | Argus'}},
-  {path: 'add-person', component: AddPersonComponent, data: {title: 'Add Person | Argus'}},
-  {path: 'edit-person/:id', component: EditPersonComponent, data: {title: 'Edit Person | Argus'}},
-  {path: 'settings', component: SettingsComponent, data: {title: 'Notifications | Argus'}},
-  {path: 'notification', component: NotificationComponent, data: {title: 'Notifications | Argus'}},
-  {path: 'reset-password', component: ResetPasswordComponent, data: {title: 'Reset Password | Argus'}}
+  {path: 'logout', component: LogoutComponent, data: {title: 'Logout | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'dashboard', component: DashboardComponent, data: {title: 'Dashboard | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'user-profile', component: UserProfileComponent, data: {title: 'User Profile | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'user-list', component: ListUsersComponent, data: {title: 'User List | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'add-user', component: AddUserComponent, data: {title: 'Add User | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'deleted-users', component: DeletedUsersComponent, data: {title: 'Deleted Users | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'edit-user/:id', component: EditUserComponent, data: {title: 'Edit User | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'view-user/:id', component: ViewUserComponent, data: {title: 'View User | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'people-cleared', component: PeopleWhiteComponent, data: {title: 'Person White-List | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'people-unknown', component: PeopleGreyComponent, data: {title: 'Person Grey-List | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'people-threat', component: PeopleBlackComponent, data: {title: 'Person Black-List | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'deleted-cleared', component: DeletedWhiteComponent, data: {title: 'Deleted Person White-List | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'deleted-threat', component: DeletedBlackComponent, data: {title: 'Deleted Person Black-List | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'add-person', component: AddPersonComponent, data: {title: 'Add Person | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'edit-person/:id', component: EditPersonComponent, data: {title: 'Edit Person | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'settings', component: SettingsComponent, data: {title: 'Notifications | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'notification', component: NotificationComponent, data: {title: 'Notifications | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'reset-password', component: ResetPasswordComponent, data: {title: 'Reset Password | Argus'}, canActivate:[AuthGuardService] }
 ];
 
 @NgModule({

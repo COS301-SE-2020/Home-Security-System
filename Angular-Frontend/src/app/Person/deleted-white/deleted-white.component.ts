@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from '../../model/user';
 import {Person} from '../../model/person';
 import {PersonService} from '../../model/person.service';
 import {UserService} from '../../model/user.service';
 import {TitleService} from '../../title.service';
 import {Observable} from 'rxjs';
-import Session from '../../../assets/js/SessionStorage';
 import {Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {AuthService} from "../../model/auth.service";
+import {SessionClass} from "../../model/session";
 
 @Component({
   selector: 'app-deleted-white',
@@ -15,13 +15,12 @@ import {NgxSpinnerService} from 'ngx-spinner';
   styleUrls: ['./deleted-white.component.css']
 })
 export class DeletedWhiteComponent implements OnInit {
-  sessionS = new Session();
-  info: User = this.sessionS.retrieveUserInfo();
+  info: SessionClass = this.authService.retrieveUserInfo();
   list: Observable<Person[]>;
   person: Observable<Person[]>;
   psn: Person;
 
-  constructor(private personService: PersonService, private userService: UserService,
+  constructor(private personService: PersonService, private userService: UserService, private authService: AuthService,
               private SpinnerService: NgxSpinnerService, private appService: TitleService, private router: Router) { }
 
   reloadData() {

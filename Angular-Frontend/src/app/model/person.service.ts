@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {environment} from '../../environments/environment';
 // import {environment} from '../../environments/environment.prod';
+
+const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa('Sigma' + ':' + 'COS301Sigma!') });
 
 @Injectable({
   providedIn: 'root'
@@ -13,15 +15,15 @@ export class PersonService {
   constructor(private http: HttpClient) { }
 
   getPersonById(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${id}`);
+    return this.http.get(`${this.baseUrl}/${id}`,{headers});
   }
 
   addPerson(person: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}`, person);
+    return this.http.post(`${this.baseUrl}`, person,{headers});
   }
 
   updatePerson(id: number, value: any): Observable<any> {
-    return this.http.put(`${this.baseUrl}/${id}`, value);
+    return this.http.put(`${this.baseUrl}/${id}`, value,{headers});
   }
 
   deletePerson(id: number): Observable<any> {
@@ -29,6 +31,6 @@ export class PersonService {
   }
 
   getPersonList(): Observable<any> {
-    return this.http.get(`${this.baseUrl}`);
+    return this.http.get(`${this.baseUrl}`,{headers});
   }
 }

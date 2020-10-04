@@ -1,12 +1,13 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {TitleService} from '../../title.service';
 import {UserService} from '../../model/user.service';
-import {Session} from '../../../assets/js/SessionStorage.js';
 import {ActivatedRoute, Router} from '@angular/router';
 import {User} from '../../model/user';
 import {WebcamImage} from 'ngx-webcam';
 import {Observable, Subject} from 'rxjs';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {AuthService} from "../../model/auth.service";
+import {SessionClass} from "../../model/session";
 
 @Component({
   selector: 'app-user-profile',
@@ -14,13 +15,12 @@ import {NgxSpinnerService} from 'ngx-spinner';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  sessionS = new Session();
-  //userObj: User = this.sessionS.retrieveUserInfo();
+  info: SessionClass = this.authService.retrieveUserInfo();
   id: number;
   user: User;
   password = '';
 
-  constructor(private route: ActivatedRoute, private router: Router,
+  constructor(private route: ActivatedRoute, private router: Router, private authService: AuthService,
               private appService: TitleService, private userService: UserService,
               private SpinnerService: NgxSpinnerService) {
   }
@@ -79,7 +79,8 @@ export class UserProfileComponent implements OnInit {
     const email = document.getElementById('emailDisplay') as HTMLDataElement;
     const uPic = document.getElementById('userPic') as HTMLImageElement;
 
-    this.userService.getUserById(this.sessionS.retrieveUserInfo().id)
+    const num = Number(this.info.id);
+    this.userService.getUserById(num)
       .subscribe(data => {
         FName.value = data.fname;
         SName.value = data.lname;
@@ -105,18 +106,18 @@ export class UserProfileComponent implements OnInit {
     this.user.email = uEmail.value;
     this.user.username = uUsername.value;
     this.user.userPass = uPassword.value;
+    this.user.secureQuestion = "one";
     this.user.secureAnswer = "Hello";
 
-    this.userService.updateUser(this.sessionS.retrieveUserInfo().id, this.user).subscribe(() => {
+    const num = Number(this.info.id);
+    this.userService.updateUser(num, this.user).subscribe(() => {
       this.gotoList();
     });
   }
 
   updateUserPic() {
     const photoInp = document.getElementById('submitPhoto').getAttribute('src');
-
-    let userObj;
-    userObj = this.sessionS.retrieveUserInfo();
+    const num = Number(this.info.id);
 
     if (photoInp === '/assets/Images/blank.jpg') {
       this.user.profilePhoto = this.getDefaultImage();
@@ -124,7 +125,7 @@ export class UserProfileComponent implements OnInit {
       this.user.profilePhoto = photoInp;
     }
 
-    this.userService.updateUser(userObj.id, this.user)
+    this.userService.updateUser(num, this.user)
       .subscribe(() => {
         // this.populateFields();
         this.gotoList();
@@ -185,7 +186,7 @@ export class UserProfileComponent implements OnInit {
     this.SpinnerService.show();
     setTimeout(() => {
       this.SpinnerService.hide();
-      location.reload();
+      window.location.reload();
     }, 500);
   }
 

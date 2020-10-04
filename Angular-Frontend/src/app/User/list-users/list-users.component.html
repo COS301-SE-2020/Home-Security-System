@@ -10,7 +10,8 @@
         <div class="card-header card-header-primary">
           <h4 class="card-title">User List</h4>
           <p class="card-category">All users for your system</p>
-          <a *ngIf="info.userRole != 'Basic'" id="addBtn" class="material-icons open-modal listPageIcons"
+          <!--*ngIf="info.userRole != 'Basic'"-->
+          <a  id="addBtn" class="material-icons open-modal listPageIcons"
              data-toggle="modal" data-target="#addUserModal" title="Add New User" onclick="openDrop()">person_add</a>
         </div>
         <div class="card-body">
@@ -55,16 +56,16 @@
               </thead>
               <tbody id="userTableBody">
               <ng-container *ngFor="let user of users | async">
-                <tr *ngIf="(user.userDeleted == null) && (user.network.netName == info.network.netName)">
+                <tr *ngIf="(user.userDeleted == null) "><!--&& (user.network.netName == info.network.netName)-->
                   <td><img alt="Profile Picture" src="{{user.profilePhoto}}" class="listPic ImgClassName"></td>
                   <td>{{user.fname}}&nbsp;{{user.lname}}</td>
                   <td>{{user.userRole}}</td>
                   <td>
                     <a id="viewBtn" class="material-icons listPageIcons" (click)="viewUser(user.userId)" title="View User">visibility</a>
-                    <a *ngIf="info.userRole != 'Basic'" id="editBtn" class="material-icons listPageIcons"
-                       (click)="updateUser(user.userId)" title="Edit User">edit</a>
-                    <a *ngIf="info.userRole == 'Admin'" id="deleteBtn" class="material-icons listPageIcons"
-                       (click)="removeUser(user.userId)" title="Delete User">delete</a>
+                    <a  id="editBtn" class="material-icons listPageIcons"
+                       (click)="updateUser(user.userId)" title="Edit User">edit</a><!--*ngIf="info.userRole != 'Basic'"-->
+                    <a id="deleteBtn" class="material-icons listPageIcons"
+                       (click)="removeUser(user.userId)" title="Delete User">delete</a><!-- *ngIf="info.userRole == 'Admin'"-->
                   </td>
                 </tr>
               </ng-container>
@@ -75,7 +76,7 @@
       </div>
     </div>
   </div>
-  <a *ngIf="info.userRole == 'Admin'" class="btn btn-primary float-right" (click)="restoreUser()">Restore</a>
+  <a  class="btn btn-primary float-right" (click)="restoreUser()">Restore</a><!--*ngIf="info.userRole == 'Admin'"-->
 
 
 <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">

@@ -60,7 +60,7 @@
               </thead>
               <tbody>
               <ng-container *ngFor="let note of notification | async">
-                <tr *ngIf="(note.notificationDeleted == null) && (note.network.netName == networkName)">
+                <tr *ngIf="(note.notificationDeleted == null) && (note.network.netName == info.network)">
                   <td>{{note.onDate}}&nbsp;{{note.atTime}}</td>
                   <td>{{note.listed}}</td>
                   <td>{{note.message}}</td>

@@ -10,7 +10,7 @@
         <div class="card-header card-header-primary" id="NotDiv">
           <h4 class="card-title">Unknown Person List</h4>
           <p class="card-category">People on the street, walking past your property.</p>
-          <!--<a *ngIf="info.userRole == 'Admin'" class="material-icons listPageIcons open-modal" (click)="deleteAll()"
+          <!--<a *ngIf="info.role == 'Admin'" class="material-icons listPageIcons open-modal" (click)="deleteAll()"
              title="Delete All">auto_delete</a>-->
         </div>
         <div class="card-body">
@@ -40,13 +40,13 @@
               </thead>
               <tbody>
               <ng-container *ngFor="let p of person | async">
-                <tr *ngIf="(p.personListed == 'Grey') && (p.personDeleted == null) && (p.network.netName == info.network.netName)">
+                <tr *ngIf="(p.personListed == 'Grey') && (p.personDeleted == null) && (p.network.netName == info.network)">
                   <td>{{p.personCreated}}</td>
                   <td>
                     <img alt="Image" id="noteImg{{p.personId}}" src="{{p.personImg}}"
                          class="listPic ImgClassName" (click)="imageClick(p.personId)">
                   </td>
-                  <td *ngIf="info.userRole != 'Basic'">
+                  <td *ngIf="info.role != 'Basic'">
                     <a class="material-icons listPageIcons" (click)="addToWhiteList(p.personId)"
                        title="Add to Cleared List">
                       thumb_up_alt

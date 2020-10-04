@@ -18,9 +18,8 @@ import {NgxSpinnerService} from 'ngx-spinner';
 
 export class DashboardComponent implements OnInit {
 
-  constructor(private spinner: NgxSpinnerService, private appService: TitleService, private personService: PersonService,
-              private notificationService: NotificationService) {
-  }
+  constructor(private spinner: NgxSpinnerService, private appService: TitleService,
+              private personService: PersonService, private notificationService: NotificationService) { }
 
   people: Observable<Person[]>;
   currentDate = new Date();

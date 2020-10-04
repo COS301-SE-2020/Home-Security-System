@@ -148,7 +148,7 @@
                   <label for="answerField">Security Question:</label>
                   <br>
                   <div>
-                    <select name="qestions" id="qestions">
+                    <select name="qestions" id="questions">
                       <option value="one">What was the name of your first stuffed animal?</option>
                       <option value="two">Where were you when you had your first kiss?</option>
                       <option value="three">What street did you live on in third grade?</option>
@@ -171,7 +171,7 @@
             <!--Role-->
             <div class="form-group">
               <label class="float-left">Role</label><br><br>
-              <label class="radioContainer" *ngIf="info.userRole == 'Admin'">Admin
+              <label class="radioContainer" *ngIf="info.role == 'Admin'">Admin
                 <input type="radio" name="role" id="admin" value="Admin">
                 <span class="radioCheckmark"></span>
               </label>

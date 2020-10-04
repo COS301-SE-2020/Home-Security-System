@@ -5,8 +5,9 @@ import {Router} from '@angular/router';
 import {User} from '../../model/user';
 import {WebcamImage} from 'ngx-webcam';
 import {Observable, Subject} from 'rxjs';
-import {Session} from '../../../assets/js/SessionStorage';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {AuthService} from "../../model/auth.service";
+import {SessionClass} from "../../model/session";
 
 @Component({
   selector: 'app-add-user',
@@ -14,8 +15,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
   styleUrls: ['./add-user.component.css']
 })
 export class AddUserComponent implements OnInit {
-  sessionS = new Session();
-  info: User = this.sessionS.retrieveUserInfo();
+  info: SessionClass = this.authService.retrieveUserInfo();
   newUser: User;
 
   namePlaceholder = '';
@@ -27,9 +27,8 @@ export class AddUserComponent implements OnInit {
   answerPlaceholder = '';
   confirmPassPlaceholder = '';
 
-  constructor(private usersService: UserService,
-              private appService: TitleService, private router: Router,
-              private SpinnerService: NgxSpinnerService) {
+  constructor(private usersService: UserService, private appService: TitleService, private router: Router,
+              private SpinnerService: NgxSpinnerService, private authService: AuthService) {
   }
 
   // noinspection JSAnnotator
@@ -123,6 +122,7 @@ export class AddUserComponent implements OnInit {
     const contactInp = document.getElementById('addPhone') as HTMLInputElement;
     const usernameInp = document.getElementById('addUsername') as HTMLInputElement;
     const passwordInp = document.getElementById('passwordField1') as HTMLInputElement;
+    const questInp = document.getElementById('questions') as HTMLInputElement;
     const answerInp = document.getElementById('answerField') as HTMLInputElement;
     const photoInp = document.getElementById('submitPhoto').getAttribute('src');
     const getRole = this.returnUserRole();
@@ -144,10 +144,11 @@ export class AddUserComponent implements OnInit {
       this.newUser.username = usernameInp.value;
       this.newUser.userPass = passwordInp.value;
       this.newUser.userRole = getRole;
+      this.newUser.secureQuestion = questInp.value;
       this.newUser.secureAnswer = answerInp.value;
       this.newUser.notifyEmail = true;
       this.newUser.notifySMS = false;
-      this.newUser.network = this.info.network;
+      //this.newUser.network = this.info.network;
 
       this.usersService.addUser(this.newUser).subscribe();
       this.gotoList();
@@ -165,7 +166,7 @@ export class AddUserComponent implements OnInit {
     this.SpinnerService.show();
     setTimeout(() => {
       this.SpinnerService.hide();
-      location.reload();
+      window.location.reload()
     }, 500);
   }
 

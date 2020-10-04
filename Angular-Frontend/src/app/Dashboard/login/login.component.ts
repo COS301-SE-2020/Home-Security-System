@@ -1,16 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {Observable} from 'rxjs';
-import {UserService} from '../../model/user.service';
-import {SessionService} from '../../model/session.service';
-import {User} from '../../model/user';
-import {SessionClass} from '../../model/session';
-import {Session} from '../../../assets/js/SessionStorage.js';
+import { Component, OnInit}  from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { AuthService } from '../../model/auth.service';
+import { UserService } from '../../model/user.service';
+import { User } from '../../model/user';
 // import {RecoverPasswordEmail} from '../../../assets/js/RecoverPasswordEmail.js';
 // import * as bcrypt from 'bcryptjs';
 // DO NOT REMOVE THIS
-import {forEachComment} from 'tslint';
-import {count} from 'rxjs/operators';
+import { forEachComment } from 'tslint';
+import { count } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -19,22 +17,14 @@ import {count} from 'rxjs/operators';
 })
 export class LoginComponent implements OnInit {
   //mailer = new RecoverPasswordEmail();
-  sessionS = new Session();
   users: Observable<User[]>;
-  sessClass = new SessionClass();
+  invalidLogin = false;
 
-  constructor(private userService: UserService, private sessService: SessionService, private router: Router) {
-  }
+  constructor(private userService: UserService, public authService: AuthService,
+              private router: Router) { }
 
-  recoverPasswordEmail() {
-    const emailInp = document.getElementById('emailIn') as HTMLInputElement;
-
-    if (emailInp.value.toLowerCase() !== '' && emailInp.value.toLowerCase() !== 'E-mail') {
-      this.sessionS.recoverySess(emailInp.value.toString());
-      this.router.navigate(['/reset-password']);
-    } else {
-      alert('Error, please enter an email address');
-    }
+  ngOnInit(): void {
+    this.enterLogin();
   }
 
   enterLogin() {
@@ -48,30 +38,65 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  recoverPasswordEmail() {
+    const emailInp = document.getElementById('emailInput') as HTMLInputElement;
+
+    if (emailInp.value.toLowerCase() !== '' && emailInp.value.toLowerCase() !== 'E-mail') {
+      this.jwtToken.recoverySess(emailInp.value.toString());
+      this.router.navigate(['/reset-password']);
+    } else {
+      alert('Error, please enter an email address');
+    }
+  }
+
+  /*makeSession() {
+    const emailVar = document.getElementById('emailField') as HTMLInputElement;
+    const passVar = document.getElementById('passwordField') as HTMLInputElement;
+    // const salt = bcrypt.genSaltSync(10);
+    // const pass = bcrypt.hashSync(passVar.value, salt);
+    // let counter = 0;
+
+    this.userService.getUserList().subscribe(data => {
+          while (data[counter] != null) {
+            if (data[counter].userDeleted === null) {
+              if ((data[counter].email.toLowerCase() === emailVar.value.toLowerCase()) ||
+                (data[counter].username === emailVar.value)) {
+                   (this.authService.authenticate(emailVar, passVar)
+                    .subscribe(value => {
+                        //this.authService.saveToken(value.token);
+                        //this.authService.saveUsername(value.username);
+
+                        this.invalidLogin = false;
+                        this.router.navigate(['/dashboard']);
+                      },
+                      error => {
+                        this.invalidLogin = true;
+                      }
+                    )
+                );
+              }
+            }
+            counter += 1;
+          }
+        });
+  }*/
+
   makeSession() {
-    const emailVar = document.getElementById('emailInput') as HTMLInputElement;
+    const emailVar = document.getElementById('emailField') as HTMLInputElement;
     const passVar = document.getElementById('passwordField') as HTMLInputElement;
     // const salt = bcrypt.genSaltSync(10);
     // const pass = bcrypt.hashSync(passVar.value, salt);
     let counter = 0;
 
-    this.userService.getUserList()
-      .subscribe(
-        data => {
+    this.userService.getUserList().subscribe(data => {
           while (data[counter] != null) {
             if (data[counter].userDeleted === null) {
               if (((data[counter].email.toLowerCase() === emailVar.value.toLowerCase()) || (data[counter].username === emailVar.value))
                 && (data[counter].userPass === passVar.value)) { // replace passVar.value with pass
 
                 // tslint:disable-next-line:max-line-length
-                this.sessionS.createSession(data[counter].userId, data[counter].userRole, data[counter].email, data[counter].network);
-                this.sessClass.id = data[counter].userId.toString();
-                this.sessClass.email = data[counter].email.toString();
-                this.sessClass.role = data[counter].userRole.toString();
-                this.sessClass.network = data[counter].network;
-
-                this.sessService.addToSession(this.sessClass).subscribe();
-                this.sessionS.retrieveUserInfo();
+                this.authService.createSession(data[counter].userId, data[counter].userRole, data[counter].email,data[counter].network.netName);
+                this.authService.retrieveUserInfo();
                 this.router.navigate(['/dashboard']);
               }
               if (((data[counter].email.toLowerCase() === emailVar.value.toLowerCase()) || (data[counter].username === emailVar.value)) &&
@@ -83,9 +108,5 @@ export class LoginComponent implements OnInit {
             counter += 1;
           }
         });
-  }
-
-  ngOnInit(): void {
-    this.enterLogin();
   }
 }

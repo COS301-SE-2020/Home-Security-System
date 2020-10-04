@@ -4,7 +4,8 @@ import {Notification} from '../../model/notification';
 import {NotificationService} from '../../model/notification.service';
 import {TitleService} from '../../title.service';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {Session} from '../../../assets/js/SessionStorage';
+import {AuthService} from "../../model/auth.service";
+import {SessionClass} from "../../model/session";
 
 @Component({
   selector: 'app-notification',
@@ -15,10 +16,9 @@ import {Session} from '../../../assets/js/SessionStorage';
 export class NotificationComponent implements OnInit {
   notification: Observable<Notification[]>;
   note: Notification;
-  sessionS = new Session();
-  networkName = this.sessionS.retrieveUserInfo().network.netName;
+  info: SessionClass = this.authService.retrieveUserInfo();
 
-  constructor(private notificationService: NotificationService,
+  constructor(private notificationService: NotificationService, private authService: AuthService,
               private SpinnerService: NgxSpinnerService, private appService: TitleService) { }
 
   reloadData() {
@@ -46,8 +46,8 @@ export class NotificationComponent implements OnInit {
             });
         });
   }
-  imageClick(id): void {
 
+  imageClick(id): void {
     const modal = document.getElementById('myModal') as HTMLElement;
     const img = document.getElementById('noteImg' + id) as HTMLImageElement;
     const modalImg = document.getElementById('img01') as HTMLImageElement;

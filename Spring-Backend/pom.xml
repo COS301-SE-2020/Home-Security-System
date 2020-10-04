@@ -21,7 +21,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.build.outputEncoding>UTF-8</project.build.outputEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<failOnMissingWebXml>false</failOnMissingWebXml>
 		<java.version>14</java.version>
 	</properties>
@@ -119,14 +119,18 @@
 			<version>2.0.2</version>
 		</dependency>
 
-		<!--<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt</artifactId>
-			<version>0.9.1</version>
-		</dependency>-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<!--<dependency>
+			<groupId>org.springframework.security.oauth</groupId>
+			<artifactId>spring-security-oauth2</artifactId>
+		</dependency>-->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -194,13 +198,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<!--<executions>
-					<execution>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-					</execution>
-				</executions>-->
 			</plugin>
 
 			<plugin>
@@ -270,60 +267,8 @@
 				<configuration>
 					<propertyFile>src/main/resources/application.properties</propertyFile>
 					<propertyFileWillOverride>true</propertyFileWillOverride>
-					<!--<url>${env.JDBC_DATABASE_URL}</url>-->
 				</configuration>
 			</plugin>
-
-			<!--<plugin>
-				<groupId>com.heroku.sdk</groupId>
-				<artifactId>heroku-maven-plugin</artifactId>
-				<version>3.0.3</version>
-				<executions>
-					<execution>
-						<configuration>
-							<appName>sigma-argus</appName>
-							<processTypes>
-								<web>java $JAVA_OPTS -cp target/classes:target/dependency/* Main</web>
-							</processTypes>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>copy-dependencies</id>
-						<phase>package</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>org.liquibase</groupId>
-									<artifactId>liquibase-core</artifactId>
-									<version>3.4.1</version>
-									<destFileName>liquibase.jar</destFileName>
-								</artifactItem>
-								<artifactItem>
-									<groupId>org.yaml</groupId>
-									<artifactId>snakeyaml</artifactId>
-									<version>1.13</version>
-									<outputDirectory>${project.build.directory}/dependency/lib</outputDirectory>
-								</artifactItem>
-								<artifactItem>
-									<groupId>org.postgresql</groupId>
-									<artifactId>postgresql</artifactId>
-									<version>9.4-1204-jdbc41</version>
-									<destFileName>postgres.jar</destFileName>
-								</artifactItem>
-							</artifactItems>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>-->
 		</plugins>
 	</build>
 </project>
