@@ -5,7 +5,7 @@
   <div class="card-body">
     <br>
     <div [hidden]="submitted">
-      <form (ngSubmit)="onSubmit()">
+      <form onsubmit="resizeAll()" (ngSubmit)="onSubmit()">
         <div class="row">
           <div class="col">
             <div class="form-group">
@@ -51,8 +51,8 @@
         </div>
 
         <!--Profile Picture-->
-        <div class="form-group" >
-          <label for="profilePicInput" class="float-left">Profile Picture</label><br><br>
+        <div class="form-group" onchange="resizeAll()" ondragend="resizeAll()" ondrop="resizeAll()" >
+          <label for="profilePicInput" class="float-left">Person Picture</label><br><br>
           <div class="picture-container">
             <div id="preview" onchange="resizeAll()">
               <img alt="Default Picture" id="submitPhoto" src="/assets/Images/blank.jpg" onchange="resizeAll()">
@@ -60,7 +60,7 @@
             <br>
           </div>
 
-          <div onchange="resizeAll()" ondrop="resize()">
+          <div onchange="resizeAll()" ondrop="resizeAll()">
           <label id="profilePicInput" for="fileElem">
             <i class="material-icons add-photo-icon">add_photo_alternate</i><br>
             <input type="file" id="fileElem" accept="image/jpeg, image/png" onchange="resize()" > <!-- onchange="previewFile(this.file)" -->
@@ -75,8 +75,8 @@
             capture a photo from camera
           </a>
         </div>
-        <button type="button" class="btn btn-primary justify-content-center" onclick="resizeAll()" >Accept Photo</button>
-        <button onclick="resizeAll()" type="submit" class="btn btn-primary justify-content-center" >Submit</button>
+        <button type="button" class="btn btn-primary justify-content-center" (click)="allowSubmit()" onclick="resizeAll()" >Accept Photo</button> <br>
+        <button *ngIf="picCorrect" type="submit" class="btn btn-primary justify-content-center" >Submit</button>
       </form>
     </div>
 </div>

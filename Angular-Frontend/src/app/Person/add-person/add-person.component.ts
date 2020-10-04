@@ -1,15 +1,15 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
-import { PersonService } from '../../model/person.service';
-import { Person } from '../../model/person';
-import { Router } from '@angular/router';
+import {PersonService} from '../../model/person.service';
+import {Person} from '../../model/person';
+import {Router} from '@angular/router';
 import {TitleService} from '../../title.service';
 import {WebcamImage} from 'ngx-webcam';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {User} from "../../model/user";
 import Session from "../../../assets/js/SessionStorage";
 
-declare function resizeAll(): any;
+// declare function resizeAll(): any;
 
 // import * as main from 'src/assets/js/Main.js';
 // main.resizeAll();
@@ -27,6 +27,8 @@ export class AddPersonComponent implements OnInit {
 
   namePlaceholder = '';
   surnamePlaceholder = '';
+
+  picCorrect = false;
 
   constructor(private personService: PersonService,
               private appService: TitleService,
@@ -87,7 +89,7 @@ export class AddPersonComponent implements OnInit {
     const photoInp = document.getElementById('submitPhoto').getAttribute('src');
     const getListed = this.returnPersonListed();
 
-    resizeAll();
+    // resizeAll();
 
     if (photoInp === this.getDefaultImage() || photoInp === '/assets/Images/blank.jpg') {
       alert('Please choose a photo to add.');
@@ -120,7 +122,7 @@ export class AddPersonComponent implements OnInit {
   }
 
   onSubmit() {
-      resizeAll();
+      // resizeAll();
       this.addPerson();
   }
 
@@ -151,6 +153,42 @@ export class AddPersonComponent implements OnInit {
   public camOff(): void {
     this.showCam = false;
   }
+
+  public allowSubmit(): void{
+    if( this.picCorrect === false)
+    {
+      this.picCorrect = true;
+    }
+  }
+
+  // public resizeAll(type?: string, quality?: any): void {
+  //   const resize_width = 230;
+  //   const resize_height = 230;//without px
+  //
+  //   let reader = new FileReader();
+  //
+  //   reader.onload
+  //   {
+  //     let img = new Image();//create a image
+  //     img.src = document.getElementById('submitPhoto').getAttribute('src');
+  //     img.onload = function (el) {
+  //       let elem = document.createElement('canvas');//create a canvas
+  //
+  //       elem.width = resize_width;
+  //       elem.height = resize_height;
+  //
+  //       //draw in canvas
+  //       let ctx = elem.getContext('2d');
+  //       // @ts-ignore
+  //       ctx.drawImage(el.target, 0, 0, elem.width, elem.height);
+  //
+  //       //get the base64-encoded Data URI from the resize image
+  //       //assign it to thumb src
+  //       document.querySelector('#submitPhoto').src = ctx.canvas.toDataURL(el.target, 'image/jpeg', 0);
+  //
+  //     }
+  //   }
+  // }
 
 }
 
