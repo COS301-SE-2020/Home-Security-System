@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TitleService} from '../../title.service';
 import {Observable} from 'rxjs';
 import {Person} from '../../model/person';
@@ -38,9 +38,10 @@ export class PeopleGreyComponent implements OnInit {
           // console.log(data);
           this.psn = data;
           this.psn.personListed = 'White';
+          this.psn.fname = (document.getElementById('addFirstName') as HTMLInputElement).value;
+          this.psn.lname = (document.getElementById('addSurname') as HTMLInputElement).value;
           this.personService.updatePerson(id, this.psn)
-            .subscribe(() =>
-            {
+            .subscribe(() => {
               setTimeout(() => {
                 this.SpinnerService.hide();
                 this.reloadData();
@@ -57,9 +58,10 @@ export class PeopleGreyComponent implements OnInit {
           // console.log(data);
           this.psn = data;
           this.psn.personListed = 'Black';
+          this.psn.fname = (document.getElementById('addFirstName') as HTMLInputElement).value;
+          this.psn.lname = (document.getElementById('addSurname') as HTMLInputElement).value;
           this.personService.updatePerson(id, this.psn)
-            .subscribe(() =>
-            {
+            .subscribe(() => {
               // console.log(value);
               setTimeout(() => {
                 this.SpinnerService.hide();
@@ -93,7 +95,6 @@ export class PeopleGreyComponent implements OnInit {
 
   ngOnInit(): void {
     this.appService.setTitle('Person Grey-List');
-    //this.deleteOld(1);
     this.reloadData();
   }
 
@@ -147,20 +148,17 @@ export class PeopleGreyComponent implements OnInit {
                     }
                   }
                 }
-              }
-              else if (option === 2) {
+              } else if (option === 2) {
                 if (tempYear === year.toString()) {
                   if (Number(tempMonth) < Number(month)) {
                     if (Number(tempDay) === day && Number(tempDay) < 28) {
                       this.personService.deletePerson(data[counter].personId).subscribe();
-                    }
-                    else if (Number(tempDay) === 28) {
+                    } else if (Number(tempDay) === 28) {
                       this.personService.deletePerson(data[counter].personId).subscribe();
                     }
                   }
                 }
-              }
-              else if (option === 3) {
+              } else if (option === 3) {
                 if (Number(tempYear) < year) {
                   if (Number(tempMonth) === Number(month)) {
                     this.personService.deletePerson(data[counter].personId).subscribe();
@@ -205,20 +203,17 @@ export class PeopleGreyComponent implements OnInit {
                     }
                   }
                 }
-              }
-              else if (option === 2) {
+              } else if (option === 2) {
                 if (tempYear === year.toString()) {
                   if (Number(tempMonth) < Number(month)) {
                     if (Number(tempDay) === day && Number(tempDay) < 28) {
                       this.personService.updatePerson(data[counter].personId, this.psn).subscribe();
-                    }
-                    else if (Number(tempDay) === 28) {
+                    } else if (Number(tempDay) === 28) {
                       this.personService.updatePerson(data[counter].personId, this.psn).subscribe();
                     }
                   }
                 }
-              }
-              else if (option === 3) {
+              } else if (option === 3) {
                 if (Number(tempYear) < year) {
                   if (Number(tempMonth) === Number(month)) {
                     this.personService.updatePerson(data[counter].personId, this.psn).subscribe();
@@ -238,28 +233,23 @@ export class PeopleGreyComponent implements OnInit {
     if (month === 2) {
       if (day <= 21) {
         return (day + 7);
-      }
-      else {
+      } else {
         num = 28 - day;
         temp = 7 - num;
         return temp;
       }
-    }
-    else if (month === 1 || month === 3 || month === 5 || month === 7 || month === 8 || month === 10 || month === 12) {
+    } else if (month === 1 || month === 3 || month === 5 || month === 7 || month === 8 || month === 10 || month === 12) {
       if (day <= 24) {
         return (day + 7);
-      }
-      else {
+      } else {
         num = 31 - day;
         temp = 7 - num;
         return temp;
       }
-    }
-    else {
+    } else {
       if (day <= 23) {
         return (day + 7);
-      }
-      else {
+      } else {
         num = 30 - day;
         temp = 7 - num;
         return temp;
