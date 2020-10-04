@@ -111,7 +111,7 @@
 
                 <label id="profilePicInput" for="fileElem">
                   <i class="material-icons add-photo-icon">add_photo_alternate</i><br>
-                  <input type="file" id="fileElem" accept="image/*" onchange="previewFile(this.file)">
+                  <input type="file" id="fileElem" accept="image/*" onchange="resize()">
                   Drag and Drop an image<br>
                   <!--or<br>Click to add-->
                 </label>
@@ -123,8 +123,8 @@
                   capture a photo from camera
                 </a>
               </div>
-              <button type="submit" class="btn btn-primary justify-content-center" data-dismiss="modal"
-                      (click)="updateUserPic()">Update
+              <button type="button" class="btn btn-primary justify-content-center" (click)="allowSubmit()" onclick="resizeAll()" >Accept Photo</button> <br>
+              <button *ngIf="picCorrect" type="submit" class="btn btn-primary justify-content-center" data-dismiss="modal" (click)="updateUserPic()">Update
               </button>
             </div>
           </div>
@@ -158,13 +158,13 @@
             </div>
             <div class="snapshot" *ngIf="camImg">
               <h2>Preview:</h2>
-              <img id="confirmPic" width="400px" [src]="camImg.imageAsDataUrl" alt="Preview"/>
+              <img id="confirmPic"width="300px" height="300px" [src]="camImg.imageAsDataUrl" alt="Preview"/>
             </div>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#pictureModal"
-                  onclick="previewFileFromCam()" (click)="camOff()">
+                  onclick="resizePhoto()" (click)="camOff()">
             Confirm
           </button>
         </div>
