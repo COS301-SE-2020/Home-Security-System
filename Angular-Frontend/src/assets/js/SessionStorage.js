@@ -1,9 +1,10 @@
 "use strict";
 export class Session {
 
-  recoverySess(email) {
+  recoverySess(email, ans) {
     let recoveryDetails = {};
     recoveryDetails.email = email;
+    recoveryDetails.answer = ans;
     sessionStorage.setItem('recovery', JSON.stringify(recoveryDetails));
   }
 

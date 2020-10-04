@@ -43,6 +43,14 @@
     <label class="loginFields">
       <input class="loginInputs" id="emailIn" type="email" name="email" placeholder="E-mail">
     </label>
-    <a class="loginButton loginInputs loginButton" (click)="recoverPasswordEmail()">Next</a>
+
+    <a class="loginButton" id="retrieveQ" (click)="checkEmailForQuestion()">Retrieve security question</a>
+    <br>
+    <p class="forgotExplain" id="recoverQuestion" hidden>Question</p>
+    <label class="QuestionField" id="questionLabel" hidden>
+      <input class="loginInputs" id="questionIn" type="text" name="question" placeholder="Answer" hidden>
+    </label>
+    <a class="loginButton loginInputs loginButton" id="nextBtn" (click)="recoverPasswordEmail()" hidden>Next</a>
+
   </form>
 </div>

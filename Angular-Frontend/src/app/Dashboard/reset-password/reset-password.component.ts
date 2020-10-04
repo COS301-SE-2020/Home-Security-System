@@ -23,18 +23,25 @@ export class ResetPasswordComponent implements OnInit {
 
      let counter = 0;
      let sent = false;
+     let answer = false;
      this.userService.getUserList()
       .subscribe(
         data => {
           while (data[counter] != null) {
             if (data[counter].email.toLowerCase() === obj.email.toLowerCase()) {
-              this.mailer.sendEmail(obj.email, data[counter].userPass);
-              sent = true;
-              this.sessionS.deleteSession();
+              if(obj.answer == data[counter].secureAnswer){
+                this.mailer.sendEmail(obj.email, data[counter].userPass);
+                sent = true;
+                answer = true;
+                this.sessionS.deleteSession();
+              }
+              else{
+                alert('Error, the answer to the question is incorrect');
+              }
             }
             counter++;
           }
-          if ((data[counter] == null) && (sent === false)){
+          if ((data[counter] == null) && (sent === false) && (answer === true)){
             alert('Error, email does not exist in the database');
           }
         });
