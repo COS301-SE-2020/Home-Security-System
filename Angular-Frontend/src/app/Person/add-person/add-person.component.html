@@ -51,16 +51,16 @@
         </div>
 
         <!--Profile Picture-->
-        <div class="form-group" onchange="resizeAll()" ondrop="resizeAll()">
+        <div class="form-group" >
           <label for="profilePicInput" class="float-left">Profile Picture</label><br><br>
           <div class="picture-container">
             <div id="preview" onchange="resizeAll()">
-              <img alt="Default Picture" id="submitPhoto" src="/assets/Images/blank.jpg">
+              <img alt="Default Picture" id="submitPhoto" src="/assets/Images/blank.jpg" onchange="resizeAll()">
             </div>
             <br>
           </div>
 
-          <div onchange="resizeAll()" ondrop="resizeAll()">
+          <div onchange="resizeAll()" ondrop="resize()">
           <label id="profilePicInput" for="fileElem">
             <i class="material-icons add-photo-icon">add_photo_alternate</i><br>
             <input type="file" id="fileElem" accept="image/jpeg, image/png" onchange="resize()" > <!-- onchange="previewFile(this.file)" -->
@@ -76,7 +76,7 @@
           </a>
         </div>
         <button type="button" class="btn btn-primary justify-content-center" onclick="resizeAll()" >Accept Photo</button>
-        <button type="submit" class="btn btn-primary justify-content-center" >Submit</button>
+        <button onclick="resizeAll()" type="submit" class="btn btn-primary justify-content-center" >Submit</button>
       </form>
     </div>
 </div>

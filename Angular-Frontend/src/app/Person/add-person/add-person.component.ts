@@ -11,6 +11,9 @@ import Session from "../../../assets/js/SessionStorage";
 
 declare function resizeAll(): any;
 
+// import * as main from 'src/assets/js/Main.js';
+// main.resizeAll();
+
 @Component({
   selector: 'app-add-person',
   templateUrl: './add-person.component.html',
