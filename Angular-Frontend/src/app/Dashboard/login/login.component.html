@@ -28,21 +28,30 @@
 
     <a class="loginButton" (click)="makeSession()" id="loginBtn">Log in</a>
     <div id="remember-container">
-      <span id="forgotten" onclick="forgot()">Forgot password?</span>
+      <span id="forgotten" (click)="unhide()" onclick="forgot()">Forgot password?</span>
     </div>
   </form>
 </div>
 
 <!-- Forgotten Password Container -->
 <div id="forgotten-container">
+  <i class="material-icons modal-close-btn" (click)="hideRecover()" onclick="loginSlide();">close</i>
   <h1 class="loginHead">Trouble logging in?</h1>
   <p class="forgotExplain">Enter email and we'll send you a link to get back into your account.</p>
-  <i class="material-icons login-close-btn" onclick="closeLogin()">close</i>
+  <!--<i class="material-icons login-close-btn" onclick="closeLogin()">close</i>-->
 
   <form>
     <label class="loginFields">
       <input class="loginInputs" id="emailIn" type="email" name="email" placeholder="E-mail">
     </label>
-    <a class="loginButton loginInputs loginButton" (click)="recoverPasswordEmail()">Next</a>
+
+    <a class="loginButton" id="retrieveQ" (click)="checkEmailForQuestion()">Retrieve security question</a>
+    <br>
+    <p class="forgotExplain" id="recoverQuestion" hidden>Question</p>
+    <label class="QuestionField" id="questionLabel" hidden>
+      <input class="loginInputs" id="questionIn" type="text" name="question" placeholder="Answer" hidden>
+    </label>
+    <a class="loginButton loginInputs loginButton" id="nextBtn" (click)="recoverPasswordEmail()" hidden>Next</a>
+
   </form>
 </div>

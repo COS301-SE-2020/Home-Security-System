@@ -14,8 +14,20 @@ export class ResetPasswordComponent implements OnInit {
   sessionS = new Session();
   mailer = new RecoverPasswordEmail();
   users: Observable<User[]>;
+  user: User;
 
   constructor(private userService: UserService) { }
+
+  generatePass(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
 
   sendMail() {
      // const passwReset = document.getElementById('passwordField2') as HTMLInputElement;
@@ -23,18 +35,36 @@ export class ResetPasswordComponent implements OnInit {
 
      let counter = 0;
      let sent = false;
+     let answer = false;
+     let uId;
+     this.user = new User();
      this.userService.getUserList()
       .subscribe(
         data => {
           while (data[counter] != null) {
             if (data[counter].email.toLowerCase() === obj.email.toLowerCase()) {
-              this.mailer.sendEmail(obj.email, data[counter].userPass);
-              sent = true;
-              this.sessionS.deleteSession();
+
+              /*var generator = require('generate-password');
+              var newPass = generator.generate({length: 10, numbers: true});*/
+              var newPass = this.generatePass(10);
+
+              this.user = data[counter];
+              this.user.userPass = newPass;
+              this.userService.updateUser(this.user.userId, this.user).subscribe();
+
+              if(obj.answer == data[counter].secureAnswer){
+                this.mailer.sendEmail(obj.email, data[counter].userPass);
+                sent = true;
+                answer = true;
+                this.sessionS.deleteSession();
+              }
+              else{
+                alert('Error, the answer to the question is incorrect');
+              }
             }
             counter++;
           }
-          if ((data[counter] == null) && (sent === false)){
+          if ((data[counter] == null) && (sent === false) && (answer === true)){
             alert('Error, email does not exist in the database');
           }
         });

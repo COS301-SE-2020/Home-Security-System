@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HashLocationStrategy, LocationStrategy } from "@angular/common";
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 // added
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -38,6 +38,9 @@ import { NotificationService } from './model/notification.service';
 import { UserService } from './model/user.service';
 import { PersonService } from './model/person.service';
 import { SessionService } from './model/session.service';
+/*
+import { RecoverPasswordQuestionComponent } from './recover-password-question/recover-password-question.component';
+*/
 
 const appRoutes: Routes = [];
 
@@ -64,7 +67,8 @@ const appRoutes: Routes = [];
     ResetPasswordComponent,
     DeletedUsersComponent,
     DeletedWhiteComponent,
-    DeletedBlackComponent
+    DeletedBlackComponent/*,
+    RecoverPasswordQuestionComponent*/
   ],
   imports: [
       BrowserModule,
