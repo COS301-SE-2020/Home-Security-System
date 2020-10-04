@@ -360,8 +360,6 @@ function resizeAll() {
       var elem = document.createElement('canvas');//create a canvas
 
       elem.width = resize_width;
-      // elem.height = el.target.height * scaleFactor;
-
       elem.height = resize_height;
 
       //draw in canvas

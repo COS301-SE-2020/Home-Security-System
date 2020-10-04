@@ -9,10 +9,6 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {User} from "../../model/user";
 import Session from "../../../assets/js/SessionStorage";
 
-// declare function resizeAll(): any;
-
-// import * as main from 'src/assets/js/Main.js';
-// main.resizeAll();
 
 @Component({
   selector: 'app-add-person',
@@ -89,8 +85,6 @@ export class AddPersonComponent implements OnInit {
     const photoInp = document.getElementById('submitPhoto').getAttribute('src');
     const getListed = this.returnPersonListed();
 
-    // resizeAll();
-
     if (photoInp === this.getDefaultImage() || photoInp === '/assets/Images/blank.jpg') {
       alert('Please choose a photo to add.');
     }
@@ -122,7 +116,6 @@ export class AddPersonComponent implements OnInit {
   }
 
   onSubmit() {
-      // resizeAll();
       this.addPerson();
   }
 
@@ -160,35 +153,6 @@ export class AddPersonComponent implements OnInit {
       this.picCorrect = true;
     }
   }
-
-  // public resizeAll(type?: string, quality?: any): void {
-  //   const resize_width = 230;
-  //   const resize_height = 230;//without px
-  //
-  //   let reader = new FileReader();
-  //
-  //   reader.onload
-  //   {
-  //     let img = new Image();//create a image
-  //     img.src = document.getElementById('submitPhoto').getAttribute('src');
-  //     img.onload = function (el) {
-  //       let elem = document.createElement('canvas');//create a canvas
-  //
-  //       elem.width = resize_width;
-  //       elem.height = resize_height;
-  //
-  //       //draw in canvas
-  //       let ctx = elem.getContext('2d');
-  //       // @ts-ignore
-  //       ctx.drawImage(el.target, 0, 0, elem.width, elem.height);
-  //
-  //       //get the base64-encoded Data URI from the resize image
-  //       //assign it to thumb src
-  //       document.querySelector('#submitPhoto').src = ctx.canvas.toDataURL(el.target, 'image/jpeg', 0);
-  //
-  //     }
-  //   }
-  // }
 
 }
 
