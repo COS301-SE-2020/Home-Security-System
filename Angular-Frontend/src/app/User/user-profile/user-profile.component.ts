@@ -19,6 +19,7 @@ export class UserProfileComponent implements OnInit {
   id: number;
   user: User;
   password = '';
+  picCorrect = false;
 
   constructor(private route: ActivatedRoute, private router: Router, private authService: AuthService,
               private appService: TitleService, private userService: UserService,
@@ -200,5 +201,12 @@ export class UserProfileComponent implements OnInit {
 
   public camOff(): void {
     this.showCam = false;
+  }
+
+  public allowSubmit(): void{
+    if( this.picCorrect === false)
+    {
+      this.picCorrect = true;
+    }
   }
 }
