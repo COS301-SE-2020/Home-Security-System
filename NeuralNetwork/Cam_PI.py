@@ -185,14 +185,16 @@ def cam_feed():
                             if f_type == 'Black':
                                 message = {'personId': int(f_name), 'type': 'Black',
                                            'imageStr': 'data:image/jpg;base64,' +
-                                                       str(b64.b64encode(c.imencode('.jpg', frame)[1]).decode('utf-8'))}
+                                                       str(b64.b64encode(c.imencode('.jpg', frame)[1]).decode('utf-8')),
+                                           'networkId': 1}
                                 message_channel.basic_publish(exchange='sigma.direct',
                                                               routing_key='alertKey',
                                                               body=json.dumps(message))
                             elif f_type == 'Grey' or f_type == 'Deleted':
                                 message = {'personId': int(f_name), 'type': 'Grey',
                                            'imageStr': 'data:image/jpg;base64,' +
-                                                       str(b64.b64encode(c.imencode('.jpg', frame)[1]).decode('utf-8'))}
+                                                       str(b64.b64encode(c.imencode('.jpg', frame)[1]).decode('utf-8')),
+                                           'networkId': 1}
                                 message_channel.basic_publish(exchange='sigma.direct',
                                                               routing_key='alertKey',
                                                               body=json.dumps(message))
