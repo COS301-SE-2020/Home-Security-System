@@ -25,6 +25,12 @@ export class LoginComponent implements OnInit {
 
   constructor(private userService: UserService, private sessService: SessionService, private router: Router) {
   }
+  hideRecover(){
+    document.getElementById("forgotten-container").hidden = true;
+  }
+  unhide(){
+    document.getElementById("forgotten-container").hidden = false;
+  }
 
   checkEmailForQuestion(){
     const emailInp = document.getElementById('emailIn') as HTMLInputElement;

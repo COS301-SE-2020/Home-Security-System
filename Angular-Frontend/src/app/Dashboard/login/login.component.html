@@ -28,16 +28,17 @@
 
     <a class="loginButton" (click)="makeSession()" id="loginBtn">Log in</a>
     <div id="remember-container">
-      <span id="forgotten" onclick="forgot()">Forgot password?</span>
+      <span id="forgotten" (click)="unhide()" onclick="forgot()">Forgot password?</span>
     </div>
   </form>
 </div>
 
 <!-- Forgotten Password Container -->
 <div id="forgotten-container">
+  <i class="material-icons modal-close-btn" (click)="hideRecover()" onclick="loginSlide();">close</i>
   <h1 class="loginHead">Trouble logging in?</h1>
   <p class="forgotExplain">Enter email and we'll send you a link to get back into your account.</p>
-  <i class="material-icons login-close-btn" onclick="closeLogin()">close</i>
+  <!--<i class="material-icons login-close-btn" onclick="closeLogin()">close</i>-->
 
   <form>
     <label class="loginFields">
