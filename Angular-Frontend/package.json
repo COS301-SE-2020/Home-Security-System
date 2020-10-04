@@ -23,7 +23,6 @@
     "bootstrap": "^4.5.2",
     "express": "^4.17.1",
     "font-awesome": "^4.7.0",
-    "generate-password": "^1.5.1",
     "jquery": "^3.5.1",
     "net": "^1.0.2",
     "ng2-file-upload": "^1.4.0",

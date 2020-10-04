@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import {environment} from '../../environments/environment';
 // import {environment} from '../../environments/environment.prod';
 
-const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa('Sigma' + ':' + 'COS301Sigma!') });
+//const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa('Sigma' + ':' + 'COS301Sigma!') });
 
 @Injectable({
   providedIn: 'root'
@@ -15,15 +15,15 @@ export class NotificationService {
   constructor(private http: HttpClient) { }
 
   getNotificationById(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${id}`,{headers});
+    return this.http.get(`${this.baseUrl}/${id}`);
   }
 
   addNotification(notification: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}`, notification,{headers});
+    return this.http.post(`${this.baseUrl}`, notification);
   }
 
   updateNotification(id: number, value: any): Observable<any> {
-    return this.http.put(`${this.baseUrl}/${id}`, value,{headers});
+    return this.http.put(`${this.baseUrl}/${id}`, value);
   }
 
   deleteNotification(id: number): Observable<any> {
@@ -31,6 +31,6 @@ export class NotificationService {
   }
 
   getNotificationList(): Observable<any> {
-    return this.http.get(`${this.baseUrl}`,{headers});
+    return this.http.get(`${this.baseUrl}`);
   }
 }

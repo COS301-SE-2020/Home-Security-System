@@ -34,49 +34,49 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.enterLogin();
   }
-  checkEmailForQuestion(){
+
+  checkEmailForQuestion() {
     const emailInp = document.getElementById('emailIn') as HTMLInputElement;
 
     if (emailInp.value.toLowerCase() !== '' && emailInp.value.toLowerCase() !== 'E-mail') {
 
       let counter = 0;
       this.userService.getUserList()
-        .subscribe(
-          data => {
-            while (data[counter] != null) {
-              if (data[counter].email.toLowerCase() === emailInp.value.toLowerCase()){
-                let question = document.getElementById('recoverQuestion') as HTMLElement;
-                switch (data[counter].secureQuestion){
-                  case "one":
-                    question.innerText = "What was the name of your first stuffed animal?";
-                    break;
-                  case "two":
-                    question.innerText = "Where were you when you had your first kiss?";
-                    break;
-                  case "three":
-                    question.innerText = "What street did you live on in third grade?";
-                    break;
-                  case "four":
-                    question.innerText = "What was the name of your childhood bully?";
-                    break;
-                  case "five":
-                    question.innerText = "What did you want to name your child but never did?";
-                    break;
+        .subscribe(data => {
+          while (data[counter] != null) {
+            if (data[counter].email.toLowerCase() === emailInp.value.toLowerCase()){
+              let question = document.getElementById('recoverQuestion') as HTMLElement;
+              switch (data[counter].secureQuestion){
+                case "one":
+                  question.innerText = "What was the name of your first stuffed animal?";
+                  break;
+                case "two":
+                  question.innerText = "Where were you when you had your first kiss?";
+                  break;
+                case "three":
+                  question.innerText = "What street did you live on in third grade?";
+                  break;
+                case "four":
+                  question.innerText = "What was the name of your childhood bully?";
+                  break;
+                case "five":
+                  question.innerText = "What did you want to name your child but never did?";
+                  break;
 
-                }
-                document.getElementById('recoverQuestion').hidden = false;
-                document.getElementById('questionLabel').hidden = false;
-                document.getElementById('questionIn').hidden = false;
-                document.getElementById('nextBtn').hidden = false;
-                document.getElementById('retrieveQ').hidden = true;
               }
-              counter += 1;
+              document.getElementById('recoverQuestion').hidden = false;
+              document.getElementById('questionLabel').hidden = false;
+              document.getElementById('questionIn').hidden = false;
+              document.getElementById('nextBtn').hidden = false;
+              document.getElementById('retrieveQ').hidden = true;
             }
-            if(document.getElementById('recoverQuestion').hidden !== false){
-              emailInp.value = "";
-              alert('Error, email does not exist');
-            }
-          });
+            counter += 1;
+          }
+          if(document.getElementById('recoverQuestion').hidden !== false){
+            emailInp.value = "";
+            alert('Error, email does not exist');
+          }
+        });
 
       /*this.router.navigate(['/reset-password']);*/
     } else {
@@ -85,19 +85,11 @@ export class LoginComponent implements OnInit {
   }
 
   recoverPasswordEmail() {
-    /*const emailInp = document.getElementById('emailIn') as HTMLInputElement;
-
-    if (emailInp.value.toLowerCase() !== '' && emailInp.value.toLowerCase() !== 'E-mail') {
-      this.sessionS.recoverySess(emailInp.value.toString());
-      this.router.navigate(['/reset-password']);
-    } else {
-      alert('Error, please enter an email address');
-    }*/
-    const emailInp = document.getElementById('emailIn') as HTMLInputElement;
-    const ansInp = document.getElementById('questionIn') as HTMLInputElement;
+    const emailInp = document.getElementById('emailInput') as HTMLInputElement;
+    const ansInp = document.getElementById('answerInput') as HTMLInputElement;
 
     if (ansInp.value.toLowerCase() !== '' && ansInp.value.toLowerCase() !== 'Answer') {
-      this.sessionS.recoverySess(emailInp.value.toString(), ansInp.value.toString());
+      this.authService.recoverySession(emailInp.value.toString(), ansInp.value.toString());
       this.router.navigate(['/reset-password']);
     } else {
       alert('Error, please enter an answer to the question');

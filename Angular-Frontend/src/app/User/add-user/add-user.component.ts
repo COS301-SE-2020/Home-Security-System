@@ -150,13 +150,21 @@ export class AddUserComponent implements OnInit {
       this.newUser.secureAnswer = answerInp.value;
       this.newUser.notifyEmail = true;
       this.newUser.notifySMS = false;
-      //this.newUser.network = this.info.network;
+      this.newUser.network = this.getNetwork();
 
       this.usersService.addUser(this.newUser).subscribe();
       this.gotoList();
     } else {
       alert('Cannot add a new user. Not all the fields are filled in.');
     }
+  }
+
+  getNetwork(): any {
+    var num = Number(this.info.id);
+    this.usersService.getUserById(num)
+      .subscribe(value => {
+        return value.network;
+      });
   }
 
   onSubmit() {

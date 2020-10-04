@@ -2,18 +2,13 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login.component';
 import { RouterModule } from '@angular/router';
-import {Session} from "../../../assets/js/SessionStorage";
 import {Observable} from "rxjs";
 import {User} from "../../model/user";
-import {SessionClass} from "../../model/session";
-import {by} from "protractor";
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  let sessionS = new Session();
   let users: Observable<User[]>;
-  let sessClass = new SessionClass();
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -59,6 +54,7 @@ describe('LoginComponent', () => {
     *//*expect(btn.onclick )*/
     /*expect(component.makeSession).toBeFalsy();*/
   });
+
   it('component login success', () => {
     let btn = document.getElementById('loginBtn') as HTMLButtonElement;
     loginDetails('Sigma','COS301Sigma!');
@@ -73,6 +69,7 @@ describe('LoginComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('Welcome to');
   });
+
   /*it('ensure close button appears', () => {
     // tslint:disable-next-line:no-shadowed-variable
     const fixture = TestBed.createComponent(LoginComponent);
@@ -80,6 +77,7 @@ describe('LoginComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('i').textContent).toContain('close');
   });*/
+
   it('forgot password link to be set', () => {
     // tslint:disable-next-line:no-shadowed-variable
     const fixture = TestBed.createComponent(LoginComponent);
@@ -87,6 +85,7 @@ describe('LoginComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('span').textContent).toContain('Forgot password?');
   });
+
   it('login button should appear', () => {
     // tslint:disable-next-line:no-shadowed-variable
     const fixture = TestBed.createComponent(LoginComponent);
@@ -94,6 +93,7 @@ describe('LoginComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('#login-button').textContent).toContain('Log in');
   });
+
   it('recover password modals should appear', () => {
     // tslint:disable-next-line:no-shadowed-variable
     const fixture = TestBed.createComponent(LoginComponent);

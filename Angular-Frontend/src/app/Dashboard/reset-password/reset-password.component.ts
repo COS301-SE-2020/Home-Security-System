@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { RecoverPasswordEmail } from '../../../assets/js/RecoverPasswordEmail.js';
-import {Session} from '../../../assets/js/SessionStorage';
 import { UserService } from '../../model/user.service';
 import { User } from '../../model/user';
 import {Observable} from 'rxjs';
+import {AuthService} from "../../model/auth.service";
 
 @Component({
   selector: 'app-reset-password',
@@ -11,12 +11,11 @@ import {Observable} from 'rxjs';
   styleUrls: ['./reset-password.component.css']
 })
 export class ResetPasswordComponent implements OnInit {
-  sessionS = new Session();
   mailer = new RecoverPasswordEmail();
   users: Observable<User[]>;
   user: User;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private authService: AuthService) { }
 
   generatePass(length) {
     var result           = '';
@@ -31,7 +30,7 @@ export class ResetPasswordComponent implements OnInit {
 
   sendMail() {
      // const passwReset = document.getElementById('passwordField2') as HTMLInputElement;
-     const obj = this.sessionS.retrieveEmail();
+     const obj = this.authService.retrieveEmail();
 
      let counter = 0;
      let sent = false;
@@ -52,11 +51,11 @@ export class ResetPasswordComponent implements OnInit {
               this.user.userPass = newPass;
               this.userService.updateUser(this.user.userId, this.user).subscribe();
 
-              if(obj.answer == data[counter].secureAnswer){
+              if(obj.answer == data[counter].secureAnswer) {
                 this.mailer.sendEmail(obj.email, data[counter].userPass);
                 sent = true;
                 answer = true;
-                this.sessionS.deleteSession();
+                this.authService.logOut();
               }
               else{
                 alert('Error, the answer to the question is incorrect');

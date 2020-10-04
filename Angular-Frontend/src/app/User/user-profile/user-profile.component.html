@@ -307,7 +307,6 @@
                     <input type="password" id="passwordField1" name="uPassword" class="form-control"
                            required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                            [(ngModel)]="password" #userPass="ngModel">
-                    <!--                    <input class="loginInputs" id="passwordField" type="password" name="pass" placeholder="Password">-->
                     <i *ngIf="userPass.dirty || userPass.touched" class="material-icons hoverPointer"
                        id="passwordVisibility1" onclick="showPassword('1')">visibility_off</i>
                     <div *ngIf="userPass.invalid && (userPass.dirty || userPass.touched)"

@@ -10,7 +10,7 @@
         <div class="card-header card-header-primary" id="NotDiv">
           <h4 class="card-title">Unknown Person List</h4>
           <p class="card-category">All people detected by your Argus system</p>
-          <!--<a *ngIf="info.userRole == 'Admin'" class="material-icons listPageIcons open-modal" (click)="deleteAll()"
+          <!--<a *ngIf="info.role == 'Admin'" class="material-icons listPageIcons open-modal" (click)="deleteAll()"
              title="Delete All">auto_delete</a>-->
         </div>
         <div class="card-body">
@@ -41,14 +41,14 @@
               <tbody>
               <ng-container *ngFor="let p of person | async">
                 <tr
-                  *ngIf="(p.personListed == 'Grey') && (p.personDeleted == null) && (p.network.netName == info.network.netName)">
+                  *ngIf="(p.personListed == 'Grey') && (p.personDeleted == null) && (p.network.netName == info.network)">
                   <td>{{p.personCreated}}</td>
                   <td>
                     <img alt="Image" id="noteImg{{p.personId}}" src="{{p.personImg}}"
                          class="listPic ImgClassName" (click)="imageClick(p.personId)">
                   </td>
 
-                  <td *ngIf="info.userRole != 'Basic'">
+                  <td *ngIf="info.role != 'Basic'">
 
                     <a class="listPageIcons" data-toggle="dropdown" aria-haspopup="true"
                        aria-expanded="false">

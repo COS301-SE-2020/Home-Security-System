@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import {environment} from '../../environments/environment';
 // import {environment} from '../../environments/environment.prod';
 
-const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa('Sigma' + ':' + 'COS301Sigma!') });
+// const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa('Sigma' + ':' + 'COS301Sigma!') });
 
 @Injectable({
   providedIn: 'root'
@@ -16,15 +16,15 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getUserById(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${id}`,{headers});
+    return this.http.get(`${this.baseUrl}/${id}`);
   }
 
   addUser(user: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}`, user,{headers});
+    return this.http.post(`${this.baseUrl}`, user);
   }
 
   updateUser(id: number, value: any): Observable<any> {
-    return this.http.put(`${this.baseUrl}/${id}`, value,{headers});
+    return this.http.put(`${this.baseUrl}/${id}`, value);
   }
 
   deleteUser(id: number): Observable<any> {
@@ -32,6 +32,6 @@ export class UserService {
   }
 
   getUserList(): Observable<any> {
-    return this.http.get(`${this.baseUrl}`,{headers});
+    return this.http.get(`${this.baseUrl}`);
   }
 }
