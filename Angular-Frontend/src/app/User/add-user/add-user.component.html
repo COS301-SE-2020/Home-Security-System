@@ -89,7 +89,7 @@
                   <label for="addPhone">Contact Number</label>
                   <input id="addPhone" name="addPhone" class="form-control"
                          required maxlength="12"
-                         pattern="^((?:\+27))(=72|82|73|83|74|84|79)(\d{7})$"
+                         pattern="^((?:\+27))(=|72|82|73|83|74|84|79)(\d{7})$"
                          [(ngModel)]="phonePlaceholder" #contactNo="ngModel" placeholder="+27*******">
                   <div *ngIf="contactNo.invalid && (contactNo.dirty || contactNo.touched)"
                        class="alert alert-danger">
@@ -103,7 +103,8 @@
                 <div class="form-group">
                   <label for="passwordField1">Password</label>
                   <input type="password" id="passwordField1" name="passwordField1" class="form-control"
-                         required maxlength="35" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                         required maxlength="35"
+                         pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                          [(ngModel)]="passPlaceholder" #userPass="ngModel">
                   <i class="material-icons hoverPointer" id="passwordVisibility1" onclick="showPassword('1')">visibility_off</i>
                   <div *ngIf="userPass.invalid && (userPass.dirty || userPass.touched)"
@@ -147,18 +148,17 @@
                 <div class="form-group">
                   <label for="answerField">Security Question:</label>
                   <br>
-                  <div>
-                    <select name="qestions" id="questions">
-                      <option value="one">What was the name of your first stuffed animal?</option>
-                      <option value="two">Where were you when you had your first kiss?</option>
-                      <option value="three">What street did you live on in third grade?</option>
-                      <option value="four">What was the name of your childhood bully?</option>
-                      <option value="five">What did you want to name your child but never did?</option>
-                    </select>
-                  </div>
+                  <select name="questions" id="questions" class="form-control custom-select-lg" data-style="btn btn-link">
+                    <option value="one">What was the name of your first stuffed animal?</option>
+                    <option value="two">Where were you when you had your first kiss?</option>
+                    <option value="three">What street did you live on in third grade?</option>
+                    <option value="four">What was the name of your childhood bully?</option>
+                    <option value="five">What did you want to name your child but never did?</option>
+                  </select>
+                  <br>
                   <input id="answerField" name="answerField" class="form-control"
                          required maxlength="35"
-                         pattern="^[a-zA-Z0-9_.-]*$"
+                         pattern="^[a-zA-Z0-9_.-]*$" placeholder="Answer"
                          [(ngModel)]="answerPlaceholder" #answer="ngModel">
                   <div *ngIf="answer.invalid && (answer.dirty || answer.touched)"
                        class="alert alert-danger">
@@ -167,7 +167,7 @@
                 </div>
               </div>
             </div>
-
+            <br>
             <!--Role-->
             <div class="form-group">
               <label class="float-left">Role</label><br><br>

@@ -122,7 +122,7 @@ export class AddUserComponent implements OnInit {
     const contactInp = document.getElementById('addPhone') as HTMLInputElement;
     const usernameInp = document.getElementById('addUsername') as HTMLInputElement;
     const passwordInp = document.getElementById('passwordField1') as HTMLInputElement;
-    const questInp = document.getElementById('questions') as HTMLInputElement;
+    const questionInp = document.getElementById('questions') as HTMLInputElement;
     const answerInp = document.getElementById('answerField') as HTMLInputElement;
     const photoInp = document.getElementById('submitPhoto').getAttribute('src');
     const getRole = this.returnUserRole();
@@ -144,7 +144,7 @@ export class AddUserComponent implements OnInit {
       this.newUser.username = usernameInp.value;
       this.newUser.userPass = passwordInp.value;
       this.newUser.userRole = getRole;
-      this.newUser.secureQuestion = questInp.value;
+      this.newUser.secureQuestion = questionInp.value;
       this.newUser.secureAnswer = answerInp.value;
       this.newUser.notifyEmail = true;
       this.newUser.notifySMS = false;

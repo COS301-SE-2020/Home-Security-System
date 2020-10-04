@@ -73,7 +73,10 @@
                 </div>
               </div>
               <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#changeModal"
-                      >Update Details
+              >Update Details
+              </button>
+              <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#passwordModal"
+              >Change Password
               </button>
             </form>
           </div>
@@ -108,7 +111,7 @@
 
                 <label id="profilePicInput" for="fileElem">
                   <i class="material-icons add-photo-icon">add_photo_alternate</i><br>
-                  <input type="file" id="fileElem" accept="image/*" onchange="previewFile(this.file)"            >
+                  <input type="file" id="fileElem" accept="image/*" onchange="previewFile(this.file)">
                   Drag and Drop an image<br>
                   <!--or<br>Click to add-->
                 </label>
@@ -257,7 +260,7 @@
                   <div class="form-group">
                     <label for="uNumber">Contact Number</label>
                     <input id="uNumber" name="contactNo" class="form-control"
-                           required pattern="^((?:\+27))(=72|82|73|83|74|84|79)(\d{7})$"
+                           required pattern="^((?:\+27))(=|72|82|73|83|74|84|79)(\d{7})$"
                            [(ngModel)]="user.contactNo" #contactNo="ngModel">
 
                     <div *ngIf="contactNo.invalid && (contactNo.dirty || contactNo.touched)"
@@ -266,14 +269,47 @@
                     </div>
                   </div>
                 </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal" (click)="onSubmit()"
+                  [disabled]="changeForm.invalid">
+            Save Changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--CHANGE PASSWORD-->
+
+<!--Update Info Modal-->
+<div class="container">
+  <div class="modal fade" id="passwordModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <i class="material-icons modal-close-btn" data-dismiss="modal">close</i>
+          <h4 class="modal-title">Update Password</h4>
+        </div>
+        <div class="modal-body">
+          <div class="card-body">
+            <form #passwordForm="ngForm">
+              <div class="row">
+
                 <div class="col-md-6 col-sm-6 col-xs-6">
                   <div class="form-group">
-                    <label for="passwordField1">Change Password</label>
+                    <label for="passwordField1">New Password</label>
                     <input type="password" id="passwordField1" name="uPassword" class="form-control"
                            required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                            [(ngModel)]="password" #userPass="ngModel">
-<!--                    <input class="loginInputs" id="passwordField" type="password" name="pass" placeholder="Password">-->
-                    <i *ngIf="userPass.dirty || userPass.touched" class="material-icons hoverPointer" id="passwordVisibility1" onclick="showPassword('1')">visibility_off</i>
+                    <!--                    <input class="loginInputs" id="passwordField" type="password" name="pass" placeholder="Password">-->
+                    <i *ngIf="userPass.dirty || userPass.touched" class="material-icons hoverPointer"
+                       id="passwordVisibility1" onclick="showPassword('1')">visibility_off</i>
                     <div *ngIf="userPass.invalid && (userPass.dirty || userPass.touched)"
                          class="alert alert-danger">
                       <ul>
@@ -286,21 +322,17 @@
                       </ul>
                     </div>
                   </div>
+                  <br>
                 </div>
-              </div>
-              <div *ngIf="userPass.dirty">
-                <div class="row">
-                  <div class="col-md-6 col-sm-6 col-xs-6">
-                  </div>
-                  <div class="col-md-6 col-sm-6 col-xs-6">
-                    <div class="form-group">
-                      <label for="passwordField2">Confirm Password</label>
-                      <input type="password" id="passwordField2" name="confirmPassword" class="form-control"
-                             [(ngModel)]="conPass" #confirm="ngModel">
-                      <i class="material-icons hoverPointer" id="passwordVisibility2" onclick="showPassword('2')">visibility_off</i>
-                      <div *ngIf="userPass.value != conPass.valueOf()" class="alert alert-danger">
-                        Passwords do not match
-                      </div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                  <div class="form-group">
+                    <label for="passwordField2">Confirm New Password</label>
+                    <input type="password" id="passwordField2" name="confirmPassword" class="form-control"
+                           [(ngModel)]="conPass" #confirm="ngModel">
+                    <i *ngIf="confirm.dirty || confirm.touched" class="material-icons hoverPointer"
+                       id="passwordVisibility2" onclick="showPassword('2')">visibility_off</i>
+                    <div *ngIf="userPass.value != conPass.valueOf()" class="alert alert-danger">
+                      Passwords do not match
                     </div>
                   </div>
                 </div>
@@ -309,8 +341,9 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal" (click)="onSubmit()" [disabled]="changeForm.invalid">
-            Save Changes
+          <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal" (click)="onSubmit()"
+                  [disabled]="passwordForm.invalid">
+            Change Password
           </button>
         </div>
       </div>

@@ -6,11 +6,9 @@ import { Router } from '@angular/router';
 import { TitleService } from '../../title.service';
 import { WebcamImage } from 'ngx-webcam';
 import { NgxSpinnerService } from 'ngx-spinner';
-import {AuthService} from "../../model/auth.service";
-import {User} from "../../model/user";
-import {UserService} from "../../model/user.service";
-import {SessionClass} from "../../model/session";
-import {toNumbers} from "@angular/compiler-cli/src/diagnostics/typescript_version";
+import { AuthService } from "../../model/auth.service";
+import { UserService } from "../../model/user.service";
+import { SessionClass } from "../../model/session";
 
 @Component({
   selector: 'app-add-person',
@@ -24,6 +22,8 @@ export class AddPersonComponent implements OnInit {
 
   namePlaceholder = '';
   surnamePlaceholder = '';
+
+  picCorrect = false;
 
   constructor(private personService: PersonService, private appService: TitleService,
               private router: Router, private SpinnerService: NgxSpinnerService,
@@ -151,5 +151,13 @@ export class AddPersonComponent implements OnInit {
   public camOff(): void {
     this.showCam = false;
   }
+
+  public allowSubmit(): void{
+    if( this.picCorrect === false)
+    {
+      this.picCorrect = true;
+    }
+  }
+
 }
 

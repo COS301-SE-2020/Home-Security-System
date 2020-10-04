@@ -9,8 +9,8 @@
       <div class="card">
         <div class="card-header card-header-primary" id="NotDiv">
           <h4 class="card-title">Unknown Person List</h4>
-          <p class="card-category">People on the street, walking past your property.</p>
-          <!--<a *ngIf="info.role == 'Admin'" class="material-icons listPageIcons open-modal" (click)="deleteAll()"
+          <p class="card-category">All people detected by your Argus system</p>
+          <!--<a *ngIf="info.userRole == 'Admin'" class="material-icons listPageIcons open-modal" (click)="deleteAll()"
              title="Delete All">auto_delete</a>-->
         </div>
         <div class="card-body">
@@ -34,28 +34,75 @@
                   Picture
                 </th>
                 <th>
-                  Modify
+                  Move
                 </th>
               </tr>
               </thead>
               <tbody>
               <ng-container *ngFor="let p of person | async">
-                <tr *ngIf="(p.personListed == 'Grey') && (p.personDeleted == null) && (p.network.netName == info.network)">
+                <tr
+                  *ngIf="(p.personListed == 'Grey') && (p.personDeleted == null) && (p.network.netName == info.network.netName)">
                   <td>{{p.personCreated}}</td>
                   <td>
                     <img alt="Image" id="noteImg{{p.personId}}" src="{{p.personImg}}"
                          class="listPic ImgClassName" (click)="imageClick(p.personId)">
                   </td>
-                  <td *ngIf="info.role != 'Basic'">
-                    <a class="material-icons listPageIcons" (click)="addToWhiteList(p.personId)"
-                       title="Add to Cleared List">
-                      thumb_up_alt
-                    </a>
 
-                    <a class="material-icons listPageIcons" (click)="addToBlackList(p.personId)"
-                       title="Add to Threat List">
-                      thumb_down_alt
+                  <td *ngIf="info.userRole != 'Basic'">
+
+                    <a class="listPageIcons" data-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="false">
+                      <i class="material-icons hoverPointer" title="Move Person to List">playlist_add</i>
                     </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                      <div class="container">
+                        <form>
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <label for="addFirstName">First Name</label>
+                                <input type="text" name="name" class="form-control" id="addFirstName"
+                                       required maxlength="35" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
+                                       [(ngModel)]="p.fname" #name="ngModel">
+                                <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                                     class="alert alert-danger">
+                                  Please enter a valid name.
+                                </div>
+                              </div>
+                              <br>
+                            </div>
+
+                            <div class="col">
+                              <div class="form-group">
+                                <label for="addSurname">Last Name</label>
+                                <input type="text" class="form-control" id="addSurname" name="surname"
+                                       required maxlength="35" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
+                                       [(ngModel)]="p.lname" #lname="ngModel">
+
+                                <div *ngIf="lname.invalid && (lname.dirty || lname.touched)"
+                                     class="alert alert-danger">
+                                  Please enter a valid last name.
+                                </div>
+                              </div>
+                              <br>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col">
+                              <button type="submit" class="btn btn-primary" (click)="addToWhiteList(p.personId)">
+                                Move to Cleared List
+                              </button>
+                            </div>
+                            <div class="col">
+                              <button type="submit" class="btn btn-primary" (click)="addToBlackList(p.personId)">
+                                Move to Threat List
+                              </button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
                   </td>
                 </tr>
               </ng-container>

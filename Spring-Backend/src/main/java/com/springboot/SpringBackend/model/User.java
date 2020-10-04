@@ -230,6 +230,7 @@ public class User implements Serializable {
     public String getSecureAnswer() {return this.secureAnswer; }
     public void setSecureAnswer(String answer) {this.secureAnswer = Jsoup.clean(answer, Whitelist.simpleText());}
 
+
     public Boolean getNotifyEmail() {
         return this.notifyEmail;
     }

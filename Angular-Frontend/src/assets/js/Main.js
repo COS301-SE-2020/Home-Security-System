@@ -342,6 +342,42 @@ function resize() {
   }
 }
 
+//=================================================================================
+
+function resizeAll() {
+  var resize_width = 230;
+  var resize_height = 230;//without px
+
+  var reader = new FileReader();
+
+  reader.onload
+  {
+    var img = new Image();//create a image
+    img.src = document.getElementById('submitPhoto').getAttribute('src');
+    img.name = event.target.name;//set name (optional)
+    img.size = event.target.size;//set size (optional)
+    img.onload = function (el) {
+      var elem = document.createElement('canvas');//create a canvas
+
+      elem.width = resize_width;
+      elem.height = resize_height;
+
+      //draw in canvas
+      var ctx = elem.getContext('2d');
+      ctx.drawImage(el.target, 0, 0, elem.width, elem.height);
+
+      //get the base64-encoded Data URI from the resize image
+      var srcEncoded = ctx.canvas.toDataURL(el.target, 'image/jpeg', 0);
+
+      //assign it to thumb src
+      document.querySelector('#submitPhoto').src = srcEncoded;
+
+    }
+  }
+}
+
+//=================================================================================
+
 function resizePhoto() {
   //define the width to resize e.g 600px
   var resize_width = 230;

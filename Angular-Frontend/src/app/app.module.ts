@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HashLocationStrategy, LocationStrategy } from "@angular/common";
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 // added
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -42,6 +42,10 @@ import { AuthService } from './model/auth.service';
 import { AuthGuardService } from './model/auth-guard.service';
 // import { AuthInterceptorService } from './model/auth-interceptor.service';
 
+/*
+import { RecoverPasswordQuestionComponent } from './recover-password-question/recover-password-question.component';
+*/
+
 const appRoutes: Routes = [];
 
 @NgModule({
@@ -68,7 +72,8 @@ const appRoutes: Routes = [];
     ResetPasswordComponent,
     DeletedUsersComponent,
     DeletedWhiteComponent,
-    DeletedBlackComponent
+    DeletedBlackComponent/*,
+    RecoverPasswordQuestionComponent*/
   ],
   imports: [
       BrowserModule,
