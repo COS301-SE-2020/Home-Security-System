@@ -104,11 +104,17 @@ public class UserController {
         x.setNotifyEmail(details.getNotifyEmail());
         x.setNotifySMS(details.getNotifySMS());
         x.setUserDeleted(details.getUserDeleted());
-        if((!details.getSecureQuestion().equals(x.getSecureQuestion())) &&
-                (!details.getSecureAnswer().equals(x.getSecureAnswer()) &&
-                        (x.getSecureAnswer() != null))) {
-            x.setSecureQuestion(details.getSecureQuestion());
-            x.setSecureAnswer(details.getSecureAnswer());
+        if(!details.getSecureQuestion().equals(x.getSecureQuestion())) {
+            if(!details.getSecureAnswer().equals(x.getSecureAnswer()) && x.getSecureAnswer() != null) {
+                x.setSecureQuestion(details.getSecureQuestion());
+                x.setSecureAnswer(details.getSecureAnswer());
+            }
+        }
+        else if(details.getSecureQuestion().equals(x.getSecureQuestion())) {
+            if(!details.getSecureAnswer().equals(x.getSecureAnswer()) && x.getSecureAnswer() != null) {
+                x.setSecureQuestion(details.getSecureQuestion());
+                x.setSecureAnswer(details.getSecureAnswer());
+            }
         }
         if(details.getNetwork() != null) {
             x.setNetwork(details.getNetwork());
