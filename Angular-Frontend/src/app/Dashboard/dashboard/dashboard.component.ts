@@ -237,7 +237,7 @@ export class DashboardComponent implements OnInit {
     let noCamMessage = false;
     const thisRef = this;
 
-    const camUrls = ['https://196.248.94.114:8080/jsfs.html', 'https://196.248.53.70:8080/jsfs.html'];
+    const camUrls = ['http://192.168.0.100:5000/feed', 'http://192.168.0.100:5000/feed'];
 
     function newCam(currentUrl, currentNum) {
       const liveFeedDiv = document.getElementById('liveFeedDiv');
