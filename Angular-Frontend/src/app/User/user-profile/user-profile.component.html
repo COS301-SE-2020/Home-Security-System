@@ -355,13 +355,8 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   <div class="form-group">
                     <input id="uAnswer" name="uAnswer" class="form-control"
-                           required maxlength="35"
-                           pattern="^[a-zA-Z0-9_.-]*$" placeholder="Answer"
-                           [(ngModel)]="answerPlaceholder" #answer="ngModel">
-                    <div *ngIf="answer.invalid && (answer.dirty || answer.touched)"
-                         class="alert alert-danger">
-                      Please enter a valid response.
-                    </div>
+                           required maxlength="35" placeholder="Answer"
+                           pattern="^[a-zA-Z0-9_.-]*$">
                   </div>
                 </div>
               </div>
