@@ -15,7 +15,7 @@
             <p class="card-category">If you want to reinvent yourself, here is your chance.</p>
             <!--Profile Picture-->
             <div class="image-cropper">
-              <img alt="Photo" class="userPic" id="userPic">
+              <img alt="Photo" class="userPic" id="userPic" src="../../../assets/Images/blank.jpg">
               <div class="middle">
                 <button class="btn btn-primary" data-toggle="modal" data-target="#changeProfilePicModal"
                         onclick="openDrop()">Change
@@ -72,10 +72,10 @@
                   </div>
                 </div>
               </div>
-              <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#changeModal"
+              <button class="btn btn-primary float-right" data-toggle="modal" data-target="#changeModal"
               >Update Details
               </button>
-              <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#passwordModal"
+              <button class="btn btn-primary float-left" data-toggle="modal" data-target="#passwordModal"
               >Change Password
               </button>
             </form>
@@ -331,6 +331,36 @@
                        id="passwordVisibility2" onclick="showPassword('2')">visibility_off</i>
                     <div *ngIf="userPass.value != conPass.valueOf()" class="alert alert-danger">
                       Passwords do not match
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group">
+                    <label for="uQuestion">Security Question:</label>
+                    <i class="material-icons float-right">keyboard_arrow_down</i>
+                    <select name="uQuestion" id="uQuestion" class="form-control custom-select-lg hoverPointer" data-style="btn btn-link">
+                      <option value="One">What was the name of your first stuffed animal?</option>
+                      <option value="Two">Where were you when you had your first kiss?</option>
+                      <option value="Three">What street did you live on in third grade?</option>
+                      <option value="Four">What was the name of your childhood bully?</option>
+                      <option value="Five">What did you want to name your child but never did?</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group">
+                    <input id="uAnswer" name="uAnswer" class="form-control"
+                           required maxlength="35"
+                           pattern="^[a-zA-Z0-9_.-]*$" placeholder="Answer"
+                           [(ngModel)]="answerPlaceholder" #answer="ngModel">
+                    <div *ngIf="answer.invalid && (answer.dirty || answer.touched)"
+                         class="alert alert-danger">
+                      Please enter a valid response.
                     </div>
                   </div>
                 </div>

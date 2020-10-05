@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from "@angular/common";
 import { Title } from '@angular/platform-browser';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
@@ -15,7 +14,6 @@ import { environment } from "../environments/environment";
 })
 export class AppComponent implements OnInit {
   title = 'Angular-Frontend';
-  location: Location;
 
   constructor(private titleService: Title, private router: Router,
               private activatedRoute: ActivatedRoute) {
@@ -33,30 +31,6 @@ export class AppComponent implements OnInit {
   isResetPasswordPage(): boolean {
     const child = this.activatedRoute.firstChild;
     return child.component === ResetPasswordComponent;
-  }
-
-  loginPageDisplay(): string {
-    if ( this.isLoginPage() === true)
-    {
-      return '<div class="content">\n' +
-        '      <router-outlet></router-outlet>\n' +
-        '    <app-footer></app-footer>\n' +
-        ' </div>';
-    }
-    else {
-      return '<div class="main-panel">\n' +
-        '\n' +
-        '    <div id="navBars">\n' +
-        '      <app-side-nav></app-side-nav>\n' +
-        '      <app-top-nav></app-top-nav>\n' +
-        '    </div>\n' +
-        '\n' +
-        '    <div class="content">\n' +
-        '      <router-outlet></router-outlet>\n' +
-        '    </div>\n' +
-        '    <app-footer></app-footer>\n' +
-        ' </div>';
-    }
   }
 
   enforceHTTPS()
@@ -85,9 +59,6 @@ export class AppComponent implements OnInit {
         {
           document.getElementById('displayType').className = 'main-panel';
         }
-
-        // const loginVal = this.loginPageDisplay();
-        // console.log(loginVal);
 
         while (child.firstChild) {
           child = child.firstChild;

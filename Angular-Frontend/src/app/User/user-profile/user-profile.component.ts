@@ -19,6 +19,7 @@ export class UserProfileComponent implements OnInit {
   id: number;
   user: User;
   password = '';
+  answerPlaceholder = '';
   picCorrect = false;
 
   constructor(private route: ActivatedRoute, private router: Router, private authService: AuthService,

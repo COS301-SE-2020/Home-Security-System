@@ -105,19 +105,16 @@ export class AddPersonComponent implements OnInit {
       this.newPerson.personListed = getListed;
       this.newPerson.personCreated = new Date();
 
-      this.newPerson.network = this.getNetwork();
+      const num = Number(this.info.id);
+      this.userService.getUserById(num)
+        .subscribe(value => {
+          //console.log(value.network);
+          this.newPerson.network = value.network;
+          this.personService.addPerson(this.newPerson).subscribe();
+        });
 
-      this.personService.addPerson(this.newPerson).subscribe();
       this.gotoList();
     }
-  }
-
-  getNetwork(): any {
-    const num = Number(this.info.id);
-    this.userService.getUserById(num)
-      .subscribe(value => {
-        return value.network;
-      });
   }
 
   onSubmit() {

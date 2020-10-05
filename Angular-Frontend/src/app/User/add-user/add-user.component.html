@@ -146,16 +146,21 @@
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group">
-                  <label for="answerField">Security Question:</label>
-                  <br>
-                    <select name="questions" id="questions" class="form-control custom-select-lg float-left" data-style="btn btn-link">
-                      <option value="One">What was the name of your first stuffed animal?</option>
-                      <option value="Two">Where were you when you had your first kiss?</option>
-                      <option value="Three">What street did you live on in third grade?</option>
-                      <option value="Four">What was the name of your childhood bully?</option>
-                      <option value="Five">What did you want to name your child but never did?</option>
-                    </select>
-                  <br>
+                  <label for="questions">Security Question:</label>
+                  <i class="material-icons float-right">keyboard_arrow_down</i>
+                      <select name="questions" id="questions" class="form-control custom-select-lg hoverPointer" data-style="btn btn-link">
+                        <option value="One">What was the name of your first stuffed animal?</option>
+                        <option value="Two">Where were you when you had your first kiss?</option>
+                        <option value="Three">What street did you live on in third grade?</option>
+                        <option value="Four">What was the name of your childhood bully?</option>
+                        <option value="Five">What did you want to name your child but never did?</option>
+                      </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group">
                   <input id="answerField" name="answerField" class="form-control"
                          required maxlength="35"
                          pattern="^[a-zA-Z0-9_.-]*$" placeholder="Answer"
@@ -167,6 +172,7 @@
                 </div>
               </div>
             </div>
+
             <br>
             <!--Role-->
             <div class="form-group">

@@ -19,12 +19,12 @@ export class DeletedBlackComponent implements OnInit {
   person: Observable<Person[]>;
   psn: Person;
 
-  constructor(private personService: PersonService, private userService: UserService, private authService: AuthService,
-              private SpinnerService: NgxSpinnerService, private appService: TitleService, private router: Router) { }
+  constructor(private personService: PersonService, private userService: UserService,
+              private authService: AuthService, private SpinnerService: NgxSpinnerService,
+              private appService: TitleService, private router: Router) { }
 
   reloadData() {
     this.person = this.personService.getPersonList();
-    // this.activateButtons();
   }
 
   restorePerson(id: number){

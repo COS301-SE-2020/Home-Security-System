@@ -68,7 +68,7 @@
                     <img alt="Image" id="noteImg{{note.notificationId}}" src="{{note.notificationImg}}"
                          class="listPic ImgClassName " (click)="imageClick(note.notificationId)">
                   </td>
-                  <td>
+                  <td *ngIf="info.role != 'Basic'">
                     <a class="material-icons listPageIcons" (click)="removeNotification(note.notificationId)" title="Delete Notification">delete</a>
                   </td>
                 </tr>

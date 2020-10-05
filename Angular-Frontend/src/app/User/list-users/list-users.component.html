@@ -3,15 +3,13 @@
   <app-top-nav></app-top-nav>
 </div>
 
-
   <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
       <div class="card">
         <div class="card-header card-header-primary">
           <h4 class="card-title">User List</h4>
           <p class="card-category">All users on Argus</p>
-          <!--*ngIf="info.userRole != 'Basic'"-->
-          <a  id="addBtn" class="material-icons open-modal listPageIcons"
+          <a *ngIf="info.role != 'Basic'" id="addBtn" class="material-icons open-modal listPageIcons"
              data-toggle="modal" data-target="#addUserModal" title="Add New User" onclick="openDrop()">person_add</a>
         </div>
         <div class="card-body">
@@ -20,9 +18,9 @@
             <div class="col-11">
               <div class="input-group">
                 <div class="input-group-prepend">
-              <span class="input-group-text">
-                <i class="material-icons">search</i>
-              </span>
+                  <span class="input-group-text">
+                    <i class="material-icons">search</i>
+                  </span>
                 </div>
                 <input type="text" class="form-control" id="searchInput" placeholder="Search by Name..."
                        onkeyup="searchFunc('userListTable', 1)">
@@ -62,10 +60,10 @@
                   <td>{{user.userRole}}</td>
                   <td>
                     <a id="viewBtn" class="material-icons listPageIcons" (click)="viewUser(user.userId)" title="View User">visibility</a>
-                    <a  id="editBtn" class="material-icons listPageIcons"
-                       (click)="updateUser(user.userId)" title="Edit User">edit</a><!--*ngIf="info.userRole != 'Basic'"-->
-                    <a id="deleteBtn" class="material-icons listPageIcons"
-                       (click)="removeUser(user.userId)" title="Delete User">delete</a><!-- *ngIf="info.userRole == 'Admin'"-->
+                    <a *ngIf="info.role != 'Basic'" id="editBtn" class="material-icons listPageIcons"
+                       (click)="updateUser(user.userId)" title="Edit User">edit</a>
+                    <a *ngIf="info.role == 'Admin'" id="deleteBtn" class="material-icons listPageIcons"
+                       (click)="removeUser(user.userId)" title="Delete User">delete</a>
                   </td>
                 </tr>
               </ng-container>
@@ -76,7 +74,7 @@
       </div>
     </div>
   </div>
-  <a  class="btn btn-primary float-right" (click)="restoreUser()">Restore</a><!--*ngIf="info.userRole == 'Admin'"-->
+  <a *ngIf="info.role == 'Admin'" class="btn btn-primary float-right" (click)="restoreUser()">Restore</a>
 
 
 <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">

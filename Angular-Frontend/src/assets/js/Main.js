@@ -76,7 +76,7 @@ function jsB64(imgSrc) {
 function checkProfileImage() {
   var temp = document.getElementById('output');
   if (temp.src === '') {
-    document.getElementById('profilepic').src = "assets/Images/profile.jpg";
+    document.getElementById('profilepic').src = "assets/Images/blank.jpg";
   }
 }
 

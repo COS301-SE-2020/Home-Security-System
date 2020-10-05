@@ -43,7 +43,7 @@ const routes: Routes = [
   {path: 'edit-person/:id', component: EditPersonComponent, data: {title: 'Edit Person | Argus'}, canActivate:[AuthGuardService] },
   {path: 'settings', component: SettingsComponent, data: {title: 'Notifications | Argus'}, canActivate:[AuthGuardService] },
   {path: 'notification', component: NotificationComponent, data: {title: 'Notifications | Argus'}, canActivate:[AuthGuardService] },
-  {path: 'reset-password', component: ResetPasswordComponent, data: {title: 'Reset Password | Argus'}, canActivate:[AuthGuardService] }
+  {path: 'reset-password', component: ResetPasswordComponent, data: {title: 'Reset Password | Argus'}}
 ];
 
 @NgModule({

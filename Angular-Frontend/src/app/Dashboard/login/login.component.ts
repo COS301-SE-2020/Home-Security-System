@@ -18,7 +18,6 @@ import {count} from 'rxjs/operators';
 export class LoginComponent implements OnInit {
   //mailer = new RecoverPasswordEmail();
   users: Observable<User[]>;
-  invalidLogin = false;
 
   constructor(private userService: UserService, public authService: AuthService,
               private router: Router) { }
@@ -36,10 +35,9 @@ export class LoginComponent implements OnInit {
   }
 
   checkEmailForQuestion() {
-    const emailInp = document.getElementById('emailIn') as HTMLInputElement;
+    const emailInp = document.getElementById('emailInput') as HTMLInputElement;
 
     if (emailInp.value.toLowerCase() !== '' && emailInp.value.toLowerCase() !== 'E-mail') {
-
       let counter = 0;
       this.userService.getUserList()
         .subscribe(data => {
@@ -47,26 +45,25 @@ export class LoginComponent implements OnInit {
             if (data[counter].email.toLowerCase() === emailInp.value.toLowerCase()){
               let question = document.getElementById('recoverQuestion') as HTMLElement;
               switch (data[counter].secureQuestion){
-                case "one":
+                case "One":
                   question.innerText = "What was the name of your first stuffed animal?";
                   break;
-                case "two":
+                case "Two":
                   question.innerText = "Where were you when you had your first kiss?";
                   break;
-                case "three":
+                case "Three":
                   question.innerText = "What street did you live on in third grade?";
                   break;
-                case "four":
+                case "Four":
                   question.innerText = "What was the name of your childhood bully?";
                   break;
-                case "five":
+                case "Five":
                   question.innerText = "What did you want to name your child but never did?";
                   break;
-
               }
               document.getElementById('recoverQuestion').hidden = false;
               document.getElementById('questionLabel').hidden = false;
-              document.getElementById('questionIn').hidden = false;
+              document.getElementById('answerInput').hidden = false;
               document.getElementById('nextBtn').hidden = false;
               document.getElementById('retrieveQ').hidden = true;
             }
