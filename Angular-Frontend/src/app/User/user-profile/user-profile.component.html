@@ -7,7 +7,7 @@
 <div class="content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="card">
           <!--Header-->
           <div class="card-header card-header-primary">
@@ -300,7 +300,6 @@
           <div class="card-body">
             <form #passwordForm="ngForm">
               <div class="row">
-
                 <div class="col-md-6 col-sm-6 col-xs-6">
                   <div class="form-group">
                     <label for="passwordField1">New Password</label>
@@ -340,7 +339,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal" (click)="onSubmit()"
+          <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal" (click)="updatePassword()"
                   [disabled]="passwordForm.invalid">
             Change Password
           </button>

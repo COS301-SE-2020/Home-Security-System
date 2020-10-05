@@ -113,7 +113,7 @@ export class AddPersonComponent implements OnInit {
   }
 
   getNetwork(): any {
-    var num = Number(this.info.id);
+    const num = Number(this.info.id);
     this.userService.getUserById(num)
       .subscribe(value => {
         return value.network;

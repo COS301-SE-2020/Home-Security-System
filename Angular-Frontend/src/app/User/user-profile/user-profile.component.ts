@@ -52,7 +52,6 @@ export class UserProfileComponent implements OnInit {
 
   public snapTrigger: Subject<void> = new Subject<void>();
 
-
   ngOnInit(): void {
     this.populateFields();
     this.appService.setTitle('User Profile');
@@ -99,16 +98,27 @@ export class UserProfileComponent implements OnInit {
     const uUsername = document.getElementById('uUsername') as HTMLInputElement;
     const uNumber = document.getElementById('uNumber') as HTMLInputElement;
     const uEmail = document.getElementById('uEmail') as HTMLInputElement;
-    const uPassword = document.getElementById('passwordField1') as HTMLInputElement;
 
     this.user.fname = uName.value;
     this.user.lname = uSurname.value;
     this.user.contactNo = uNumber.value;
     this.user.email = uEmail.value;
     this.user.username = uUsername.value;
+
+    const num = Number(this.info.id);
+    this.userService.updateUser(num, this.user).subscribe(() => {
+      this.gotoList();
+    });
+  }
+
+  updatePassword() {
+    const uPassword = document.getElementById('passwordField1') as HTMLInputElement;
+    const uQuestion = document.getElementById('uQuestion') as HTMLInputElement;
+    const uAnswer = document.getElementById('uAnswer') as HTMLInputElement;
+
     this.user.userPass = uPassword.value;
-    this.user.secureQuestion = "one";
-    this.user.secureAnswer = "Hello";
+    this.user.secureQuestion = uQuestion.value;
+    this.user.secureAnswer = uAnswer.value;
 
     const num = Number(this.info.id);
     this.userService.updateUser(num, this.user).subscribe(() => {
