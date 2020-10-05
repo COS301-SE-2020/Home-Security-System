@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { UserService } from '../../model/user.service';
 import { User } from '../../model/user';
 import { NgxSpinnerService } from 'ngx-spinner';
-import {AuthService} from "../../model/auth.service";
+import {AuthService} from '../../model/auth.service';
 
 @Component({
   selector: 'app-settings',
@@ -29,7 +29,7 @@ export class SettingsComponent implements OnInit {
       const smsSettings = document.getElementById('smsSlider') as HTMLInputElement;
       const emailSettings = document.getElementById('emailSlider') as HTMLInputElement;
 
-      buttonEl.style.background = 'grey';
+      // buttonEl.style.background = 'grey';
       buttonEl.disabled = true;
 
       this.userService.getUserById(this.authService.retrieveUserInfo().id).subscribe(

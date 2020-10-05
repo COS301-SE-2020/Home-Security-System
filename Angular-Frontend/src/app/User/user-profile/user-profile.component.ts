@@ -6,8 +6,8 @@ import {User} from '../../model/user';
 import {WebcamImage} from 'ngx-webcam';
 import {Observable, Subject} from 'rxjs';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {AuthService} from "../../model/auth.service";
-import {SessionClass} from "../../model/session";
+import {AuthService} from '../../model/auth.service';
+import {SessionClass} from '../../model/session';
 
 @Component({
   selector: 'app-user-profile',
@@ -117,9 +117,16 @@ export class UserProfileComponent implements OnInit {
     const uQuestion = document.getElementById('uQuestion') as HTMLInputElement;
     const uAnswer = document.getElementById('uAnswer') as HTMLInputElement;
 
-    this.user.userPass = uPassword.value;
-    this.user.secureQuestion = uQuestion.value;
-    this.user.secureAnswer = uAnswer.value;
+    if (uPassword.value != null)
+    {
+      this.user.userPass = uPassword.value;
+    }
+
+    if (uAnswer.value != null)
+    {
+      this.user.secureQuestion = uQuestion.value;
+      this.user.secureAnswer = uAnswer.value;
+    }
 
     const num = Number(this.info.id);
     this.userService.updateUser(num, this.user).subscribe(() => {
@@ -215,7 +222,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   public allowSubmit(): void{
-    if( this.picCorrect === false)
+    if ( this.picCorrect === false)
     {
       this.picCorrect = true;
     }

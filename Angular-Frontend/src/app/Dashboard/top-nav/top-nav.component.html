@@ -38,14 +38,38 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link" id="navbarDropdownSettings" data-toggle="dropdown" aria-haspopup="true"
-             aria-expanded="false">
+             aria-expanded="false" (click)="retrieveSettings()">
             <i class="material-icons">settings</i>
             <p class="d-lg-none d-md-block hoverPointer">
               Settings
             </p>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-            <app-settings></app-settings>
+            <div class="container center">
+              <table>
+                <tr>
+                  <td class="settingsCells"><label class="settingsLabels">Email Notifications</label></td>
+                  <td class="settingsCells">
+                    <input class="switch_2" id="emailSlider" type="checkbox" (change)="enableButton()">
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="settingsCells"><label class="settingsLabels">SMS Notifications</label></td>
+                  <td class="settingsCells">
+                    <input class="switch_2" id="smsSlider" type="checkbox" (change)="enableButton()">
+                  </td>
+                </tr>
+              </table>
+
+              <button class="btn btn-primary mx-auto" id="saveBtn" (click)="setUserSettings()">
+                Save
+              </button>
+            </div>
+
+            <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+              <p style="color: white">Please Wait. </p>
+            </ngx-spinner>
           </div>
         </li>
       </ul>
