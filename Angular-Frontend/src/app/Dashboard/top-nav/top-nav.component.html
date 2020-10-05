@@ -21,14 +21,14 @@
             <img alt="Photo" class="profilePic ImgClassName" id="profilePic" src="../../../assets/Images/blank.jpg">
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-            <a *ngIf="authService.isUserLoggedIn()" class="dropdown-item" [routerLink]="['/user-profile']">Profile</a>
+            <a class="dropdown-item" [routerLink]="['/user-profile']">Profile</a>
             <div class="dropdown-divider"></div>
-            <a *ngIf="authService.isUserLoggedIn()" class="dropdown-item" [routerLink]="['/logout']">Log out</a>
+            <a class="dropdown-item" [routerLink]="['/logout']">Log out</a>
           </div>
         </li>
 
         <li class="nav-item">
-          <a *ngIf="authService.isUserLoggedIn()" class="nav-link" [routerLink]="['/notification']">
+          <a class="nav-link" [routerLink]="['/notification']">
             <i class="material-icons">notifications</i>
             <!--<span id="noteCnt" class="notification"></span>-->
             <p class="d-lg-none d-md-block hoverPointer">
@@ -37,7 +37,7 @@
           </a>
         </li>
         <li class="nav-item dropdown">
-          <a *ngIf="authService.isUserLoggedIn()" class="nav-link" id="navbarDropdownSettings" data-toggle="dropdown" aria-haspopup="true"
+          <a class="nav-link" id="navbarDropdownSettings" data-toggle="dropdown" aria-haspopup="true"
              aria-expanded="false">
             <i class="material-icons">settings</i>
             <p class="d-lg-none d-md-block hoverPointer">

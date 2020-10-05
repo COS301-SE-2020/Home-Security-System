@@ -9,6 +9,10 @@ import { User } from '../../model/user';
 // DO NOT REMOVE THIS
 import {forEachComment} from 'tslint';
 import {count} from 'rxjs/operators';
+import {environment} from "../../../environments/environment";
+import {HttpClient} from "@angular/common/http";
+import validate = WebAssembly.validate;
+import {JwtRequest} from "../../model/jwt-request";
 
 @Component({
   selector: 'app-login',
@@ -69,7 +73,7 @@ export class LoginComponent implements OnInit {
             }
             counter += 1;
           }
-          if(document.getElementById('recoverQuestion').hidden !== false){
+          if(document.getElementById('recoverQuestion').hidden !== false) {
             emailInp.value = "";
             alert('Error, email does not exist');
           }
@@ -146,18 +150,29 @@ export class LoginComponent implements OnInit {
     this.userService.getUserList().subscribe(data => {
           while (data[counter] != null) {
             if (data[counter].userDeleted === null) {
-              if (((data[counter].email.toLowerCase() === emailVar.value.toLowerCase()) || (data[counter].username === emailVar.value))
-                && (data[counter].userPass === passVar.value)) { // replace passVar.value with pass
+              if ((data[counter].email.toLowerCase() === emailVar.value.toLowerCase()) ||
+                (data[counter].username === emailVar.value)) {
 
-                // tslint:disable-next-line:max-line-length
-                this.authService.createSession(data[counter].userId, data[counter].userRole, data[counter].email,data[counter].network.netName);
-                this.authService.retrieveUserInfo();
-                this.router.navigate(['/dashboard']);
-              }
-              if (((data[counter].email.toLowerCase() === emailVar.value.toLowerCase()) || (data[counter].username === emailVar.value)) &&
-                (data[counter].userPass !== passVar.value)) { // replace passVar.value with pass
-                alert('The password you entered seems to be incorrect, please retry entering your password.');
-                passVar.value = '';
+                const obj = new JwtRequest();
+                obj.username = emailVar.value;
+                obj.password = passVar.value;
+
+                let uid = data[counter].userId;
+                let authority = data[counter].userRole;
+                let mail = data[counter].email;
+                let netName = data[counter].network.netName;
+
+                this.authService.validatePassword(obj).subscribe(value => {
+                  if(value.password === passVar.value) {
+                    this.authService.createSession(uid, authority, mail,netName);
+                    this.authService.retrieveUserInfo();
+                    this.router.navigate(['/dashboard']);
+                  }
+                  else {
+                    alert('The password you entered seems to be incorrect, please retry entering your password.');
+                    passVar.value = '';
+                  }
+                });
               }
             }
             counter += 1;

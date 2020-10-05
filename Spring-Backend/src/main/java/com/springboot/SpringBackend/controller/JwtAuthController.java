@@ -1,11 +1,5 @@
 package com.springboot.SpringBackend.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-
 /*import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,16 +20,12 @@ import com.springboot.SpringBackend.model.JwtResponse;
 import javax.validation.Valid;
 import java.util.Objects;
 */
-@RestController
+/*@RestController
 @RequestMapping("/api")
 // @CrossOrigin(origins = "http://localhost:8080")
 @CrossOrigin(origins = "http://localhost:4200")
-// @CrossOrigin(origins = "https://sigma-argus.herokuapp.com")
+// @CrossOrigin(origins = "https://sigma-argus.herokuapp.com")*/
 public class JwtAuthController {
-
-    @Autowired
-    PasswordEncoder bcryptEncoder;
-
 /*
     @Autowired
     AuthenticationManager authenticationManager;

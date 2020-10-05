@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpEvent, HttpHeaders} from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { map } from "rxjs/operators";
 import { JwtResponse } from "./jwt-response";
 import { SessionClass } from "./session";
 import {RecoveryDetails} from "./recovery-details";
+import {Observable} from "rxjs";
+import {JwtRequest} from "./jwt-request";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -15,9 +17,14 @@ const httpOptions = {
 })
 export class AuthService {
 
-  private baseUrl = `${environment.apiUrl}/api/authenticate`;
+  //private baseUrl = `${environment.apiUrl}/api/authenticate`;
+  private baseUrl = `${environment.apiUrl}/api/validate`;
 
   constructor(private httpClient: HttpClient) { }
+
+  validatePassword(value: JwtRequest) : Observable<JwtRequest> {
+    return this.httpClient.post<JwtRequest>(`${this.baseUrl}`, value);
+  }
 
   /*authenticate(username, password) {
     return this.httpClient.post<any>(this.baseUrl,{username,password}).pipe(

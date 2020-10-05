@@ -1,7 +1,9 @@
 package com.springboot.SpringBackend.controller;
 
 import com.springboot.SpringBackend.exception.ResourceNotFoundException;
+import com.springboot.SpringBackend.model.JwtRequest;
 import com.springboot.SpringBackend.model.User;
+import com.springboot.SpringBackend.repository.UserRepo;
 import com.springboot.SpringBackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +22,40 @@ import java.util.Map;
 //@CrossOrigin(origins = "https://sigma-argus.herokuapp.com")
 public class UserController {
     private final UserService service;
+    private final UserRepo repo;
     private final PasswordEncoder hash;
 
     @Autowired
-    public UserController(UserService service, PasswordEncoder salt) {
+    public UserController(UserService service, UserRepo repo, PasswordEncoder salt) {
         this.service = service;
+        this.repo = repo;
         this.hash = salt;
+    }
+
+    @PostMapping("/validate")
+    public ResponseEntity<JwtRequest> validatePassword(@Valid @RequestBody JwtRequest x) throws ResourceNotFoundException {
+        User user = null;
+
+        if(repo.existsUserByUsername(x.getUsername()))
+        {
+            user = repo.findUserByUsername(x.getUsername())
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + x.getUsername()));
+        }
+        else if(repo.existsUserByEmail(x.getUsername()))
+        {
+            user = repo.findUserByEmail(x.getUsername())
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + x.getUsername()));
+        }
+
+        if(user != null) {
+            boolean isMatch = hash.matches(x.getPassword(), user.getUserPass());
+
+            if (isMatch) {
+                return ResponseEntity.ok().body(x);
+            }
+        }
+
+        return ResponseEntity.badRequest().body(x);
     }
 
     @GetMapping("/users")
@@ -42,8 +72,8 @@ public class UserController {
 
     @PostMapping("/users")
     public User addUser(@Valid @RequestBody User x) {
-        //String passEncrypt = hash.encode(x.getUserPass());
-        //x.setUserPass(passEncrypt);
+        String passEncrypt = hash.encode(x.getUserPass());
+        x.setUserPass(passEncrypt);
         return service.createUser(x);
     }
 
@@ -66,8 +96,10 @@ public class UserController {
         x.setContactNo(details.getContactNo());
         x.setEmail(details.getEmail());
         x.setUsername(details.getUsername());
-        x.setUserPass(details.getUserPass());
-        //x.setUserPass(hash.encode(details.getUserPass()));
+        //x.setUserPass(details.getUserPass());
+        if(!details.getUserPass().equals(x.getUserPass())) {
+            x.setUserPass(hash.encode(details.getUserPass())); //its rehashing the encoded hash...
+        }
         x.setUserRole(details.getUserRole());
         x.setNotifyEmail(details.getNotifyEmail());
         x.setNotifySMS(details.getNotifySMS());

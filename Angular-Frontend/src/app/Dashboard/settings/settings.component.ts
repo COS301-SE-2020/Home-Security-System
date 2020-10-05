@@ -49,7 +49,8 @@ export class SettingsComponent implements OnInit {
       this.user.notifySMS = smsSet.checked;
 
       this.SpinnerService.show();
-      this.userService.updateUser(this.authService.retrieveUserInfo().id, this.user)
+      const num = Number(this.authService.retrieveUserInfo().id);
+      this.userService.updateUser(num, this.user)
         .subscribe(() => {
           setTimeout(() => {
             this.SpinnerService.hide();
