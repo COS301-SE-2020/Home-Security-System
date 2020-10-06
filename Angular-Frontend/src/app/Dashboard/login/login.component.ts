@@ -9,10 +9,10 @@ import { User } from '../../model/user';
 // DO NOT REMOVE THIS
 import {forEachComment} from 'tslint';
 import {count} from 'rxjs/operators';
-import {environment} from "../../../environments/environment";
-import {HttpClient} from "@angular/common/http";
+import {environment} from '../../../environments/environment';
+import {HttpClient} from '@angular/common/http';
 import validate = WebAssembly.validate;
-import {JwtRequest} from "../../model/jwt-request";
+import {JwtRequest} from '../../model/jwt-request';
 
 @Component({
   selector: 'app-login',
@@ -20,18 +20,18 @@ import {JwtRequest} from "../../model/jwt-request";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  //mailer = new RecoverPasswordEmail();
+  // mailer = new RecoverPasswordEmail();
   users: Observable<User[]>;
 
   constructor(private userService: UserService, public authService: AuthService,
               private router: Router) { }
 
   hideRecover() {
-    document.getElementById("forgotten-container").hidden = true;
+    document.getElementById('forgotten-container').hidden = true;
   }
 
   unhide() {
-    document.getElementById("forgotten-container").hidden = false;
+    document.getElementById('forgotten-container').hidden = false;
   }
 
   ngOnInit(): void {
@@ -47,22 +47,22 @@ export class LoginComponent implements OnInit {
         .subscribe(data => {
           while (data[counter] != null) {
             if (data[counter].email.toLowerCase() === emailInp.value.toLowerCase()){
-              let question = document.getElementById('recoverQuestion') as HTMLElement;
+              const question = document.getElementById('recoverQuestion') as HTMLElement;
               switch (data[counter].secureQuestion){
-                case "One":
-                  question.innerText = "What was the name of your first stuffed animal?";
+                case 'One':
+                  question.innerText = 'What was the name of your first stuffed animal?';
                   break;
-                case "Two":
-                  question.innerText = "Where were you when you had your first kiss?";
+                case 'Two':
+                  question.innerText = 'Where were you when you had your first kiss?';
                   break;
-                case "Three":
-                  question.innerText = "What street did you live on in third grade?";
+                case 'Three':
+                  question.innerText = 'What street did you live on in third grade?';
                   break;
-                case "Four":
-                  question.innerText = "What was the name of your childhood bully?";
+                case 'Four':
+                  question.innerText = 'What was the name of your childhood bully?';
                   break;
-                case "Five":
-                  question.innerText = "What did you want to name your child but never did?";
+                case 'Five':
+                  question.innerText = 'What did you want to name your child but never did?';
                   break;
               }
               document.getElementById('recoverQuestion').hidden = false;
@@ -73,16 +73,24 @@ export class LoginComponent implements OnInit {
             }
             counter += 1;
           }
-          if(document.getElementById('recoverQuestion').hidden !== false) {
-            emailInp.value = "";
+          if (document.getElementById('recoverQuestion').hidden !== false) {
+            emailInp.value = '';
             alert('Error, email does not exist');
           }
         });
 
       /*this.router.navigate(['/reset-password']);*/
     } else {
+
       alert('Error, please enter an email address');
     }
+  }
+
+  createError(msg, parent){
+    const parentEl = document.getElementById(parent);
+
+    const error = document.createElement('div');
+
   }
 
   recoverPasswordEmail() {
@@ -157,14 +165,14 @@ export class LoginComponent implements OnInit {
                 obj.username = emailVar.value;
                 obj.password = passVar.value;
 
-                let uid = data[counter].userId;
-                let authority = data[counter].userRole;
-                let mail = data[counter].email;
-                let netName = data[counter].network.netName;
+                const uid = data[counter].userId;
+                const authority = data[counter].userRole;
+                const mail = data[counter].email;
+                const netName = data[counter].network.netName;
 
                 this.authService.validatePassword(obj).subscribe(value => {
-                  if(value.password === passVar.value) {
-                    this.authService.createSession(uid, authority, mail,netName);
+                  if (value.password === passVar.value) {
+                    this.authService.createSession(uid, authority, mail, netName);
                     this.authService.retrieveUserInfo();
                     this.router.navigate(['/dashboard']);
                   }

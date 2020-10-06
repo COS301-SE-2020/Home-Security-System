@@ -19,7 +19,8 @@ import {NgxSpinnerService} from 'ngx-spinner';
 export class DashboardComponent implements OnInit {
 
   constructor(private spinner: NgxSpinnerService, private appService: TitleService,
-              private personService: PersonService, private notificationService: NotificationService) { }
+              private personService: PersonService, private notificationService: NotificationService) {
+  }
 
   people: Observable<Person[]>;
   currentDate = new Date();
@@ -220,7 +221,9 @@ export class DashboardComponent implements OnInit {
     // this.pieChart();
     this.calculateNumberOfPeople();
     this.calculateNumberOfNotifications();
-    this.getCameras();
+    // this.getCameras();
+    this.newCam('http://192.168.0.100:5000/feed', '1');
+    this.newCam2('http://192.168.0.100:5000/feed', '2');
   }
 
   public toggleCam(): void {
@@ -237,11 +240,12 @@ export class DashboardComponent implements OnInit {
     let noCamMessage = false;
     const thisRef = this;
 
-    const camUrls = ['http://192.168.0.100:5000/feed', 'http://192.168.0.100:5000/feed'];
+    const camUrls = ['http://192.168.0.100:5000/feed'];
 
     function newCam(currentUrl, currentNum) {
+      console.log(currentUrl);
       const liveFeedDiv = document.getElementById('liveFeedDiv');
-      const newCamFeed = document.createElement('embed');
+      const newCamFeed = document.createElement('iframe');
       newCamFeed.src = currentUrl;
       newCamFeed.width = '500';
       newCamFeed.height = '300';
@@ -306,7 +310,7 @@ export class DashboardComponent implements OnInit {
       const request = new XMLHttpRequest();
       request.open('GET', item, true);
       // tslint:disable-next-line:only-arrow-functions
-      request.onreadystatechange = function() {
+      request.onreadystatechange = function () {
         if (request.readyState === 4) {
           thisRef.stopSpin();
           if (request.status !== 200) {
@@ -340,4 +344,141 @@ export class DashboardComponent implements OnInit {
     document.getElementById('loadingDiv').style.display = 'none';
     document.getElementById('liveFeedDiv').style.height = 'fit-content';
   }
+
+  newCam(currentUrl, currentNum) {
+    console.log(currentUrl);
+    const liveFeedDiv = document.getElementById('liveFeedDiv');
+    const newCamFeed = document.createElement('img');
+    // newCamFeed.frameBorder = '0';
+    newCamFeed.src = currentUrl;
+    // newCamFeed.width = '500';
+    // newCamFeed.height = '300';
+    newCamFeed.setAttribute('class', 'liveCamera');
+    newCamFeed.setAttribute('id', 'cam' + currentNum);
+    newCamFeed.hidden = false;
+
+    const toggleCam = document.createElement('a');
+    toggleCam.setAttribute('class', 'material-icons toggleCam');
+    toggleCam.setAttribute('title', 'Toggle Camera');
+
+    toggleCam.setAttribute('id', 'toggleCam' + currentNum);
+    toggleCam.innerText = 'videocam';
+    toggleCam.hidden = false;
+
+    const camNum = document.createElement('div');
+    camNum.className = 'top-left hoverPointer';
+    camNum.innerHTML = 'Camera ' + currentNum + ': ';
+    camNum.appendChild(toggleCam);
+
+    const camOffMsg = document.createElement('div');
+    camOffMsg.className = 'camOffMsg';
+    camOffMsg.innerHTML = 'Camera ' + currentNum + ' is switched off.';
+    camOffMsg.hidden = true;
+
+    const gridItem = document.createElement('div');
+    gridItem.setAttribute('class', 'grid-item');
+    gridItem.id = 'gridItem' + currentNum;
+    gridItem.appendChild(camNum);
+    gridItem.appendChild(camOffMsg);
+    gridItem.appendChild(newCamFeed);
+
+    const gridContainer = document.createElement('div');
+    gridContainer.setAttribute('class', 'grid-container');
+    gridContainer.setAttribute('id', 'cameraGrid');
+    gridContainer.appendChild(gridItem);
+
+    liveFeedDiv.appendChild(gridContainer);
+    // if (camAdded) {
+    //   const gridContainer = document.getElementById('cameraGrid');
+    //   gridContainer.appendChild(gridItem);
+    //   liveFeedDiv.appendChild(gridContainer);
+    // } else {
+    //   const gridContainer = document.createElement('div');
+    //   gridContainer.setAttribute('class', 'grid-container');
+    //   gridContainer.setAttribute('id', 'cameraGrid');
+    //   gridContainer.appendChild(gridItem);
+    //
+    //   liveFeedDiv.appendChild(gridContainer);
+    // }
+
+    function camToggleFunc() {
+      newCamFeed.hidden = !newCamFeed.hidden;
+      camOffMsg.hidden = !camOffMsg.hidden;
+      if (toggleCam.innerText === 'videocam') {
+        toggleCam.innerText = 'videocam_off';
+      } else {
+        toggleCam.innerText = 'videocam';
+      }
+    }
+
+    camNum.onclick = camToggleFunc;
+  }
+
+  newCam2(currentUrl, currentNum) {
+    console.log(currentUrl);
+    const liveFeedDiv = document.getElementById('liveFeedDiv');
+    const newCamFeed = document.createElement('img');
+    // newCamFeed.frameBorder = '0';
+    newCamFeed.src = currentUrl;
+    // newCamFeed.width = '500';
+    // newCamFeed.height = '300';
+    newCamFeed.setAttribute('class', 'liveCamera');
+    newCamFeed.setAttribute('id', 'cam' + currentNum);
+    newCamFeed.hidden = false;
+
+    const toggleCam = document.createElement('a');
+    toggleCam.setAttribute('class', 'material-icons toggleCam');
+    toggleCam.setAttribute('title', 'Toggle Camera');
+
+    toggleCam.setAttribute('id', 'toggleCam' + currentNum);
+    toggleCam.innerText = 'videocam';
+    toggleCam.hidden = false;
+
+    const camNum = document.createElement('div');
+    camNum.className = 'top-left hoverPointer';
+    camNum.innerHTML = 'Camera ' + currentNum + ': ';
+    camNum.appendChild(toggleCam);
+
+    const camOffMsg = document.createElement('div');
+    camOffMsg.className = 'camOffMsg';
+    camOffMsg.innerHTML = 'Camera ' + currentNum + ' is switched off.';
+    camOffMsg.hidden = true;
+
+    const gridItem = document.createElement('div');
+    gridItem.setAttribute('class', 'grid-item');
+    gridItem.id = 'gridItem' + currentNum;
+    gridItem.appendChild(camNum);
+    gridItem.appendChild(camOffMsg);
+    gridItem.appendChild(newCamFeed);
+
+    const gridContainer = document.getElementById('cameraGrid');
+    gridContainer.appendChild(gridItem);
+    liveFeedDiv.appendChild(gridContainer);
+
+    // if (camAdded) {
+    //   const gridContainer = document.getElementById('cameraGrid');
+    //   gridContainer.appendChild(gridItem);
+    //   liveFeedDiv.appendChild(gridContainer);
+    // } else {
+    //   const gridContainer = document.createElement('div');
+    //   gridContainer.setAttribute('class', 'grid-container');
+    //   gridContainer.setAttribute('id', 'cameraGrid');
+    //   gridContainer.appendChild(gridItem);
+    //
+    //   liveFeedDiv.appendChild(gridContainer);
+    // }
+
+    function camToggleFunc() {
+      newCamFeed.hidden = !newCamFeed.hidden;
+      camOffMsg.hidden = !camOffMsg.hidden;
+      if (toggleCam.innerText === 'videocam') {
+        toggleCam.innerText = 'videocam_off';
+      } else {
+        toggleCam.innerText = 'videocam';
+      }
+    }
+
+    camNum.onclick = camToggleFunc;
+  }
+
 }
