@@ -67,6 +67,17 @@ public class MailerController {
         return x;
     }
 
+    public String sendRegistration(/*@PathVariable("emailAddress")*/ String email) {
+        String x = "sent";
+        emailSender.sendMail(
+                email,
+                "Registration",
+                "Welcome to ARGUS! \n\n If you did not use this email to register please contact sigmacos301@gmail.com"
+        );
+
+        return x;
+    }
+
     public void setImagePath(String imgPathVar) {
         imagePath = imgPathVar;
     }
