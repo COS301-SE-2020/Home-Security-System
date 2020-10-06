@@ -1,5 +1,5 @@
 /*
-package com.springboot.SpringBackend.repoTest;
+package com.springboot.SpringBackend;
 
 import com.springboot.SpringBackend.model.User;
 import com.springboot.SpringBackend.repository.UserRepo;
@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
