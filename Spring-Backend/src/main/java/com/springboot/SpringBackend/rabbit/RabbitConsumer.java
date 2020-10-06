@@ -44,85 +44,94 @@ public class RabbitConsumer {
         List<User> arr = userService.getAllUsers();
         Optional<Network> net = netServece.getNetworkById(alert.getNetworkId());
 
-        for (User u : arr) {
-            if (net.isPresent()) {
-                if (u.getNetwork().getNetName().equals(net.get().getNetName())) {
-                    if (alert.getPersonId() != 0) {
-                        Optional<Person> p = personService.getPersonById(alert.getPersonId());
+        if (alert.getPersonId() != 0) {
+            Optional<Person> p = personService.getPersonById(alert.getPersonId());
 
-                        try {
-                            if (p.isPresent()) {
-                                String email = u.getEmail();
-                                Boolean notify1 = u.getNotifyEmail();
-                                Boolean notify2 = u.getNotifySMS();
+            try {
+                if (p.isPresent() && net.isPresent()) {
 
-                                if (p.get().getPersonDeleted() != null) {
-                                    if (alert.getType().equalsIgnoreCase("Grey")) {
-                                        nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
-                                                "Person: " + p.get().getFname(), u.getNetwork()));
-                                    } else {
-                                        nservice.createNotification(new Notification(alert.getImageStr(), "Threat",
-                                                "Intruder: " + p.get().getFname() + " " + p.get().getLname(), u.getNetwork()));
+                    if (p.get().getPersonDeleted() != null) {
+                        if (alert.getType().equalsIgnoreCase("Grey")) {
+                            nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
+                                    "Person: " + p.get().getFname(), net.get()));
+                        } else {
+                            nservice.createNotification(new Notification(alert.getImageStr(), "Threat",
+                                    "Intruder: " + p.get().getFname() + " " + p.get().getLname(), net.get()));
 
-                                        if (notify1) {
-                                            mailer.sendmailBlack(email);
-                                        }
-                                        if (notify2) {
-                                            SmsRequest request = new SmsRequest(u.getContactNo());
-                                            sender.sendSmsThreat(request);
-                                        }
+                            for (User u : arr) {
+                                if (u.getNetwork().getNetName().equals(net.get().getNetName())) {
+                                    String email = u.getEmail();
+                                    Boolean notify1 = u.getNotifyEmail();
+                                    Boolean notify2 = u.getNotifySMS();
+
+                                    if (notify1) {
+                                        mailer.sendmailBlack(email);
                                     }
-                                } else {
-                                    p.get().setPersonDeleted(null);
-                                    personService.updatePerson(p.get());
-
-                                    if (alert.getType().equalsIgnoreCase("Grey")) {
-                                        nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
-                                                "Person: " + p.get().getFname(), u.getNetwork()));
-                                    } else {
-                                        nservice.createNotification(new Notification(alert.getImageStr(), "Threat",
-                                                "Intruder: " + p.get().getFname() + " " + p.get().getLname(), u.getNetwork()));
-
-                                        if (notify1) {
-                                            mailer.sendmailBlack(email);
-                                        }
-                                        if (notify2) {
-                                            SmsRequest request = new SmsRequest(u.getContactNo());
-                                            sender.sendSmsThreat(request);
-                                        }
+                                    if (notify2) {
+                                        SmsRequest request = new SmsRequest(u.getContactNo());
+                                        sender.sendSmsThreat(request);
                                     }
                                 }
                             }
-                                /*else if (p.get() == null) {
-                                    // Recreate the person
-                                    Person psn = new Person(alert.getPersonId(), alert.getImageStr());
-                                    personService.createPerson(psn);
-                                    // Update them to the correct list
-                                    RabbitPerson updatePerson = new RabbitPerson(psn.getPersonId(), "0", psn.getPersonListed(), true, alert.getImageStr(), true);
-                                    amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, updatePerson);
-                                    // Send notification
-                                    nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
-                                            "Person: " + p.get().getFname(), u));
-                                }*/
-
-                        } catch (NoSuchElementException ex) {
-                            LOGGER.info(String.valueOf(ex));
                         }
                     } else {
-                        try {
-                            if (alert.getType().equalsIgnoreCase("Grey")) {
-                                nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
-                                        "Person: " + "Unknown", u.getNetwork()));
+                        p.get().setPersonDeleted(null);
+                        personService.updatePerson(p.get());
+
+                        if (alert.getType().equalsIgnoreCase("Grey")) {
+                            nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
+                                    "Person: " + p.get().getFname(), net.get()));
+                        } else {
+                            nservice.createNotification(new Notification(alert.getImageStr(), "Threat",
+                                    "Intruder: " + p.get().getFname() + " " + p.get().getLname(), net.get()));
+
+                            for (User u : arr) {
+                                if (u.getNetwork().getNetName().equals(net.get().getNetName())) {
+                                    String email = u.getEmail();
+                                    Boolean notify1 = u.getNotifyEmail();
+                                    Boolean notify2 = u.getNotifySMS();
+
+                                    if (notify1) {
+                                        mailer.sendmailBlack(email);
+                                    }
+                                    if (notify2) {
+                                        SmsRequest request = new SmsRequest(u.getContactNo());
+                                        sender.sendSmsThreat(request);
+                                    }
+                                }
                             }
-                        } catch (NoSuchElementException ex) {
-                            LOGGER.info(String.valueOf(ex));
                         }
                     }
+                }
+                    /*else if (p.get() == null) {
+                        // Recreate the person
+                        Person psn = new Person(alert.getPersonId(), alert.getImageStr());
+                        personService.createPerson(psn);
+                        // Update them to the correct list
+                        RabbitPerson updatePerson = new RabbitPerson(psn.getPersonId(), "0", psn.getPersonListed(), true, alert.getImageStr(), true);
+                        amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, updatePerson);
+                        // Send notification
+                        nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
+                                "Person: " + p.get().getFname(), u));
+                    }*/
 
-                    LOGGER.info("Notification Created");
+            } catch (NoSuchElementException ex) {
+                LOGGER.info(String.valueOf(ex));
+            }
+        } else {
+            if(net.isPresent()) {
+                try {
+                    if (alert.getType().equalsIgnoreCase("Grey")) {
+                        nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
+                                "Person: " + "Unknown", net.get()));
+                    }
+                } catch (NoSuchElementException ex) {
+                    LOGGER.info(String.valueOf(ex));
                 }
             }
         }
+
+        LOGGER.info("Notification Created");
     }
 
     @RabbitListener(queues = {"personQueue"})
