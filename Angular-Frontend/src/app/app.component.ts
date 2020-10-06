@@ -5,7 +5,7 @@ import { filter, map } from 'rxjs/operators';
 import { TitleService } from './title.service';
 import { LoginComponent } from './Dashboard/login/login.component';
 import { ResetPasswordComponent } from './Dashboard/reset-password/reset-password.component';
-import { environment } from "../environments/environment";
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -36,13 +36,14 @@ export class AppComponent implements OnInit {
   enforceHTTPS()
   {
     if (environment.production) {
-      if(location.protocol === 'http:') {
+      if (location.protocol === 'http:') {
         window.location.href = location.href.replace('http', 'https');
       }
     }
   }
 
   ngOnInit() {
+
     const appTitle = this.titleService.getTitle();
     this.enforceHTTPS();
     this.router.events.pipe(
@@ -54,10 +55,12 @@ export class AppComponent implements OnInit {
         if ( this.isLoginPage() === true || this.isResetPasswordPage() === true )
         {
           document.getElementById('displayType').className = 'login-panel';
+          document.getElementById('app-footer').hidden = true;
         }
         else
         {
           document.getElementById('displayType').className = 'main-panel';
+          document.getElementById('app-footer').hidden = false;
         }
 
         while (child.firstChild) {

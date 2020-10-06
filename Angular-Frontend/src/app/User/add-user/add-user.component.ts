@@ -174,7 +174,7 @@ export class AddUserComponent implements OnInit {
     this.SpinnerService.show();
     setTimeout(() => {
       this.SpinnerService.hide();
-      window.location.reload()
+      window.location.reload();
     }, 500);
   }
 

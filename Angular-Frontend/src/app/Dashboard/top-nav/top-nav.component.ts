@@ -13,9 +13,11 @@ import {NgxSpinnerService} from 'ngx-spinner';
   templateUrl: './top-nav.component.html',
   styleUrls: ['./top-nav.component.css']
 })
+
 export class TopNavComponent implements OnInit {
   title: string;
   user: User;
+  profileImg: string;
   newObj: JsonObject;
   info: SessionClass = this.authService.retrieveUserInfo();
 
@@ -30,7 +32,7 @@ export class TopNavComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      this.displayProfilePic();
+    // this.displayProfilePic();
   }
 
   clearNotifications() {

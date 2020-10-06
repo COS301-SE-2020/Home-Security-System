@@ -1,7 +1,6 @@
 /*
-package com.springboot.SpringBackend.repoTest;
+package com.springboot.SpringBackend;
 
-import com.springboot.SpringBackend.model.Image;
 import com.springboot.SpringBackend.model.Person;
 import com.springboot.SpringBackend.repository.PersonRepo;
 import org.junit.Assert;

@@ -4,7 +4,7 @@
 <div id="login-button" onmouseover="loginSlide()">
   <img class="loginImg" src="./assets/Images/ArgusIcon.png"
        alt="">
-  Log in
+  Login
 </div>
 
 <div id="loginContainer">
@@ -15,7 +15,12 @@
     </a>
   </div>
 
-  <form>
+  <form id="loginForm">
+    <div id="errorMsgs">
+
+    </div>
+<!--    <div class="alert alert-danger">Error, please enter an email address</div>-->
+
     <label class="loginFields">
       <input class="loginInputs" type="text" name="email" placeholder="Username or E-mail" id="emailField"
              maxlength="35">
@@ -24,12 +29,12 @@
       <input class="loginInputs" id="passwordField" type="password" name="pass" placeholder="Password" maxlength="35">
       <i class="material-icons" id="passwordVisibility" onclick="showPassword('')">visibility_off</i>
     </label>
-
     <a class="loginButton" (click)="makeSession()" id="loginBtn">Log in</a>
     <div id="remember-container">
       <span id="forgotten" (click)="unhide()" onclick="forgot()">Forgot password?</span>
     </div>
   </form>
+
 </div>
 
 <!-- Forgotten Password Container -->

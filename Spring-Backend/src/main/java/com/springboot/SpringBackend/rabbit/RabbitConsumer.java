@@ -46,7 +46,7 @@ public class RabbitConsumer {
 
         for (User u : arr) {
             if (net.isPresent()) {
-                if (u.getNetwork() == net.get()) {
+                if (u.getNetwork().getNetName().equals(net.get().getNetName())) {
                     if (alert.getPersonId() != 0) {
                         Optional<Person> p = personService.getPersonById(alert.getPersonId());
 

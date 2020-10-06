@@ -1,8 +1,7 @@
 /*
-package com.springboot.SpringBackend.controllerTest;
+package com.springboot.SpringBackend;
 
-import com.springboot.SpringBackend.model.Image;
-import com.springboot.SpringBackend.model.Person;
+import com.springboot.SpringBackend.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,19 +11,17 @@ import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.HttpClientErrorException;
 
-import java.time.LocalDate;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class PersonControllerTest {
+public class UserControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
     private String getRootUrl() {
-        return "http://localhost:4200/springboot/api/people";
+        return "http://localhost:4200/springboot/api/users";
     }
 
     @Test
@@ -33,23 +30,32 @@ public class PersonControllerTest {
     }
 
     @Test
-    public void testCreatePerson() {
-        Person x = new Person("Photo", "John", "Fish", "Grey");
-        ResponseEntity<Person> postResponse = restTemplate.postForEntity(getRootUrl(), x, Person.class);
+    public void testCreateUser() {
+        User u = new User();
+        u.setProfilePhoto("Photo");
+        u.setFname("Brad");
+        u.setLname("Zietsman");
+        u.setEmail("brad.zietsman@gmail.com");
+        u.setUsername("Bradford");
+        u.setUserPass("123qweASD!");
+        u.setUserRole("Admin");
+        u.setNotifySMS(true);
+        u.setNotifyEmail(true);
+        ResponseEntity<User> postResponse = restTemplate.postForEntity(getRootUrl(), u, User.class);
         System.out.println(" postResponse -> " + postResponse);
         assertNotNull(postResponse);
         assertNotNull(postResponse.getBody());
     }
 
     @Test
-    public void testGetPersonById() {
-        Person x = restTemplate.getForObject(getRootUrl() + "/1", Person.class);
-        System.out.println(x);
-        assertNotNull(x);
+    public void testGetUserById() {
+        User u = restTemplate.getForObject(getRootUrl() + "/1", User.class);
+        System.out.println(u);
+        assertNotNull(u);
     }
 
     @Test
-    public void testGetAllPeople() {
+    public void testGetAllUsers() {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
         ResponseEntity<String> response = restTemplate.exchange(getRootUrl(), HttpMethod.GET, entity, String.class);
@@ -59,25 +65,25 @@ public class PersonControllerTest {
 
 
     @Test
-    public void testUpdatePerson() {
+    public void testUpdateUser() {
         int id = 1;
-        Person x = restTemplate.getForObject(getRootUrl() + id, Person.class);
-        x.setPersonImg("Image");
-        x.setPersonListed("Black");
-        restTemplate.put(getRootUrl() +  id, x);
-        Person updatedPerson = restTemplate.getForObject(getRootUrl() + id, Person.class);
-        assertNotNull(updatedPerson);
+        User u = restTemplate.getForObject(getRootUrl() + id, User.class);
+        u.setUserRole("Basic");
+        u.setNotifyEmail(false);
+        restTemplate.put(getRootUrl() +  id, u);
+        User updatedUser = restTemplate.getForObject(getRootUrl() + id, User.class);
+        assertNotNull(updatedUser);
     }
 
     @Test
-    public void testDeletePerson() {
+    public void testDeleteUser() {
         int id = 2;
-        Person x = restTemplate.getForObject(getRootUrl() + id, Person.class);
-        assertNotNull(x);
+        User u = restTemplate.getForObject(getRootUrl() + id, User.class);
+        assertNotNull(u);
         restTemplate.delete(getRootUrl() + id);
 
         try {
-            x = restTemplate.getForObject(getRootUrl() + id, Person.class);
+            u = restTemplate.getForObject(getRootUrl() + id, User.class);
         } catch (final HttpClientErrorException e) {
             assertEquals(e.getStatusCode(), HttpStatus.NOT_FOUND);
         }
