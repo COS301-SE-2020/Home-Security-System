@@ -24,7 +24,7 @@ rabbit_host = 'amqps://ohskvfuw:HN8SBYNGPfuswoGySxiH0CyeC38v9oSP@rattlesnake.rmq
 rabbit_url = os.environ.get('CLOUDAMQP_URL', rabbit_host)
 rabbit_param = pi.URLParameters(rabbit_url)
 threshold = 0.5
-successive_detection_ignore = 30.0
+successive_detection_ignore = 300.0
 
 rabbit_conn = pi.BlockingConnection(rabbit_param)
 message_channel = rabbit_conn.channel()
@@ -262,9 +262,9 @@ def streaming():
 
     app = Flask(__name__)
 
-    @app.route('/feed')
-    def video_feed():
-        return Response(gen(cams[0]),
+    @app.route('/feed/<c_num>')
+    def video_feed(c_num):
+        return Response(gen(cams[int(c_num)]),
                         mimetype='multipart/x-mixed-replace; boundary=frame')
 
     app.run(host='0.0.0.0')
