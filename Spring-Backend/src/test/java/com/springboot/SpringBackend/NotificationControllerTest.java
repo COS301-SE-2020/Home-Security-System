@@ -1,5 +1,5 @@
 /*
-package com.springboot.SpringBackend.controllerTest;
+package com.springboot.SpringBackend;
 
 import com.springboot.SpringBackend.model.Notification;
 import com.springboot.SpringBackend.model.User;

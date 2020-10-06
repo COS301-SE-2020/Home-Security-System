@@ -24,12 +24,14 @@ public class UserController {
     private final UserService service;
     private final UserRepo repo;
     private final PasswordEncoder hash;
+    private final MailerController mailer;
 
     @Autowired
-    public UserController(UserService service, UserRepo repo, PasswordEncoder salt) {
+    public UserController(UserService service, UserRepo repo, PasswordEncoder salt, MailerController email) {
         this.service = service;
         this.repo = repo;
         this.hash = salt;
+        this.mailer = email;
     }
 
     @PostMapping("/validate")
@@ -72,6 +74,7 @@ public class UserController {
 
     @PostMapping("/users")
     public User addUser(@Valid @RequestBody User x) {
+        mailer.sendRegistration(x.getEmail());
         String passEncrypt = hash.encode(x.getUserPass());
         x.setUserPass(passEncrypt);
         return service.createUser(x);
