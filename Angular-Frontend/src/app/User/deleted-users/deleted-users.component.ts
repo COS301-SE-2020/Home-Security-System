@@ -29,8 +29,8 @@ export class DeletedUsersComponent implements OnInit {
   ngOnInit(): void {
     this.user = new User();
     this.appService.setTitle('Deleted Users');
-    this.deleteOld(1);
     this.reloadData();
+    //this.deleteOld(1);
   }
 
   restoreUser(id: number) {
@@ -61,7 +61,7 @@ export class DeletedUsersComponent implements OnInit {
     this.userService.getUserList()
       .subscribe(data => {
         while (data[counter] != null) {
-          if (data[counter].userDeleted != null) {
+          if (data[counter].userDeleted != null && data[counter].network.network == this.info.network) {
             this.userService.deleteUser(data[counter].userId).subscribe();
           }
           counter++;

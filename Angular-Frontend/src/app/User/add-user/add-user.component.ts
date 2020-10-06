@@ -78,7 +78,7 @@ export class AddUserComponent implements OnInit {
     this.usersService.getUserList().subscribe(
       data => {
         while (data[counter] != null) {
-          if (data[counter].userDeleted === null) {
+          //if (data[counter].userDeleted === null) {
             if (data[counter].username === usernameInp.value) {
               exists = true;
               alert('Username is already taken. Please enter another username');
@@ -93,8 +93,8 @@ export class AddUserComponent implements OnInit {
             }
           }
           counter++;
-        }
-      }, error => {},
+        //}
+      }, () => {},
       () => {
         if (!exists) {
           this.save();

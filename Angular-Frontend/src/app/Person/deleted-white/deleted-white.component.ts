@@ -49,7 +49,7 @@ export class DeletedWhiteComponent implements OnInit {
   ngOnInit(): void {
     this.appService.setTitle('Deleted People');
     this.reloadData();
-    this.deleteOld(1);
+    //this.deleteOld(1);
   }
 
   back() {
@@ -62,7 +62,8 @@ export class DeletedWhiteComponent implements OnInit {
     this.personService.getPersonList()
       .subscribe(data => {
         while (data[counter] != null) {
-          if (data[counter].personDeleted != null && data[counter].personListed === 'White') {
+          if (data[counter].personDeleted != null && data[counter].personListed === 'White'
+            && data[counter].network.network == this.info.network) {
             this.personService.deletePerson(data[counter].personId).subscribe();
           }
           counter++;

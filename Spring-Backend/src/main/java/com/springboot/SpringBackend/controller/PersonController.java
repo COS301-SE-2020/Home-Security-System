@@ -1,5 +1,6 @@
 package com.springboot.SpringBackend.controller;
 
+import com.google.common.collect.Lists;
 import com.springboot.SpringBackend.config.RabbitMQConfig;
 import com.springboot.SpringBackend.exception.ResourceNotFoundException;
 import com.springboot.SpringBackend.model.Person;
@@ -33,7 +34,7 @@ public class PersonController {
 
     @GetMapping("/people")
     public List<Person> getPeopleList() {
-        return service.getAllPeople();
+        return Lists.reverse(service.getAllPeople());
     }
 
     @GetMapping("/people/{id}")

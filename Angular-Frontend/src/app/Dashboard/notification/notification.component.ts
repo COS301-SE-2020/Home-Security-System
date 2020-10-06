@@ -81,9 +81,11 @@ export class NotificationComponent implements OnInit {
     this.notificationService.getNotificationList()
       .subscribe(data => {
         while (data[counter] != null) {
-          this.note = data[counter];
-          this.note.notificationDeleted = new Date();
-          this.notificationService.updateNotification(data[counter].notificationId, this.note).subscribe();
+          if (data[counter].network.network == this.info.network) {
+            this.note = data[counter];
+            this.note.notificationDeleted = new Date();
+            this.notificationService.updateNotification(data[counter].notificationId, this.note).subscribe();
+          }
           counter++;
         }
         setTimeout(() => {
