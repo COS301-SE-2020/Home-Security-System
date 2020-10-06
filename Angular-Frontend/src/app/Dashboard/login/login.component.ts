@@ -1,9 +1,9 @@
-import { Component, OnInit}  from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { AuthService } from '../../model/auth.service';
-import { UserService } from '../../model/user.service';
-import { User } from '../../model/user';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {Observable} from 'rxjs';
+import {AuthService} from '../../model/auth.service';
+import {UserService} from '../../model/user.service';
+import {User} from '../../model/user';
 // import {RecoverPasswordEmail} from '../../../assets/js/RecoverPasswordEmail.js';
 // import * as bcrypt from 'bcryptjs';
 // DO NOT REMOVE THIS
@@ -24,7 +24,8 @@ export class LoginComponent implements OnInit {
   users: Observable<User[]>;
 
   constructor(private userService: UserService, public authService: AuthService,
-              private router: Router) { }
+              private router: Router) {
+  }
 
   hideRecover() {
     document.getElementById('forgotten-container').hidden = true;
@@ -46,9 +47,9 @@ export class LoginComponent implements OnInit {
       this.userService.getUserList()
         .subscribe(data => {
           while (data[counter] != null) {
-            if (data[counter].email.toLowerCase() === emailInp.value.toLowerCase()){
+            if (data[counter].email.toLowerCase() === emailInp.value.toLowerCase()) {
               const question = document.getElementById('recoverQuestion') as HTMLElement;
-              switch (data[counter].secureQuestion){
+              switch (data[counter].secureQuestion) {
                 case 'One':
                   question.innerText = 'What was the name of your first stuffed animal?';
                   break;
@@ -81,16 +82,19 @@ export class LoginComponent implements OnInit {
 
       /*this.router.navigate(['/reset-password']);*/
     } else {
-
+      // this.createError('Error, please enter an email address', 'errorMsgs');
       alert('Error, please enter an email address');
     }
   }
 
-  createError(msg, parent){
+  createError(msg, parent) {
     const parentEl = document.getElementById(parent);
 
     const error = document.createElement('div');
+    error.className = 'alert alert-danger';
+    error.innerText = msg;
 
+    parentEl.appendChild(error);
   }
 
   recoverPasswordEmail() {
@@ -156,35 +160,35 @@ export class LoginComponent implements OnInit {
     let counter = 0;
 
     this.userService.getUserList().subscribe(data => {
-          while (data[counter] != null) {
-            if (data[counter].userDeleted === null) {
-              if ((data[counter].email.toLowerCase() === emailVar.value.toLowerCase()) ||
-                (data[counter].username === emailVar.value)) {
+      while (data[counter] != null) {
+        if (data[counter].userDeleted === null) {
+          if ((data[counter].email.toLowerCase() === emailVar.value.toLowerCase()) ||
+            (data[counter].username === emailVar.value)) {
 
-                const obj = new JwtRequest();
-                obj.username = emailVar.value;
-                obj.password = passVar.value;
+            const obj = new JwtRequest();
+            obj.username = emailVar.value;
+            obj.password = passVar.value;
 
-                const uid = data[counter].userId;
-                const authority = data[counter].userRole;
-                const mail = data[counter].email;
-                const netName = data[counter].network.netName;
+            const uid = data[counter].userId;
+            const authority = data[counter].userRole;
+            const mail = data[counter].email;
+            const netName = data[counter].network.netName;
 
-                this.authService.validatePassword(obj).subscribe(value => {
-                  if (value.password === passVar.value) {
-                    this.authService.createSession(uid, authority, mail, netName);
-                    this.authService.retrieveUserInfo();
-                    this.router.navigate(['/dashboard']);
-                  }
-                  else {
-                    alert('The password you entered seems to be incorrect, please retry entering your password.');
-                    passVar.value = '';
-                  }
-                });
+            this.authService.validatePassword(obj).subscribe(value => {
+              if (value.password === passVar.value) {
+                this.authService.createSession(uid, authority, mail, netName);
+                this.authService.retrieveUserInfo();
+                this.router.navigate(['/dashboard']);
+              } else {
+                this.createError('The password you entered seems to be incorrect, please enter your password again.', 'errorMsgs');
+                alert('The password you entered seems to be incorrect, please retry entering your password.');
+                passVar.value = '';
               }
-            }
-            counter += 1;
+            });
           }
-        });
+        }
+        counter += 1;
+      }
+    });
   }
 }

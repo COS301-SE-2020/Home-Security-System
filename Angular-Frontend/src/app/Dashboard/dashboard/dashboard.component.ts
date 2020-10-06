@@ -222,8 +222,8 @@ export class DashboardComponent implements OnInit {
     this.calculateNumberOfPeople();
     this.calculateNumberOfNotifications();
     // this.getCameras();
-    this.newCam('http://192.168.0.100:5000/feed', '1');
-    this.newCam2('http://192.168.0.100:5000/feed', '2');
+    this.newCam('http://192.168.0.100:5000/feed/0', '1');
+    this.newCam2('http://192.168.0.100:5000/feed/1', '2');
   }
 
   public toggleCam(): void {
@@ -310,7 +310,7 @@ export class DashboardComponent implements OnInit {
       const request = new XMLHttpRequest();
       request.open('GET', item, true);
       // tslint:disable-next-line:only-arrow-functions
-      request.onreadystatechange = function () {
+      request.onreadystatechange = function() {
         if (request.readyState === 4) {
           thisRef.stopSpin();
           if (request.status !== 200) {
@@ -346,7 +346,8 @@ export class DashboardComponent implements OnInit {
   }
 
   newCam(currentUrl, currentNum) {
-    console.log(currentUrl);
+    document.getElementById('liveIcon').setAttribute('class', 'material-icons liveIcon-enable');
+    document.getElementById('liveIcon').removeAttribute('liveIcon-disable');
     const liveFeedDiv = document.getElementById('liveFeedDiv');
     const newCamFeed = document.createElement('img');
     // newCamFeed.frameBorder = '0';
@@ -415,7 +416,6 @@ export class DashboardComponent implements OnInit {
   }
 
   newCam2(currentUrl, currentNum) {
-    console.log(currentUrl);
     const liveFeedDiv = document.getElementById('liveFeedDiv');
     const newCamFeed = document.createElement('img');
     // newCamFeed.frameBorder = '0';

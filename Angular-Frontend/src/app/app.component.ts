@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
   enforceHTTPS()
   {
     if (environment.production) {
-      if(location.protocol === 'http:') {
+      if (location.protocol === 'http:') {
         window.location.href = location.href.replace('http', 'https');
       }
     }
@@ -60,7 +60,7 @@ export class AppComponent implements OnInit {
         else
         {
           document.getElementById('displayType').className = 'main-panel';
-          document.getElementById('app-footer').hidden = true;
+          document.getElementById('app-footer').hidden = false;
         }
 
         while (child.firstChild) {
