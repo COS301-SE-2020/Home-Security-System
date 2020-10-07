@@ -180,7 +180,7 @@ export class LoginComponent implements OnInit {
                 this.authService.retrieveUserInfo();
                 this.router.navigate(['/dashboard']);
               } else {
-                this.createError('The password you entered seems to be incorrect, please enter your password again.', 'errorMsgs');
+                // this.createError('The password you entered seems to be incorrect, please enter your password again.', 'errorMsgs');
                 alert('The password you entered seems to be incorrect, please retry entering your password.');
                 passVar.value = '';
               }

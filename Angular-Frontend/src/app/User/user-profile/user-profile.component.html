@@ -298,14 +298,33 @@
               <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-6">
                   <div class="form-group">
-                    <label for="passwordField1">New Password</label>
-                    <input type="password" id="passwordField1" name="uPassword" class="form-control"
+                    <label for="passwordField1">Password</label>
+                    <input type="password" id="passwordField1" name="oldPassword" class="form-control"
+                           required maxlength="35"
+                           pattern="^[a-zA-Z0-9](?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                           [(ngModel)]="oldPassword" #oldPass="ngModel">
+                    <i class="material-icons hoverPointer" id="passwordVisibility1" onclick="showPassword('1')">visibility_off</i>
+                    <div *ngIf="oldPass.invalid && (oldPass.dirty || oldPass.touched)" class="alert alert-danger">
+                      <ul>
+                        <h6>Must contain:</h6>
+                        <li>At least eight characters</li>
+                        <li>One uppercase letter</li>
+                        <li>One lowercase letter</li>
+                        <li>One number</li>
+                        <li>One special character</li>
+                        <li>(Cannot start with a special character)</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                  <div class="form-group">
+                    <label for="passwordField2">New Password</label>
+                    <input type="password" id="passwordField2" name="newPassword" class="form-control"
                            required pattern="^[a-zA-Z0-9](?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
-                           [(ngModel)]="password" #userPass="ngModel">
-                    <i *ngIf="userPass.dirty || userPass.touched" class="material-icons hoverPointer"
-                       id="passwordVisibility1" onclick="showPassword('1')">visibility_off</i>
-                    <div *ngIf="userPass.invalid && (userPass.dirty || userPass.touched)"
-                         class="alert alert-danger">
+                           [(ngModel)]="newPassword" #userPass="ngModel">
+                    <i class="material-icons hoverPointer" id="passwordVisibility2" onclick="showPassword('2')">visibility_off</i>
+                    <div *ngIf="userPass.invalid && (userPass.dirty || userPass.touched)" class="alert alert-danger">
                       <ul>
                         <h6>Must contain:</h6>
                         <li>At least eight characters</li>
@@ -319,14 +338,16 @@
                   </div>
                   <br>
                 </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-6"></div>
                 <div class="col-md-6 col-sm-6 col-xs-6">
                   <div class="form-group">
-                    <label for="passwordField2">Confirm New Password</label>
-                    <input type="password" id="passwordField2" name="confirmPassword" class="form-control"
-                           [(ngModel)]="conPass" #confirm="ngModel">
-                    <i *ngIf="confirm.dirty || confirm.touched" class="material-icons hoverPointer"
-                       id="passwordVisibility2" onclick="showPassword('2')">visibility_off</i>
-                    <div *ngIf="userPass.value != conPass.valueOf()" class="alert alert-danger">
+                    <label for="passwordField3">Confirm New Password</label>
+                    <input type="password" id="passwordField3" name="confirmPassword" class="form-control"
+                           [(ngModel)]="confirmPassword" #conPass="ngModel">
+                    <i class="material-icons hoverPointer" id="passwordVisibility3" onclick="showPassword('3')">visibility_off</i>
+                    <div *ngIf="(userPass.value != confirmPassword.valueOf())" class="alert alert-danger">
                       Passwords do not match
                     </div>
                   </div>

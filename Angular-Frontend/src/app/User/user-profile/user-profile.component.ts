@@ -8,6 +8,7 @@ import {Observable, Subject} from 'rxjs';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {AuthService} from '../../model/auth.service';
 import {SessionClass} from '../../model/session';
+import {JwtRequest} from "../../model/jwt-request";
 
 @Component({
   selector: 'app-user-profile',
@@ -19,7 +20,9 @@ export class UserProfileComponent implements OnInit {
   id: number;
   user: User;
 
-  password = '';
+  oldPassword = '';
+  newPassword = '';
+  confirmPassword = '';
   picCorrect = false;
 
   constructor(private route: ActivatedRoute, private router: Router, private authService: AuthService,
@@ -30,8 +33,6 @@ export class UserProfileComponent implements OnInit {
   public get triggerObservable(): Observable<void> {
     return this.snapTrigger.asObservable();
   }
-
-  conPass = '';
 
   /* ======================================================== */
   /*         START of Camera for taking profile picture       */
@@ -113,39 +114,46 @@ export class UserProfileComponent implements OnInit {
   }
 
   updatePassword() {
-    //const oPassword = document.getElementById('passwordOld') as HTMLInputElement;
-    const uPassword = document.getElementById('passwordField1') as HTMLInputElement;
+    const uPassword1 = document.getElementById('passwordField1') as HTMLInputElement;
+    const uPassword2 = document.getElementById('passwordField2') as HTMLInputElement;
+    const uPassword3 = document.getElementById('passwordField3') as HTMLInputElement;
     const uQuestion = document.getElementById('uQuestion') as HTMLInputElement;
     const uAnswer = document.getElementById('uAnswer') as HTMLInputElement;
 
-    /*this.authService.validatePassword(obj).subscribe(value => {
-              if (value.password === passVar.value) {
-                this.authService.createSession(uid, authority, mail, netName);
-                this.authService.retrieveUserInfo();
-                this.router.navigate(['/dashboard']);
-              } else {
-                this.createError('The password you entered seems to be incorrect, please enter your password again.', 'errorMsgs');
-                alert('The password you entered seems to be incorrect, please retry entering your password.');
-                passVar.value = '';
-              }
+    if((uPassword1.value != '') && (uPassword2.value != '') && (uPassword3.value != '')) {
+
+      const obj = new JwtRequest();
+      obj.username = this.info.email;
+      obj.password = uPassword1.value;
+
+      this.authService.validatePassword(obj)
+        .subscribe(value => {
+          if (value.password === uPassword1.value) {
+            if (uPassword2.value === uPassword3.value)
+            {
+              this.user.userPass = uPassword2.value;
+            }
+
+            if (uAnswer.value != '')
+            {
+              this.user.secureQuestion = uQuestion.value;
+              this.user.secureAnswer = uAnswer.value;
+            }
+
+            const num = Number(this.info.id);
+            this.userService.updateUser(num, this.user).subscribe(() => {
+              this.gotoList();
             });
-     */
-
-    if (uPassword.value != '')
-    {
-      this.user.userPass = uPassword.value;
+          }
+          else {
+            alert('The password you entered seems to be incorrect, please retry entering your password.');
+            uPassword1.value = '';
+          }
+        });
     }
-
-    if (uAnswer.value != '')
-    {
-      this.user.secureQuestion = uQuestion.value;
-      this.user.secureAnswer = uAnswer.value;
+    else {
+      alert('Cannot change password. Not all the fields were filled in.');
     }
-
-    const num = Number(this.info.id);
-    this.userService.updateUser(num, this.user).subscribe(() => {
-      this.gotoList();
-    });
   }
 
   updateUserPic() {
