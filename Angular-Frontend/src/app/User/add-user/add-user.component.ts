@@ -78,7 +78,6 @@ export class AddUserComponent implements OnInit {
     this.usersService.getUserList().subscribe(
       data => {
         while (data[counter] != null) {
-          //if (data[counter].userDeleted === null) {
             if (data[counter].username === usernameInp.value) {
               exists = true;
               alert('Username is already taken. Please enter another username');
@@ -91,16 +90,14 @@ export class AddUserComponent implements OnInit {
               emailInp.value = '';
               emailInp.focus();
             }
-          //}
           counter++;
         }
       }, () => {},
       () => {
         if (!exists) {
-          this.save();
+            this.save();
         }
-      }
-    );
+      });
   }
 
   returnUserRole(): string {
@@ -124,6 +121,7 @@ export class AddUserComponent implements OnInit {
     const contactInp = document.getElementById('addPhone') as HTMLInputElement;
     const usernameInp = document.getElementById('addUsername') as HTMLInputElement;
     const passwordInp = document.getElementById('passwordField1') as HTMLInputElement;
+    const pass2 = document.getElementById('passwordField2') as HTMLInputElement;
     const questionInp = document.getElementById('questions') as HTMLInputElement;
     const answerInp = document.getElementById('answerField') as HTMLInputElement;
     const photoInp = document.getElementById('submitPhoto').getAttribute('src');
@@ -131,35 +129,40 @@ export class AddUserComponent implements OnInit {
 
     if ((usernameInp.value !== '') && (emailInp.value !== '') && (nameInp.value !== '') && (surnameInp.value !== '') &&
       (passwordInp.value !== '')) {
-      this.newUser = new User();
+      if(pass2 === passwordInp) {
+        this.newUser = new User();
 
-      if (photoInp === '/assets/Images/blank.jpg') {
-        this.newUser.profilePhoto = this.getDefaultImage();
-      } else {
-        this.newUser.profilePhoto = photoInp;
+        if (photoInp === '/assets/Images/blank.jpg') {
+          this.newUser.profilePhoto = this.getDefaultImage();
+        } else {
+          this.newUser.profilePhoto = photoInp;
+        }
+
+        this.newUser.fname = nameInp.value;
+        this.newUser.lname = surnameInp.value;
+        this.newUser.contactNo = contactInp.value;
+        this.newUser.email = emailInp.value;
+        this.newUser.username = usernameInp.value;
+        this.newUser.userPass = passwordInp.value;
+        this.newUser.userRole = getRole;
+        this.newUser.secureQuestion = questionInp.value;
+        this.newUser.secureAnswer = answerInp.value;
+        this.newUser.notifyEmail = true;
+        this.newUser.notifySMS = false;
+
+        const num = Number(this.info.id);
+        this.usersService.getUserById(num)
+          .subscribe(value => {
+            //console.log(value.network);
+            this.newUser.network = value.network;
+            this.usersService.addUser(this.newUser).subscribe();
+          });
+
+        this.gotoList();
       }
-
-      this.newUser.fname = nameInp.value;
-      this.newUser.lname = surnameInp.value;
-      this.newUser.contactNo = contactInp.value;
-      this.newUser.email = emailInp.value;
-      this.newUser.username = usernameInp.value;
-      this.newUser.userPass = passwordInp.value;
-      this.newUser.userRole = getRole;
-      this.newUser.secureQuestion = questionInp.value;
-      this.newUser.secureAnswer = answerInp.value;
-      this.newUser.notifyEmail = true;
-      this.newUser.notifySMS = false;
-
-      const num = Number(this.info.id);
-      this.usersService.getUserById(num)
-        .subscribe(value => {
-          //console.log(value.network);
-          this.newUser.network = value.network;
-          this.usersService.addUser(this.newUser).subscribe();
-        });
-
-      this.gotoList();
+      else {
+        alert("Passwords don't match");
+      }
     } else {
       alert('Cannot add a new user. Not all the fields are filled in.');
     }

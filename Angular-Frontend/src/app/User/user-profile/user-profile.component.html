@@ -123,9 +123,10 @@
                   capture a photo from camera
                 </a>
               </div>
-              <button type="button" class="btn btn-primary justify-content-center" (click)="allowSubmit()" onclick="resizeAll()" >Accept Photo</button> <br>
-              <button *ngIf="picCorrect" type="submit" class="btn btn-primary justify-content-center" data-dismiss="modal" (click)="updateUserPic()">Update
-              </button>
+              <!--<button type="button" class="btn btn-primary justify-content-center"
+              (click)="allowSubmit()" onclick="resizeAll()" >Accept Photo</button> <br>-->
+              <button type="submit" class="btn btn-primary justify-content-center" data-dismiss="modal"
+                      (click)="updateUserPic()">Update</button>
             </div>
           </div>
         </div>
@@ -274,9 +275,7 @@
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal" (click)="onSubmit()"
-                  [disabled]="changeForm.invalid">
-            Save Changes
-          </button>
+                  [disabled]="changeForm.invalid">Save Changes</button>
         </div>
       </div>
     </div>

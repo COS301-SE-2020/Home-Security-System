@@ -44,8 +44,8 @@
 
             <br>
 
+            <!--Username-->
             <div class="row">
-              <!--Username-->
               <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="form-group">
                   <label for="addUsername">Username (12 Characters)</label>
@@ -133,7 +133,7 @@
                     <input type="password" id="passwordField2" name="confirmPassword" class="form-control"
                            [(ngModel)]="confirmPassPlaceholder" #confirm="ngModel">
                     <i class="material-icons hoverPointer" id="passwordVisibility2" onclick="showPassword('2')">visibility_off</i>
-                    <div *ngIf="userPass.value != confirmPassPlaceholder.valueOf()"
+                    <div *ngIf="(userPass.value != confirmPassPlaceholder.valueOf())"
                          class="alert alert-danger">
                       Passwords do not match
                     </div>
@@ -218,11 +218,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary justify-content-center" (click)="allowSubmit()" onclick="resizeAll()" >Accept Photo</button> <br>
-        <button *ngIf="picCorrect" type="submit" class="btn btn-primary pull-right" data-dismiss="modal" (click)="onSubmit()"
-                [disabled]="changeForm.invalid">
-          Add
-        </button>
+        <!--<button type="button" class="btn btn-primary justify-content-center" (click)="allowSubmit()" onclick="resizeAll()" >Accept Photo</button><br>-->
+        <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal" (click)="onSubmit()" [disabled]="changeForm.invalid">Add</button>
       </div>
     </div>
   </div>

@@ -48,73 +48,78 @@ public class RabbitConsumer {
             Optional<Person> p = personService.getPersonById(alert.getPersonId());
 
             try {
-                if (p.isPresent() && net.isPresent()) {
+                if (p.isPresent()) {
+                    if(net.isPresent()) {
+                        if (p.get().getPersonDeleted() != null) {
+                            p.get().setPersonDeleted(null);
+                            personService.updatePerson(p.get());
 
-                    if (p.get().getPersonDeleted() != null) {
-                        if (alert.getType().equalsIgnoreCase("Grey")) {
-                            nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
-                                    "Person: " + p.get().getFname(), net.get()));
-                        } else {
-                            nservice.createNotification(new Notification(alert.getImageStr(), "Threat",
-                                    "Intruder: " + p.get().getFname() + " " + p.get().getLname(), net.get()));
+                            RabbitPerson rabbitPerson = new RabbitPerson(p.get().getPersonId(), "0", p.get().getPersonListed(), true, p.get().getPersonImg(), true, p.get().getNetworkId());
+                            amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, rabbitPerson);
 
-                            for (User u : arr) {
-                                if (u.getNetwork().getNetName().equals(net.get().getNetName())) {
-                                    String email = u.getEmail();
-                                    Boolean notify1 = u.getNotifyEmail();
-                                    Boolean notify2 = u.getNotifySMS();
+                            if (alert.getType().equalsIgnoreCase("Grey")) {
+                                nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
+                                        "Person: " + p.get().getFname(), net.get()));
+                            } else {
+                                nservice.createNotification(new Notification(alert.getImageStr(), "Threat",
+                                        "Intruder: " + p.get().getFname() + " " + p.get().getLname(), net.get()));
 
-                                    if (notify1) {
-                                        mailer.sendmailBlack(email);
-                                    }
-                                    if (notify2) {
-                                        SmsRequest request = new SmsRequest(u.getContactNo());
-                                        sender.sendSmsThreat(request);
+                                for (User u : arr) {
+                                    if (u.getNetwork().getNetName().equals(net.get().getNetName())) {
+                                        String email = u.getEmail();
+                                        Boolean notify1 = u.getNotifyEmail();
+                                        Boolean notify2 = u.getNotifySMS();
+
+                                        if (notify1) {
+                                            mailer.sendmailBlack(email);
+                                        }
+                                        if (notify2) {
+                                            SmsRequest request = new SmsRequest(u.getContactNo());
+                                            sender.sendSmsThreat(request);
+                                        }
                                     }
                                 }
                             }
-                        }
-                    } else {
-                        p.get().setPersonDeleted(null);
-                        personService.updatePerson(p.get());
-
-                        if (alert.getType().equalsIgnoreCase("Grey")) {
-                            nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
-                                    "Person: " + p.get().getFname(), net.get()));
                         } else {
-                            nservice.createNotification(new Notification(alert.getImageStr(), "Threat",
-                                    "Intruder: " + p.get().getFname() + " " + p.get().getLname(), net.get()));
+                            if (alert.getType().equalsIgnoreCase("Grey")) {
+                                nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
+                                        "Person: " + p.get().getFname(), net.get()));
+                            } else {
+                                nservice.createNotification(new Notification(alert.getImageStr(), "Threat",
+                                        "Intruder: " + p.get().getFname() + " " + p.get().getLname(), net.get()));
 
-                            for (User u : arr) {
-                                if (u.getNetwork().getNetName().equals(net.get().getNetName())) {
-                                    String email = u.getEmail();
-                                    Boolean notify1 = u.getNotifyEmail();
-                                    Boolean notify2 = u.getNotifySMS();
+                                for (User u : arr) {
+                                    if (u.getNetwork().getNetName().equals(net.get().getNetName())) {
+                                        String email = u.getEmail();
+                                        Boolean notify1 = u.getNotifyEmail();
+                                        Boolean notify2 = u.getNotifySMS();
 
-                                    if (notify1) {
-                                        mailer.sendmailBlack(email);
-                                    }
-                                    if (notify2) {
-                                        SmsRequest request = new SmsRequest(u.getContactNo());
-                                        sender.sendSmsThreat(request);
+                                        if (notify1) {
+                                            mailer.sendmailBlack(email);
+                                        }
+                                        if (notify2) {
+                                            SmsRequest request = new SmsRequest(u.getContactNo());
+                                            sender.sendSmsThreat(request);
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
-                    /*else if (p.get() == null) {
+                /*else {
+                    if(net.isPresent()) {
                         // Recreate the person
-                        Person psn = new Person(alert.getPersonId(), alert.getImageStr());
+                        Person psn = new Person(alert.getImageStr(), net.get());
                         personService.createPerson(psn);
                         // Update them to the correct list
-                        RabbitPerson updatePerson = new RabbitPerson(psn.getPersonId(), "0", psn.getPersonListed(), true, alert.getImageStr(), true);
+                        RabbitPerson updatePerson = new RabbitPerson(psn.getPersonId(), alert.getPersonId().toString(), psn.getPersonListed(), true, alert.getImageStr(), true, net.get().getNetworkId());
                         amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, updatePerson);
                         // Send notification
                         nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
-                                "Person: " + p.get().getFname(), u));
-                    }*/
-
+                                "Person: " + psn.getFname(), net.get()));
+                    }
+                }*/
             } catch (NoSuchElementException ex) {
                 LOGGER.info(String.valueOf(ex));
             }

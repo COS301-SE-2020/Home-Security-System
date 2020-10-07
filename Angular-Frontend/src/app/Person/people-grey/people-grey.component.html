@@ -10,8 +10,8 @@
         <div class="card-header card-header-primary" id="NotDiv">
           <h4 class="card-title">Unknown Person List</h4>
           <p class="card-category">All people detected by Argus</p>
-          <a *ngIf="info.role == 'Admin'" class="material-icons listPageIcons open-modal"
-             (click)="deleteAll()" title="Delete All">auto_delete</a>
+          <!--<a *ngIf="info.role == 'Admin'" class="material-icons listPageIcons open-modal"
+             (click)="deleteAll()" title="Delete All">auto_delete</a>-->
         </div>
         <div class="card-body">
           <div class="input-group">
@@ -26,17 +26,20 @@
           <div class="table-responsive table-striped">
             <table class="table center">
               <thead class="text-primary">
-              <tr>
-                <th class="hoverPointer" onclick="sortTable('greyListTable', 1)">
-                  Date Added
-                </th>
-                <th>
-                  Picture
-                </th>
-                <th>
-                  Classify
-                </th>
-              </tr>
+                <tr>
+                  <th class="hoverPointer" onclick="sortTable('greyListTable', 1)">
+                    Date Added
+                  </th>
+                  <th>
+                    Picture
+                  </th>
+                  <th>
+                    Classify
+                  </th>
+                  <th>
+                    Remove
+                  </th>
+                </tr>
               </thead>
               <tbody>
               <ng-container *ngFor="let p of person | async">
@@ -102,6 +105,9 @@
                         </form>
                       </div>
                     </div>
+                  </td>
+                  <td *ngIf="info.role != 'Basic'">
+                    <a class="material-icons listPageIcons" (click)="removePerson(p.personId)" title="Delete Person">delete</a>
                   </td>
                 </tr>
               </ng-container>

@@ -113,9 +113,23 @@ export class UserProfileComponent implements OnInit {
   }
 
   updatePassword() {
+    //const oPassword = document.getElementById('passwordOld') as HTMLInputElement;
     const uPassword = document.getElementById('passwordField1') as HTMLInputElement;
     const uQuestion = document.getElementById('uQuestion') as HTMLInputElement;
     const uAnswer = document.getElementById('uAnswer') as HTMLInputElement;
+
+    /*this.authService.validatePassword(obj).subscribe(value => {
+              if (value.password === passVar.value) {
+                this.authService.createSession(uid, authority, mail, netName);
+                this.authService.retrieveUserInfo();
+                this.router.navigate(['/dashboard']);
+              } else {
+                this.createError('The password you entered seems to be incorrect, please enter your password again.', 'errorMsgs');
+                alert('The password you entered seems to be incorrect, please retry entering your password.');
+                passVar.value = '';
+              }
+            });
+     */
 
     if (uPassword.value != '')
     {

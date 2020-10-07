@@ -65,7 +65,7 @@ export class AddPersonComponent implements OnInit {
     this.appService.setTitle('Add Person');
   }
 
-  returnPersonListed(): string{
+  returnPersonListed(): string {
     const isWhite = document.getElementById('whiteList') as HTMLInputElement;
     const isBlack = document.getElementById('blackList') as HTMLInputElement;
 
@@ -76,7 +76,7 @@ export class AddPersonComponent implements OnInit {
     }
   }
 
-  addPerson(): void{
+  addPerson(): void {
     const addName = document.getElementById('fname') as HTMLInputElement;
     const addSurname = document.getElementById('lname') as HTMLInputElement;
     const photoInp = document.getElementById('submitPhoto').getAttribute('src');

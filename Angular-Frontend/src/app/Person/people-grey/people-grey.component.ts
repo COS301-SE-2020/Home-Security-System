@@ -98,6 +98,23 @@ export class PeopleGreyComponent implements OnInit {
     //this.deleteOld(1);
   }
 
+  removePerson(id: number) {
+    this.SpinnerService.show();
+    this.personService.getPersonById(id)
+      .subscribe(data => {
+          // console.log(data);
+          this.psn = data;
+          this.psn.personDeleted = new Date();
+          this.personService.updatePerson(id, this.psn)
+            .subscribe(() => {
+              setTimeout(() => {
+                this.SpinnerService.hide();
+                this.reloadData();
+              }, 500);
+            });
+        });
+  }
+
   deleteAll() {
     let counter = 0;
     this.SpinnerService.show();
