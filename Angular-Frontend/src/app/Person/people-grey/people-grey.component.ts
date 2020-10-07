@@ -104,7 +104,7 @@ export class PeopleGreyComponent implements OnInit {
     this.personService.getPersonList()
       .subscribe(data => {
         while (data[counter] != null) {
-          if (data[counter].personListed === 'Grey' && data[counter].network.network == this.info.network) {
+          if (data[counter].personListed === 'Grey' && data[counter].network.netName == this.info.network) {
             this.psn = data[counter];
             this.psn.personDeleted = new Date();
             this.personService.updatePerson(data[counter].personId, this.psn)

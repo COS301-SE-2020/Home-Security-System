@@ -18,8 +18,8 @@ export class UserProfileComponent implements OnInit {
   info: SessionClass = this.authService.retrieveUserInfo();
   id: number;
   user: User;
+
   password = '';
-  answerPlaceholder = '';
   picCorrect = false;
 
   constructor(private route: ActivatedRoute, private router: Router, private authService: AuthService,
@@ -117,12 +117,12 @@ export class UserProfileComponent implements OnInit {
     const uQuestion = document.getElementById('uQuestion') as HTMLInputElement;
     const uAnswer = document.getElementById('uAnswer') as HTMLInputElement;
 
-    if (uPassword.value != null)
+    if (uPassword.value != '')
     {
       this.user.userPass = uPassword.value;
     }
 
-    if (uAnswer.value != null)
+    if (uAnswer.value != '')
     {
       this.user.secureQuestion = uQuestion.value;
       this.user.secureAnswer = uAnswer.value;
@@ -187,7 +187,7 @@ export class UserProfileComponent implements OnInit {
         } else if (username) {
           alert('Username address is already in use. Please enter another username.');
         }
-      }, error => { },
+      }, () => { },
       () => {
         if (!exists) {
           this.updateUser();

@@ -19,10 +19,17 @@ export class ResetPasswordComponent implements OnInit {
 
   generatePass(length) {
     let result = '';
-    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&?';
-    let charactersLength = characters.length;
+    let characterSet1 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let characterSet2 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@$!%*?&';
+    let characterSet1Length = characterSet1.length;
+    let characterSet2Length = characterSet2.length;
     for ( let i = 0; i < length; i++ ) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      if(i == 0) {
+        result += characterSet1.charAt(Math.floor(Math.random() * characterSet1Length));
+      }
+      else {
+        result += characterSet2.charAt(Math.floor(Math.random() * characterSet2Length));
+      }
     }
     return result;
   }
@@ -37,27 +44,28 @@ export class ResetPasswordComponent implements OnInit {
      this.userService.getUserList()
       .subscribe(data => {
           while (data[counter] != null) {
-            if (data[counter].email.toLowerCase() === obj.email.toLowerCase()) {
-              if(obj.answer == data[counter].secureAnswer) {
-                /*
-                let generator = require('generate-password');
-                let newPass = generator.generate({length: 10, numbers: true, symbols: true, strict: true });
-                */
-                let newPass = this.generatePass(10);
+            if (data[counter].userDeleted == null) {
+              if (data[counter].email.toLowerCase() === obj.email.toLowerCase()) {
+                if (obj.answer == data[counter].secureAnswer) {
+                  /*
+                  let generator = require('generate-password');
+                  let newPass = generator.generate({length: 10, numbers: true, symbols: true, strict: true });
+                  */
+                  let newPass = this.generatePass(10);
 
-                this.user = data[counter];
-                this.user.userPass = newPass;
-                this.userService.updateUser(this.user.userId, this.user).subscribe();
+                  this.user = data[counter];
+                  this.user.userPass = newPass;
+                  this.userService.updateUser(this.user.userId, this.user).subscribe();
 
-                this.mailer.sendEmail(obj.email, data[counter].userPass);
-                sent = true;
-                this.authService.logOut();
+                  this.mailer.sendEmail(obj.email, data[counter].userPass);
+                  sent = true;
+                  this.authService.logOut();
+                } else {
+                  alert('Error, the answer to the question is incorrect');
+                }
               }
-              else{
-                alert('Error, the answer to the question is incorrect');
-              }
+              counter++;
             }
-            counter++;
           }
           if ((data[counter] == null) && (sent === false)){
             alert('Error, email does not exist in the database');

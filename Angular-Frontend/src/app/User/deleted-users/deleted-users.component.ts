@@ -61,7 +61,7 @@ export class DeletedUsersComponent implements OnInit {
     this.userService.getUserList()
       .subscribe(data => {
         while (data[counter] != null) {
-          if (data[counter].userDeleted != null && data[counter].network.network == this.info.network) {
+          if (data[counter].userDeleted != null && data[counter].network.netName ==this.info.network) {
             this.userService.deleteUser(data[counter].userId).subscribe();
           }
           counter++;

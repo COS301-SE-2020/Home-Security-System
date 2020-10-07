@@ -91,9 +91,9 @@ export class AddUserComponent implements OnInit {
               emailInp.value = '';
               emailInp.focus();
             }
-          }
+          //}
           counter++;
-        //}
+        }
       }, () => {},
       () => {
         if (!exists) {

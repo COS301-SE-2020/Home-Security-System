@@ -63,7 +63,7 @@ export class DeletedWhiteComponent implements OnInit {
       .subscribe(data => {
         while (data[counter] != null) {
           if (data[counter].personDeleted != null && data[counter].personListed === 'White'
-            && data[counter].network.network == this.info.network) {
+            && data[counter].network.netName == this.info.network) {
             this.personService.deletePerson(data[counter].personId).subscribe();
           }
           counter++;
