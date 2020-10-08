@@ -130,7 +130,7 @@
                 <div class="col-md-6 col-sm-6 col-xs-6">
                   <div class="form-group">
                     <label for="passwordField2">Confirm Password</label>
-                    <input type="password" id="passwordField2" name="confirmPassword" class="form-control"
+                    <input type="password" id="passwordField2" name="passwordField2" class="form-control"
                            [(ngModel)]="confirmPassPlaceholder" #confirm="ngModel">
                     <i class="material-icons hoverPointer" id="passwordVisibility2" onclick="showPassword('2')">visibility_off</i>
                     <div *ngIf="(userPass.value != confirmPassPlaceholder.valueOf())"

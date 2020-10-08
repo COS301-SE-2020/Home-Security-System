@@ -120,8 +120,8 @@ export class UserProfileComponent implements OnInit {
     const uQuestion = document.getElementById('uQuestion') as HTMLInputElement;
     const uAnswer = document.getElementById('uAnswer') as HTMLInputElement;
 
-    if((uPassword1.value != '') && (uPassword2.value != '') && (uPassword3.value != '')) {
-      if (uPassword2.value != uPassword3.value)
+    if((uPassword1.value !== '') && (uPassword2.value !== '') && (uPassword3.value !== '')) {
+      if (uPassword2.value !== uPassword3.value)
       {
         alert('The passwords do not match.');
       }
@@ -137,7 +137,7 @@ export class UserProfileComponent implements OnInit {
                 this.user.userPass = uPassword2.value;
               }
 
-              if (uAnswer.value != '') {
+              if (uAnswer.value !== '') {
                 this.user.secureQuestion = uQuestion.value;
                 this.user.secureAnswer = uAnswer.value;
               }

@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { TitleService } from '../../title.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from "../../model/auth.service";
-import {SessionClass} from "../../model/session";
+import { SessionClass } from "../../model/session";
 
 @Component({
   selector: 'app-list-users',

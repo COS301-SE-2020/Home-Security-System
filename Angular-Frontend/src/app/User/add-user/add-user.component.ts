@@ -128,8 +128,8 @@ export class AddUserComponent implements OnInit {
     const getRole = this.returnUserRole();
 
     if ((usernameInp.value !== '') && (emailInp.value !== '') && (nameInp.value !== '') && (surnameInp.value !== '') &&
-      (passwordInp.value !== '')) {
-      if(pass2 === passwordInp) {
+      (passwordInp.value !== '') && (pass2.value !== '')) {
+      if(passwordInp.value === pass2.value) {
         this.newUser = new User();
 
         if (photoInp === '/assets/Images/blank.jpg') {
@@ -153,12 +153,16 @@ export class AddUserComponent implements OnInit {
         const num = Number(this.info.id);
         this.usersService.getUserById(num)
           .subscribe(value => {
-            //console.log(value.network);
             this.newUser.network = value.network;
-            this.usersService.addUser(this.newUser).subscribe();
+            this.usersService.addUser(this.newUser)
+              .subscribe(() => {
+                this.SpinnerService.show();
+                setTimeout(() => {
+                  this.SpinnerService.hide();
+                  window.location.reload();
+                }, 500);
+              });
           });
-
-        this.gotoList();
       }
       else {
         alert("Passwords don't match");
@@ -174,11 +178,6 @@ export class AddUserComponent implements OnInit {
 
   gotoList() {
     this.router.navigate(['/user-list']);
-    this.SpinnerService.show();
-    setTimeout(() => {
-      this.SpinnerService.hide();
-      window.location.reload();
-    }, 500);
   }
 
   getDefaultImage(): string {
