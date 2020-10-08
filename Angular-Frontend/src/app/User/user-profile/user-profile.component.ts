@@ -123,8 +123,8 @@ export class UserProfileComponent implements OnInit {
     if ((uPassword1.value !== '') && (uPassword2.value !== '') && (uPassword3.value !== '')) {
       if (uPassword2.value !== uPassword3.value) {
         this.createError('Passwords do not match.', 'errorMsgsPass');
-        // alert('The passwords do not match.');
-      } else {
+      }
+      else {
         const obj = new JwtRequest();
         obj.username = this.info.email;
         obj.password = uPassword1.value;
@@ -147,11 +147,9 @@ export class UserProfileComponent implements OnInit {
               });
             } else {
               this.createError('The password you entered seems to be incorrect, please retry entering your password.', 'errorMsgsPass');
-              // alert('The password you entered seems to be incorrect, please retry entering your password.');
               uPassword1.value = '';
             }
-          }, () => {
-          });
+          }, () => { });
       }
     } else {
       this.createError('Please fill in all fields.', 'errorMsgsPass');
