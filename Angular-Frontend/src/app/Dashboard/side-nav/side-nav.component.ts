@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from "../../model/auth.service";
-
+import { AuthService } from '../../model/auth.service';
 
 @Component({
 selector: 'app-side-nav',
@@ -11,5 +10,5 @@ styleUrls: ['./side-nav.component.css']
 export class SideNavComponent implements OnInit {
 
   constructor(public authService:AuthService) { }
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

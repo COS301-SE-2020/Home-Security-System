@@ -17,7 +17,6 @@ import {NgxSpinnerService} from 'ngx-spinner';
 export class TopNavComponent implements OnInit {
   title: string;
   user: User;
-  profileImg: string;
   newObj: JsonObject;
   info: SessionClass = this.authService.retrieveUserInfo();
 
@@ -32,7 +31,10 @@ export class TopNavComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.displayProfilePic();
+    setTimeout(() => {
+      this.displayProfilePic();
+      this.retrieveSettings();
+    }, 100);
   }
 
   clearNotifications() {
@@ -51,11 +53,10 @@ export class TopNavComponent implements OnInit {
     const smsSettings = document.getElementById('smsSlider') as HTMLInputElement;
     const emailSettings = document.getElementById('emailSlider') as HTMLInputElement;
 
-    // buttonEl.style.background = 'grey';
     buttonEl.disabled = true;
 
-    this.userService.getUserById(this.authService.retrieveUserInfo().id).subscribe(
-      data => {
+    this.userService.getUserById(this.authService.retrieveUserInfo().id)
+      .subscribe(data => {
         // console.log(data);
         smsSettings.checked = data.notifySMS;
         emailSettings.checked = data.notifyEmail;
@@ -77,7 +78,7 @@ export class TopNavComponent implements OnInit {
         setTimeout(() => {
           this.SpinnerService.hide();
           this.retrieveSettings();
-        }, 500);
+        }, 600);
       });
   }
 }
