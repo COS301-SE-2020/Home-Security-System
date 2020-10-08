@@ -81,4 +81,16 @@ export class TopNavComponent implements OnInit {
         }, 600);
       });
   }
+
+  triggerPanic(){
+    this.showPop('triggerPanicPop');
+  }
+
+  showPop(popID) {
+    document.getElementById(popID).hidden = false;
+  }
+
+  closePop(popID){
+    document.getElementById(popID).hidden = true;
+  }
 }

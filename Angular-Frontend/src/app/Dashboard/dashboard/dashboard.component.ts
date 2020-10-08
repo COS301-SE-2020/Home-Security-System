@@ -480,9 +480,4 @@ export class DashboardComponent implements OnInit {
 
     camNum.onclick = camToggleFunc;
   }
-
-  callPolice() {
-    alert("Police notified of threat situation, please stand by for a call to explain the situation.");
-  }
-
 }

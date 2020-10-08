@@ -95,11 +95,9 @@ export class ListUsersComponent implements OnInit {
 
   showErrorPop(errorID) {
     document.getElementById(errorID).hidden = false;
-
   }
 
   closeErrorPop(errorID){
     document.getElementById(errorID).hidden = true;
-
   }
 }
