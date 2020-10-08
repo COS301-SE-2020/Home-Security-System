@@ -68,7 +68,7 @@ export class EditUserComponent implements OnInit {
       .subscribe(() => {
         setTimeout(() => {
           this.SpinnerService.hide();
-        }, 500);
+        }, 600);
         this.gotoList();
       });
   }

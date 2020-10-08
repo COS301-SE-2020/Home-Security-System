@@ -37,7 +37,7 @@ export class EditPersonComponent implements OnInit {
         setTimeout(() => {
           this.SpinnerService.hide();
           this.gotoList();
-        }, 500);
+        }, 600);
       });
   }
 

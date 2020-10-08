@@ -154,13 +154,15 @@ export class AddUserComponent implements OnInit {
         this.usersService.getUserById(num)
           .subscribe(value => {
             this.newUser.network = value.network;
+            this.SpinnerService.show();
             this.usersService.addUser(this.newUser)
               .subscribe(() => {
-                this.SpinnerService.show();
                 setTimeout(() => {
                   this.SpinnerService.hide();
                   window.location.reload();
-                }, 500);
+                }, 600);
+
+                this.gotoList();
               });
           });
       }

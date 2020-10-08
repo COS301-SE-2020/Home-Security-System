@@ -110,10 +110,17 @@ export class AddPersonComponent implements OnInit {
         .subscribe(value => {
           //console.log(value.network);
           this.newPerson.network = value.network;
-          this.personService.addPerson(this.newPerson).subscribe();
+          this.personService.addPerson(this.newPerson)
+            .subscribe(() => {
+              this.SpinnerService.show();
+              setTimeout(() => {
+                this.SpinnerService.hide();
+                window.location.reload();
+              }, 600);
+              
+              this.gotoList();
+            });
         });
-
-      this.gotoList();
     }
   }
 
@@ -130,11 +137,6 @@ export class AddPersonComponent implements OnInit {
     {
       this.router.navigate(['/people-threat']);
     }
-    this.SpinnerService.show();
-    setTimeout(() => {
-      this.SpinnerService.hide();
-      window.location.reload();
-    }, 500);
   }
 
   getDefaultImage(): string {

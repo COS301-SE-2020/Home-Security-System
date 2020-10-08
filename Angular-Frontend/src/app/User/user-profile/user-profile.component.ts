@@ -230,7 +230,7 @@ export class UserProfileComponent implements OnInit {
     setTimeout(() => {
       this.SpinnerService.hide();
       window.location.reload();
-    }, 500);
+    }, 600);
   }
 
   getDefaultImage(): string {
