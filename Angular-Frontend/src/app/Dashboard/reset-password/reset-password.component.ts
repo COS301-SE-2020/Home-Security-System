@@ -17,15 +17,70 @@ export class ResetPasswordComponent implements OnInit {
 
   constructor(private userService: UserService, private authService: AuthService) { }
 
+  searchVal(val,arr): boolean{
+    let retVal = false;
+
+    if(arr.length != 0){
+      for (let x = 0; x < arr.length; x++) {
+        if(val == arr[x]){
+          retVal = true;
+        }
+      }
+    }
+    if(val == 0){
+      retVal = true;
+    }
+
+    return retVal;
+  }
+
   generatePass(length) {
     let result = '';
     let characterSet1 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let characterSet2 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@$!%*?&';
+    let allCaps = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let allLower = 'abcdefghijklmnopqrstuvwxyz';
+    let numbers = '0123456789';
+    let specialChars = '@$!%*?&';
     let characterSet1Length = characterSet1.length;
     let characterSet2Length = characterSet2.length;
+    let taken = [];
+    let generatedNum = 0;
+
+    for (let i = 0; i < 4; i++){
+      while ((this.searchVal(generatedNum,taken) == true) ){
+        generatedNum = Math.floor(Math.random() * 9) + 1; //ensures it is never 0
+      }
+      taken.push(generatedNum);
+      generatedNum = 0;
+    }
+    taken.sort();
+    let takenInd = 0;
+
     for ( let i = 0; i < length; i++ ) {
       if(i == 0) {
         result += characterSet1.charAt(Math.floor(Math.random() * characterSet1Length));
+      }
+      else if (i  === taken[takenInd]){
+        switch (takenInd){
+          case 0:
+            result += allCaps.charAt(Math.floor(Math.random() * (allCaps.length)));
+            takenInd++;
+            break;
+          case 1:
+            result += allLower.charAt(Math.floor(Math.random() * (allLower.length)));
+            takenInd++;
+            break;
+          case 2:
+            result += numbers.charAt(Math.floor(Math.random() * (numbers.length)));
+            takenInd++;
+            break;
+          case 3:
+            result += specialChars.charAt(Math.floor(Math.random() * (specialChars.length)));
+            takenInd++;
+            break;
+        }
+
       }
       else {
         result += characterSet2.charAt(Math.floor(Math.random() * characterSet2Length));
