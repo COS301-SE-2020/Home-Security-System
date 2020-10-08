@@ -304,7 +304,7 @@
                   <div class="form-group">
                     <label for="passwordField1">Old Password</label>
                     <input type="password" id="passwordField1" name="oldPassword" class="form-control"
-                           required
+                           required pattern="^[a-zA-Z0-9](?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                            [(ngModel)]="oldPassword" #oldPass="ngModel">
                     <i class="material-icons hoverPointer" id="passwordVisibility1" onclick="showPassword('1')">visibility_off</i>
                   </div>
