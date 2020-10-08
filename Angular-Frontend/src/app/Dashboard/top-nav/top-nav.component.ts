@@ -32,7 +32,7 @@ export class TopNavComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.displayProfilePic();
+    this.displayProfilePic();
   }
 
   clearNotifications() {
