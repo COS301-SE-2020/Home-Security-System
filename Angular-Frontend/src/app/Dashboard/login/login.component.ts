@@ -76,24 +76,31 @@ export class LoginComponent implements OnInit {
           }
           if (document.getElementById('recoverQuestion').hidden !== false) {
             emailInp.value = '';
-            alert('Error, email does not exist');
+            // alert('Error, email does not exist');
+            this.createError('Email does not exist, please try again.', 'errorMsgsForgot');
+
           }
         });
 
       /*this.router.navigate(['/reset-password']);*/
     } else {
-      // this.createError('Error, please enter an email address', 'errorMsgs');
-      alert('Error, please enter an email address');
+      this.createError('Please enter an email address.', 'errorMsgsForgot');
+      // alert('Error, please enter an email address');
     }
   }
 
   createError(msg, parent) {
     const parentEl = document.getElementById(parent);
     const error = document.createElement('div');
-    error.className = 'alert alert-danger';
+    error.className = 'alert alert-danger errorMsg';
     error.innerText = msg;
 
     parentEl.appendChild(error);
+  }
+
+  clearErrors(){
+    document.getElementById('errorMsgs').innerHTML = '';
+    document.getElementById('errorMsgsForgot').innerHTML = '';
   }
 
   recoverPasswordEmail() {
@@ -104,7 +111,9 @@ export class LoginComponent implements OnInit {
       this.authService.recoverySession(emailInp.value.toString(), ansInp.value.toString());
       this.router.navigate(['/reset-password']);
     } else {
-      alert('Error, please enter an answer to the question');
+      // alert('Error, please enter an answer to the question');
+      this.createError('Please enter an answer to the question.', 'errorMsgsForgot');
+
     }
   }
 
@@ -158,7 +167,7 @@ export class LoginComponent implements OnInit {
     // const pass = bcrypt.hashSync(passVar.value, salt);
     let counter = 0;
 
-    if ((emailVar.value != '') && (passVar.value != '')) {
+    if ((emailVar.value !== '') && (passVar.value !== '')) {
       this.userService.getUserList().subscribe(data => {
         while (data[counter] != null) {
           if (data[counter].userDeleted === null) {
@@ -180,8 +189,8 @@ export class LoginComponent implements OnInit {
                   this.authService.retrieveUserInfo();
                   this.router.navigate(['/dashboard']);
                 } else {
-                  // this.createError('The password you entered seems to be incorrect, please enter your password again.', 'errorMsgs');
-                  alert('The password you entered seems to be incorrect, please retry entering your password.');
+                  this.createError('The password you entered seems to be incorrect, please enter your password again.', 'errorMsgs');
+                  // alert('The password you entered seems to be incorrect, please retry entering your password.');
                   passVar.value = '';
                 }
               }, () => {});
@@ -190,6 +199,9 @@ export class LoginComponent implements OnInit {
           counter += 1;
         }
       });
+    }
+    else {
+      this.createError('Please fill in all fields.', 'errorMsgs');
     }
   }
 }

@@ -186,6 +186,8 @@
         <div class="modal-body">
           <div class="card-body">
             <form #changeForm="ngForm">
+              <div id="errorMsgs">
+              </div>
               <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-6">
                   <div class="form-group">
@@ -295,26 +297,16 @@
         <div class="modal-body">
           <div class="card-body">
             <form #passwordForm="ngForm">
+              <div id="errorMsgsPass">
+              </div>
               <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-6">
                   <div class="form-group">
                     <label for="passwordField1">Old Password</label>
                     <input type="password" id="passwordField1" name="oldPassword" class="form-control"
-                           required maxlength="35"
-                           pattern="^[a-zA-Z0-9](?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                           required
                            [(ngModel)]="oldPassword" #oldPass="ngModel">
                     <i class="material-icons hoverPointer" id="passwordVisibility1" onclick="showPassword('1')">visibility_off</i>
-                    <div *ngIf="oldPass.invalid && (oldPass.dirty || oldPass.touched)" class="alert alert-danger">
-                      <ul>
-                        <h6>Must contain:</h6>
-                        <li>At least eight characters</li>
-                        <li>One uppercase letter</li>
-                        <li>One lowercase letter</li>
-                        <li>One number</li>
-                        <li>One special character</li>
-                        <li>(Cannot start with a special character)</li>
-                      </ul>
-                    </div>
                   </div>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-6">
@@ -375,7 +367,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   <div class="form-group">
                     <input id="uAnswer" name="uAnswer" class="form-control"
-                           required maxlength="35" placeholder="Answer"
+                           maxlength="35" placeholder="Answer"
                            pattern="^[a-zA-Z0-9_.-]*$">
                   </div>
                 </div>

@@ -4,8 +4,8 @@ import {Observable} from 'rxjs';
 import {Person} from '../../model/person';
 import {PersonService} from '../../model/person.service';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {AuthService} from "../../model/auth.service";
-import {SessionClass} from "../../model/session";
+import {AuthService} from '../../model/auth.service';
+import {SessionClass} from '../../model/session';
 
 @Component({
   selector: 'app-people-grey',
@@ -95,7 +95,7 @@ export class PeopleGreyComponent implements OnInit {
   ngOnInit(): void {
     this.appService.setTitle('Person Grey-List');
     this.reloadData();
-    //this.deleteOld(1);
+    // this.deleteOld(1);
   }
 
   removePerson(id: number) {
@@ -121,7 +121,7 @@ export class PeopleGreyComponent implements OnInit {
     this.personService.getPersonList()
       .subscribe(data => {
         while (data[counter] != null) {
-          if (data[counter].personListed === 'Grey' && data[counter].network.netName == this.info.network) {
+          if (data[counter].personListed === 'Grey' && data[counter].network.netName === this.info.network) {
             this.psn = data[counter];
             this.psn.personDeleted = new Date();
             this.personService.updatePerson(data[counter].personId, this.psn)
