@@ -19,14 +19,13 @@
     <div id="errorMsgs">
 
     </div>
-<!--    <div class="alert alert-danger">Error, please enter an email address</div>-->
-
     <label class="loginFields">
       <input class="loginInputs" type="text" name="email" placeholder="Username or E-mail" id="emailField"
              maxlength="35">
     </label>
     <label class="loginPassword">
-      <input class="loginInputs" id="passwordField" type="password" name="pass" placeholder="Password" maxlength="35">
+      <input class="loginInputs" id="passwordField" type="password" name="pass" placeholder="Password"
+             pattern="^[a-zA-Z0-9](?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" maxlength="35">
       <i class="material-icons" id="passwordVisibility" onclick="showPassword('')">visibility_off</i>
     </label>
     <a class="loginButton" (click)="makeSession()" id="loginBtn">Log in</a>
@@ -34,7 +33,6 @@
       <span id="forgotten" (click)="unhide()" onclick="forgot()">Forgot password?</span>
     </div>
   </form>
-
 </div>
 
 <!-- Forgotten Password Container -->

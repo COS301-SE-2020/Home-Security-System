@@ -121,35 +121,37 @@ export class UserProfileComponent implements OnInit {
     const uAnswer = document.getElementById('uAnswer') as HTMLInputElement;
 
     if((uPassword1.value != '') && (uPassword2.value != '') && (uPassword3.value != '')) {
+      if (uPassword2.value != uPassword3.value)
+      {
+        alert('The passwords do not match.');
+      }
+      else {
+        const obj = new JwtRequest();
+        obj.username = this.info.email;
+        obj.password = uPassword1.value;
 
-      const obj = new JwtRequest();
-      obj.username = this.info.email;
-      obj.password = uPassword1.value;
+        this.authService.validatePassword(obj)
+          .subscribe(value => {
+            if (value.password === uPassword1.value) {
+              if (uPassword2.value === uPassword3.value) {
+                this.user.userPass = uPassword2.value;
+              }
 
-      this.authService.validatePassword(obj)
-        .subscribe(value => {
-          if (value.password === uPassword1.value) {
-            if (uPassword2.value === uPassword3.value)
-            {
-              this.user.userPass = uPassword2.value;
+              if (uAnswer.value != '') {
+                this.user.secureQuestion = uQuestion.value;
+                this.user.secureAnswer = uAnswer.value;
+              }
+
+              const num = Number(this.info.id);
+              this.userService.updateUser(num, this.user).subscribe(() => {
+                this.gotoList();
+              });
+            } else {
+              alert('The password you entered seems to be incorrect, please retry entering your password.');
+              uPassword1.value = '';
             }
-
-            if (uAnswer.value != '')
-            {
-              this.user.secureQuestion = uQuestion.value;
-              this.user.secureAnswer = uAnswer.value;
-            }
-
-            const num = Number(this.info.id);
-            this.userService.updateUser(num, this.user).subscribe(() => {
-              this.gotoList();
-            });
-          }
-          else {
-            alert('The password you entered seems to be incorrect, please retry entering your password.');
-            uPassword1.value = '';
-          }
-        });
+          },() => {});
+      }
     }
     else {
       alert('Cannot change password. Not all the fields were filled in.');

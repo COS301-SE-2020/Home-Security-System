@@ -57,7 +57,8 @@ public class UserController {
             }
         }
 
-        return ResponseEntity.badRequest().body(x);
+        x.setPassword("&1&2&1234");
+        return ResponseEntity.ok().body(x) ;
     }
 
     @GetMapping("/users")

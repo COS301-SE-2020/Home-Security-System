@@ -298,7 +298,7 @@
               <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-6">
                   <div class="form-group">
-                    <label for="passwordField1">Password</label>
+                    <label for="passwordField1">Old Password</label>
                     <input type="password" id="passwordField1" name="oldPassword" class="form-control"
                            required maxlength="35"
                            pattern="^[a-zA-Z0-9](?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
@@ -339,16 +339,18 @@
                   <br>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-md-6 col-sm-6 col-xs-6"></div>
-                <div class="col-md-6 col-sm-6 col-xs-6">
-                  <div class="form-group">
-                    <label for="passwordField3">Confirm New Password</label>
-                    <input type="password" id="passwordField3" name="confirmPassword" class="form-control"
-                           [(ngModel)]="confirmPassword" #conPass="ngModel">
-                    <i class="material-icons hoverPointer" id="passwordVisibility3" onclick="showPassword('3')">visibility_off</i>
-                    <div *ngIf="(userPass.value != confirmPassword.valueOf())" class="alert alert-danger">
-                      Passwords do not match
+              <div *ngIf="userPass.dirty">
+                <div class="row">
+                  <div class="col-md-6 col-sm-6 col-xs-6"></div>
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="form-group">
+                      <label for="passwordField3">Confirm New Password</label>
+                      <input type="password" id="passwordField3" name="confirmPassword" class="form-control"
+                             [(ngModel)]="confirmPassword" #conPass="ngModel">
+                      <i class="material-icons hoverPointer" id="passwordVisibility3" onclick="showPassword('3')">visibility_off</i>
+                      <div *ngIf="(userPass.value != confirmPassword.valueOf())" class="alert alert-danger">
+                        Passwords do not match
+                      </div>
                     </div>
                   </div>
                 </div>

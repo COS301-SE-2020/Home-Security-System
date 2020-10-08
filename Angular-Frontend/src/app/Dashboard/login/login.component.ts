@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {AuthService} from '../../model/auth.service';
 import {UserService} from '../../model/user.service';
 import {User} from '../../model/user';
+import {JwtRequest} from '../../model/jwt-request';
 // import {RecoverPasswordEmail} from '../../../assets/js/RecoverPasswordEmail.js';
 // import * as bcrypt from 'bcryptjs';
 // DO NOT REMOVE THIS
@@ -12,7 +13,6 @@ import {count} from 'rxjs/operators';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import validate = WebAssembly.validate;
-import {JwtRequest} from '../../model/jwt-request';
 
 @Component({
   selector: 'app-login',
@@ -89,7 +89,6 @@ export class LoginComponent implements OnInit {
 
   createError(msg, parent) {
     const parentEl = document.getElementById(parent);
-
     const error = document.createElement('div');
     error.className = 'alert alert-danger';
     error.innerText = msg;
@@ -159,36 +158,39 @@ export class LoginComponent implements OnInit {
     // const pass = bcrypt.hashSync(passVar.value, salt);
     let counter = 0;
 
-    this.userService.getUserList().subscribe(data => {
-      while (data[counter] != null) {
-        if (data[counter].userDeleted === null) {
-          if ((data[counter].email.toLowerCase() === emailVar.value.toLowerCase()) ||
-            (data[counter].username === emailVar.value)) {
+    if ((emailVar.value != '') && (passVar.value != '')) {
+      this.userService.getUserList().subscribe(data => {
+        while (data[counter] != null) {
+          if (data[counter].userDeleted === null) {
+            if ((data[counter].email.toLowerCase() === emailVar.value.toLowerCase()) ||
+              (data[counter].username === emailVar.value)) {
 
-            const obj = new JwtRequest();
-            obj.username = emailVar.value;
-            obj.password = passVar.value;
+              const obj = new JwtRequest();
+              obj.username = emailVar.value;
+              obj.password = passVar.value;
 
-            const uid = data[counter].userId;
-            const authority = data[counter].userRole;
-            const mail = data[counter].email;
-            const netName = data[counter].network.netName;
+              const uid = data[counter].userId;
+              const authority = data[counter].userRole;
+              const mail = data[counter].email;
+              const netName = data[counter].network.netName;
 
-            this.authService.validatePassword(obj).subscribe(value => {
-              if (value.password === passVar.value) {
-                this.authService.createSession(uid, authority, mail, netName);
-                this.authService.retrieveUserInfo();
-                this.router.navigate(['/dashboard']);
-              } else {
-                // this.createError('The password you entered seems to be incorrect, please enter your password again.', 'errorMsgs');
-                alert('The password you entered seems to be incorrect, please retry entering your password.');
-                passVar.value = '';
-              }
-            });
+              this.authService.validatePassword(obj).subscribe(value => {
+                if (value.password === passVar.value) {
+                  this.authService.createSession(uid, authority, mail, netName);
+                  this.authService.retrieveUserInfo();
+                  this.router.navigate(['/dashboard']);
+                } else {
+                  // this.createError('The password you entered seems to be incorrect, please enter your password again.', 'errorMsgs');
+                  alert('The password you entered seems to be incorrect, please retry entering your password.');
+                  passVar.value = '';
+                }
+              }, () => {
+              });
+            }
           }
+          counter += 1;
         }
-        counter += 1;
-      }
-    });
+      });
+    }
   }
 }
