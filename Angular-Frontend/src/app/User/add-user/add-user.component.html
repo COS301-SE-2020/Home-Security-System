@@ -106,7 +106,7 @@
                   <label for="passwordField1">Password</label>
                   <input type="password" id="passwordField1" name="passwordField1" class="form-control"
                          required maxlength="35"
-                         pattern="^[a-zA-Z0-9](?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                         pattern="^[a-zA-Z0-9]*(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                          [(ngModel)]="passPlaceholder" #userPass="ngModel">
                   <i class="material-icons hoverPointer" id="passwordVisibility1" onclick="showPassword('1')">visibility_off</i>
                   <div *ngIf="userPass.invalid && (userPass.dirty || userPass.touched)"
