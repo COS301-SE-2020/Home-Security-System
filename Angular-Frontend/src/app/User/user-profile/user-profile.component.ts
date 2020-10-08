@@ -8,7 +8,7 @@ import {Observable, Subject} from 'rxjs';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {AuthService} from '../../model/auth.service';
 import {SessionClass} from '../../model/session';
-import {JwtRequest} from "../../model/jwt-request";
+import {JwtRequest} from '../../model/jwt-request';
 
 @Component({
   selector: 'app-user-profile',
@@ -120,12 +120,11 @@ export class UserProfileComponent implements OnInit {
     const uQuestion = document.getElementById('uQuestion') as HTMLInputElement;
     const uAnswer = document.getElementById('uAnswer') as HTMLInputElement;
 
-    if((uPassword1.value !== '') && (uPassword2.value !== '') && (uPassword3.value !== '')) {
-      if (uPassword2.value !== uPassword3.value)
-      {
-        alert('The passwords do not match.');
-      }
-      else {
+    if ((uPassword1.value !== '') && (uPassword2.value !== '') && (uPassword3.value !== '')) {
+      if (uPassword2.value !== uPassword3.value) {
+        this.createError('Passwords do not match.', 'errorMsgsPass');
+        // alert('The passwords do not match.');
+      } else {
         const obj = new JwtRequest();
         obj.username = this.info.email;
         obj.password = uPassword1.value;
@@ -147,14 +146,16 @@ export class UserProfileComponent implements OnInit {
                 this.gotoList();
               });
             } else {
-              alert('The password you entered seems to be incorrect, please retry entering your password.');
+              this.createError('The password you entered seems to be incorrect, please retry entering your password.', 'errorMsgsPass');
+              // alert('The password you entered seems to be incorrect, please retry entering your password.');
               uPassword1.value = '';
             }
-          },() => {});
+          }, () => {
+          });
       }
-    }
-    else {
-      alert('Cannot change password. Not all the fields were filled in.');
+    } else {
+      this.createError('Please fill in all fields.', 'errorMsgsPass');
+      // alert('Cannot change password. Not all the fields were filled in.');
     }
   }
 
@@ -205,13 +206,17 @@ export class UserProfileComponent implements OnInit {
           counter++;
         }
         if (email && username) {
-          alert('Email address and username are already in use. Please enter another email address and username.');
+          this.createError('Email address and username are already in use. Please enter another email address and username.', 'errorMsgs');
+          // alert('Email address and username are already in use. Please enter another email address and username.');
         } else if (email) {
-          alert('Email address is already in use. Please enter another email address.');
+          this.createError('Email address are already in use. Please enter another email address.', 'errorMsgs');
+          // alert('Email address is already in use. Please enter another email address.');
         } else if (username) {
-          alert('Username address is already in use. Please enter another username.');
+          this.createError('Username are already in use. Please enter another username.', 'errorMsgs');
+          // alert('Username address is already in use. Please enter another username.');
         }
-      }, () => { },
+      }, () => {
+      },
       () => {
         if (!exists) {
           this.updateUser();
@@ -245,10 +250,22 @@ export class UserProfileComponent implements OnInit {
     this.showCam = false;
   }
 
-  public allowSubmit(): void{
-    if ( this.picCorrect === false)
-    {
+  public allowSubmit(): void {
+    if (this.picCorrect === false) {
       this.picCorrect = true;
     }
+  }
+
+  createError(msg, parent) {
+    const parentEl = document.getElementById(parent);
+    const error = document.createElement('div');
+    error.className = 'alert alert-danger errorMsg';
+    error.innerText = msg;
+
+    parentEl.appendChild(error);
+  }
+
+  clearErrors() {
+    document.getElementById('errorMsgs').innerHTML = '';
   }
 }

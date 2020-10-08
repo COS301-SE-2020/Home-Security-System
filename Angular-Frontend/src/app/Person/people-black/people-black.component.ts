@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TitleService} from '../../title.service';
 import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
 import {Person} from '../../model/person';
 import {PersonService} from '../../model/person.service';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {AuthService} from "../../model/auth.service";
-import {SessionClass} from "../../model/session";
+import {AuthService} from '../../model/auth.service';
+import {SessionClass} from '../../model/session';
 
 @Component({
   selector: 'app-people-black',
@@ -19,7 +19,8 @@ export class PeopleBlackComponent implements OnInit {
   psn: Person;
 
   constructor(private personService: PersonService, private SpinnerService: NgxSpinnerService,
-              private appService: TitleService, private router: Router, private authService: AuthService) { }
+              private appService: TitleService, private router: Router, private authService: AuthService) {
+  }
 
   reloadData() {
     this.psn = new Person();
@@ -44,11 +45,11 @@ export class PeopleBlackComponent implements OnInit {
         });
   }
 
-  updatePerson(id: number){
+  updatePerson(id: number) {
     this.router.navigate(['edit-person', id]);
   }
 
-  viewPerson(id: number){
+  viewPerson(id: number) {
     this.router.navigate(['view-person', id]);
   }
 
@@ -57,7 +58,7 @@ export class PeopleBlackComponent implements OnInit {
     this.reloadData();
   }
 
-  restorePerson(){
+  restorePerson() {
     this.router.navigate(['deleted-threat']);
   }
 }
