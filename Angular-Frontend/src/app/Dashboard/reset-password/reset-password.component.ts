@@ -17,17 +17,17 @@ export class ResetPasswordComponent implements OnInit {
 
   constructor(private userService: UserService, private authService: AuthService) { }
 
-  searchVal(val,arr): boolean{
+  searchVal(val,arr): boolean {
     let retVal = false;
 
-    if(arr.length != 0){
+    if(arr.length != 0) {
       for (let x = 0; x < arr.length; x++) {
         if(val == arr[x]){
           retVal = true;
         }
       }
     }
-    if(val == 0){
+    if(val == 0) {
       retVal = true;
     }
 
@@ -47,13 +47,14 @@ export class ResetPasswordComponent implements OnInit {
     let taken = [];
     let generatedNum = 0;
 
-    for (let i = 0; i < 4; i++){
-      while ((this.searchVal(generatedNum,taken) == true) ){
+    for (let i = 0; i < 4; i++) {
+      while (this.searchVal(generatedNum,taken) == true) {
         generatedNum = Math.floor(Math.random() * 9) + 1; //ensures it is never 0
       }
       taken.push(generatedNum);
       generatedNum = 0;
     }
+
     taken.sort();
     let takenInd = 0;
 
@@ -61,8 +62,8 @@ export class ResetPasswordComponent implements OnInit {
       if(i == 0) {
         result += characterSet1.charAt(Math.floor(Math.random() * characterSet1Length));
       }
-      else if (i  === taken[takenInd]){
-        switch (takenInd){
+      else if (i  === taken[takenInd]) {
+        switch (takenInd) {
           case 0:
             result += allCaps.charAt(Math.floor(Math.random() * (allCaps.length)));
             takenInd++;
@@ -77,15 +78,14 @@ export class ResetPasswordComponent implements OnInit {
             break;
           case 3:
             result += specialChars.charAt(Math.floor(Math.random() * (specialChars.length)));
-            takenInd++;
             break;
         }
-
       }
       else {
         result += characterSet2.charAt(Math.floor(Math.random() * characterSet2Length));
       }
     }
+
     return result;
   }
 

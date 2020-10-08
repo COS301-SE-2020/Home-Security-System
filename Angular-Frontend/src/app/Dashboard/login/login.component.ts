@@ -193,8 +193,7 @@ export class LoginComponent implements OnInit {
                   // alert('The password you entered seems to be incorrect, please retry entering your password.');
                   passVar.value = '';
                 }
-              }, () => {
-              });
+              }, () => {});
             }
           }
           counter += 1;
