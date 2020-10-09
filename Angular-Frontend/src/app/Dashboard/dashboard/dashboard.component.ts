@@ -8,6 +8,8 @@ import * as CanvasJS from '../../../assets/js/canvasjs.min';
 import {Notification} from '../../model/notification';
 import {NotificationService} from '../../model/notification.service';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {SessionClass} from "../../model/session";
+import {AuthService} from '../../model/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,9 +20,9 @@ import {NgxSpinnerService} from 'ngx-spinner';
 export class DashboardComponent implements OnInit {
 
   constructor(private spinner: NgxSpinnerService, private appService: TitleService,
-              private personService: PersonService, private notificationService: NotificationService) {
+              private personService: PersonService, private notificationService: NotificationService, private authService: AuthService) {
   }
-
+  info: SessionClass = this.authService.retrieveUserInfo();
   people: Observable<Person[]>;
   currentDate = new Date();
 
@@ -63,11 +65,11 @@ export class DashboardComponent implements OnInit {
       let unknown = 0;
       // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < data.length; i++) {
-        if (data[i].personListed === 'Grey' && data[i].personDeleted === null) {
+        if ((data[i].personListed === 'Grey') && (data[i].personDeleted === null) && (data[i].network.netName == this.info.network)) {
           unknown++;
-        } else if (data[i].personListed === 'Black' && data[i].personDeleted === null) {
+        } else if ((data[i].personListed === 'Black') && (data[i].personDeleted === null) && (data[i].network.netName == this.info.network)) {
           threat++;
-        } else if (data[i].personListed === 'White' && data[i].personDeleted === null) {
+        } else if ((data[i].personListed === 'White') && (data[i].personDeleted === null) && (data[i].network.netName == this.info.network)) {
           cleared++;
         } else {
           // cleared++;
