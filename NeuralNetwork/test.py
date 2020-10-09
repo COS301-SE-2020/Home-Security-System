@@ -1,7 +1,7 @@
 import unittest
 
-from Cam import save_face
-from Cam import classify_face
+from Cam_PI import save_face
+from Cam_PI import classify_face
 
 class MyTestCase(unittest.TestCase):
 

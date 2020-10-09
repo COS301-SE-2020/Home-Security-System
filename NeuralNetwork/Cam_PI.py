@@ -13,7 +13,6 @@ import base64 as b64
 import threading
 from flask import Flask, render_template, Response
 
-
 phys = tf.config.experimental.list_physical_devices('GPU')
 if len(phys) > 0:
     tf.config.experimental.set_memory_growth(phys[0], True)

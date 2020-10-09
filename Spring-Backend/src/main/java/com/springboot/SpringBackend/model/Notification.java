@@ -87,11 +87,7 @@ public class Notification implements Serializable {
 
     // public Long getNotificationImgId() { return this.notificationImg.getImageId(); }
     public String getNotificationImg() { return this.notificationImg; }
-    public void setNotificationImg(String img) {
-        if (img != null) {
-            this.notificationImg = img;
-        }
-    }
+    public void setNotificationImg(String img) { this.notificationImg = img; }
 
     public String getListed() { return this.listed.toString(); }
     public void setListed(String listed) {

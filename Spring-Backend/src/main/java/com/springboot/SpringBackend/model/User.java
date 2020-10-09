@@ -162,18 +162,8 @@ public class User implements Serializable {
     }
 
     // public Long getVehicleImgId() { return this.profilePhoto.getImageId(); }
-    public String getProfilePhoto() {
-        if (profilePhoto != null)
-        {
-            return this.profilePhoto;
-        }
-        return null;
-    }
-    public void setProfilePhoto(String photo) {
-        if (photo != null) {
-            this.profilePhoto = photo;
-        }
-    }
+    public String getProfilePhoto() { return this.profilePhoto; }
+    public void setProfilePhoto(String photo) { this.profilePhoto = photo; }
 
     public String getFname() {return this.fname; }
     public void setFname(String name) {this.fname = Jsoup.clean(name, Whitelist.simpleText());}

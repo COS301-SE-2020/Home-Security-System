@@ -15,7 +15,6 @@ import {NgxSpinnerService} from 'ngx-spinner';
   styleUrls: ['./dashboard.component.css'],
 })
 
-
 export class DashboardComponent implements OnInit {
 
   constructor(private spinner: NgxSpinnerService, private appService: TitleService,
@@ -83,9 +82,6 @@ export class DashboardComponent implements OnInit {
   public calculateNumberOfNotifications(): void {
     this.notificationService.getNotificationList().subscribe(data => {
 
-      // console.log(data[0].onDate);
-      // console.log( this.dayTester(0));
-
       let six = 0;
       let five = 0;
       let four = 0;
@@ -113,6 +109,7 @@ export class DashboardComponent implements OnInit {
         } else {
         }
       }
+
       this.barchart(six, five, four, three, two, one, today);
     });
   }
@@ -216,9 +213,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.appService.setTitle('Dashboard');
-    // this.getChartDetails();
-    // this.barchart();
-    // this.pieChart();
     this.calculateNumberOfPeople();
     this.calculateNumberOfNotifications();
     // this.getCameras();

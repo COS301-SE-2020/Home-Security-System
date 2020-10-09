@@ -1,29 +1,31 @@
 package com.springboot.SpringBackend.controller;
 
-import org.junit.jupiter.api.BeforeEach;
+import com.springboot.SpringBackend.service.MailerService;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+@SpringBootTest
 class MailerControllerTest {
+
+    @Autowired
+    private MailerService emailService;
 
     @Test
     void sendmailGrey() {
+        emailService.sendMail(
+                "SigmaCOS301@gmail.com",
+                "Test subject",
+                "Test for Suspicious email"
+        );
     }
 
     @Test
     void sendmailBlack() {
-    }
-
-    @Test
-    void sendWithAttatchBL() {
-    }
-
-    @Test
-    void sendWithAttatchGL() {
-    }
-
-    @Test
-    void setImagePath() {
+        emailService.sendMail(
+                "SigmaCOS301@gmail.com",
+                "Test subject",
+                "Test for Threat email"
+        );
     }
 }

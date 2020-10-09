@@ -128,11 +128,7 @@ public class Person implements Serializable {
 
     // public Long getPersonImgId() { return this.personImg.getImageId(); }
     public String getPersonImg() { return this.personImg; }
-    public void setPersonImg(String img) {
-        if (img != null) {
-            this.personImg = img;
-        }
-    }
+    public void setPersonImg(String img) { this.personImg = img; }
 
     public String getFname() {
         return this.fname;

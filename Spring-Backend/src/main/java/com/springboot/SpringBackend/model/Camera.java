@@ -25,8 +25,9 @@ public class Camera implements Serializable {
 
     public Camera() { }
 
-    public Camera(String url, Network net) {
+    public Camera(String url,Network net) {
         this.serverURL = url;
+        this.network = net;
     }
 
     public Long getCameraId() {

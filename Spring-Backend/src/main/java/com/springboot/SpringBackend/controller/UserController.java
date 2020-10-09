@@ -88,13 +88,11 @@ public class UserController {
                 .orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + id));
 
         x.setUserId(details.getUserId());
-        if(details.getProfilePhoto() != null) {
-            x.setProfilePhoto(details.getProfilePhoto());
-        }
-        if(details.getFname() != null) {
+        x.setProfilePhoto(details.getProfilePhoto());
+        if(!details.getFname().equals("")) {
             x.setFname(details.getFname());
         }
-        if(details.getLname() != null) {
+        if(!details.getLname().equals("")) {
             x.setLname(details.getLname());
         }
         x.setContactNo(details.getContactNo());
@@ -109,7 +107,7 @@ public class UserController {
         x.setNotifySMS(details.getNotifySMS());
         x.setUserDeleted(details.getUserDeleted());
         if(!details.getSecureQuestion().equals(x.getSecureQuestion())) {
-            if(!details.getSecureAnswer().equals(x.getSecureAnswer()) && x.getSecureAnswer() != null) {
+            if((!details.getSecureAnswer().equals(x.getSecureAnswer())) && (!x.getSecureAnswer().equals(""))) {
                 x.setSecureQuestion(details.getSecureQuestion());
                 x.setSecureAnswer(details.getSecureAnswer());
             }
