@@ -31,8 +31,6 @@ public class User implements Serializable {
     @Column(name = "user_id", nullable = false)
     private Long id;
 
-    // @ManyToOne
-    // @JoinColumn(name="profilephoto", nullable = false)
     @Column(name = "profilephoto", nullable = false)
     private String profilePhoto;
 
@@ -121,39 +119,6 @@ public class User implements Serializable {
         this.notifySMS = false;
     }
 
-    public User(String name, String surname, String contact, String email, String username,
-                String password, String role, String question, String answer, Network n) {
-        this.profilePhoto = getDefault();
-        this.fname = Jsoup.clean(name, Whitelist.simpleText());
-        this.lname = Jsoup.clean(surname, Whitelist.simpleText());
-        this.contactNo = Jsoup.clean(contact, Whitelist.simpleText());
-        this.email = Jsoup.clean(email, Whitelist.simpleText());
-        this.username = Jsoup.clean(username, Whitelist.simpleText());
-        this.userPass = Jsoup.clean(password, Whitelist.simpleText());
-        this.secureQuestion = Jsoup.clean(question, Whitelist.simpleText());
-        this.secureAnswer = Jsoup.clean(answer, Whitelist.simpleText());
-        this.network = n;
-
-        if(role.equalsIgnoreCase("Admin"))
-        {
-            this.userRole = UserRole.Admin;
-            //this.userRole = "Admin";
-        }
-        else if(role.equalsIgnoreCase("Advanced"))
-        {
-            this.userRole = UserRole.Advanced;
-            //this.userRole = "Advanced";
-        }
-        else
-        {
-            this.userRole = UserRole.Basic;
-            //this.userRole = "Basic";
-        }
-
-        this.notifyEmail = true;
-        this.notifySMS = false;
-    }
-
     public Long getUserId() {
         return this.id;
     }
@@ -161,7 +126,6 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    // public Long getVehicleImgId() { return this.profilePhoto.getImageId(); }
     public String getProfilePhoto() { return this.profilePhoto; }
     public void setProfilePhoto(String photo) { this.profilePhoto = photo; }
 

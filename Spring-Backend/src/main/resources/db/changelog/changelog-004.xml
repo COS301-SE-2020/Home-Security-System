@@ -9,7 +9,8 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
         <sql>
             CREATE TABLE Network(
             network_id SERIAL PRIMARY KEY,
-            netName TEXT NOT NULL
+            netName TEXT NOT NULL,
+            securityNumber TEXT NOT NULL
             );
         </sql>
         <sql>

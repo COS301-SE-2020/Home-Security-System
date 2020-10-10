@@ -48,7 +48,6 @@ public class Notification implements Serializable {
 
     public Notification() {}
 
-
     public Notification(String img, String msg, Network n) {
         this.notificationImg = img;
         this.listed = notificationType.Suspicious;

@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
-import {WebcamImage} from 'ngx-webcam';
-import {Observable, Subject} from 'rxjs';
+import {Observable} from 'rxjs';
 import {TitleService} from '../../title.service';
 import {PersonService} from '../../model/person.service';
 import {Person} from '../../model/person';
@@ -8,7 +7,7 @@ import * as CanvasJS from '../../../assets/js/canvasjs.min';
 import {Notification} from '../../model/notification';
 import {NotificationService} from '../../model/notification.service';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {SessionClass} from "../../model/session";
+import {SessionClass} from '../../model/session';
 import {AuthService} from '../../model/auth.service';
 
 @Component({
@@ -20,41 +19,22 @@ import {AuthService} from '../../model/auth.service';
 export class DashboardComponent implements OnInit {
 
   constructor(private spinner: NgxSpinnerService, private appService: TitleService,
-              private personService: PersonService, private notificationService: NotificationService, private authService: AuthService) {
-  }
+              private personService: PersonService, private notificationService: NotificationService,
+              private authService: AuthService) { }
+
   info: SessionClass = this.authService.retrieveUserInfo();
   people: Observable<Person[]>;
   currentDate = new Date();
 
   notification: Observable<Notification[]>;
   note: Notification;
-
-  // ----------------------
   title = 'Dashboard';
-
-  // noinspection JSAnnotator
-  @ViewChild('video')
-  public webcam: ElementRef;
 
   // noinspection JSAnnotator
   @ViewChild('canvas')
   public canvas: ElementRef;
 
-  public captures: Array<any>;
-
   public showCam = true;
-
-  public camImg: WebcamImage = null;
-
-  public snapTrigger: Subject<void> = new Subject<void>();
-
-  public trigger_s(): void {
-    this.snapTrigger.next();
-  }
-
-  public handleShot(img: WebcamImage): void {
-    this.camImg = img;
-  }
 
   // ==========================================================================================
 
@@ -65,11 +45,16 @@ export class DashboardComponent implements OnInit {
       let unknown = 0;
       // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < data.length; i++) {
-        if ((data[i].personListed === 'Grey') && (data[i].personDeleted === null) && (data[i].network.netName == this.info.network)) {
+        if ((data[i].personListed === 'Grey') && (data[i].personDeleted === null)
+          && (data[i].network.netName === this.info.network)) {
           unknown++;
-        } else if ((data[i].personListed === 'Black') && (data[i].personDeleted === null) && (data[i].network.netName == this.info.network)) {
+        }
+        else if ((data[i].personListed === 'Black') && (data[i].personDeleted === null) &&
+          (data[i].network.netName === this.info.network)) {
           threat++;
-        } else if ((data[i].personListed === 'White') && (data[i].personDeleted === null) && (data[i].network.netName == this.info.network)) {
+        }
+        else if ((data[i].personListed === 'White') && (data[i].personDeleted === null) &&
+          (data[i].network.netName === this.info.network)) {
           cleared++;
         } else {
           // cleared++;
@@ -111,7 +96,6 @@ export class DashboardComponent implements OnInit {
         } else {
         }
       }
-
       this.barchart(six, five, four, three, two, one, today);
     });
   }
@@ -224,10 +208,6 @@ export class DashboardComponent implements OnInit {
 
   public toggleCam(): void {
     this.showCam = !this.showCam;
-  }
-
-  public get triggerObservable(): Observable<void> {
-    return this.snapTrigger.asObservable();
   }
 
   private getCameras() {

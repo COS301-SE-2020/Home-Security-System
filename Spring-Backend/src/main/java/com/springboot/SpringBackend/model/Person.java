@@ -126,7 +126,6 @@ public class Person implements Serializable {
         this.id = id;
     }
 
-    // public Long getPersonImgId() { return this.personImg.getImageId(); }
     public String getPersonImg() { return this.personImg; }
     public void setPersonImg(String img) { this.personImg = img; }
 

@@ -22,6 +22,9 @@ public class Network implements Serializable {
     @Column(name = "netname", nullable = false)
     private String netName;
 
+    @Column(name = "securitynumber", nullable = false)
+    private String securityNumber;
+
     @OneToMany(mappedBy="network", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Camera> camList = new ArrayList<>();
@@ -42,6 +45,12 @@ public class Network implements Serializable {
 
     public Network(String name) {
         this.netName = name;
+        this.securityNumber = "+27840763231";
+    }
+
+    public Network(String name, String phoneNum) {
+        this.netName = name;
+        this.securityNumber = Jsoup.clean(phoneNum, Whitelist.simpleText());
     }
 
     public Long getNetworkId() {
@@ -56,6 +65,13 @@ public class Network implements Serializable {
     }
     public void setNetName(String name) {
         this.netName = Jsoup.clean(name, Whitelist.simpleText());
+    }
+
+    public String getSecurityNumber() {
+        return this.securityNumber;
+    }
+    public void setSecurityNumber(String phoneNum) {
+        this.securityNumber = Jsoup.clean(phoneNum, Whitelist.simpleText());
     }
 
     public List<Camera> getCamList() { return this.camList; }

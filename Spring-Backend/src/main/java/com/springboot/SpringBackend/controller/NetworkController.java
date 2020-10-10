@@ -50,6 +50,7 @@ public class NetworkController {
 
         x.setNetworkId(details.getNetworkId());
         x.setNetName(details.getNetName());
+        x.setSecurityNumber(details.getSecurityNumber());
 
         final Network updatedNetwork = service.updateNetwork(x);
         return ResponseEntity.ok(updatedNetwork);

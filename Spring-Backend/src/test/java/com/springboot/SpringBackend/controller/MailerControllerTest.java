@@ -12,20 +12,11 @@ class MailerControllerTest {
     private MailerService emailService;
 
     @Test
-    void sendmailGrey() {
+    void sendEmail() {
         emailService.sendMail(
                 "SigmaCOS301@gmail.com",
-                "Test subject",
-                "Test for Suspicious email"
-        );
-    }
-
-    @Test
-    void sendmailBlack() {
-        emailService.sendMail(
-                "SigmaCOS301@gmail.com",
-                "Test subject",
-                "Test for Threat email"
+                "Test",
+                "Testing email!"
         );
     }
 }
