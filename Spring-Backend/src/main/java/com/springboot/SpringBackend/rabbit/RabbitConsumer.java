@@ -13,8 +13,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalTime;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Component
 public class RabbitConsumer {
@@ -31,6 +29,7 @@ public class RabbitConsumer {
     public RabbitConsumer(NotificationService ns, PersonService ps,
                           UserService us, NetworkService nets,SmsSender sms,
                           MailerController mc, RabbitTemplate template) {
+
         this.nservice = ns;
         this.personService = ps;
         this.userService = us;
@@ -44,7 +43,7 @@ public class RabbitConsumer {
     public void receivedAlert(RabbitAlert alert) {
         List<User> arr = userService.getAllUsers();
         Optional<Network> net = netServece.getNetworkById(alert.getNetworkId());
-
+      
         if (alert.getPersonId() != 0) {
             Optional<Person> p = personService.getPersonById(alert.getPersonId());
 
@@ -145,7 +144,6 @@ public class RabbitConsumer {
                 }
             }
         }
-
         LOGGER.info("Notification Created");
     }
 

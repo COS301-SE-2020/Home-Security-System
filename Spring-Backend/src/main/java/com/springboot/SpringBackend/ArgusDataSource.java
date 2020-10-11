@@ -36,5 +36,4 @@ public class ArgusDataSource {
                 .password("Argus")
                 .build();
     }
-
 }
