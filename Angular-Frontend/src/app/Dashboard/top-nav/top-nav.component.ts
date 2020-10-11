@@ -20,8 +20,9 @@ export class TopNavComponent implements OnInit {
   newObj: JsonObject;
   info: SessionClass = this.authService.retrieveUserInfo();
 
-  constructor(private SpinnerService: NgxSpinnerService, private noteService: NotificationService, public authService: AuthService,
-              private appService: TitleService, private userService: UserService) { }
+  constructor(private SpinnerService: NgxSpinnerService, private noteService: NotificationService,
+              public authService: AuthService, private appService: TitleService,
+              private userService: UserService) { }
 
   displayProfilePic() {
       const uPic = document.getElementById('profilePic') as HTMLImageElement;
