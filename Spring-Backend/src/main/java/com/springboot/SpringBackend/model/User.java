@@ -94,9 +94,9 @@ public class User implements Serializable {
         if(validateNumber(contact)) { this.contactNo = Jsoup.clean(contact, Whitelist.simpleText()); }
         if(validateEmail(email)) { this.email = Jsoup.clean(email, Whitelist.simpleText()); }
         if(validateAnswer(username)) { this.username = Jsoup.clean(username, Whitelist.simpleText()); }
-        if(validatePassword(password)) { this.userPass = Jsoup.clean(password, Whitelist.simpleText()); }
+        this.userPass = Jsoup.clean(password, Whitelist.simpleText());
         this.secureQuestion = Jsoup.clean(question, Whitelist.simpleText());
-        if(validateInput(name)) { this.secureAnswer = Jsoup.clean(answer, Whitelist.simpleText()); }
+        if(validateAnswer(name)) { this.secureAnswer = Jsoup.clean(answer, Whitelist.simpleText()); }
         if(n != null) { this.network = n; }
         if(role.equalsIgnoreCase("Admin"))
         {
@@ -171,9 +171,7 @@ public class User implements Serializable {
         return this.userPass;
     }
     public void setUserPass(String pass) {
-        if(validatePassword(pass)) {
-            this.userPass = Jsoup.clean(pass, Whitelist.simpleText());
-        }
+        this.userPass = Jsoup.clean(pass, Whitelist.simpleText());
     }
 
     public String getUserRole() { return this.userRole.toString(); }

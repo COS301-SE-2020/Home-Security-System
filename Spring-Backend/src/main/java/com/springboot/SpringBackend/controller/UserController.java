@@ -87,36 +87,40 @@ public class UserController {
         User x = service.getUserById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + id));
 
-        x.setUserId(details.getUserId());
-        x.setProfilePhoto(details.getProfilePhoto());
+        if(details.getUserId() != null) {
+            x.setUserId(details.getUserId());
+        }
+        if(!details.getProfilePhoto().equals("")) {
+            x.setProfilePhoto(details.getProfilePhoto());
+        }
         if(!details.getFname().equals("")) {
             x.setFname(details.getFname());
         }
         if(!details.getLname().equals("")) {
             x.setLname(details.getLname());
         }
-        x.setContactNo(details.getContactNo());
-        x.setEmail(details.getEmail());
-        x.setUsername(details.getUsername());
-        //x.setUserPass(details.getUserPass());
+        if(!details.getContactNo().equals("")) {
+            x.setContactNo(details.getContactNo());
+        }
+        if(!details.getEmail().equals("")) {
+            x.setEmail(details.getEmail());
+        }
+        if(!details.getUsername().equals("")) {
+            x.setUsername(details.getUsername());
+        }
         if(!details.getUserPass().equals(x.getUserPass())) {
-            x.setUserPass(hash.encode(details.getUserPass())); //its rehashing the encoded hash...
+            //x.setUserPass(details.getUserPass());
+            x.setUserPass(hash.encode(details.getUserPass()));
         }
         x.setUserRole(details.getUserRole());
         x.setNotifyEmail(details.getNotifyEmail());
         x.setNotifySMS(details.getNotifySMS());
         x.setUserDeleted(details.getUserDeleted());
         if(!details.getSecureQuestion().equals(x.getSecureQuestion())) {
-            if((!details.getSecureAnswer().equals(x.getSecureAnswer())) && (!x.getSecureAnswer().equals(""))) {
-                x.setSecureQuestion(details.getSecureQuestion());
-                x.setSecureAnswer(details.getSecureAnswer());
-            }
+            x.setSecureQuestion(details.getSecureQuestion());
         }
-        else if(details.getSecureQuestion().equals(x.getSecureQuestion())) {
-            if(!details.getSecureAnswer().equals(x.getSecureAnswer()) && x.getSecureAnswer() != null) {
-                x.setSecureQuestion(details.getSecureQuestion());
-                x.setSecureAnswer(details.getSecureAnswer());
-            }
+        if((!details.getSecureAnswer().equals(x.getSecureAnswer())) && (!details.getSecureAnswer().equals(""))) {
+            x.setSecureAnswer(details.getSecureAnswer());
         }
         if(details.getNetwork() != null) {
             x.setNetwork(details.getNetwork());

@@ -59,13 +59,17 @@ public class PersonController {
         Person x = service.getPersonById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Person not found for this id :: " + id));
 
-        x.setPersonId(details.getPersonId());
-        x.setPersonImg(details.getPersonImg());
+
+        if(details.getPersonId() != null) {
+            x.setPersonId(details.getPersonId());
+        }
+        if(!details.getPersonImg().equals("")) {
+            x.setPersonImg(details.getPersonImg());
+        }
         if(!details.getFname().equals("")) {
             x.setFname(details.getFname());
         }
-        if(!details.getLname().equals(""))
-        {
+        if(!details.getLname().equals("")) {
             x.setLname(details.getLname());
         }
         x.setPersonListed(details.getPersonListed());

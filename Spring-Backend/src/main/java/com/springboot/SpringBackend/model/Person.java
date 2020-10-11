@@ -192,6 +192,6 @@ public class Person implements Serializable {
     }
 
     private Boolean validateInput(String str) {
-        return str.matches("\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+");
+        return str.matches("\\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+");
     }
 }

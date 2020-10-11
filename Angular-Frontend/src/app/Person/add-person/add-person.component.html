@@ -15,7 +15,6 @@
               <input type="text" class="form-control" id="fname" name="fname"
                      required maxlength="20" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
                      [(ngModel)]="namePlaceholder" #name="ngModel">
-
               <div *ngIf="name.invalid && (name.dirty || name.touched)"
                    class="alert alert-danger">
                 Please enter a valid name.

@@ -49,7 +49,9 @@ public class CameraController {
                 .orElseThrow(() -> new ResourceNotFoundException("Camera not found for this id :: " + id));
 
         x.setCameraId(details.getCameraId());
-        x.setServerURL(details.getServerURL());
+        if(!details.getServerURL().equals("")) {
+            x.setServerURL(details.getServerURL());
+        }
         if(x.getNetwork() != null) {
             x.setNetwork(details.getNetwork());
         }

@@ -19332,7 +19332,7 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 }
 
 .image-cropper {
-  margin: -80px auto 0;
+  margin: -40px auto 0;
   float: right;
   width: 120px;
   height: 120px;

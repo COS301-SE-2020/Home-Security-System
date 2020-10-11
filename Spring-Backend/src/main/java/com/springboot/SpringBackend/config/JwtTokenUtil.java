@@ -21,7 +21,7 @@ public class JwtTokenUtil // implements Serializable
 
     public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
 
-    private final String secret = "123qweASD!";
+    private final String secret = "2366661c-586b-4417-bab4-731a6d7113e1";
 
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
