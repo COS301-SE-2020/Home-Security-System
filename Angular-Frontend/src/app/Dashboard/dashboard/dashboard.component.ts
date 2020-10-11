@@ -67,6 +67,7 @@ export class DashboardComponent implements OnInit {
   // ==========================================================================================
 
   public calculateNumberOfNotifications(): void {
+    this.note = new Notification();
     this.notificationService.getNotificationList().subscribe(data => {
 
       let six = 0;
