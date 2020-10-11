@@ -1,99 +1,97 @@
 import { Component, OnInit } from '@angular/core';
 import {TitleService} from '../../title.service';
-import { SessionService } from '../../model/session.service';
-import {Session} from '../../../assets/js/SessionStorage';
 import {UserService} from '../../model/user.service';
 import {User} from '../../model/user';
 import {NotificationService} from '../../model/notification.service';
 import {JsonObject} from '@angular/compiler-cli/ngcc/src/packages/entry_point';
+import {AuthService} from '../../model/auth.service';
+import {SessionClass} from '../../model/session';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-top-nav',
   templateUrl: './top-nav.component.html',
   styleUrls: ['./top-nav.component.css']
 })
+
 export class TopNavComponent implements OnInit {
   title: string;
-  sessionS = new Session();
   user: User;
   newObj: JsonObject;
-  cnt = 0;
+  info: SessionClass = this.authService.retrieveUserInfo();
 
-  constructor(private noteService: NotificationService, private sessService: SessionService, private appService: TitleService,
+  constructor(private SpinnerService: NgxSpinnerService, private noteService: NotificationService,
+              public authService: AuthService, private appService: TitleService,
               private userService: UserService) { }
 
-  clearUserSession() {
-    this.newObj = this.sessionS.retrieveUserInfo();
-    const idU = this.newObj.id;
-    this.sessService.deleteSessionById(idU.toString()).subscribe();
-    this.sessionS.deleteSession();
-  }
-
   displayProfilePic() {
-    if (this.sessionS.retrieveUserInfo() != null) {
       const uPic = document.getElementById('profilePic') as HTMLImageElement;
-      this.userService.getUserById(this.sessionS.retrieveUserInfo().id).subscribe(
-        data => { uPic.src = data.profilePhoto; });
-    }
+
+      const num = Number(this.info.id);
+      this.userService.getUserById(num).subscribe(data => { uPic.src = data.profilePhoto; });
   }
 
   ngOnInit(): void {
-    if (this.sessionS.retrieveUserInfo() != null) {
-      // this.appService.getTitle().subscribe(appTitle => title = appTitle);
-      this.cnt = 0;
-      let counter = 0;
-      let num = 0;
-      this.noteService.getNotificationList().subscribe(data => {
-        // console.log(data);
-        while (data[counter] != null) {
-          if (data[counter].notificationDeleted === null) {
-            num += 1;
-          }
-          counter++;
-        }
-
-        if (num < 0) {
-          num = 0;
-        }
-
-        this.cnt = num;
-      });
-
+    setTimeout(() => {
       this.displayProfilePic();
-      this.countNotifications();
-    }
-  }
-
-  countNotifications() {
-    if (this.sessionS.retrieveUserInfo() != null) {
-      setTimeout(() => {
-        let counter = 0;
-        let num = 0;
-        this.noteService.getNotificationList().subscribe(data => {
-          // console.log(data);
-          while (data[counter] != null) {
-            if (data[counter].notificationDeleted === null) {
-              num += 1;
-            }
-            counter++;
-          }
-
-          num = num - this.cnt;
-
-          if (num < 0) {
-            num = 0;
-          }
-
-          document.getElementById('noteCnt').innerHTML = num.toString();
-        });
-        this.countNotifications();
-      }, 1000);
-    }
+      this.retrieveSettings();
+    }, 100);
   }
 
   clearNotifications() {
-    this.cnt = 0;
-    document.getElementById('noteCnt').innerHTML = '0';
-    this.ngOnInit();
+    // document.getElementById('noteCnt').innerHTML = '0';
+  }
+
+
+  enableButton() {
+    const buttonEl = document.getElementById('saveBtn') as HTMLButtonElement;
+    buttonEl.style.background = '#d4af37';
+    buttonEl.disabled = false;
+  }
+
+  retrieveSettings() {
+    const buttonEl = document.getElementById('saveBtn') as HTMLButtonElement;
+    const smsSettings = document.getElementById('smsSlider') as HTMLInputElement;
+    const emailSettings = document.getElementById('emailSlider') as HTMLInputElement;
+
+    buttonEl.disabled = true;
+
+    this.userService.getUserById(this.authService.retrieveUserInfo().id)
+      .subscribe(data => {
+        // console.log(data);
+        smsSettings.checked = data.notifySMS;
+        emailSettings.checked = data.notifyEmail;
+        this.user = data;
+      }
+    );
+  }
+
+  setUserSettings() {
+    const smsSet = document.getElementById('smsSlider') as HTMLInputElement;
+    const emailSet = document.getElementById('emailSlider') as HTMLInputElement;
+    this.user.notifyEmail = emailSet.checked;
+    this.user.notifySMS = smsSet.checked;
+
+    this.SpinnerService.show();
+    const num = Number(this.authService.retrieveUserInfo().id);
+    this.userService.updateUser(num, this.user)
+      .subscribe(() => {
+        setTimeout(() => {
+          this.SpinnerService.hide();
+          this.retrieveSettings();
+        }, 600);
+      });
+  }
+
+  triggerPanic(){
+    this.showPop('triggerPanicPop');
+  }
+
+  showPop(popID) {
+    document.getElementById(popID).hidden = false;
+  }
+
+  closePop(popID){
+    document.getElementById(popID).hidden = true;
   }
 }

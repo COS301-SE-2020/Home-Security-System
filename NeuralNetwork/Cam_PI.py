@@ -11,9 +11,7 @@ import time
 import json
 import base64 as b64
 import threading
-from picamera.array import PiRGBArray
-from picamera import PiCamera
-
+from flask import Flask, render_template, Response
 
 phys = tf.config.experimental.list_physical_devices('GPU')
 if len(phys) > 0:
@@ -21,24 +19,21 @@ if len(phys) > 0:
 
 mod_name = 'senet50'
 path_features = './models/'
-am_url = 'amqps://ohskvfuw:HN8SBYNGPfuswoGySxiH0CyeC38v9oSP@rattlesnake.rmq.cloudamqp.com/ohskvfuw'
-rabbit_url = os.environ.get('CLOUDAMQP_URL', am_url)
+rabbit_host = 'amqps://ohskvfuw:HN8SBYNGPfuswoGySxiH0CyeC38v9oSP@rattlesnake.rmq.cloudamqp.com/ohskvfuw'
+rabbit_url = os.environ.get('CLOUDAMQP_URL', rabbit_host)
 rabbit_param = pi.URLParameters(rabbit_url)
 threshold = 0.5
-successive_detection_ignore = 300.0
+successive_detection_ignore = 30.0
 
 rabbit_conn = pi.BlockingConnection(rabbit_param)
 message_channel = rabbit_conn.channel()
 message_channel.queue_declare(queue='alertQueue')
-message_channel.queue_declare(queue='notifyQueue')
 message_channel.queue_declare(queue='personQueue')
-message_channel.queue_declare(queue='vehicleQueue')
-message_channel.queue_declare(queue='featureQueue')
 message_channel.queue_declare(queue='updatePersonQueue')
-message_channel.queue_declare(queue='updateVehicleQueue')
 face_d = MTCNN()
 face_r = VGGFace(include_top=False, model=mod_name, input_shape=(224, 224, 3), pooling='avg')
 
+cams = list()
 num_cams = 0
 cam_check = True
 while cam_check:
@@ -77,8 +72,11 @@ def load_faces(path):
 all_f_features, time_dict = load_faces(path_features)
 
 
-def save_face(path, image, f_d=face_d, f_r=face_r):
-    face_image = c.imread(image)
+def save_face(path, image, f_d=face_d, f_r=face_r, decode=False):
+    if decode:
+        face_image = c.imdecode(image, c.IMREAD_COLOR)
+    else:
+        face_image = c.imread(image)
     image_pixels = np.asarray(face_image)
     face_box = f_d.detect_faces(image_pixels)
 
@@ -104,22 +102,15 @@ def save_face(path, image, f_d=face_d, f_r=face_r):
 
 
 def cam_feed():
-    global up_face, all_f_features, time_dict
-    pi_cam = PiCamera()
-    raw_cap = PiRGBArray(pi_cam)
-    cams = list()
+    global up_face, all_f_features, time_dict, cams
     windows = list()
-    windows.append("0")
-    c.namedWindow(0)
     for x in range(num_cams):
         cams.append(c.VideoCapture(x))
-        windows.append(str(x+1))
-        c.namedWindow(str(x+1))
+        windows.append(str(x))
+        c.namedWindow(str(x))
 
     f = True
     frames = list()
-    pi_cam.capture(raw_cap, format="bgr")
-    frames.append(raw_cap.array)
     for cam in cams:
         t, fr = cam.read()
         frames.append(fr)
@@ -173,8 +164,8 @@ def cam_feed():
                                    'imageStr': 'data:image/jpg;base64,' +
                                                str(b64.b64encode(c.imencode('.jpg',
                                                                             face_pix[f_num])[1]).decode('utf-8')),
-                                   'features': False
-                                   }
+                                   'features': False,
+                                   'networkId': 1}
                         message_channel.basic_publish(exchange='sigma.direct',
                                                       routing_key='personKey',
                                                       body=json.dumps(message))
@@ -189,14 +180,16 @@ def cam_feed():
                             if f_type == 'Black':
                                 message = {'personId': int(f_name), 'type': 'Black',
                                            'imageStr': 'data:image/jpg;base64,' +
-                                                       str(b64.b64encode(c.imencode('.jpg', frame)[1]).decode('utf-8'))}
+                                                       str(b64.b64encode(c.imencode('.jpg', frame)[1]).decode('utf-8')),
+                                           'networkId': 1}
                                 message_channel.basic_publish(exchange='sigma.direct',
                                                               routing_key='alertKey',
                                                               body=json.dumps(message))
                             elif f_type == 'Grey' or f_type == 'Deleted':
                                 message = {'personId': int(f_name), 'type': 'Grey',
                                            'imageStr': 'data:image/jpg;base64,' +
-                                                       str(b64.b64encode(c.imencode('.jpg', frame)[1]).decode('utf-8'))}
+                                                       str(b64.b64encode(c.imencode('.jpg', frame)[1]).decode('utf-8')),
+                                           'networkId': 1}
                                 message_channel.basic_publish(exchange='sigma.direct',
                                                               routing_key='alertKey',
                                                               body=json.dumps(message))
@@ -208,8 +201,6 @@ def cam_feed():
             up_face = False
 
         frames = list()
-        pi_cam.capture(raw_cap, format="bgr")
-        frames.append(raw_cap.array)
         for cam in cams:
             t, fr = cam.read()
             frames.append(fr)
@@ -224,12 +215,15 @@ def cam_feed():
 
 
 def rabbit_consume():
+    t_conn = pi.BlockingConnection(rabbit_param)
+    t_message_chn = t_conn.channel()
+
     def feature_update(ch, method, props, body):
         global up_face, all_f_features
         message = json.loads(body)
         if message['features'] is False:
-            img = np.frombuffer(b64.b64decode(message['imageStr']), dtype=np.uint8)
-            save_face(path_features + message['type'] + '/' + message['personId'] + '.npy', img)
+            img = np.frombuffer(b64.b64decode(message['imageStr'][22:]), dtype=np.uint8)
+            save_face(path_features + str(message['type']) + '/' + str(message['personId']) + '.npy', img, decode=True)
         else:
             if message['tempId'] == '0':
                 for feat in all_f_features:
@@ -251,13 +245,33 @@ def rabbit_consume():
                         pass
         up_face = True
 
-    message_channel.basic_consume(queue='updatePersonQueue',
-                                  auto_ack=True,
-                                  on_message_callback=feature_update)
-    message_channel.start_consuming()
+    t_message_chn.basic_consume(queue='updatePersonQueue',
+                                auto_ack=True,
+                                on_message_callback=feature_update)
+    t_message_chn.start_consuming()
+
+
+def streaming():
+    def gen(cam):
+        t, fr = cam.read()
+        while t:
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + c.imencode('.jpg', fr)[1].tobytes() + b'\r\n')
+            t, fr = cam.read()
+
+    app = Flask(__name__)
+
+    @app.route('/feed')
+    def video_feed():
+        return Response(gen(cams[0]),
+                        mimetype='multipart/x-mixed-replace; boundary=frame')
+
+    app.run(host='0.0.0.0')
 
 
 consumer = threading.Thread(target=rabbit_consume, daemon=True)
+stream = threading.Thread(target=streaming, daemon=True)
 consumer.start()
+stream.start()
 cam_feed()
 rabbit_conn.close()

@@ -1,16 +1,12 @@
 package com.springboot.SpringBackend.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.BatchSize;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "person")
@@ -26,14 +22,14 @@ public class Person implements Serializable {
     @Column(name = "person_id", nullable = false)
     private Long id;
 
-    // @ManyToOne
-    // @JoinColumn(name="image_id", nullable = false)
     @Column(name = "image", nullable = false)
     private String personImg;
 
+    @Size(max = 20)
     @Column(name = "fname", nullable = false)
     private String fname = "";
 
+    @Size(max = 20)
     @Column(name = "lname", nullable = false)
     private String lname = "";
 
@@ -48,43 +44,22 @@ public class Person implements Serializable {
     @Column(name = "persondeleted")
     private LocalDate personDeleted = null;
 
-    @OneToMany(mappedBy="person", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @BatchSize(size = 1000)
-    @JsonIgnore
-    private List<Vehicle> vehicleList = new ArrayList<>();
-
-    @JsonIgnore
-    @OneToOne(mappedBy="person")
-    private Face face;
-
-    /*
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "PersonVehicle",
-            joinColumns = @JoinColumn(name = "person_id"),
-            inverseJoinColumns = @JoinColumn(name = "vehicle_id"))
-    private List<Vehicle> vehicleList = new ArrayList<>();
-    */
+    @ManyToOne
+    @JoinColumn(name="network_id", nullable = false)
+    private Network network;
 
     public Person() { }
 
-    public Person(String img) {
+    public Person(String img, Network n) {
         this.personImg = img;
         this.fname = "Unknown";
         this.lname = "Unknown";
         this.personListed = personType.Grey;
         this.personCreated = LocalDate.now();
+        if(n != null) { this.network = n; }
     }
 
-    public Person(Long id, String img) {
-        this.id = id;
-        this.personImg = img;
-        this.fname = "Unknown";
-        this.lname = "Unknown";
-        this.personListed = personType.Grey;
-        this.personCreated = LocalDate.now();
-    }
-
-    public Person(String img, String listed) {
+    public Person(String img, String listed, Network n) {
         this.personImg = img;
         this.fname = "Unknown";
         this.lname = "Unknown";
@@ -106,12 +81,14 @@ public class Person implements Serializable {
         }
 
         this.personCreated = LocalDate.now();
+        if(n != null) { this.network = n; }
     }
 
-    public Person(String img, String name, String surname, String listed) {
+    public Person(String img, String name, String surname, String listed, Network n) {
         this.personImg = img;
-        this.fname = Jsoup.clean(name, Whitelist.simpleText());
-        this.lname = Jsoup.clean(surname, Whitelist.simpleText());
+        if(validateInput(name)) { this.fname = Jsoup.clean(name, Whitelist.simpleText()); }
+        if(validateInput(surname)) { this.lname = Jsoup.clean(surname, Whitelist.simpleText()); }
+        this.network = n;
 
         if(listed.equalsIgnoreCase("White"))
         {
@@ -132,13 +109,14 @@ public class Person implements Serializable {
         this.personCreated = LocalDate.now();
     }
 
-    public Person(String img, String name, String surname) {
+    public Person(String img, String name, String surname, Network n) {
         this.personImg = img;
-        this.fname = Jsoup.clean(name, Whitelist.simpleText());
-        this.lname = Jsoup.clean(surname, Whitelist.simpleText());
+        if(validateInput(name)) { this.fname = Jsoup.clean(name, Whitelist.simpleText()); }
+        if(validateInput(surname)) {this.lname = Jsoup.clean(surname, Whitelist.simpleText()); }
         //this.personListed = "Grey";
         this.personListed = personType.Grey;
         this.personCreated = LocalDate.now();
+        if(n != null) { this.network = n; }
     }
 
     public Long getPersonId() {
@@ -148,26 +126,25 @@ public class Person implements Serializable {
         this.id = id;
     }
 
-    // public Long getPersonImgId() { return this.personImg.getImageId(); }
     public String getPersonImg() { return this.personImg; }
-    public void setPersonImg(String img) {
-        if (img != null) {
-            this.personImg = img;
-        }
-    }
+    public void setPersonImg(String img) { this.personImg = img; }
 
     public String getFname() {
         return this.fname;
     }
     public void setFname(String name) {
-        this.fname = Jsoup.clean(name, Whitelist.simpleText());
+        if(validateInput(name)) {
+            this.fname = Jsoup.clean(name, Whitelist.simpleText());
+        }
     }
 
     public String getLname() {
         return this.lname;
     }
-    public void setLname(String name) {
-        this.lname = Jsoup.clean(name, Whitelist.simpleText());
+    public void setLname(String surname) {
+        if(validateInput(surname)) {
+            this.lname = Jsoup.clean(surname, Whitelist.simpleText());
+        }
     }
 
     public String getPersonListed() { return this.personListed.toString(); }
@@ -208,6 +185,13 @@ public class Person implements Serializable {
         }
     }
 
-    public List<Vehicle> getVehicleList() { return this.vehicleList; }
-    public void setVehicleList(List<Vehicle> list) {this.vehicleList = list; }
+    public Long getNetworkId() { return this.network.getNetworkId(); }
+    public Network getNetwork() { return this.network; }
+    public void setNetwork(Network x) {
+        if(x != null) { this.network = x; }
+    }
+
+    private Boolean validateInput(String str) {
+        return str.matches("\\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+");
+    }
 }

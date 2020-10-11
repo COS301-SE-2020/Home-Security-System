@@ -1,8 +1,7 @@
-// import {Image} from './image';
+import {Network} from './network';
 
 export class User {
   userId: number;
-  // profilePhoto: Image;
   profilePhoto: string;
   fname: string;
   lname: string;
@@ -11,7 +10,10 @@ export class User {
   username: string;
   userPass: string;
   userRole: string;
+  secureQuestion: string;
+  secureAnswer: string;
   notifySMS: boolean;
   notifyEmail: boolean;
   userDeleted: any;
+  network: Network;
 }

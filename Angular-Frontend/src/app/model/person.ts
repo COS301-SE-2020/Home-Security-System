@@ -1,12 +1,12 @@
-// import {Image} from './image';
+import {Network} from './network';
 
 export class Person {
   personId: number;
-  // personImg: Image;
   personImg: string;
   fname: string;
   lname: string;
   personListed: string;
   personCreated: any;
   personDeleted: any;
+  network: Network;
 }

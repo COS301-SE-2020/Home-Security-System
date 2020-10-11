@@ -1,12 +1,14 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {TitleService} from '../../title.service';
 import {UserService} from '../../model/user.service';
-import {Session} from '../../../assets/js/SessionStorage.js';
 import {ActivatedRoute, Router} from '@angular/router';
 import {User} from '../../model/user';
 import {WebcamImage} from 'ngx-webcam';
 import {Observable, Subject} from 'rxjs';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {AuthService} from '../../model/auth.service';
+import {SessionClass} from '../../model/session';
+import {JwtRequest} from '../../model/jwt-request';
 
 @Component({
   selector: 'app-user-profile',
@@ -14,13 +16,16 @@ import {NgxSpinnerService} from 'ngx-spinner';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  sessionS = new Session();
-  userObj: Session = this.sessionS.retrieveUserInfo();
+  info: SessionClass = this.authService.retrieveUserInfo();
   id: number;
   user: User;
-  password = '';
 
-  constructor(private route: ActivatedRoute, private router: Router,
+  oldPassword = '';
+  newPassword = '';
+  confirmPassword = '';
+  picCorrect = false;
+
+  constructor(private route: ActivatedRoute, private router: Router, private authService: AuthService,
               private appService: TitleService, private userService: UserService,
               private SpinnerService: NgxSpinnerService) {
   }
@@ -29,14 +34,15 @@ export class UserProfileComponent implements OnInit {
     return this.snapTrigger.asObservable();
   }
 
-  conPass = '';
   /* ======================================================== */
   /*         START of Camera for taking profile picture       */
   /* ======================================================== */
 
+  // noinspection JSAnnotator
   @ViewChild('video')
   public webcam: ElementRef;
 
+  // noinspection JSAnnotator
   @ViewChild('canvas')
   public canvas: ElementRef;
 
@@ -47,7 +53,6 @@ export class UserProfileComponent implements OnInit {
   public camImg: WebcamImage = null;
 
   public snapTrigger: Subject<void> = new Subject<void>();
-
 
   ngOnInit(): void {
     this.populateFields();
@@ -76,7 +81,8 @@ export class UserProfileComponent implements OnInit {
     const email = document.getElementById('emailDisplay') as HTMLDataElement;
     const uPic = document.getElementById('userPic') as HTMLImageElement;
 
-    this.userService.getUserById(this.userObj.id)
+    const num = Number(this.info.id);
+    this.userService.getUserById(num)
       .subscribe(data => {
         FName.value = data.fname;
         SName.value = data.lname;
@@ -88,50 +94,72 @@ export class UserProfileComponent implements OnInit {
       });
   }
 
-  // loadModal() {
-  //   const uName = document.getElementById('uFirstName') as HTMLInputElement;
-  //   const uSurname = document.getElementById('uLastName') as HTMLInputElement;
-  //   const uUsername = document.getElementById('uUsername') as HTMLInputElement;
-  //   const uNumber = document.getElementById('uNumber') as HTMLInputElement;
-  //   const uEmail = document.getElementById('uEmail') as HTMLInputElement;
-  //   const uPic = document.getElementById('userPic') as HTMLImageElement;
-  //
-  //   this.userService.getUserById(this.userObj.id)
-  //     .subscribe(data => {
-  //       uName.value = data.fname;
-  //       uSurname.value = data.lname;
-  //       uNumber.value = data.contactNo;
-  //       uEmail.value = data.email;
-  //       uUsername.value = data.username;
-  //       uPic.src = data.profilePhoto;
-  //     });
-  // }
-
   updateUser() {
     const uName = document.getElementById('uFirstName') as HTMLInputElement;
     const uSurname = document.getElementById('uLastName') as HTMLInputElement;
     const uUsername = document.getElementById('uUsername') as HTMLInputElement;
     const uNumber = document.getElementById('uNumber') as HTMLInputElement;
     const uEmail = document.getElementById('uEmail') as HTMLInputElement;
-    const uPassword = document.getElementById('passwordField1') as HTMLInputElement;
 
     this.user.fname = uName.value;
     this.user.lname = uSurname.value;
     this.user.contactNo = uNumber.value;
     this.user.email = uEmail.value;
     this.user.username = uUsername.value;
-    this.user.userPass = uPassword.value;
 
-    this.userService.updateUser(this.userObj.id, this.user).subscribe(() => {
+    const num = Number(this.info.id);
+    this.userService.updateUser(num, this.user).subscribe(() => {
       this.gotoList();
     });
   }
 
+  updatePassword() {
+    const uPassword1 = document.getElementById('passwordField1') as HTMLInputElement;
+    const uPassword2 = document.getElementById('passwordField2') as HTMLInputElement;
+    const uPassword3 = document.getElementById('passwordField3') as HTMLInputElement;
+    const uQuestion = document.getElementById('uQuestion') as HTMLInputElement;
+    const uAnswer = document.getElementById('uAnswer') as HTMLInputElement;
+
+    if ((uPassword1.value !== '') && (uPassword2.value !== '') && (uPassword3.value !== '')) {
+      if (uPassword2.value !== uPassword3.value) {
+        this.createError('Passwords do not match.', 'errorMsgsPass');
+      }
+      else {
+        const obj = new JwtRequest();
+        obj.username = this.info.email;
+        obj.password = uPassword1.value;
+
+        this.authService.validatePassword(obj)
+          .subscribe(value => {
+            if (value.password === uPassword1.value) {
+              if (uPassword2.value === uPassword3.value) {
+                this.user.userPass = uPassword2.value;
+              }
+
+              if (uAnswer.value !== '') {
+                this.user.secureQuestion = uQuestion.value;
+                this.user.secureAnswer = uAnswer.value;
+              }
+
+              const num = Number(this.info.id);
+              this.userService.updateUser(num, this.user).subscribe(() => {
+                this.gotoList();
+              });
+            } else {
+              this.createError('The password you entered seems to be incorrect, please retry entering your password.', 'errorMsgsPass');
+              uPassword1.value = '';
+            }
+          }, () => { });
+      }
+    } else {
+      this.createError('Please fill in all fields.', 'errorMsgsPass');
+      // alert('Cannot change password. Not all the fields were filled in.');
+    }
+  }
+
   updateUserPic() {
     const photoInp = document.getElementById('submitPhoto').getAttribute('src');
-
-    let userObj;
-    userObj = this.sessionS.retrieveUserInfo();
+    const num = Number(this.info.id);
 
     if (photoInp === '/assets/Images/blank.jpg') {
       this.user.profilePhoto = this.getDefaultImage();
@@ -139,7 +167,7 @@ export class UserProfileComponent implements OnInit {
       this.user.profilePhoto = photoInp;
     }
 
-    this.userService.updateUser(userObj.id, this.user)
+    this.userService.updateUser(num, this.user)
       .subscribe(() => {
         // this.populateFields();
         this.gotoList();
@@ -176,13 +204,16 @@ export class UserProfileComponent implements OnInit {
           counter++;
         }
         if (email && username) {
-          alert('Email address and username are already in use. Please enter another email address and username.');
+          this.createError('Email address and username are already in use. Please enter another email address and username.', 'errorMsgs');
+          // alert('Email address and username are already in use. Please enter another email address and username.');
         } else if (email) {
-          alert('Email address is already in use. Please enter another email address.');
+          this.createError('Email address are already in use. Please enter another email address.', 'errorMsgs');
+          // alert('Email address is already in use. Please enter another email address.');
         } else if (username) {
-          alert('Username address is already in use. Please enter another username.');
+          this.createError('Username are already in use. Please enter another username.', 'errorMsgs');
+          // alert('Username address is already in use. Please enter another username.');
         }
-      }, error => {
+      }, () => {
       },
       () => {
         if (!exists) {
@@ -201,8 +232,8 @@ export class UserProfileComponent implements OnInit {
     this.SpinnerService.show();
     setTimeout(() => {
       this.SpinnerService.hide();
-      location.reload();
-    }, 500);
+      window.location.reload();
+    }, 600);
   }
 
   getDefaultImage(): string {
@@ -215,5 +246,24 @@ export class UserProfileComponent implements OnInit {
 
   public camOff(): void {
     this.showCam = false;
+  }
+
+  public allowSubmit(): void {
+    if (this.picCorrect === false) {
+      this.picCorrect = true;
+    }
+  }
+
+  createError(msg, parent) {
+    const parentEl = document.getElementById(parent);
+    const error = document.createElement('div');
+    error.className = 'alert alert-danger errorMsg';
+    error.innerText = msg;
+
+    parentEl.appendChild(error);
+  }
+
+  clearErrors() {
+    document.getElementById('errorMsgs').innerHTML = '';
   }
 }

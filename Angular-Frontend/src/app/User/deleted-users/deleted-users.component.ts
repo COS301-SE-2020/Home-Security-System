@@ -4,8 +4,9 @@ import {User} from '../../model/user';
 import {UserService} from '../../model/user.service';
 import {TitleService} from '../../title.service';
 import {Router} from '@angular/router';
-import {Session} from '../../../assets/js/SessionStorage';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {AuthService} from '../../model/auth.service';
+import {SessionClass} from '../../model/session';
 
 @Component({
   selector: 'app-deleted-users',
@@ -13,45 +14,23 @@ import {NgxSpinnerService} from 'ngx-spinner';
   styleUrls: ['./deleted-users.component.css']
 })
 export class DeletedUsersComponent implements OnInit {
-  sessionS = new Session();
-  info: User = this.sessionS.retrieveUserInfo();
+  info: SessionClass = this.authService.retrieveUserInfo();
   users: Observable<User[]>;
   user: User;
 
-  constructor(private userService: UserService, private appService: TitleService,
+  constructor(private userService: UserService, private appService: TitleService, private authService: AuthService,
               private SpinnerService: NgxSpinnerService, private router: Router) {
   }
 
   reloadData() {
     this.users = this.userService.getUserList();
-    // this.activateButtons();
   }
 
   ngOnInit(): void {
     this.user = new User();
     this.appService.setTitle('Deleted Users');
-    this.deleteOld(1);
     this.reloadData();
-  }
-
-  activateButtons() {
-    const restoreBtn = document.getElementById('addBtn') as HTMLButtonElement;
-
-    this.userService.getUserList()
-      .subscribe(
-        () => {
-          // console.log(data);
-          if (this.info.userRole === 'Basic'){
-            restoreBtn.disabled = true;
-            restoreBtn.hidden = true;
-          }
-          else if (this.info.userRole === 'Advanced'){
-            restoreBtn.disabled = false;
-          }
-          else if (this.info.userRole === 'Admin'){
-            restoreBtn.disabled = false;
-          }
-        });
+    // this.deleteOld(1);
   }
 
   restoreUser(id: number) {
@@ -67,7 +46,7 @@ export class DeletedUsersComponent implements OnInit {
               setTimeout(() => {
                 this.SpinnerService.hide();
                 this.reloadData();
-              }, 500);
+              }, 600);
             });
         });
   }
@@ -82,7 +61,7 @@ export class DeletedUsersComponent implements OnInit {
     this.userService.getUserList()
       .subscribe(data => {
         while (data[counter] != null) {
-          if (data[counter].userDeleted != null) {
+          if (data[counter].userDeleted != null && data[counter].network.netName === this.info.network) {
             this.userService.deleteUser(data[counter].userId).subscribe();
           }
           counter++;

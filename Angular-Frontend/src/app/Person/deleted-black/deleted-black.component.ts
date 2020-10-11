@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import {Person} from '../../model/person';
 import {PersonService} from '../../model/person.service';
 import {TitleService} from '../../title.service';
-import {User} from '../../model/user';
 import {UserService} from '../../model/user.service';
-import Session from '../../../assets/js/SessionStorage';
 import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {AuthService} from '../../model/auth.service';
+import {SessionClass} from '../../model/session';
 
 @Component({
   selector: 'app-deleted-black',
@@ -15,17 +15,16 @@ import {NgxSpinnerService} from 'ngx-spinner';
   styleUrls: ['./deleted-black.component.css']
 })
 export class DeletedBlackComponent implements OnInit {
-  sessionS = new Session();
-  info: User = this.sessionS.retrieveUserInfo();
+  info: SessionClass = this.authService.retrieveUserInfo();
   person: Observable<Person[]>;
   psn: Person;
 
   constructor(private personService: PersonService, private userService: UserService,
-              private SpinnerService: NgxSpinnerService, private appService: TitleService, private router: Router) { }
+              private authService: AuthService, private SpinnerService: NgxSpinnerService,
+              private appService: TitleService, private router: Router) { }
 
   reloadData() {
     this.person = this.personService.getPersonList();
-    // this.activateButtons();
   }
 
   restorePerson(id: number){
@@ -42,7 +41,7 @@ export class DeletedBlackComponent implements OnInit {
               setTimeout(() => {
                 this.SpinnerService.hide();
                 this.reloadData();
-              }, 500);
+              }, 600);
             });
         });
   }
@@ -50,7 +49,7 @@ export class DeletedBlackComponent implements OnInit {
   ngOnInit(): void {
     this.appService.setTitle('Deleted People');
     this.reloadData();
-    this.deleteOld(1);
+    // this.deleteOld(1);
   }
 
   back() {
@@ -63,7 +62,8 @@ export class DeletedBlackComponent implements OnInit {
     this.personService.getPersonList()
       .subscribe(data => {
         while (data[counter] != null) {
-          if (data[counter].personDeleted != null && data[counter].personListed === 'Black') {
+          if (data[counter].personDeleted != null && data[counter].personListed === 'Black'
+            && data[counter].network.netName === this.info.network) {
             this.personService.deletePerson(data[counter].personId).subscribe();
           }
           counter++;

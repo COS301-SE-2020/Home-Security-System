@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
-import {WebcamImage} from 'ngx-webcam';
-import {Observable, Subject} from 'rxjs';
+import {Observable} from 'rxjs';
 import {TitleService} from '../../title.service';
 import {PersonService} from '../../model/person.service';
 import {Person} from '../../model/person';
@@ -8,9 +7,8 @@ import * as CanvasJS from '../../../assets/js/canvasjs.min';
 import {Notification} from '../../model/notification';
 import {NotificationService} from '../../model/notification.service';
 import {NgxSpinnerService} from 'ngx-spinner';
-// import {getLocaleDateFormat} from '@angular/common';
-// import {UserService} from '../../model/user.service';
-// import {User} from '../../model/user';
+import {SessionClass} from '../../model/session';
+import {AuthService} from '../../model/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,43 +16,25 @@ import {NgxSpinnerService} from 'ngx-spinner';
   styleUrls: ['./dashboard.component.css'],
 })
 
-
 export class DashboardComponent implements OnInit {
 
-  constructor(private spinner: NgxSpinnerService, private appService: TitleService, private personService: PersonService,
-              private notificationService: NotificationService) {
-  }
+  constructor(private spinner: NgxSpinnerService, private appService: TitleService,
+              private personService: PersonService, private notificationService: NotificationService,
+              private authService: AuthService) { }
 
+  info: SessionClass = this.authService.retrieveUserInfo();
   people: Observable<Person[]>;
   currentDate = new Date();
 
   notification: Observable<Notification[]>;
   note: Notification;
-
-  // ----------------------
   title = 'Dashboard';
 
-  @ViewChild('video')
-  public webcam: ElementRef;
-
+  // noinspection JSAnnotator
   @ViewChild('canvas')
   public canvas: ElementRef;
 
-  public captures: Array<any>;
-
   public showCam = true;
-
-  public camImg: WebcamImage = null;
-
-  public snapTrigger: Subject<void> = new Subject<void>();
-
-  public trigger_s(): void {
-    this.snapTrigger.next();
-  }
-
-  public handleShot(img: WebcamImage): void {
-    this.camImg = img;
-  }
 
   // ==========================================================================================
 
@@ -65,11 +45,16 @@ export class DashboardComponent implements OnInit {
       let unknown = 0;
       // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < data.length; i++) {
-        if (data[i].personListed === 'Grey' && data[i].personDeleted === null) {
+        if ((data[i].personListed === 'Grey') && (data[i].personDeleted === null)
+          && (data[i].network.netName === this.info.network)) {
           unknown++;
-        } else if (data[i].personListed === 'Black' && data[i].personDeleted === null) {
+        }
+        else if ((data[i].personListed === 'Black') && (data[i].personDeleted === null) &&
+          (data[i].network.netName === this.info.network)) {
           threat++;
-        } else if (data[i].personListed === 'White' && data[i].personDeleted === null) {
+        }
+        else if ((data[i].personListed === 'White') && (data[i].personDeleted === null) &&
+          (data[i].network.netName === this.info.network)) {
           cleared++;
         } else {
           // cleared++;
@@ -82,10 +67,8 @@ export class DashboardComponent implements OnInit {
   // ==========================================================================================
 
   public calculateNumberOfNotifications(): void {
+    this.note = new Notification();
     this.notificationService.getNotificationList().subscribe(data => {
-
-      // console.log(data[0].onDate);
-      // console.log( this.dayTester(0));
 
       let six = 0;
       let five = 0;
@@ -217,34 +200,29 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.appService.setTitle('Dashboard');
-    // this.getChartDetails();
-    // this.barchart();
-    // this.pieChart();
     this.calculateNumberOfPeople();
     this.calculateNumberOfNotifications();
-    this.getCameras();
+    // this.getCameras();
+    this.newCam('http://192.168.0.100:5000/feed/0', '1');
+    this.newCam2('http://192.168.0.100:5000/feed/1', '2');
   }
 
   public toggleCam(): void {
     this.showCam = !this.showCam;
   }
 
-  public get triggerObservable(): Observable<void> {
-    return this.snapTrigger.asObservable();
-  }
-
   private getCameras() {
-    this.showSpinner();
     let numCams = 0;
     let camAdded = false;
     let noCamMessage = false;
     const thisRef = this;
 
-    const camUrls = ['https://192.168.0.102:8080/jsfs.html', 'https://192.168.0.103:8080/jsfs.html'];
+    const camUrls = ['http://192.168.0.100:5000/feed'];
 
     function newCam(currentUrl, currentNum) {
+      console.log(currentUrl);
       const liveFeedDiv = document.getElementById('liveFeedDiv');
-      const newCamFeed = document.createElement('embed');
+      const newCamFeed = document.createElement('iframe');
       newCamFeed.src = currentUrl;
       newCamFeed.width = '500';
       newCamFeed.height = '300';
@@ -339,13 +317,144 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  showSpinner() {
-    this.spinner.show();
-    document.getElementById('liveFeedDiv').style.height = '200px';
+  stopSpin() {
+    document.getElementById('loadingDiv').style.display = 'none';
+    document.getElementById('liveFeedDiv').style.height = 'fit-content';
   }
 
-  stopSpin() {
-    this.spinner.hide();
-    document.getElementById('liveFeedDiv').style.height = 'fit-content';
+  newCam(currentUrl, currentNum) {
+    document.getElementById('liveIcon').setAttribute('class', 'material-icons liveIcon-enable');
+    document.getElementById('liveIcon').removeAttribute('liveIcon-disable');
+    const liveFeedDiv = document.getElementById('liveFeedDiv');
+    const newCamFeed = document.createElement('img');
+    // newCamFeed.frameBorder = '0';
+    newCamFeed.src = currentUrl;
+    // newCamFeed.width = '500';
+    // newCamFeed.height = '300';
+    newCamFeed.setAttribute('class', 'liveCamera');
+    newCamFeed.setAttribute('id', 'cam' + currentNum);
+    newCamFeed.hidden = false;
+
+    const toggleCam = document.createElement('a');
+    toggleCam.setAttribute('class', 'material-icons toggleCam');
+    toggleCam.setAttribute('title', 'Toggle Camera');
+
+    toggleCam.setAttribute('id', 'toggleCam' + currentNum);
+    toggleCam.innerText = 'videocam';
+    toggleCam.hidden = false;
+
+    const camNum = document.createElement('div');
+    camNum.className = 'top-left hoverPointer';
+    camNum.innerHTML = 'Camera ' + currentNum + ': ';
+    camNum.appendChild(toggleCam);
+
+    const camOffMsg = document.createElement('div');
+    camOffMsg.className = 'camOffMsg';
+    camOffMsg.innerHTML = 'Camera ' + currentNum + ' is switched off.';
+    camOffMsg.hidden = true;
+
+    const gridItem = document.createElement('div');
+    gridItem.setAttribute('class', 'grid-item');
+    gridItem.id = 'gridItem' + currentNum;
+    gridItem.appendChild(camNum);
+    gridItem.appendChild(camOffMsg);
+    gridItem.appendChild(newCamFeed);
+
+    const gridContainer = document.createElement('div');
+    gridContainer.setAttribute('class', 'grid-container');
+    gridContainer.setAttribute('id', 'cameraGrid');
+    gridContainer.appendChild(gridItem);
+
+    liveFeedDiv.appendChild(gridContainer);
+    // if (camAdded) {
+    //   const gridContainer = document.getElementById('cameraGrid');
+    //   gridContainer.appendChild(gridItem);
+    //   liveFeedDiv.appendChild(gridContainer);
+    // } else {
+    //   const gridContainer = document.createElement('div');
+    //   gridContainer.setAttribute('class', 'grid-container');
+    //   gridContainer.setAttribute('id', 'cameraGrid');
+    //   gridContainer.appendChild(gridItem);
+    //
+    //   liveFeedDiv.appendChild(gridContainer);
+    // }
+
+    function camToggleFunc() {
+      newCamFeed.hidden = !newCamFeed.hidden;
+      camOffMsg.hidden = !camOffMsg.hidden;
+      if (toggleCam.innerText === 'videocam') {
+        toggleCam.innerText = 'videocam_off';
+      } else {
+        toggleCam.innerText = 'videocam';
+      }
+    }
+
+    camNum.onclick = camToggleFunc;
+  }
+
+  newCam2(currentUrl, currentNum) {
+    const liveFeedDiv = document.getElementById('liveFeedDiv');
+    const newCamFeed = document.createElement('img');
+    // newCamFeed.frameBorder = '0';
+    newCamFeed.src = currentUrl;
+    // newCamFeed.width = '500';
+    // newCamFeed.height = '300';
+    newCamFeed.setAttribute('class', 'liveCamera');
+    newCamFeed.setAttribute('id', 'cam' + currentNum);
+    newCamFeed.hidden = false;
+
+    const toggleCam = document.createElement('a');
+    toggleCam.setAttribute('class', 'material-icons toggleCam');
+    toggleCam.setAttribute('title', 'Toggle Camera');
+
+    toggleCam.setAttribute('id', 'toggleCam' + currentNum);
+    toggleCam.innerText = 'videocam';
+    toggleCam.hidden = false;
+
+    const camNum = document.createElement('div');
+    camNum.className = 'top-left hoverPointer';
+    camNum.innerHTML = 'Camera ' + currentNum + ': ';
+    camNum.appendChild(toggleCam);
+
+    const camOffMsg = document.createElement('div');
+    camOffMsg.className = 'camOffMsg';
+    camOffMsg.innerHTML = 'Camera ' + currentNum + ' is switched off.';
+    camOffMsg.hidden = true;
+
+    const gridItem = document.createElement('div');
+    gridItem.setAttribute('class', 'grid-item');
+    gridItem.id = 'gridItem' + currentNum;
+    gridItem.appendChild(camNum);
+    gridItem.appendChild(camOffMsg);
+    gridItem.appendChild(newCamFeed);
+
+    const gridContainer = document.getElementById('cameraGrid');
+    gridContainer.appendChild(gridItem);
+    liveFeedDiv.appendChild(gridContainer);
+
+    // if (camAdded) {
+    //   const gridContainer = document.getElementById('cameraGrid');
+    //   gridContainer.appendChild(gridItem);
+    //   liveFeedDiv.appendChild(gridContainer);
+    // } else {
+    //   const gridContainer = document.createElement('div');
+    //   gridContainer.setAttribute('class', 'grid-container');
+    //   gridContainer.setAttribute('id', 'cameraGrid');
+    //   gridContainer.appendChild(gridItem);
+    //
+    //   liveFeedDiv.appendChild(gridContainer);
+    // }
+
+    function camToggleFunc() {
+      newCamFeed.hidden = !newCamFeed.hidden;
+      camOffMsg.hidden = !camOffMsg.hidden;
+      if (toggleCam.innerText === 'videocam') {
+        toggleCam.innerText = 'videocam_off';
+      } else {
+        toggleCam.innerText = 'videocam';
+      }
+    }
+
+    camNum.onclick = camToggleFunc;
   }
 }

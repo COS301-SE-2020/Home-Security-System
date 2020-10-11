@@ -1,13 +1,10 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 
-import {LiveFeedComponent} from './Dashboard/live-feed/live-feed.component';
 import {DashboardComponent} from './Dashboard/dashboard/dashboard.component';
-import {FooterComponent} from './Dashboard/footer/footer.component';
 import {LoginComponent} from './Dashboard/login/login.component';
+import { LogoutComponent } from './Dashboard/logout/logout.component';
 import {SettingsComponent} from './Dashboard/settings/settings.component';
-import {SideNavComponent} from './Dashboard/side-nav/side-nav.component';
-import {TopNavComponent} from './Dashboard/top-nav/top-nav.component';
 import {ViewUserComponent} from './User/view-user/view-user.component';
 import {AddUserComponent} from './User/add-user/add-user.component';
 import {EditUserComponent} from './User/edit-user/edit-user.component';
@@ -23,42 +20,30 @@ import {DeletedWhiteComponent} from './Person/deleted-white/deleted-white.compon
 import {DeletedBlackComponent} from './Person/deleted-black/deleted-black.component';
 import {NotificationComponent} from './Dashboard/notification/notification.component';
 import {ResetPasswordComponent} from './Dashboard/reset-password/reset-password.component';
-import {VehicleWhiteComponent} from './Vehicle/vehicle-white/vehicle-white.component';
-import {VehicleBlackComponent} from './Vehicle/vehicle-black/vehicle-black.component';
-import {VehicleGreyComponent} from './Vehicle/vehicle-grey/vehicle-grey.component';
-import {AddVehicleComponent} from './Vehicle/add-vehicle/add-vehicle.component';
-import {EditVehicleComponent} from './Vehicle/edit-vehicle/edit-vehicle.component';
-import {RemovedWhiteComponent} from './Vehicle/removed-white/removed-white.component';
-import {RemovedBlackComponent} from './Vehicle/removed-black/removed-black.component';
+
+import { AuthGuardService } from './model/auth-guard.service';
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent, data: {title: 'Login | Argus'}},
-  {path: 'dashboard', component: DashboardComponent, data: {title: 'Dashboard | Argus'}},
-  {path: 'user-profile', component: UserProfileComponent, data: {title: 'User Profile | Argus'}},
-  {path: 'user-list', component: ListUsersComponent, data: {title: 'User List | Argus'}},
-  {path: 'add-user', component: AddUserComponent, data: {title: 'Add User | Argus'}},
-  {path: 'deleted-users', component: DeletedUsersComponent, data: {title: 'Deleted Users | Argus'}},
-  {path: 'edit-user/:id', component: EditUserComponent, data: {title: 'Edit User | Argus'}},
-  {path: 'view-user/:id', component: ViewUserComponent, data: {title: 'View User | Argus'}},
-  {path: 'people-cleared', component: PeopleWhiteComponent, data: {title: 'Person White-List | Argus'}},
-  {path: 'people-unknown', component: PeopleGreyComponent, data: {title: 'Person Grey-List | Argus'}},
-  {path: 'people-threat', component: PeopleBlackComponent, data: {title: 'Person Black-List | Argus'}},
-  {path: 'deleted-cleared', component: DeletedWhiteComponent, data: {title: 'Deleted Person White-List | Argus'}},
-  {path: 'deleted-threat', component: DeletedBlackComponent, data: {title: 'Deleted Person Black-List | Argus'}},
-  {path: 'add-person', component: AddPersonComponent, data: {title: 'Add Person | Argus'}},
-  {path: 'edit-person/:id', component: EditPersonComponent, data: {title: 'Edit Person | Argus'}},
-  {path: 'settings', component: SettingsComponent, data: {title: 'Notifications | Argus'}},
-  {path: 'live-feed', component: LiveFeedComponent, data: {title: 'Live Feed | Argus'}},
-  {path: 'notification', component: NotificationComponent, data: {title: 'Notifications | Argus'}},
-  {path: 'reset-password', component: ResetPasswordComponent, data: {title: 'Reset Password | Argus'}},
-  {path: 'vehicles-cleared', component: VehicleWhiteComponent, data: {title: 'Vehicle White-List | Argus'}},
-  {path: 'vehicles-unknown', component: VehicleGreyComponent, data: {title: 'Vehicle Grey-List | Argus'}},
-  {path: 'vehicles-threat', component: VehicleBlackComponent, data: {title: 'Vehicle Black-List | Argus'}},
-  {path: 'removed-cleared', component: RemovedWhiteComponent, data: {title: 'Deleted Vehicle White-List | Argus'}},
-  {path: 'removed-threat', component: RemovedBlackComponent, data: {title: 'Deleted Vehicle Black-List | Argus'}},
-  {path: 'add-vehicle', component: AddVehicleComponent, data: {title: 'Add Vehicle | Argus'}},
-  {path: 'edit-vehicle/:id', component: EditVehicleComponent, data: {title: 'Edit Vehicle | Argus'}}
+  {path: 'logout', component: LogoutComponent, data: {title: 'Logout | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'dashboard', component: DashboardComponent, data: {title: 'Dashboard | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'user-profile', component: UserProfileComponent, data: {title: 'User Profile | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'user-list', component: ListUsersComponent, data: {title: 'User List | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'add-user', component: AddUserComponent, data: {title: 'Add User | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'deleted-users', component: DeletedUsersComponent, data: {title: 'Deleted Users | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'edit-user/:id', component: EditUserComponent, data: {title: 'Edit User | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'view-user/:id', component: ViewUserComponent, data: {title: 'View User | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'people-cleared', component: PeopleWhiteComponent, data: {title: 'Person White-List | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'people-unknown', component: PeopleGreyComponent, data: {title: 'Person Grey-List | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'people-threat', component: PeopleBlackComponent, data: {title: 'Person Black-List | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'deleted-cleared', component: DeletedWhiteComponent, data: {title: 'Deleted Person White-List | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'deleted-threat', component: DeletedBlackComponent, data: {title: 'Deleted Person Black-List | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'add-person', component: AddPersonComponent, data: {title: 'Add Person | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'edit-person/:id', component: EditPersonComponent, data: {title: 'Edit Person | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'settings', component: SettingsComponent, data: {title: 'Notifications | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'notification', component: NotificationComponent, data: {title: 'Notifications | Argus'}, canActivate:[AuthGuardService] },
+  {path: 'reset-password', component: ResetPasswordComponent, data: {title: 'Reset Password | Argus'}}
 ];
 
 @NgModule({

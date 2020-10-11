@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TitleService} from '../../title.service';
 import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
 import {Person} from '../../model/person';
 import {PersonService} from '../../model/person.service';
-import {User} from '../../model/user';
-import Session from '../../../assets/js/SessionStorage';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {AuthService} from '../../model/auth.service';
+import {SessionClass} from '../../model/session';
 
 @Component({
   selector: 'app-people-black',
@@ -14,13 +14,13 @@ import {NgxSpinnerService} from 'ngx-spinner';
   styleUrls: ['./people-black.component.css']
 })
 export class PeopleBlackComponent implements OnInit {
-  sessionS = new Session();
-  info: User = this.sessionS.retrieveUserInfo();
+  info: SessionClass = this.authService.retrieveUserInfo();
   person: Observable<Person[]>;
   psn: Person;
 
   constructor(private personService: PersonService, private SpinnerService: NgxSpinnerService,
-              private appService: TitleService, private router: Router) { }
+              private appService: TitleService, private router: Router, private authService: AuthService) {
+  }
 
   reloadData() {
     this.psn = new Person();
@@ -40,16 +40,16 @@ export class PeopleBlackComponent implements OnInit {
               setTimeout(() => {
                 this.SpinnerService.hide();
                 this.reloadData();
-              }, 500);
+              }, 600);
             });
         });
   }
 
-  updatePerson(id: number){
+  updatePerson(id: number) {
     this.router.navigate(['edit-person', id]);
   }
 
-  viewPerson(id: number){
+  viewPerson(id: number) {
     this.router.navigate(['view-person', id]);
   }
 
@@ -58,7 +58,7 @@ export class PeopleBlackComponent implements OnInit {
     this.reloadData();
   }
 
-  restorePerson(){
+  restorePerson() {
     this.router.navigate(['deleted-threat']);
   }
 }

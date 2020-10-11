@@ -3852,7 +3852,7 @@ tbody.collapse.show {
 }
 
 .input-group > .form-control:focus,
-.input-group > .custom-select:focus,
+.input-group > .custom-:focus,
 .input-group > .custom-file:focus {
   z-index: 3;
 }
@@ -15287,8 +15287,8 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 }
 
 .main-panel > .content {
-  margin-top: 70px;
-  padding: 30px 15px;
+  margin-top: 0;
+  padding: 75px 15px;
   min-height: calc(100vh - 123px);
 }
 
@@ -19332,10 +19332,10 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 }
 
 .image-cropper {
-  margin: -50px auto 0;
+  margin: -40px auto 0;
   float: right;
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 120px;
   position: relative;
   overflow: hidden;
   border-radius: 50%;
@@ -19344,8 +19344,8 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 .userPic {
   object-fit: cover;
   margin: 0 auto;
-  height: 150px;
-  width: 150px;
+  height: 120px;
+  width: 120px;
   transition: .5s ease;
   backface-visibility: hidden;
   opacity: 1;
@@ -19385,6 +19385,20 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 /*************************
       LOGIN STYLES
 **************************/
+
+.login-panel {
+  position: relative;
+  float: right;
+  width: 100%;
+  transition: 0.33s, cubic-bezier(0.685, 0.0473, 0.346, 1);
+}
+
+.login-panel > .content {
+  margin-top: 0;
+  padding: 30px 15px;
+  min-height: 100vh;
+}
+
 .loginBG {
   width: 100%;
   height: 100%;
@@ -19476,19 +19490,19 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0), #d4af37, rgba(0, 0, 0, 0));
 }
 
-.login-close-btn {
-  position: absolute;
-  color: white;
-  top: 10px;
-  right: 10px;
+/*.login-close-btn {*/
+/*  position: absolute;*/
+/*  color: white;*/
+/*  top: 10px;*/
+/*  right: 10px;*/
 
-  cursor: pointer;
-  text-align: center;
-  -webkit-transition: all 2s ease-in-out;
-  -moz-transition: all 2s ease-in-out;
-  -o-transition: all 2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-}
+/*  cursor: pointer;*/
+/*  text-align: center;*/
+/*  -webkit-transition: all 2s ease-in-out;*/
+/*  -moz-transition: all 2s ease-in-out;*/
+/*  -o-transition: all 2s ease-in-out;*/
+/*  transition: all 0.2s ease-in-out;*/
+/*}*/
 
 .login-close-btn:hover {
   opacity: 0.9;
@@ -19520,9 +19534,9 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
   border-radius: 6px;
   border: none;
   background: rgba(3, 3, 3, .1);
-  -webkit-transition: all 2s ease-in-out;
-  -moz-transition: all 2s ease-in-out;
-  -o-transition: all 2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
 
@@ -20022,7 +20036,7 @@ input[type="file"] {
 
 /* Top left text */
 .top-left {
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
   padding: 5px;
   font-size: 1.5em;
@@ -20048,17 +20062,31 @@ input[type="file"] {
   /*border: 1px black solid;*/
 }
 
-.toggleCam{
+.toggleCam {
   vertical-align: middle;
   color: white;
 }
 
-.toggleCam:hover{
+.toggleCam:hover {
   color: white;
 }
 
-.camOffMsg{
+.camOffMsg {
   padding: 70px 0;
   border: 1px solid darkgray;
   text-align: center;
+}
+
+.liveCamera {
+  width: 500px;
+  height: 300px;
+}
+
+.errorMsg {
+  font-size: 14px;
+}
+
+.popError{
+  padding: 10px;
+  font-size: 15px;
 }

@@ -10,14 +10,15 @@
       <div class="modal-body">
         <div class="card-body">
           <form #changeForm="ngForm">
+            <div id="errorMsgs">
+            </div>
             <div class="row">
-
               <!--First Name-->
               <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="form-group">
                   <label for="addFirstName">First Name</label>
                   <input id="addFirstName" name="addFirstName" class="form-control"
-                         required maxlength="35" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
+                         required maxlength="20" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
                          [(ngModel)]="namePlaceholder" #name="ngModel">
 
                   <div *ngIf="name.invalid && (name.dirty || name.touched)"
@@ -32,7 +33,7 @@
                 <div class="form-group">
                   <label for="addSurname">Last Name</label>
                   <input id="addSurname" name="addSurname" class="form-control"
-                         required maxlength="35" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
+                         required maxlength="20" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
                          [(ngModel)]="surnamePlaceholder" #lname="ngModel">
 
                   <div *ngIf="lname.invalid && (lname.dirty || lname.touched)"
@@ -42,15 +43,16 @@
                 </div>
               </div>
             </div>
-            <br>
-            <div class="row">
 
-              <!--Username-->
+            <br>
+
+            <!--Username-->
+            <div class="row">
               <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="form-group">
                   <label for="addUsername">Username (12 Characters)</label>
                   <input id="addUsername" name="addUsername" class="form-control"
-                         required maxlength="12"
+                         required maxlength="12" pattern="^[a-zA-Z0-9_]*$"
                          [(ngModel)]="usernamePlaceholder" #username="ngModel">
 
                   <div *ngIf="username.invalid && (username.dirty || username.touched)"
@@ -79,17 +81,17 @@
                 </div>
               </div>
             </div>
+
             <br>
 
             <div class="row">
-
               <!--Contact Number-->
               <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="form-group">
                   <label for="addPhone">Contact Number</label>
                   <input id="addPhone" name="addPhone" class="form-control"
                          required maxlength="12"
-                         pattern="^((?:\+27))(=72|82|73|83|74|84|79)(\d{7})$"
+                         pattern="^((?:\+27))(=|72|82|73|83|74|84|79)(\d{7})$"
                          [(ngModel)]="phonePlaceholder" #contactNo="ngModel" placeholder="+27*******">
                   <div *ngIf="contactNo.invalid && (contactNo.dirty || contactNo.touched)"
                        class="alert alert-danger">
@@ -103,7 +105,8 @@
                 <div class="form-group">
                   <label for="passwordField1">Password</label>
                   <input type="password" id="passwordField1" name="passwordField1" class="form-control"
-                         required maxlength="35" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                         required maxlength="20"
+                         pattern="^[a-zA-Z0-9]*(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                          [(ngModel)]="passPlaceholder" #userPass="ngModel">
                   <i class="material-icons hoverPointer" id="passwordVisibility1" onclick="showPassword('1')">visibility_off</i>
                   <div *ngIf="userPass.invalid && (userPass.dirty || userPass.touched)"
@@ -111,15 +114,17 @@
                     <ul>
                       <h6>Must contain:</h6>
                       <li>At least eight characters</li>
-                      <li>At least one uppercase letter</li>
-                      <li>At least one lowercase letter</li>
+                      <li>One uppercase letter</li>
+                      <li>One lowercase letter</li>
                       <li>One number</li>
                       <li>One special character</li>
+                      <li>(Cannot start with a special character)</li>
                     </ul>
                   </div>
                 </div>
               </div>
             </div>
+
             <div *ngIf="userPass.dirty">
               <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-6">
@@ -127,10 +132,10 @@
                 <div class="col-md-6 col-sm-6 col-xs-6">
                   <div class="form-group">
                     <label for="passwordField2">Confirm Password</label>
-                    <input type="password" id="passwordField2" name="confirmPassword" class="form-control"
+                    <input type="password" id="passwordField2" name="passwordField2" class="form-control"
                            [(ngModel)]="confirmPassPlaceholder" #confirm="ngModel">
                     <i class="material-icons hoverPointer" id="passwordVisibility2" onclick="showPassword('2')">visibility_off</i>
-                    <div *ngIf="userPass.value != confirmPassPlaceholder.valueOf()"
+                    <div *ngIf="(userPass.value != confirmPassPlaceholder.valueOf())"
                          class="alert alert-danger">
                       Passwords do not match
                     </div>
@@ -139,10 +144,43 @@
               </div>
             </div>
 
+            <br>
+
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group">
+                  <label for="questions">Security Question:</label>
+                  <i class="material-icons float-right">keyboard_arrow_down</i>
+                      <select name="questions" id="questions" class="form-control custom-select-lg hoverPointer" data-style="btn btn-link">
+                        <option value="One">What was the name of your first stuffed animal?</option>
+                        <option value="Two">Where were you when you had your first kiss?</option>
+                        <option value="Three">What street did you live on in third grade?</option>
+                        <option value="Four">What was the name of your childhood bully?</option>
+                        <option value="Five">What did you want to name your child but never did?</option>
+                      </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group">
+                  <input id="answerField" name="answerField" class="form-control"
+                         required maxlength="20"
+                         pattern="^[a-zA-Z0-9_]*$" placeholder="Answer"
+                         [(ngModel)]="answerPlaceholder" #answer="ngModel">
+                  <div *ngIf="answer.invalid && (answer.dirty || answer.touched)"
+                       class="alert alert-danger">
+                    Please enter a valid response.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <br>
             <!--Role-->
             <div class="form-group">
               <label class="float-left">Role</label><br><br>
-              <label class="radioContainer" *ngIf="info.userRole == 'Admin'">Admin
+              <label class="radioContainer" *ngIf="info.role == 'Admin'">Admin
                 <input type="radio" name="role" id="admin" value="Admin">
                 <span class="radioCheckmark"></span>
               </label>
@@ -168,12 +206,11 @@
 
               <label id="profilePicInput" for="fileElem">
                 <i class="material-icons add-photo-icon">add_photo_alternate</i><br>
-                <input type="file" id="fileElem" accept="image/jpeg, image/png" onchange="previewFile(this.file)">
+                <input type="file" id="fileElem" accept="image/jpeg, image/png" onchange="resize()" >
                 Drag and Drop an image<br>
               </label>
 
-              or
-              <br>
+              or<br>
 
               <a class="hoverPointer" data-toggle="modal" data-target="#pictureModal" (click)="toggleCam()">
                 capture a photo from camera
@@ -183,10 +220,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal" (click)="onSubmit()"
-                [disabled]="changeForm.invalid">
-          Add
-        </button>
+        <!--<button type="button" class="btn btn-primary justify-content-center" (click)="allowSubmit()" onclick="resizeAll()" >Accept Photo</button><br>-->
+        <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal" (click)="onSubmit()" [disabled]="changeForm.invalid">Add</button>
       </div>
     </div>
   </div>
@@ -215,13 +250,13 @@
             </div>
             <div class="snapshot" *ngIf="camImg">
               <h2>Preview:</h2>
-              <img id="confirmPic" width="400px" [src]="camImg.imageAsDataUrl" alt="Preview"/>
+              <img id="confirmPic" width="300px" height="300px" [src]="camImg.imageAsDataUrl" alt="Preview"/>
             </div>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#pictureModal"
-                  onclick="previewFileFromCam()" (click)="toggleCam()">
+                  onclick="resizePhoto()" (click)="toggleCam()">
             Confirm
           </button>
         </div>

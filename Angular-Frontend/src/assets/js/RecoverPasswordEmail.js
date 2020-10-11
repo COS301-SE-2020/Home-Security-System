@@ -10,7 +10,7 @@ export class RecoverPasswordEmail{
       Subject : "ALERT: Argus home security password reset",
       /*Body : "<html lang=\"en\">"+"<body> <p> Your password is as follows: " + pass + " </p> <p>Please log in with this email and password now on Argus</p></body>" + "</html>"*/
       Body : "<html lang=\"en\">"+"<body> <p> Your login details for the Argus system are as follows: </p> <p> Email: "
-        + email + "</p> <p> Password: " + pass + "</p> <p>Please log into Argus with these details above</p> </body>" + "</html>"
+        + email + "</p> <p> Password: " + pass + "</p> <p>Please use the details provided above to log into Argus</p> </body>" + "</html>"
       /*
       Body : "<html lang=\"en\">"+"<body> <p> Please click the link below to send an email to confirm your password: </p> <a href=\"mailto:SigmaCOS301@gmail.com?subject=ConfirmPassword&body="+email.toString() + ' ' + pass+"\">\n" +
         "Confirm Password</a></body>"  + "</html>"

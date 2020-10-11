@@ -6,20 +6,33 @@ import javax.validation.constraints.NotBlank;
 
 public class SmsRequest {
     @NotBlank
-    private static String numb;
+    private final String numb;
+    @NotBlank
+    private final String name;
+    @NotBlank
+    private final String date;
+    @NotBlank
+    private final String time;
 
-    public SmsRequest(@JsonProperty("phoneNumb") String numb) {
-        SmsRequest.numb = numb;
+    public SmsRequest(@JsonProperty("phoneNumb") String num, @JsonProperty("name") String name,
+                      @JsonProperty("date") String date, @JsonProperty("time") String time) {
+        this.numb = num;
+        this.name = name;
+        this.time = time;
+        this.date = date;
     }
 
-    public static String getNumb() {
+    public String getNumb() {
         return numb;
     }
-
-    @Override
-    public String toString() {
-        return "smsRequest{" +
-                "numb='" + numb + '\'' +
-                '}';
+    public String getName() {
+        return name;
     }
+    public String getDate() {
+        return date;
+    }
+    public String getTime() {
+        return time;
+    }
+
 }

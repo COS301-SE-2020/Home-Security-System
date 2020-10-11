@@ -1,10 +1,10 @@
 package com.springboot.SpringBackend.controller;
 
+import com.google.common.collect.Lists;
 import com.springboot.SpringBackend.config.RabbitMQConfig;
 import com.springboot.SpringBackend.exception.ResourceNotFoundException;
 import com.springboot.SpringBackend.model.Person;
 import com.springboot.SpringBackend.model.RabbitPerson;
-import com.springboot.SpringBackend.service.FaceService;
 import com.springboot.SpringBackend.service.PersonService;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -20,8 +20,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 //@CrossOrigin(origins = "http://localhost:8080")
-//@CrossOrigin(origins = "http://localhost:4200")
-@CrossOrigin(origins = "https://sigma-argus.herokuapp.com")
+@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "https://sigma-argus.herokuapp.com")
 public class PersonController {
     private final PersonService service;
     private RabbitTemplate amqpTemplate;
@@ -34,7 +34,7 @@ public class PersonController {
 
     @GetMapping("/people")
     public List<Person> getPeopleList() {
-        return service.getAllPeople();
+        return Lists.reverse(service.getAllPeople());
     }
 
     @GetMapping("/people/{id}")
@@ -46,10 +46,11 @@ public class PersonController {
 
     @PostMapping("/people")
     public Person addPerson(@Valid @RequestBody Person x) {
-        RabbitPerson p = new RabbitPerson(x.getPersonId(), "0", x.getPersonListed(), true, x.getPersonImg(), false);
-        amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, p);
+        Person p = service.createPerson(x);
+        RabbitPerson rabbitPsn = new RabbitPerson(p.getPersonId(), "0", p.getPersonListed(), true, p.getPersonImg(), false, p.getNetworkId());
+        amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, rabbitPsn);
         System.out.println("Person Created");
-        return service.createPerson(x);
+        return p;
     }
 
     @PutMapping("/people/{id}")
@@ -58,29 +59,34 @@ public class PersonController {
         Person x = service.getPersonById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Person not found for this id :: " + id));
 
-        x.setPersonId(details.getPersonId());
-        if(details.getPersonImg() != null) {
+
+        if(details.getPersonId() != null) {
+            x.setPersonId(details.getPersonId());
+        }
+        if(!details.getPersonImg().equals("")) {
             x.setPersonImg(details.getPersonImg());
         }
-        if(details.getFname() != null) {
+        if(!details.getFname().equals("")) {
             x.setFname(details.getFname());
         }
-        if(details.getLname() != null)
-        {
+        if(!details.getLname().equals("")) {
             x.setLname(details.getLname());
         }
         x.setPersonListed(details.getPersonListed());
         x.setPersonDeleted(details.getPersonDeleted());
+        if(details.getNetwork() != null) {
+            x.setNetwork(details.getNetwork());
+        }
 
         final Person updatedPerson = service.updatePerson(x);
 
         if(details.getPersonDeleted() == null) {
-            RabbitPerson p = new RabbitPerson(updatedPerson.getPersonId(), "0", updatedPerson.getPersonListed(), true, updatedPerson.getPersonImg(), true);
+            RabbitPerson p = new RabbitPerson(updatedPerson.getPersonId(), "0", updatedPerson.getPersonListed(), true, updatedPerson.getPersonImg(), true, updatedPerson.getNetworkId());
             amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, p);
             System.out.println("Person Updated");
         }
         else if(details.getPersonDeleted() != null) {
-            RabbitPerson p = new RabbitPerson(updatedPerson.getPersonId(), "0", updatedPerson.getPersonListed(), false, updatedPerson.getPersonImg(), true);
+            RabbitPerson p = new RabbitPerson(updatedPerson.getPersonId(), "0", updatedPerson.getPersonListed(), false, updatedPerson.getPersonImg(), true, updatedPerson.getNetworkId());
             amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, p);
             System.out.println("Person Deleted");
         }

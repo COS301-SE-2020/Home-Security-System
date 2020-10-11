@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { UserService } from '../../model/user.service';
-import { User } from '../../model/user';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
+import {UserService} from '../../model/user.service';
+import {User} from '../../model/user';
+import {Router} from '@angular/router';
 import {TitleService} from '../../title.service';
-import { Session } from '../../../assets/js/SessionStorage.js';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {AuthService} from '../../model/auth.service';
+import {SessionClass} from '../../model/session';
 
 @Component({
   selector: 'app-list-users',
@@ -13,15 +14,14 @@ import {NgxSpinnerService} from 'ngx-spinner';
   styleUrls: ['./list-users.component.css']
 })
 export class ListUsersComponent implements OnInit {
-  sessionS = new Session();
   users: Observable<User[]>;
-  info: User = this.sessionS.retrieveUserInfo();
+  info: SessionClass = this.authService.retrieveUserInfo();
 
   id: number;
   user: User;
   temp: string;
 
-  constructor(private userService: UserService, private appService: TitleService,
+  constructor(private authService: AuthService, private userService: UserService, private appService: TitleService,
               private SpinnerService: NgxSpinnerService, private router: Router) {
   }
 
@@ -31,12 +31,11 @@ export class ListUsersComponent implements OnInit {
   }
 
   removeUser(id: number) {
-    const user = this.sessionS.retrieveUserInfo();
-    if (user.id === id )
-    {
-      alert('You are unfortunately not able to delete yourself as a user on this page.');
-    }
-    else {
+    const num = Number(this.info.id);
+    if (num === id) {
+      this.showErrorPop('selfDelete');
+      // alert('You are unfortunately not able to delete yourself as a user on this page.');
+    } else {
       this.SpinnerService.show();
       this.userService.getUserById(id)
         .subscribe(
@@ -49,36 +48,32 @@ export class ListUsersComponent implements OnInit {
                 setTimeout(() => {
                   this.SpinnerService.hide();
                   this.reloadData();
-                }, 500);
+                }, 600);
               });
           });
     }
   }
 
-  updateUser(id: number){
-    const userInfo = this.sessionS.retrieveUserInfo();
-
+  updateUser(id: number) {
     this.user = new User();
-
+    const num = Number(this.info.id);
     this.userService.getUserById(id)
       .subscribe(data => {
         // console.log(data);
         this.user = data;
         this.temp = data.userRole;
 
-        if ( this.user.userRole === 'Admin' && this.info.userRole === 'Advanced')
-        {
-          alert('Sorry, you can not edit a user with more privileges than yourself.');
-        }
-        else if ((userInfo.userRole === 'Basic')) {
-          alert('You are unfortunately not able to edit a user on this page.');
-        }
-        else {
-          if ( userInfo.id === id )
-          {
-            alert('Sorry, you can not edit yourself from user list.');
-          }
-          else {
+        if (this.user.userRole === 'Admin' && this.info.role === 'Advanced') {
+          this.showErrorPop('noPriv');
+          // alert('Sorry, you can not edit a user with more privileges than yourself.');
+        } else if (this.info.role === 'Basic') {
+          this.showErrorPop('noEdit');
+          // alert('You are unfortunately not able to edit a user on this page.');
+        } else {
+          if (num === id) {
+            this.showErrorPop('noSelfEdit');
+            // alert('Sorry, you can not edit yourself from user list.');
+          } else {
             this.router.navigate(['edit-user', id]);
           }
         }
@@ -96,5 +91,13 @@ export class ListUsersComponent implements OnInit {
 
   restoreUser() {
     this.router.navigate(['deleted-users']);
+  }
+
+  showErrorPop(errorID) {
+    document.getElementById(errorID).hidden = false;
+  }
+
+  closeErrorPop(errorID){
+    document.getElementById(errorID).hidden = true;
   }
 }

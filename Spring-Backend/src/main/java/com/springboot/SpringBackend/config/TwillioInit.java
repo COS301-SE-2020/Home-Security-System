@@ -1,6 +1,5 @@
 package com.springboot.SpringBackend.config;
 
-import com.springboot.SpringBackend.service.TwillioSender;
 import com.twilio.Twilio;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +18,4 @@ public class TwillioInit {
         Twilio.init(twillioConfig.getAccountId(), twillioConfig.getToken());
         LOGGER.info("Twilio was successfully initialized");
     }
-
-
 }

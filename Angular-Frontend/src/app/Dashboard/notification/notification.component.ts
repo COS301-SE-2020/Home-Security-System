@@ -4,7 +4,8 @@ import {Notification} from '../../model/notification';
 import {NotificationService} from '../../model/notification.service';
 import {TitleService} from '../../title.service';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {Session} from '../../../assets/js/SessionStorage';
+import {AuthService} from '../../model/auth.service';
+import {SessionClass} from '../../model/session';
 
 @Component({
   selector: 'app-notification',
@@ -15,18 +16,17 @@ import {Session} from '../../../assets/js/SessionStorage';
 export class NotificationComponent implements OnInit {
   notification: Observable<Notification[]>;
   note: Notification;
-  sessionS = new Session();
-  userId = this.sessionS.retrieveUserInfo().id;
+  info: SessionClass = this.authService.retrieveUserInfo();
 
-  constructor(private notificationService: NotificationService,
+  constructor(private notificationService: NotificationService, private authService: AuthService,
               private SpinnerService: NgxSpinnerService, private appService: TitleService) { }
 
   reloadData() {
     this.note = new Notification();
     this.notification = this.notificationService.getNotificationList();
-    setTimeout(() => {
+    /*setTimeout(() => {
       this.ngOnInit();
-    }, 300000);
+    }, 300000);*/
   }
 
   removeNotification(id: number) {
@@ -42,12 +42,12 @@ export class NotificationComponent implements OnInit {
               setTimeout(() => {
                 this.SpinnerService.hide();
                 this.reloadData();
-              }, 500);
+              }, 600);
             });
         });
   }
-  imageClick(id): void{
 
+  imageClick(id): void {
     const modal = document.getElementById('myModal') as HTMLElement;
     const img = document.getElementById('noteImg' + id) as HTMLImageElement;
     const modalImg = document.getElementById('img01') as HTMLImageElement;
@@ -72,7 +72,7 @@ export class NotificationComponent implements OnInit {
   ngOnInit(): void {
     this.appService.setTitle('Notifications');
     this.reloadData();
-    this.deleteOld(1);
+    // this.deleteOld(1);
   }
 
   deleteAll() {
@@ -81,9 +81,11 @@ export class NotificationComponent implements OnInit {
     this.notificationService.getNotificationList()
       .subscribe(data => {
         while (data[counter] != null) {
-          this.note = data[counter];
-          this.note.notificationDeleted = new Date();
-          this.notificationService.updateNotification(data[counter].notificationId, this.note).subscribe();
+          if (data[counter].network.netName === this.info.network) {
+            this.note = data[counter];
+            this.note.notificationDeleted = new Date();
+            this.notificationService.updateNotification(data[counter].notificationId, this.note).subscribe();
+          }
           counter++;
         }
         setTimeout(() => {

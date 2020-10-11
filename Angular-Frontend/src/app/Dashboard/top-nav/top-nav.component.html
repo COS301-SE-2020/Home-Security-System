@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top">
   <div class="container-fluid">
     <div class="navbar-wrapper">
-      <a class="navbar-brand">{{title}}</a>
+      <a class="navbar-brand"></a>
     </div>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
@@ -15,56 +15,84 @@
     <div class="collapse navbar-collapse justify-content-end">
       <form class="navbar-form"></form>
       <ul class="navbar-nav">
+        <li class="nav-item">
+          <button class="btn btn-danger" (click)="triggerPanic()">
+            <i class="material-icons">report</i>
+            Trigger Panic
+          </button>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link center" href="javascript:" id="navbarDropdownProfile" data-toggle="dropdown"
-             aria-haspopup="true"
-             aria-expanded="false">
-            <img class="profilePic ImgClassName" id="profilePic">
+             aria-haspopup="true" aria-expanded="false">
+            <img alt="Photo" class="profilePic ImgClassName" id="profilePic" src="../../../assets/Images/blank.jpg">
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
             <a class="dropdown-item" [routerLink]="['/user-profile']">Profile</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" [routerLink]="['/login']" (click)="clearUserSession()">Log out</a>
+            <a class="dropdown-item" [routerLink]="['/logout']">Log out</a>
           </div>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/notification']" (click)="clearNotifications()">
+          <a class="nav-link" [routerLink]="['/notification']">
             <i class="material-icons">notifications</i>
-            <span id="noteCnt" class="notification"></span>
+            <!--<span id="noteCnt" class="notification"></span>-->
             <p class="d-lg-none d-md-block hoverPointer">
               Notifications
             </p>
           </a>
         </li>
-
-<!--        <li class="nav-item dropdown">-->
-<!--          <a class="nav-link" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"-->
-<!--             aria-expanded="false">-->
-<!--            <i class="material-icons">notifications</i>-->
-<!--            <span id="noteCnt" class="notification"></span>-->
-<!--            <p class="d-lg-none d-md-block hoverPointer" [routerLink]="['/notification']" (click)="clearNotifications()">-->
-<!--              Notifications-->
-<!--            </p>-->
-<!--          </a>-->
-<!--          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">-->
-<!--            <a class="dropdown-item" [routerLink]="['/notification']" (click)="clearNotifications()">Recent notifications</a>-->
-<!--          </div>-->
-<!--        </li>-->
-
         <li class="nav-item dropdown">
           <a class="nav-link" id="navbarDropdownSettings" data-toggle="dropdown" aria-haspopup="true"
-             aria-expanded="false">
+             aria-expanded="false" (click)="retrieveSettings()">
             <i class="material-icons">settings</i>
             <p class="d-lg-none d-md-block hoverPointer">
               Settings
             </p>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-            <app-settings></app-settings>
+            <div class="container center">
+              <table>
+                <tr>
+                  <td class="settingsCells"><label class="settingsLabels">Email Notifications</label></td>
+                  <td class="settingsCells">
+                    <input class="switch_2" id="emailSlider" type="checkbox" (change)="enableButton()">
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="settingsCells"><label class="settingsLabels">SMS Notifications</label></td>
+                  <td class="settingsCells">
+                    <input class="switch_2" id="smsSlider" type="checkbox" (change)="enableButton()">
+                  </td>
+                </tr>
+              </table>
+
+              <button class="btn btn-primary mx-auto" id="saveBtn" (click)="setUserSettings()">
+                Save
+              </button>
+            </div>
+
+            <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+              <p style="color: white">Please Wait. </p>
+            </ngx-spinner>
           </div>
         </li>
       </ul>
     </div>
   </div>
 </nav>
+
+
+<div id="triggerPanicPop" hidden data-notify="container" class="col-11 col-md-4 alert alert-danger alert-with-icon animated fadeInDown popError"
+     role="alert" data-notify-position="bottom-right"
+     style="display: inline-block; margin: 15px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 1031; bottom: 20px; right: 20px;">
+  <br>
+  <button type="button" aria-hidden="true" class="close" data-notify="dismiss"
+          style="position: absolute; right: 10px; top: 50%; margin-top: -9px; z-index: 1033;" (click)="closePop('triggerPanicPop')"><i class="material-icons">close</i>
+  </button>
+  <i data-notify="icon" class="material-icons">error_outline</i>
+  <span data-notify="title"></span>
+  <span data-notify="message">The police have been notified and will respond shortly.</span>
+  <br>
+</div>

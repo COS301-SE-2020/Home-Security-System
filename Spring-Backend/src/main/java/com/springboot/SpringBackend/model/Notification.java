@@ -22,8 +22,6 @@ public class Notification implements Serializable {
     @Column(name = "notification_id", nullable = false)
     private Long id;
 
-    // @ManyToOne
-    // @JoinColumn(name="image", nullable = false)
     @Column(name = "image", nullable = false)
     private String notificationImg;
 
@@ -45,51 +43,21 @@ public class Notification implements Serializable {
     private LocalDate notificationDeleted = null;
 
     @ManyToOne
-    @JoinColumn(name="user_id", nullable = false)
-    private User user;
-
-    //@ManyToMany(mappedBy = "notificationList")
-    //private List<Users> userList = new ArrayList<>();
+    @JoinColumn(name="network_id", nullable = false)
+    private Network network;
 
     public Notification() {}
 
-    public Notification(String img, String msg) {
-        this.notificationImg = img;
-        this.listed = notificationType.Suspicious;
-        this.message = Jsoup.clean(msg, Whitelist.simpleText());
-        onDate = LocalDate.now();
-        atTime = LocalTime.now();
-    }
-
-    public Notification(String img, String listed, String msg) {
-        this.notificationImg = img;
-
-        if(listed.equalsIgnoreCase("Suspicious"))
-        {
-            //this.listed = "Suspicious";
-            this.listed = notificationType.Suspicious;
-        }
-        else
-        {
-            //this.listed = "Threat";
-            this.listed = notificationType.Threat;
-        }
-
-        this.message = Jsoup.clean(msg, Whitelist.simpleText());
-        onDate = LocalDate.now();
-        atTime = LocalTime.now();
-    }
-
-    public Notification(String img, String msg, User u) {
+    public Notification(String img, String msg, Network n) {
         this.notificationImg = img;
         this.listed = notificationType.Suspicious;
         this.message = Jsoup.clean(msg, Whitelist.simpleText());
         this.onDate = LocalDate.now();
         this.atTime = LocalTime.now();
-        this.user = u;
+        if(n != null) { this.network = n; }
     }
 
-    public Notification(String img, String listed, String msg, User u) {
+    public Notification(String img, String listed, String msg, Network n) {
         this.notificationImg = img;
 
         if(listed.equalsIgnoreCase("Suspicious"))
@@ -106,7 +74,7 @@ public class Notification implements Serializable {
         this.message = Jsoup.clean(msg, Whitelist.simpleText());
         this.onDate = LocalDate.now();
         this.atTime = LocalTime.now();
-        this.user = u;
+        if(n != null) { this.network = n; }
     }
 
     public Long getNotificationId() {
@@ -118,11 +86,7 @@ public class Notification implements Serializable {
 
     // public Long getNotificationImgId() { return this.notificationImg.getImageId(); }
     public String getNotificationImg() { return this.notificationImg; }
-    public void setNotificationImg(String img) {
-        if (img != null) {
-            this.notificationImg = img;
-        }
-    }
+    public void setNotificationImg(String img) { this.notificationImg = img; }
 
     public String getListed() { return this.listed.toString(); }
     public void setListed(String listed) {
@@ -168,7 +132,11 @@ public class Notification implements Serializable {
         }
     }
 
-    public Long getUserId() { return this.user.getUserId(); }
-    public User getUser() { return this.user; }
-    public void setUser(User x) { this.user = x; }
+    public Long getNetworkId() { return this.network.getNetworkId(); }
+    public Network getNetwork() { return this.network; }
+    public void setNetwork(Network x) {
+        if(x != null) {
+            this.network = x;
+        }
+    }
 }

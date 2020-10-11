@@ -1,10 +1,16 @@
+<div id="navBars">
+  <app-side-nav></app-side-nav>
+  <app-top-nav></app-top-nav>
+</div>
+
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-lg-12 col-md-12 col-sm-12">
       <div class="card">
         <div class="card-header card-header-primary">
           <h4 class="card-title">Deleted Cleared Listed People</h4>
-          <a *ngIf="info.userRole == 'Admin'" class="material-icons listPageIcons open-modal" (click)="deleteAll()" title="Delete All">auto_delete</a>
+          <!--<a *ngIf="info.role == 'Admin'" class="material-icons listPageIcons open-modal"
+             (click)="deleteAll()" title="Delete All">auto_delete</a>-->
         </div>
         <div class="card-body">
           <!--Search Bar Starts Here-->
@@ -54,11 +60,11 @@
               </thead>
               <tbody id="whiteBody">
               <ng-container *ngFor="let p of person | async">
-                <tr *ngIf="p.personListed == 'White' && p.personDeleted != null">
+                <tr *ngIf="(p.personListed == 'White') && (p.personDeleted != null) && (p.network.netName == info.network)">
                   <td><img alt="Photo" src="{{p.personImg}}" class="listPic ImgClassName"></td>
                   <td>{{p.fname}}&nbsp;{{p.lname}}</td>
                   <td>{{p.personDeleted}}</td>
-                  <td *ngIf="info.userRole != 'Basic'">
+                  <td *ngIf="info.role != 'Basic'">
                     <a class="material-icons listPageIcons" id="restoreBtn" (click)="restorePerson(p.personId)" title="Restore Person">restore_from_trash</a>
                   </td>
                 </tr>
