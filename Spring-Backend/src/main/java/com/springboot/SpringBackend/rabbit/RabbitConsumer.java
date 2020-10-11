@@ -72,8 +72,9 @@ public class RabbitConsumer {
                                         Boolean notify1 = u.getNotifyEmail();
                                         Boolean notify2 = u.getNotifySMS();
                                         String name = p.get().getFname() + " " + p.get().getLname();
-                                        String time = note.getAtTime().toString();
                                         String date = note.getOnDate().toString();
+                                        String time = note.getAtTime().toString();
+                                        time = time.substring(0,7);
 
                                         if (notify1) {
                                             mailer.sendmailBlack(email,name,date,time);
@@ -99,8 +100,9 @@ public class RabbitConsumer {
                                         Boolean notify1 = u.getNotifyEmail();
                                         Boolean notify2 = u.getNotifySMS();
                                         String name = p.get().getFname() + " " + p.get().getLname();
-                                        String time = note.getAtTime().toString();
                                         String date = note.getOnDate().toString();
+                                        String time = note.getAtTime().toString();
+                                        time = time.substring(0,7);
 
                                         if (notify1) {
                                             mailer.sendmailBlack(email,name,date,time);
@@ -170,6 +172,7 @@ public class RabbitConsumer {
                         Boolean notify2 = u.getNotifySMS();
                         String date = p.getPersonCreated().toString();
                         String time = LocalTime.now().toString();
+                        time = time.substring(0,7);
 
                         if (notify1) {
                             mailer.sendmailGrey(email,"Unknown", date, time);
