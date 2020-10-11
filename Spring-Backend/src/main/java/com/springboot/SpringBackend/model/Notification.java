@@ -54,7 +54,7 @@ public class Notification implements Serializable {
         this.message = Jsoup.clean(msg, Whitelist.simpleText());
         this.onDate = LocalDate.now();
         this.atTime = LocalTime.now();
-        this.network = n;
+        if(n != null) { this.network = n; }
     }
 
     public Notification(String img, String listed, String msg, Network n) {
@@ -74,7 +74,7 @@ public class Notification implements Serializable {
         this.message = Jsoup.clean(msg, Whitelist.simpleText());
         this.onDate = LocalDate.now();
         this.atTime = LocalTime.now();
-        this.network = n;
+        if(n != null) { this.network = n; }
     }
 
     public Long getNotificationId() {
@@ -134,5 +134,9 @@ public class Notification implements Serializable {
 
     public Long getNetworkId() { return this.network.getNetworkId(); }
     public Network getNetwork() { return this.network; }
-    public void setNetwork(Network x) { this.network = x; }
+    public void setNetwork(Network x) {
+        if(x != null) {
+            this.network = x;
+        }
+    }
 }

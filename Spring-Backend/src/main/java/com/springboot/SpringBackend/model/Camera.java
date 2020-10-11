@@ -27,7 +27,7 @@ public class Camera implements Serializable {
 
     public Camera(String url,Network net) {
         this.serverURL = url;
-        this.network = net;
+        if(net != null) { this.network = net; }
     }
 
     public Long getCameraId() {
@@ -46,5 +46,9 @@ public class Camera implements Serializable {
 
     public Long getNetworkId() { return this.network.getNetworkId(); }
     public Network getNetwork() { return this.network; }
-    public void setNetwork(Network x) { this.network = x; }
+    public void setNetwork(Network x) {
+        if(x != null) {
+            this.network = x;
+        }
+    }
 }

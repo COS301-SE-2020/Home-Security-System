@@ -16,7 +16,7 @@
             <div class="form-group">
               <label for="name">First Name</label>
               <input type="text" name="name" class="form-control" id="name"
-                     required maxlength="35" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
+                     required maxlength="20" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
                      [(ngModel)]="person.fname" #name="ngModel">
               <div *ngIf="name.invalid && (name.dirty || name.touched)"
                    class="alert alert-danger">
@@ -29,7 +29,7 @@
             <div class="form-group">
               <label for="surname">Last Name</label>
               <input type="text" class="form-control" id="surname" name="surname"
-                     required maxlength="35" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
+                     required maxlength="20" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
                      [(ngModel)]="person.lname"  #lname="ngModel">
 
               <div *ngIf="lname.invalid && (lname.dirty || lname.touched)"

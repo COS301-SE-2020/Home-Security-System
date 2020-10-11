@@ -22,6 +22,7 @@ import validate = WebAssembly.validate;
 export class LoginComponent implements OnInit {
   // mailer = new RecoverPasswordEmail();
   users: Observable<User[]>;
+  emailPlaceholder = '';
 
   constructor(private userService: UserService, public authService: AuthService,
               private router: Router) {

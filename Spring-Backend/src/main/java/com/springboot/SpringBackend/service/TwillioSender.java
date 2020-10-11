@@ -36,7 +36,7 @@ public class TwillioSender implements SmsSender{
         MessageCreator creator = Message.creator(
                 new PhoneNumber(req.getNumb()),
                 new PhoneNumber(twillioConfig.getNumber()),
-                "ALERT: Suspicious person detected on ARGUS on " + req.getDate() + "at " + req.getTime() + "."
+                "ALERT: New " + req.getName() + " person detected on " + req.getDate() + " at " + req.getTime() + "."
         );
         creator.create();
         LOGGER.info("Sent Suspicious SMS to: " + req);

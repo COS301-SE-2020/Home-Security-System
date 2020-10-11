@@ -12,12 +12,12 @@ public class MailerController {
 
     // Usage: get request, http://localhost:8080/sendmailGrey/{email}
     // @GetMapping(value = "/sendmailGrey/{emailAddress}")
-    public String sendmailGrey(String email, String date, String time) {
+    public String sendmailGrey(String email, String name, String date, String time) {
         String x = "sent";
         emailSender.sendMail(
                 email,
-                "ALERT: Unknown person detected on ARGUS",
-                "Suspicious person detected on ARGUS on "+ date + " at " + time + "."
+                "ALERT: New " + name + " person detected on ARGUS",
+                "Suspicious person detected on " + date + " at " + time + "."
         );
 
         return x;
@@ -49,13 +49,13 @@ public class MailerController {
     }
     // Usage: get request, http://localhost:8080/sendmailGreyAtatchment/{emailAddress}
     // @GetMapping(value = "/sendmailGreyAtatchment/{emailAddress}")
-    public String sendWithAttatchGL(String email, String date, String time) {
+    public String sendWithAttatchGL(String email, String name, String date, String time) {
         String x = "sent";
         emailSender.sendMailWithInlineResources(
                 email,
-                "ALERT: Unknown person detected on ARGUS",
+                "ALERT: New " + name + " person detected on ARGUS",
                 imagePath,
-                "Suspicious person detected on ARGUS on " + date + " at " + time + "."
+                "Suspicious person detected on " + date + " at " + time + "."
         );
 
         return x;

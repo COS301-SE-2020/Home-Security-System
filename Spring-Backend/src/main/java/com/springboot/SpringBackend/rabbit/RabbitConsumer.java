@@ -11,6 +11,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -58,26 +59,9 @@ public class RabbitConsumer {
                             amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, rabbitPerson);
 
                             if (alert.getType().equalsIgnoreCase("Grey")) {
-                                Notification note = nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
+                                nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
                                         "Person: " + p.get().getFname(), net.get()));
 
-                                for (User u : arr) {
-                                    if (u.getNetwork().getNetName().equals(net.get().getNetName())) {
-                                        String email = u.getEmail();
-                                        Boolean notify1 = u.getNotifyEmail();
-                                        //Boolean notify2 = u.getNotifySMS();
-                                        String time = note.getAtTime().toString();
-                                        String date = note.getOnDate().toString();
-
-                                        if (notify1) {
-                                            mailer.sendmailGrey(email,date,time);
-                                        }
-                                        /*if (notify2) {
-                                            SmsRequest request = new SmsRequest(u.getContactNo(),name,date,time);
-                                            sender.sendSmsSuspicious(request);
-                                        }*/
-                                    }
-                                }
                             } else {
                                 Notification note = nservice.createNotification(new Notification(alert.getImageStr(), "Threat",
                                         "Intruder: " + p.get().getFname() + " " + p.get().getLname(), net.get()));
@@ -103,26 +87,8 @@ public class RabbitConsumer {
                             }
                         } else {
                             if (alert.getType().equalsIgnoreCase("Grey")) {
-                                Notification note = nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
+                                nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
                                         "Person: " + p.get().getFname(), net.get()));
-
-                                for (User u : arr) {
-                                    if (u.getNetwork().getNetName().equals(net.get().getNetName())) {
-                                        String email = u.getEmail();
-                                        Boolean notify1 = u.getNotifyEmail();
-                                        //Boolean notify2 = u.getNotifySMS();
-                                        String time = note.getAtTime().toString();
-                                        String date = note.getOnDate().toString();
-
-                                        if (notify1) {
-                                            mailer.sendmailGrey(email,date,time);
-                                        }
-                                        /*if (notify2) {
-                                            SmsRequest request = new SmsRequest(u.getContactNo(),name,date,time);
-                                            sender.sendSmsSuspicious(request);
-                                        }*/
-                                    }
-                                }
                             } else {
                                 Notification note = nservice.createNotification(new Notification(alert.getImageStr(), "Threat",
                                         "Intruder: " + p.get().getFname() + " " + p.get().getLname(), net.get()));
@@ -158,26 +124,8 @@ public class RabbitConsumer {
                         RabbitPerson updatePerson = new RabbitPerson(psn.getPersonId(), alert.getPersonId().toString(), psn.getPersonListed(), true, alert.getImageStr(), true, net.get().getNetworkId());
                         amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, updatePerson);
                         // Send notification
-                        Notification note = nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
+                        nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
                                 "Person: " + psn.getFname(), net.get()));
-
-                        for (User u : arr) {
-                            if (u.getNetwork().getNetName().equals(net.get().getNetName())) {
-                                String email = u.getEmail();
-                                Boolean notify1 = u.getNotifyEmail();
-                                Boolean notify2 = u.getNotifySMS();
-                                String time = note.getAtTime().toString();
-                                String date = note.getOnDate().toString();
-
-                                if (notify1) {
-                                    mailer.sendmailGrey(email,date,time);
-                                }
-                                if (notify2) {
-                                    SmsRequest request = new SmsRequest(u.getContactNo(),name,date,time);
-                                    sender.sendSmsSuspicious(request);
-                                }
-                            }
-                        }
                     }
                 }*/
             } catch (NoSuchElementException ex) {
@@ -187,26 +135,8 @@ public class RabbitConsumer {
             if(net.isPresent()) {
                 try {
                     if (alert.getType().equalsIgnoreCase("Grey")) {
-                        Notification note = nservice.createNotification(new Notification(alert.getImageStr(), "Suspicious",
-                                "Person: " + "Unknown", net.get()));
-
-                        for (User u : arr) {
-                            if (u.getNetwork().getNetName().equals(net.get().getNetName())) {
-                                String email = u.getEmail();
-                                Boolean notify1 = u.getNotifyEmail();
-                                //Boolean notify2 = u.getNotifySMS();
-                                String time = note.getAtTime().toString();
-                                String date = note.getOnDate().toString();
-
-                                if (notify1) {
-                                    mailer.sendmailGrey(email,date,time);
-                                }
-                                /*if (notify2) {
-                                    SmsRequest request = new SmsRequest(u.getContactNo(),name,date,time);
-                                    sender.sendSmsSuspicious(request);
-                                }*/
-                            }
-                        }
+                        nservice.createNotification(new Notification(alert.getImageStr(),
+                                "Suspicious", "Person: " + "Unknown", net.get()));
                     }
                 } catch (NoSuchElementException ex) {
                     LOGGER.info(String.valueOf(ex));
@@ -222,6 +152,7 @@ public class RabbitConsumer {
         // Creating a Grey-list person from Python
         if(psn.getPersonId() == 0) {
             Optional<Network> net = netServece.getNetworkById(psn.getNetworkId());
+
             if(net.isPresent()) {
                 Person p = personService.createPerson(new Person(psn.getImageStr(), net.get()));
 
@@ -229,6 +160,26 @@ public class RabbitConsumer {
                 amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, updatePerson);
 
                 LOGGER.info("Grey-list Person Added");
+
+                List<User> arr = userService.getAllUsers();
+
+                for (User u : arr) {
+                    if (u.getNetwork().getNetName().equals(net.get().getNetName())) {
+                        String email = u.getEmail();
+                        Boolean notify1 = u.getNotifyEmail();
+                        Boolean notify2 = u.getNotifySMS();
+                        String date = p.getPersonCreated().toString();
+                        String time = LocalTime.now().toString();
+
+                        if (notify1) {
+                            mailer.sendmailGrey(email,"Unknown", date, time);
+                        }
+                        if (notify2) {
+                            SmsRequest request = new SmsRequest(u.getContactNo(),"Unknown",date,time);
+                            sender.sendSmsSuspicious(request);
+                        }
+                    }
+                }
             }
         }
     }

@@ -193,7 +193,7 @@
                   <div class="form-group">
                     <label for="uFirstName">First Name</label>
                     <input id="uFirstName" name="fname" class="form-control"
-                           required maxlength="35" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
+                           required maxlength="20" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
                            [(ngModel)]="user.fname" #name="ngModel">
 
                     <div *ngIf="name.invalid && (name.dirty || name.touched)"
@@ -206,7 +206,7 @@
                   <div class="form-group">
                     <label for="uLastName">Last Name</label>
                     <input id="uLastName" name="lname" class="form-control"
-                           required maxlength="35" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
+                           required maxlength="20" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
                            [(ngModel)]="user.lname" #lname="ngModel">
 
                     <div *ngIf="lname.invalid && (lname.dirty || lname.touched)"
@@ -222,7 +222,7 @@
                   <div class="form-group">
                     <label for="uUsername">Username (12 Characters)</label>
                     <input id="uUsername" name="username" class="form-control"
-                           required maxlength="12"
+                           required maxlength="12" pattern="^[a-zA-Z0-9_]*$"
                            [(ngModel)]="user.username" #username="ngModel">
 
                     <div *ngIf="username.invalid && (username.dirty || username.touched)"
@@ -378,7 +378,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   <div class="form-group">
                     <input id="uAnswer" name="uAnswer" class="form-control"
-                           maxlength="35" placeholder="Answer"
+                           maxlength="20" placeholder="Answer"
                            pattern="^[a-zA-Z0-9_.-]*$">
                   </div>
                 </div>
