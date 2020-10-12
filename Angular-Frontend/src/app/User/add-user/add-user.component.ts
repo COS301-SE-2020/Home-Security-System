@@ -99,6 +99,7 @@ export class AddUserComponent implements OnInit {
       () => {
         if (!exists) {
           this.save();
+          // this.showErrorPop('succAdd');
         }
       });
   }
@@ -203,9 +204,19 @@ export class AddUserComponent implements OnInit {
     error.innerText = msg;
 
     parentEl.appendChild(error);
+    this.closeErrorPop('noAdd');
+    this.showErrorPop('noAdd');
   }
 
   clearErrors() {
     document.getElementById('errorMsgs').innerHTML = '';
+  }
+
+  showErrorPop(errorID) {
+    document.getElementById(errorID).hidden = false;
+  }
+
+  closeErrorPop(errorID){
+    document.getElementById(errorID).hidden = true;
   }
 }

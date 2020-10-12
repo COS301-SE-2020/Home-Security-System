@@ -158,7 +158,6 @@ export class AddPersonComponent implements OnInit {
     error.innerText = msg;
 
     parentEl.appendChild(error);
-
     parentEl.scrollIntoView();
   }
 

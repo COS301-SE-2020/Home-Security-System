@@ -267,5 +267,32 @@
 
 <!--LOADING SPINNER-->
 <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
-  <p style="color: white">Please Wait. </p>
+  <p style="color: white">Updating User List... </p>
 </ngx-spinner>
+
+
+<div id="noAdd" hidden data-notify="container" class="col-11 col-md-4 alert alert-danger alert-with-icon animated fadeInDown popError"
+     role="alert" data-notify-position="bottom-right"
+     style="display: inline-block; margin: 15px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 1031; bottom: 20px; right: 20px;">
+  <br>
+  <button type="button" aria-hidden="true" class="close" data-notify="dismiss"
+          style="position: absolute; right: 10px; top: 50%; margin-top: -9px; z-index: 1033;" (click)="closeErrorPop('noAdd')"><i class="material-icons">close</i>
+  </button>
+  <i data-notify="icon" class="material-icons">error_outline</i>
+  <span data-notify="title"></span>
+  <span data-notify="message">User not added, please try again.</span>
+  <br>
+</div>
+
+<div id="succAdd" hidden data-notify="container" class="col-11 col-md-4 alert alert-success alert-with-icon animated fadeInDown popError"
+     role="alert" data-notify-position="bottom-right"
+     style="display: inline-block; margin: 15px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 1031; bottom: 20px; right: 20px;">
+  <br>
+  <button type="button" aria-hidden="true" class="close" data-notify="dismiss"
+          style="position: absolute; right: 10px; top: 50%; margin-top: -9px; z-index: 1033;" (click)="closeErrorPop('succAdd')"><i class="material-icons">close</i>
+  </button>
+  <i data-notify="icon" class="material-icons">error_outline</i>
+  <span data-notify="title"></span>
+  <span data-notify="message">User added successfully.</span>
+  <br>
+</div>
