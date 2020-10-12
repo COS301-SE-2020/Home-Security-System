@@ -4,7 +4,7 @@
 Argus is a home security system  capable of instantly identifying threats on multiple video feeds around the home of a user while notifying the user of identified threats.
 
 ## Documents
-<img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Software Requirements Specification](/Documentation/Sigma___SRS_Document(Demo3).pdf)
+<img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Software Requirements Specification](/Documentation/Sigma___SRS_Document(Demo4).pdf)
 
 <img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [User Manual](/Documentation/Argus_User_Manual_v3.pdf)
 
@@ -12,7 +12,13 @@ Argus is a home security system  capable of instantly identifying threats on mul
 
 <img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Technical Installation Manual](/Documentation/Technical_Installation_Manual.pdf)
 
+<img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Testing Policies](/Documentation/Testing_Policies.pdf)
+
 <img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Project Management Tool (ClickUp)](https://app.clickup.com/2535636/v/l/s/2669690)
+
+<img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Project Management Tool (Alternate link)](https://share.clickup.com/c/h/2dc6m-169/098ad26309043f3)
+
+<img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Argus Application (Heroku)](https://sigma-argus.herokuapp.com/)
 
 ## Repository Layout
 This is how the branches will be laid out
@@ -20,10 +26,19 @@ This is how the branches will be laid out
 master 
 └── neuralnetwork
 └── postgreCRUD
+    └── springSessions
+    └── smtpBackend
+    └── herokuServer
 └── firebase-Master
 └── firebaseFrontEnd
-└── smtpBackend
+└── testion
+└── deploy
+└── deployables
+
 ```
+
+## Server Link
+ <a href="https://sigma-argus.herokuapp.com">Go to Argus</a> 
 
 ## Group Members
 
