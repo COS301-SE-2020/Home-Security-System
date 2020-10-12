@@ -207,10 +207,10 @@ export class UserProfileComponent implements OnInit {
           this.createError('Email address and username are already in use. Please enter another email address and username.', 'errorMsgs');
           // alert('Email address and username are already in use. Please enter another email address and username.');
         } else if (email) {
-          this.createError('Email address are already in use. Please enter another email address.', 'errorMsgs');
+          this.createError('Email address is already in use. Please enter another email address.', 'errorMsgs');
           // alert('Email address is already in use. Please enter another email address.');
         } else if (username) {
-          this.createError('Username are already in use. Please enter another username.', 'errorMsgs');
+          this.createError('Username is already in use. Please enter another username.', 'errorMsgs');
           // alert('Username address is already in use. Please enter another username.');
         }
       }, () => {
@@ -261,9 +261,18 @@ export class UserProfileComponent implements OnInit {
     error.innerText = msg;
 
     parentEl.appendChild(error);
+    this.showErrorPop('noUpdate');
   }
 
   clearErrors() {
     document.getElementById('errorMsgs').innerHTML = '';
+  }
+
+  showErrorPop(errorID) {
+    document.getElementById(errorID).hidden = false;
+  }
+
+  closeErrorPop(errorID){
+    document.getElementById(errorID).hidden = true;
   }
 }
