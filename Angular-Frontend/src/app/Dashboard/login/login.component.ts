@@ -121,8 +121,8 @@ export class LoginComponent implements OnInit {
 
   enterLogin() {
     const passInp = document.getElementById('passwordField') as HTMLInputElement;
-    // tslint:disable-next-line:only-arrow-functions
-    passInp.addEventListener('keyup', function(event) {
+    passInp.addEventListener('keyup', (event) => {
+      // tslint:disable-next-line
       if (event.keyCode === 13) {
         event.preventDefault();
         document.getElementById('loginBtn').click();

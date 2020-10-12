@@ -1,16 +1,9 @@
-sudo: required
-dist: trusty
-
 branches:
   only:
     - master
 
 addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
+  chrome: stable
 
 matrix:
   include:
@@ -22,14 +15,15 @@ matrix:
         - cd ./NeuralNetwork/
 
     - language: java
-      jdk: oraclejdk8
+      jdk: oraclejdk14
       script:
         - ./mvnw clean install
       before_script:
         - cd ./Spring-Backend/
 
     - language: node_js
-      node_js: stable
+      node_js:
+        - "12.17.0"
       install:
         - npm install
       before_install:
