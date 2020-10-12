@@ -1,40 +1,32 @@
+sudo: required
+dist: trusty
+
+branches:
+  only: master
+
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
+
 matrix:
   include:
     - language: java
-      jdk:
-        - openjdk14
-      env:
-        - NODE_VERSION="0.12"
-      before_install:
-        - nvm install $NODE_VERSION
+      jdk: oraclejdk8
+      script:
+        - ./mvnw clean install
+      before_script:
+        - cd ./Spring-Backend/
 
     - language: node_js
-      node_js: 
-         - 7
-      before_install: npm i -g npm@7
-      
-    - language: python
-      python: 
-        - 3.8
+      node_js: stable
+      install:
+        - npm install
+      before_install:
+        - cd ./Angular-Frontend/
       script:
-        - pytest
-        
-branches:
-  only:
-    - master
-before_install: 
-  - cd /Argus/Spring-Backend
-before_script:
-  - npm install -g @angular/cli
-
-# Deploy the app on Heroku
-deploy:
-  provider: heroku
-  api_key:
-    secure: "SHA256:X4Hs8YjYzThAXQ799MJXAb+myfbSh+MlRJCkBahC+mI chubr@DESKTOP-N1KIF7V"
-  app: sigma-argus
-
-# Test & Build SpringBoot app
-script:
-  - mvn test
-  - mvn clean package
+        - ng lint
+        - ng test
+        - ng build
