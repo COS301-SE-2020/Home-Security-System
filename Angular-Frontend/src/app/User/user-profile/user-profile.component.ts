@@ -74,32 +74,6 @@ export class UserProfileComponent implements OnInit {
     this.camImg = img;
   }
 
-  /* ======================================================== */
-  /*         END of Camera for taking profile picture         */
-
-  /* ======================================================== */
-  //
-  // populateFields() {
-  //   const FName = document.getElementById('firstNameDisplay') as HTMLDataElement;
-  //   const SName = document.getElementById('lastNameDisplay') as HTMLDataElement;
-  //   const UName = document.getElementById('usernameDisplay') as HTMLDataElement;
-  //   const contact = document.getElementById('numberDisplay') as HTMLInputElement;
-  //   const email = document.getElementById('emailDisplay') as HTMLDataElement;
-  //   const uPic = document.getElementById('userPic') as HTMLImageElement;
-  //
-  //   const num = Number(this.info.id);
-  //   this.userService.getUserById(num)
-  //     .subscribe(data => {
-  //       FName.value = data.fname;
-  //       SName.value = data.lname;
-  //       contact.value = data.contactNo;
-  //       UName.value = data.username;
-  //       email.value = data.email;
-  //       uPic.src = data.profilePhoto;
-  //       this.user = data;
-  //     });
-  // }
-
   updateUser() {
     const uName = document.getElementById('uFirstName') as HTMLInputElement;
     const uSurname = document.getElementById('uLastName') as HTMLInputElement;
@@ -159,7 +133,6 @@ export class UserProfileComponent implements OnInit {
       }
     } else {
       this.createError('Please fill in all fields.', 'errorMsgsPass');
-      // alert('Cannot change password. Not all the fields were filled in.');
     }
   }
 

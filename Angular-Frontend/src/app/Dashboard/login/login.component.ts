@@ -207,17 +207,6 @@ export class LoginComponent implements OnInit {
     }
   }
 
-
-
-
-
-
-
-
-
-
-
-
   searchVal(val, arr): boolean {
     let retVal = false;
 
@@ -333,7 +322,6 @@ export class LoginComponent implements OnInit {
         }
       });
   }
-
 
   showPop(errorID) {
     document.getElementById(errorID).hidden = false;
