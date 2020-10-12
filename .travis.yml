@@ -22,7 +22,7 @@ matrix:
         - cd ./NeuralNetwork/
 
     - language: java
-      jdk: oraclejdk8
+      jdk: oraclejdk14
       script:
         - ./mvnw clean install
       before_script:
