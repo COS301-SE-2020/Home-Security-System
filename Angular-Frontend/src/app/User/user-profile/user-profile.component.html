@@ -8,7 +8,7 @@
       <div class="card card-profile ml-auto mr-auto">
         <div class="card-header card-header-image">
           <div class="image-cropper">
-            <img alt="Photo" class="userPic" id="userPic" src="../../../assets/Images/blank.jpg">
+            <img alt="Photo" class="userPic" id="userPic" src="{{user.profilePhoto}}">
             <div class="middle">
               <button class="btn btn-primary" data-toggle="modal" data-target="#changeProfilePicModal"
                       onclick="openDrop()">Change
@@ -18,7 +18,7 @@
         </div>
 
         <div class="card-body center">
-          <br>
+           <br>
           <h4 class="card-title">{{user.fname}} {{user.lname}}</h4>
           <h6 class="card-category text-gray">{{user.userRole}} User</h6>
           <br>
