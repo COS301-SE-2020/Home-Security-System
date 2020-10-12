@@ -5,6 +5,7 @@ var InitDemo = function () {
   if (!canvas) {
     canvas =  document.getElementById('myChart').getContext('experimental-webgl');
   }
+
   var myChart = new Chart(ctx, {
     type: 'bar',
     data: {

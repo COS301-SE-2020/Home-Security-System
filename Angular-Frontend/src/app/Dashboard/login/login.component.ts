@@ -7,12 +7,6 @@ import {User} from '../../model/user';
 import {JwtRequest} from '../../model/jwt-request';
 // import {RecoverPasswordEmail} from '../../../assets/js/RecoverPasswordEmail.js';
 // import * as bcrypt from 'bcryptjs';
-// DO NOT REMOVE THIS
-import {forEachComment} from 'tslint';
-import {count} from 'rxjs/operators';
-import {environment} from '../../../environments/environment';
-import {HttpClient} from '@angular/common/http';
-import validate = WebAssembly.validate;
 
 @Component({
   selector: 'app-login',
@@ -22,6 +16,7 @@ import validate = WebAssembly.validate;
 export class LoginComponent implements OnInit {
   // mailer = new RecoverPasswordEmail();
   users: Observable<User[]>;
+  emailPlaceholder = '';
 
   constructor(private userService: UserService, public authService: AuthService,
               private router: Router) {

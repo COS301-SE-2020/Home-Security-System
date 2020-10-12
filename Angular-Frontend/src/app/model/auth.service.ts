@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpEvent, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { map } from "rxjs/operators";
-import { JwtResponse } from "./jwt-response";
-import { SessionClass } from "./session";
-import {RecoveryDetails} from "./recovery-details";
-import {Observable} from "rxjs";
-import {JwtRequest} from "./jwt-request";
+// import { map } from 'rxjs/operators';
+// import { JwtResponse } from './jwt-response';
+import { SessionClass } from './session';
+import {RecoveryDetails} from './recovery-details';
+import {Observable} from 'rxjs';
+import {JwtRequest} from './jwt-request';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -17,12 +17,12 @@ const httpOptions = {
 })
 export class AuthService {
 
-  //private baseUrl = `${environment.apiUrl}/api/authenticate`;
+  // private baseUrl = `${environment.apiUrl}/api/authenticate`;
   private baseUrl = `${environment.apiUrl}/api/validate`;
 
   constructor(private httpClient: HttpClient) { }
 
-  validatePassword(value: JwtRequest) : Observable<JwtRequest> {
+  validatePassword(value: JwtRequest): Observable<JwtRequest> {
     return this.httpClient.post<JwtRequest>(`${this.baseUrl}`, value);
   }
 
@@ -43,8 +43,8 @@ export class AuthService {
   }*/
 
   isUserLoggedIn() {
-    let user = sessionStorage.getItem('userDetails')
-    return !(user === null)
+    const user = sessionStorage.getItem('userDetails');
+    return !(user === null);
   }
 
   logOut() {
@@ -71,19 +71,19 @@ export class AuthService {
 
   recoverySession(email, ans) {
     sessionStorage.setItem('recovery', email);
-    let recoveryDetails = new RecoveryDetails();
+    const recoveryDetails = new RecoveryDetails();
     recoveryDetails.email = email;
     recoveryDetails.answer = ans;
     sessionStorage.setItem('recovery', JSON.stringify(recoveryDetails));
   }
 
   retrieveEmail() {
-    let retrievedMail = sessionStorage.getItem('recovery');
+    const retrievedMail = sessionStorage.getItem('recovery');
     return JSON.parse(retrievedMail);
   }
 
   createSession(id, role, email, network) {
-    let newUser = new SessionClass();
+    const newUser = new SessionClass();
     newUser.id = id;
     newUser.role = role;
     newUser.email = email;
@@ -92,7 +92,7 @@ export class AuthService {
   }
 
   retrieveUserInfo() {
-    let retrievedObject = sessionStorage.getItem('userDetails');
+    const retrievedObject = sessionStorage.getItem('userDetails');
     return JSON.parse(retrievedObject);
   }
 }

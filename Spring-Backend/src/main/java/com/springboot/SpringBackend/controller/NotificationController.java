@@ -49,9 +49,7 @@ public class NotificationController {
                 .orElseThrow(() -> new ResourceNotFoundException("Notification not found for this id :: " + id));
 
         x.setNotificationId(details.getNotificationId());
-        if(details.getNotificationImg() != null) {
-            x.setNotificationImg(details.getNotificationImg());
-        }
+        x.setNotificationImg(details.getNotificationImg());
         x.setListed(details.getListed());
         x.setMessage(details.getMessage());
         x.setOnDate(details.getOnDate());

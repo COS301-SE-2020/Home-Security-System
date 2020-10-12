@@ -18,7 +18,7 @@
                 <div class="form-group">
                   <label for="addFirstName">First Name</label>
                   <input id="addFirstName" name="addFirstName" class="form-control"
-                         required maxlength="35" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
+                         required maxlength="20" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
                          [(ngModel)]="namePlaceholder" #name="ngModel">
 
                   <div *ngIf="name.invalid && (name.dirty || name.touched)"
@@ -33,7 +33,7 @@
                 <div class="form-group">
                   <label for="addSurname">Last Name</label>
                   <input id="addSurname" name="addSurname" class="form-control"
-                         required maxlength="35" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
+                         required maxlength="20" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
                          [(ngModel)]="surnamePlaceholder" #lname="ngModel">
 
                   <div *ngIf="lname.invalid && (lname.dirty || lname.touched)"
@@ -52,7 +52,7 @@
                 <div class="form-group">
                   <label for="addUsername">Username (12 Characters)</label>
                   <input id="addUsername" name="addUsername" class="form-control"
-                         required maxlength="12"
+                         required maxlength="12" pattern="^[a-zA-Z0-9_]*$"
                          [(ngModel)]="usernamePlaceholder" #username="ngModel">
 
                   <div *ngIf="username.invalid && (username.dirty || username.touched)"
@@ -105,7 +105,7 @@
                 <div class="form-group">
                   <label for="passwordField1">Password</label>
                   <input type="password" id="passwordField1" name="passwordField1" class="form-control"
-                         required maxlength="35"
+                         required maxlength="20"
                          pattern="^[a-zA-Z0-9]*(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                          [(ngModel)]="passPlaceholder" #userPass="ngModel">
                   <i class="material-icons hoverPointer" id="passwordVisibility1" onclick="showPassword('1')">visibility_off</i>
@@ -165,8 +165,8 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group">
                   <input id="answerField" name="answerField" class="form-control"
-                         required maxlength="35"
-                         pattern="^[a-zA-Z0-9_.-]*$" placeholder="Answer"
+                         required maxlength="20"
+                         pattern="^[a-zA-Z0-9_]*$" placeholder="Answer"
                          [(ngModel)]="answerPlaceholder" #answer="ngModel">
                   <div *ngIf="answer.invalid && (answer.dirty || answer.touched)"
                        class="alert alert-danger">

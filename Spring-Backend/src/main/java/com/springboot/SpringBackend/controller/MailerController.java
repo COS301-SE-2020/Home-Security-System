@@ -1,67 +1,61 @@
 package com.springboot.SpringBackend.controller;
 
 import com.springboot.SpringBackend.service.MailerService;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-
-import java.io.File;
-import java.io.FileOutputStream;
 
 @Controller
 public class MailerController {
     @Autowired
     private MailerService emailSender;
-    private String imagePath = "Home-Security-System\\Angular-Frontend\\src\\assets\\Images\\ArgusLogo.png";
+    private String imagePath = "\\Home-Security-System\\Angular-Frontend\\src\\assets\\Images\\ArgusLogo.png";
 
     // Usage: get request, http://localhost:8080/sendmailGrey/{email}
     // @GetMapping(value = "/sendmailGrey/{emailAddress}")
-    public String sendmailGrey(String email) {
+    public String sendmailGrey(String email, String name, String date, String time) {
         String x = "sent";
         emailSender.sendMail(
                 email,
-                "Argus System Suspicious person Alert",
-                "An suspicious person was detected on the Argus system."
+                "ALERT: New " + name + " person detected on ARGUS",
+                "Suspicious person detected on " + date + " at " + time + "."
         );
 
         return x;
     }
     // Usage: get request, http://localhost:8080/sendmailBlack/{email}
     // @GetMapping(value = "/sendmailBlack/{emailAddress}")
-    public String sendmailBlack(String email) {
+    public String sendmailBlack(String email, String name, String date, String time) {
         String x = "sent";
         emailSender.sendMail(
                 email,
-                "Argus System Threat List Alert",
-                "A person from your threat list has been detected on the Argus system."
+                "WARNING: Threat Detected on ARGUS",
+                name + " detected on " + date + " at " + time + "."
         );
 
         return x;
     }
     // Usage: get request, http://localhost:8080/sendmailBlackAtatchment/{emailAddress}
     // @GetMapping(value = "/sendmailBlackAtatchment/{emailAddress}")
-    public String sendWithAttatchBL(String email) {
+    public String sendWithAttatchBL(String email, String name, String date, String time) {
         String x = "sent";
         emailSender.sendMailWithInlineResources(
                 email,
-                "WARNING: Argus Threat-list Detection",
+                "WARNING: Threat Detected on ARGUS",
                 imagePath,
-                "This person from your threat list has been detected. Image captured below:"
+                name + " detected on " + date + " at " + time + "."
         );
 
         return x;
     }
     // Usage: get request, http://localhost:8080/sendmailGreyAtatchment/{emailAddress}
     // @GetMapping(value = "/sendmailGreyAtatchment/{emailAddress}")
-    public String sendWithAttatchGL(String email) {
+    public String sendWithAttatchGL(String email, String name, String date, String time) {
         String x = "sent";
         emailSender.sendMailWithInlineResources(
                 email,
-                "ALERT: Argus Suspicious Person Detection",
+                "ALERT: New " + name + " person detected on ARGUS",
                 imagePath,
-                "A suspicious person has been detected. Image captured below:"
+                "Suspicious person detected on " + date + " at " + time + "."
         );
 
         return x;

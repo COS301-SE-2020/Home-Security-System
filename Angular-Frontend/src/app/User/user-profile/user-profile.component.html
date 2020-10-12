@@ -12,7 +12,7 @@
           <!--Header-->
           <div class="card-header card-header-primary">
             <h4 class="card-title">User Profile</h4>
-            <p class="card-category">If you want to reinvent yourself, here is your chance.</p>
+            <p class="card-category">Want to reinvent yourself?
             <!--Profile Picture-->
             <div class="image-cropper">
               <img alt="Photo" class="userPic" id="userPic" src="../../../assets/Images/blank.jpg">
@@ -22,6 +22,7 @@
                 </button>
               </div>
             </div>
+            <p class="card-category"> Here is your chance.</p>
           </div>
           <!--Body-->
           <div class="card-body">
@@ -193,7 +194,7 @@
                   <div class="form-group">
                     <label for="uFirstName">First Name</label>
                     <input id="uFirstName" name="fname" class="form-control"
-                           required maxlength="35" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
+                           required maxlength="20" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
                            [(ngModel)]="user.fname" #name="ngModel">
 
                     <div *ngIf="name.invalid && (name.dirty || name.touched)"
@@ -206,7 +207,7 @@
                   <div class="form-group">
                     <label for="uLastName">Last Name</label>
                     <input id="uLastName" name="lname" class="form-control"
-                           required maxlength="35" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
+                           required maxlength="20" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
                            [(ngModel)]="user.lname" #lname="ngModel">
 
                     <div *ngIf="lname.invalid && (lname.dirty || lname.touched)"
@@ -222,7 +223,7 @@
                   <div class="form-group">
                     <label for="uUsername">Username (12 Characters)</label>
                     <input id="uUsername" name="username" class="form-control"
-                           required maxlength="12"
+                           required maxlength="12" pattern="^[a-zA-Z0-9_]*$"
                            [(ngModel)]="user.username" #username="ngModel">
 
                     <div *ngIf="username.invalid && (username.dirty || username.touched)"
@@ -378,7 +379,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   <div class="form-group">
                     <input id="uAnswer" name="uAnswer" class="form-control"
-                           maxlength="35" placeholder="Answer"
+                           maxlength="20" placeholder="Answer"
                            pattern="^[a-zA-Z0-9_.-]*$">
                   </div>
                 </div>
@@ -387,7 +388,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal" (click)="updatePassword()"
+          <button type="submit" class="btn btn-primary pull-left" data-dismiss="modal" (click)="updatePassword()"
                   [disabled]="passwordForm.invalid">
             Change Password
           </button>

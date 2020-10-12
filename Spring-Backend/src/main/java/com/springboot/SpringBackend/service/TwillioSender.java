@@ -15,7 +15,6 @@ public class TwillioSender implements SmsSender{
 
     private final static Logger LOGGER = LoggerFactory.getLogger(TwillioSender.class);
     private final TwillioConfig twillioConfig;
-    private SmsRequest req;
 
     @Autowired
     public TwillioSender(TwillioConfig twillioConfig) {
@@ -27,19 +26,19 @@ public class TwillioSender implements SmsSender{
         MessageCreator creator = Message.creator(
                 new PhoneNumber(req.getNumb()),
                 new PhoneNumber(twillioConfig.getNumber()),
-                "(Argus alert) A person from your threat list has been detected"
+                "WARNING: " + req.getName() + " detected on ARGUS on " + req.getDate() + "at " + req.getTime() + "."
                 );
         creator.create();
-        LOGGER.info("Sent sms to: " + req);
+        LOGGER.info("Sent Threat SMS to: " + req);
     }
     @Override
     public void sendSmsSuspicious(SmsRequest req) {
         MessageCreator creator = Message.creator(
                 new PhoneNumber(req.getNumb()),
                 new PhoneNumber(twillioConfig.getNumber()),
-                "(Argus alert) A suspicious person has been detected"
+                "ALERT: New " + req.getName() + " person detected on " + req.getDate() + " at " + req.getTime() + "."
         );
         creator.create();
-        LOGGER.info("Sent sms: " + req);
+        LOGGER.info("Sent Suspicious SMS to: " + req);
     }
 }

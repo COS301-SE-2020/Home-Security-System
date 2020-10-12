@@ -14,7 +14,7 @@ public class JwtResponse implements Serializable {
     //private String username;
 
     public JwtResponse(String accessToken) {
-        this.token= accessToken;
+        this.token = accessToken;
     }
 
     /*public JwtResponse(String token, String username) {
