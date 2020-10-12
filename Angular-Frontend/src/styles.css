@@ -19332,20 +19332,19 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 }
 
 .image-cropper {
-  margin: -40px auto 0;
-  float: right;
-  width: 120px;
-  height: 120px;
+  margin: -5px auto 0;
+  width: 200px;
+  height: 200px;
   position: relative;
   overflow: hidden;
-  border-radius: 50%;
+  /*border-radius: 50%;*/
 }
 
 .userPic {
   object-fit: cover;
   margin: 0 auto;
-  height: 120px;
-  width: 120px;
+  height: 200px;
+  width: 200px;
   transition: .5s ease;
   backface-visibility: hidden;
   opacity: 1;

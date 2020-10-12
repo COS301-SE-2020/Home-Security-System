@@ -55,9 +55,15 @@ export class UserProfileComponent implements OnInit {
   public snapTrigger: Subject<void> = new Subject<void>();
 
   ngOnInit(): void {
-    this.populateFields();
+    // this.populateFields();
     this.appService.setTitle('User Profile');
     this.user = new User();
+
+    const num = Number(this.info.id);
+    this.userService.getUserById(num)
+      .subscribe(data => {
+        this.user = data;
+      });
   }
 
   public trigger_s(): void {
@@ -72,27 +78,27 @@ export class UserProfileComponent implements OnInit {
   /*         END of Camera for taking profile picture         */
 
   /* ======================================================== */
-
-  populateFields() {
-    const FName = document.getElementById('firstNameDisplay') as HTMLDataElement;
-    const SName = document.getElementById('lastNameDisplay') as HTMLDataElement;
-    const UName = document.getElementById('usernameDisplay') as HTMLDataElement;
-    const contact = document.getElementById('numberDisplay') as HTMLInputElement;
-    const email = document.getElementById('emailDisplay') as HTMLDataElement;
-    const uPic = document.getElementById('userPic') as HTMLImageElement;
-
-    const num = Number(this.info.id);
-    this.userService.getUserById(num)
-      .subscribe(data => {
-        FName.value = data.fname;
-        SName.value = data.lname;
-        contact.value = data.contactNo;
-        UName.value = data.username;
-        email.value = data.email;
-        uPic.src = data.profilePhoto;
-        this.user = data;
-      });
-  }
+  //
+  // populateFields() {
+  //   const FName = document.getElementById('firstNameDisplay') as HTMLDataElement;
+  //   const SName = document.getElementById('lastNameDisplay') as HTMLDataElement;
+  //   const UName = document.getElementById('usernameDisplay') as HTMLDataElement;
+  //   const contact = document.getElementById('numberDisplay') as HTMLInputElement;
+  //   const email = document.getElementById('emailDisplay') as HTMLDataElement;
+  //   const uPic = document.getElementById('userPic') as HTMLImageElement;
+  //
+  //   const num = Number(this.info.id);
+  //   this.userService.getUserById(num)
+  //     .subscribe(data => {
+  //       FName.value = data.fname;
+  //       SName.value = data.lname;
+  //       contact.value = data.contactNo;
+  //       UName.value = data.username;
+  //       email.value = data.email;
+  //       uPic.src = data.profilePhoto;
+  //       this.user = data;
+  //     });
+  // }
 
   updateUser() {
     const uName = document.getElementById('uFirstName') as HTMLInputElement;
@@ -123,8 +129,7 @@ export class UserProfileComponent implements OnInit {
     if ((uPassword1.value !== '') && (uPassword2.value !== '') && (uPassword3.value !== '')) {
       if (uPassword2.value !== uPassword3.value) {
         this.createError('Passwords do not match.', 'errorMsgsPass');
-      }
-      else {
+      } else {
         const obj = new JwtRequest();
         obj.username = this.info.email;
         obj.password = uPassword1.value;
@@ -149,7 +154,8 @@ export class UserProfileComponent implements OnInit {
               this.createError('The password you entered seems to be incorrect, please retry entering your password.', 'errorMsgsPass');
               uPassword1.value = '';
             }
-          }, () => { });
+          }, () => {
+          });
       }
     } else {
       this.createError('Please fill in all fields.', 'errorMsgsPass');
@@ -272,7 +278,7 @@ export class UserProfileComponent implements OnInit {
     document.getElementById(errorID).hidden = false;
   }
 
-  closeErrorPop(errorID){
+  closeErrorPop(errorID) {
     document.getElementById(errorID).hidden = true;
   }
 }
