@@ -16,7 +16,7 @@ export class RecoverPasswordEmail{
         "Confirm Password</a></body>"  + "</html>"
        */
     }).then(
-      message => alert("Please check your inbox to confirm password reset")
+      // message => alert("Please check your inbox to confirm password reset")
     );
   }
 }

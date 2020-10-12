@@ -26,20 +26,20 @@
           <div class="table-responsive table-striped">
             <table class="table center">
               <thead class="text-primary">
-                <tr>
-                  <th class="hoverPointer" onclick="sortTable('greyListTable', 1)">
-                    Date Added
-                  </th>
-                  <th>
-                    Picture
-                  </th>
-                  <th>
-                    Classify
-                  </th>
-                  <th>
-                    Remove
-                  </th>
-                </tr>
+              <tr>
+                <th class="hoverPointer" onclick="sortTable('greyListTable', 1)">
+                  Date Added
+                </th>
+                <th>
+                  Picture
+                </th>
+                <th>
+                  Classify
+                </th>
+                <th>
+                  Remove
+                </th>
+              </tr>
               </thead>
               <tbody>
               <ng-container *ngFor="let p of person | async">
@@ -62,8 +62,8 @@
                           <div class="row">
                             <div class="col">
                               <div class="form-group">
-                                <label for="addFirstName">First Name</label>
-                                <input type="text" name="name" class="form-control" id="addFirstName"
+                                <label for="addFirstName{{p.personId}}">First Name</label>
+                                <input type="text" name="name" class="form-control" id="addFirstName{{p.personId}}"
                                        required maxlength="20" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
                                        [(ngModel)]="p.fname" #name="ngModel">
                                 <div *ngIf="name.invalid && (name.dirty || name.touched)"
@@ -76,8 +76,8 @@
 
                             <div class="col">
                               <div class="form-group">
-                                <label for="addSurname">Last Name</label>
-                                <input type="text" class="form-control" id="addSurname" name="surname"
+                                <label for="addSurname{{p.personId}}">Last Name</label>
+                                <input type="text" class="form-control" id="addSurname{{p.personId}}" name="surname"
                                        required maxlength="20" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
                                        [(ngModel)]="p.lname" #lname="ngModel">
 
@@ -107,7 +107,7 @@
                     </div>
                   </td>
                   <td *ngIf="info.role != 'Basic'">
-                    <a class="material-icons listPageIcons" (click)="removePerson(p.personId)" title="Delete Person">delete</a>
+                    <i class="material-icons hoverPointer" title="Delete Person" (click)="confirmDelete(p.personId)">delete</i>
                   </td>
                 </tr>
               </ng-container>
@@ -121,7 +121,7 @@
 </div>
 
 <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
-  <p style="color: white">Please Wait. </p>
+  <p style="color: white">Updating Unknown List... </p>
 </ngx-spinner>
 
 <!-- Image Zoom modal -->
@@ -130,3 +130,56 @@
   <img class="modal-content" id="img01" alt="image" src="">
   <div id="caption"></div>
 </div>
+
+<div id="confirmModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <i class="material-icons modal-close-btn" (click)="confirmDeleteClose()">close</i>
+      <h4 class="modal-title">Confirm Deletion</h4>
+    </div>
+    <div class="modal-body center">
+      <div class="card-body">
+        Are you sure you want to delete this person? This action cannot be undone.
+      </div>
+      <img alt="Person" id="deleteConfirmPic"
+           class="listPic ImgClassName">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary pull-left" (click)="confirmDeleteClose()">
+        Cancel
+      </button>
+      <button id="deleteButton" class="btn btn-danger pull-left">
+        Delete
+      </button>
+    </div>
+  </div>
+</div>
+<!--&lt;!&ndash;Confirm Delete&ndash;&gt;-->
+<!--<div class="container" id="confirmModal">-->
+<!--  <div class="modal fade"  role="dialog">-->
+<!--    <div class="modal-dialog">-->
+<!--      &lt;!&ndash; Modal content&ndash;&gt;-->
+<!--      <div class="modal-content">-->
+<!--        <div class="modal-header">-->
+<!--          <i class="material-icons modal-close-btn" (click)="confirmDeleteClose()">close</i>-->
+<!--          <h4 class="modal-title">Confirm Deletion</h4>-->
+<!--        </div>-->
+<!--        <div class="modal-body">-->
+<!--          <div class="card-body">-->
+<!--            Are you sure you want to delete this person? This action cannot be undone.-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="modal-footer">-->
+<!--          <button type="submit" class="btn btn-primary pull-left" data-dismiss="modal" (click)="updatePassword()"-->
+<!--                  >-->
+<!--            Delete-->
+<!--          </button>-->
+<!--          <button type="submit" class="btn btn-primary pull-left" data-dismiss="modal" (click)="updatePassword()"-->
+<!--          >-->
+<!--            Cancel-->
+<!--          </button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->

@@ -19,7 +19,6 @@ import { SettingsComponent } from './Dashboard/settings/settings.component';
 import { SideNavComponent } from './Dashboard/side-nav/side-nav.component';
 import { TopNavComponent } from './Dashboard/top-nav/top-nav.component';
 import { NotificationComponent } from './Dashboard/notification/notification.component';
-import { ResetPasswordComponent } from './Dashboard/reset-password/reset-password.component';
 import { PeopleGreyComponent } from './Person/people-grey/people-grey.component';
 import { PeopleWhiteComponent } from './Person/people-white/people-white.component';
 import { PeopleBlackComponent } from './Person/people-black/people-black.component';
@@ -69,7 +68,6 @@ const appRoutes: Routes = [];
     UserProfileComponent,
     PeopleWhiteComponent,
     NotificationComponent,
-    ResetPasswordComponent,
     DeletedUsersComponent,
     DeletedWhiteComponent,
     DeletedBlackComponent/*,

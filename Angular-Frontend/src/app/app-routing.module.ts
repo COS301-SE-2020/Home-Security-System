@@ -19,7 +19,6 @@ import {EditPersonComponent} from './Person/edit-person/edit-person.component';
 import {DeletedWhiteComponent} from './Person/deleted-white/deleted-white.component';
 import {DeletedBlackComponent} from './Person/deleted-black/deleted-black.component';
 import {NotificationComponent} from './Dashboard/notification/notification.component';
-import {ResetPasswordComponent} from './Dashboard/reset-password/reset-password.component';
 
 import { AuthGuardService } from './model/auth-guard.service';
 
@@ -42,8 +41,7 @@ const routes: Routes = [
   {path: 'add-person', component: AddPersonComponent, data: {title: 'Add Person | Argus'}, canActivate:[AuthGuardService] },
   {path: 'edit-person/:id', component: EditPersonComponent, data: {title: 'Edit Person | Argus'}, canActivate:[AuthGuardService] },
   {path: 'settings', component: SettingsComponent, data: {title: 'Notifications | Argus'}, canActivate:[AuthGuardService] },
-  {path: 'notification', component: NotificationComponent, data: {title: 'Notifications | Argus'}, canActivate:[AuthGuardService] },
-  {path: 'reset-password', component: ResetPasswordComponent, data: {title: 'Reset Password | Argus'}}
+  {path: 'notification', component: NotificationComponent, data: {title: 'Notifications | Argus'}, canActivate:[AuthGuardService] }
 ];
 
 @NgModule({

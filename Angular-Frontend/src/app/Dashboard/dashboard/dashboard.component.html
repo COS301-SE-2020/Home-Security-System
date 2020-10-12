@@ -15,11 +15,11 @@
       </div>
       <div class="card-body center" id="liveFeedDiv">
         <div id="loadingDiv">
-<!--          <i class="material-icons">cached</i>-->
-<!--          <br>-->
-<!--          Loading...-->
+          <!--          <i class="material-icons">cached</i>-->
+          <!--          <br>-->
+          <!--          Loading...-->
 
-<!--          <video src="http://192.168.0.100:5000/feed" frameborder="0" class="liveCamera"></video>-->
+          <!--          <video src="http://192.168.0.100:5000/feed" frameborder="0" class="liveCamera"></video>-->
         </div>
         <div class="center"></div>
       </div>
@@ -27,40 +27,37 @@
   </div>
 </div>
 
+
 <div class="row">
-  <!-- ALERTS CARD -->
-  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-    <div class="card card-chart" id="chart1">
-      <div class="card-header card-header-color">
-        <h4 class="card-title">Notifications</h4>
-        <p class="card-category">Number of alerts for the past few days</p>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">Weekly Notifications</h4>
+        <p class="category">Number of alerts for the past few days</p>
       </div>
       <div class="card-body">
-        <div id="chartContainer"></div>
+        <div id="chartContainer" style="height: 300px; width: 100%;"></div>
       </div>
       <div class="card-footer">
         <div class="stats">
-          <i class="material-icons"
-             id="access1">access_time</i> Last updated {{currentDate | date:'dd-MM-yyyy'}}
+          <i class="material-icons">access_time</i> Last updated {{currentDate | date:'dd-MM-yyyy'}}
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Notification Charts -->
-  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-    <div class="card card-chart" id="chart2">
-      <div class="card-header card-header-color">
-        <h4 class="card-title">People</h4>
-        <p class="card-category">Breakdown of types of people on your system</p>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">Weekly Notifications</h4>
+        <p class="category">Number of alerts for the past few days</p>
       </div>
       <div class="card-body">
-        <div id="chartContainer2"></div>
+        <div id="chartContainer2" style="height: 300px; width: 100%;"></div>
       </div>
       <div class="card-footer">
         <div class="stats">
-          <i class="material-icons"
-             id="access2">access_time</i> Last updated {{currentDate | date:'dd-MM-yyyy'}}
+          <i class="material-icons">access_time</i> Last updated {{currentDate | date:'dd-MM-yyyy'}}
         </div>
       </div>
     </div>

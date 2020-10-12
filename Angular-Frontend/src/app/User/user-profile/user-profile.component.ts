@@ -55,9 +55,15 @@ export class UserProfileComponent implements OnInit {
   public snapTrigger: Subject<void> = new Subject<void>();
 
   ngOnInit(): void {
-    this.populateFields();
+    // this.populateFields();
     this.appService.setTitle('User Profile');
     this.user = new User();
+
+    const num = Number(this.info.id);
+    this.userService.getUserById(num)
+      .subscribe(data => {
+        this.user = data;
+      });
   }
 
   public trigger_s(): void {
@@ -66,32 +72,6 @@ export class UserProfileComponent implements OnInit {
 
   public handleShot(img: WebcamImage): void {
     this.camImg = img;
-  }
-
-  /* ======================================================== */
-  /*         END of Camera for taking profile picture         */
-
-  /* ======================================================== */
-
-  populateFields() {
-    const FName = document.getElementById('firstNameDisplay') as HTMLDataElement;
-    const SName = document.getElementById('lastNameDisplay') as HTMLDataElement;
-    const UName = document.getElementById('usernameDisplay') as HTMLDataElement;
-    const contact = document.getElementById('numberDisplay') as HTMLInputElement;
-    const email = document.getElementById('emailDisplay') as HTMLDataElement;
-    const uPic = document.getElementById('userPic') as HTMLImageElement;
-
-    const num = Number(this.info.id);
-    this.userService.getUserById(num)
-      .subscribe(data => {
-        FName.value = data.fname;
-        SName.value = data.lname;
-        contact.value = data.contactNo;
-        UName.value = data.username;
-        email.value = data.email;
-        uPic.src = data.profilePhoto;
-        this.user = data;
-      });
   }
 
   updateUser() {
@@ -123,8 +103,7 @@ export class UserProfileComponent implements OnInit {
     if ((uPassword1.value !== '') && (uPassword2.value !== '') && (uPassword3.value !== '')) {
       if (uPassword2.value !== uPassword3.value) {
         this.createError('Passwords do not match.', 'errorMsgsPass');
-      }
-      else {
+      } else {
         const obj = new JwtRequest();
         obj.username = this.info.email;
         obj.password = uPassword1.value;
@@ -149,11 +128,11 @@ export class UserProfileComponent implements OnInit {
               this.createError('The password you entered seems to be incorrect, please retry entering your password.', 'errorMsgsPass');
               uPassword1.value = '';
             }
-          }, () => { });
+          }, () => {
+          });
       }
     } else {
       this.createError('Please fill in all fields.', 'errorMsgsPass');
-      // alert('Cannot change password. Not all the fields were filled in.');
     }
   }
 
@@ -207,10 +186,10 @@ export class UserProfileComponent implements OnInit {
           this.createError('Email address and username are already in use. Please enter another email address and username.', 'errorMsgs');
           // alert('Email address and username are already in use. Please enter another email address and username.');
         } else if (email) {
-          this.createError('Email address are already in use. Please enter another email address.', 'errorMsgs');
+          this.createError('Email address is already in use. Please enter another email address.', 'errorMsgs');
           // alert('Email address is already in use. Please enter another email address.');
         } else if (username) {
-          this.createError('Username are already in use. Please enter another username.', 'errorMsgs');
+          this.createError('Username is already in use. Please enter another username.', 'errorMsgs');
           // alert('Username address is already in use. Please enter another username.');
         }
       }, () => {
@@ -261,9 +240,18 @@ export class UserProfileComponent implements OnInit {
     error.innerText = msg;
 
     parentEl.appendChild(error);
+    this.showErrorPop('noUpdate');
   }
 
   clearErrors() {
     document.getElementById('errorMsgs').innerHTML = '';
+  }
+
+  showErrorPop(errorID) {
+    document.getElementById(errorID).hidden = false;
+  }
+
+  closeErrorPop(errorID) {
+    document.getElementById(errorID).hidden = true;
   }
 }
