@@ -20,7 +20,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(private spinner: NgxSpinnerService, private appService: TitleService,
               private personService: PersonService, private notificationService: NotificationService,
-              private authService: AuthService) { }
+              private authService: AuthService) {
+  }
 
   info: SessionClass = this.authService.retrieveUserInfo();
   people: Observable<Person[]>;
@@ -48,12 +49,10 @@ export class DashboardComponent implements OnInit {
         if ((data[i].personListed === 'Grey') && (data[i].personDeleted === null)
           && (data[i].network.netName === this.info.network)) {
           unknown++;
-        }
-        else if ((data[i].personListed === 'Black') && (data[i].personDeleted === null) &&
+        } else if ((data[i].personListed === 'Black') && (data[i].personDeleted === null) &&
           (data[i].network.netName === this.info.network)) {
           threat++;
-        }
-        else if ((data[i].personListed === 'White') && (data[i].personDeleted === null) &&
+        } else if ((data[i].personListed === 'White') && (data[i].personDeleted === null) &&
           (data[i].network.netName === this.info.network)) {
           cleared++;
         } else {
@@ -192,6 +191,7 @@ export class DashboardComponent implements OnInit {
       }]
     });
 
+    chart.class = 'chartJS';
     chart.render();
   }
 
@@ -202,9 +202,9 @@ export class DashboardComponent implements OnInit {
     this.appService.setTitle('Dashboard');
     this.calculateNumberOfPeople();
     this.calculateNumberOfNotifications();
-    // this.getCameras();
-    this.newCam('http://192.168.0.100:5000/feed/0', '1');
-    this.newCam2('http://192.168.0.100:5000/feed/1', '2');
+    this.getCameras();
+    // this.newCam('http://192.168.0.100:5000/feed/0', '1');
+    // this.newCam2('http://192.168.0.100:5000/feed/1', '2');
   }
 
   public toggleCam(): void {
@@ -217,7 +217,7 @@ export class DashboardComponent implements OnInit {
     let noCamMessage = false;
     const thisRef = this;
 
-    const camUrls = ['http://192.168.0.100:5000/feed'];
+    const camUrls = ['http://192.168.0.100:5000/feed/0'];
 
     function newCam(currentUrl, currentNum) {
       console.log(currentUrl);
