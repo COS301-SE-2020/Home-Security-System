@@ -15,10 +15,10 @@
     <div class="collapse navbar-collapse justify-content-end">
       <form class="navbar-form"></form>
       <ul class="navbar-nav">
-        <li class="nav-item center">
-          <button class="btn btn-danger" (click)="triggerPanic()">
-<!--            <i class="material-icons">report</i>-->
-            Trigger Panic
+        <li class="nav-item center align-middle">
+          <button class="btn btn-danger triggerIcon" (click)="triggerPanic()">
+            <i class="material-icons reportIcon">report</i>
+            <span class="triggerWords">Trigger Panic</span>
           </button>
         </li>
         <li class="nav-item dropdown">
@@ -35,7 +35,7 @@
 
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/notification']">
-            <i class="material-icons">notifications</i>
+            <i class="material-icons navIcon">notifications</i>
             <!--<span id="noteCnt" class="notification"></span>-->
             <p class="d-lg-none d-md-block hoverPointer">
               Notifications
@@ -45,7 +45,7 @@
         <li class="nav-item dropdown">
           <a class="nav-link" id="navbarDropdownSettings" data-toggle="dropdown" aria-haspopup="true"
              aria-expanded="false" (click)="retrieveSettings()">
-            <i class="material-icons">settings</i>
+            <i class="material-icons navIcon">settings</i>
             <p class="d-lg-none d-md-block hoverPointer">
               Settings
             </p>
@@ -82,7 +82,6 @@
     </div>
   </div>
 </nav>
-
 
 <div id="triggerPanicPop" hidden data-notify="container" class="col-11 col-md-4 alert alert-danger alert-with-icon animated fadeInDown popError"
      role="alert" data-notify-position="bottom-right"

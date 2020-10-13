@@ -202,8 +202,8 @@ export class DashboardComponent implements OnInit {
     this.appService.setTitle('Dashboard');
     this.calculateNumberOfPeople();
     this.calculateNumberOfNotifications();
-    this.getCameras();
-    // this.newCam('http://192.168.0.100:5000/feed/0', '1');
+    // this.getCameras();
+    this.newCam('http://102.132.160.185:5231/feed/0', '1');
     // this.newCam2('http://192.168.0.100:5000/feed/1', '2');
   }
 
