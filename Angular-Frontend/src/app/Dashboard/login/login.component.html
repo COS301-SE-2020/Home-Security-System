@@ -30,7 +30,7 @@
       <i class="material-icons" id="passwordVisibility" onclick="showPassword('')">visibility_off</i>
     </label>
     <br>
-    <a class="loginButton" (click)="makeSession()" id="loginBtn">Login</a>
+    <a class="loginButton" (click)="clearErrors(); makeSession()" id="loginBtn">Login</a>
     <div id="remember-container">
       <span id="forgotten" (click)="unhide()" onclick="forgot()">Forgot password?</span>
     </div>
