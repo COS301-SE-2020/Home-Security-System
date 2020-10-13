@@ -6,8 +6,8 @@ import {TitleService} from '../../title.service';
 import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {AuthService} from "../../model/auth.service";
-import {SessionClass} from "../../model/session";
+import {AuthService} from '../../model/auth.service';
+import {SessionClass} from '../../model/session';
 
 @Component({
   selector: 'app-deleted-white',
@@ -41,7 +41,7 @@ export class DeletedWhiteComponent implements OnInit {
               setTimeout(() => {
                 this.SpinnerService.hide();
                 this.reloadData();
-              }, 500);
+              }, 600);
             });
         });
   }
@@ -49,7 +49,7 @@ export class DeletedWhiteComponent implements OnInit {
   ngOnInit(): void {
     this.appService.setTitle('Deleted People');
     this.reloadData();
-    this.deleteOld(1);
+    // this.deleteOld(1);
   }
 
   back() {
@@ -62,7 +62,8 @@ export class DeletedWhiteComponent implements OnInit {
     this.personService.getPersonList()
       .subscribe(data => {
         while (data[counter] != null) {
-          if (data[counter].personDeleted != null && data[counter].personListed === 'White') {
+          if (data[counter].personDeleted != null && data[counter].personListed === 'White'
+            && data[counter].network.netName === this.info.network) {
             this.personService.deletePerson(data[counter].personId).subscribe();
           }
           counter++;

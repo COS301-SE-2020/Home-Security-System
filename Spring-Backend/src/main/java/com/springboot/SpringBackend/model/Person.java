@@ -25,11 +25,11 @@ public class Person implements Serializable {
     @Column(name = "image", nullable = false)
     private String personImg;
 
-    @Size(max = 35)
+    @Size(max = 20)
     @Column(name = "fname", nullable = false)
     private String fname = "";
 
-    @Size(max = 35)
+    @Size(max = 20)
     @Column(name = "lname", nullable = false)
     private String lname = "";
 
@@ -56,7 +56,7 @@ public class Person implements Serializable {
         this.lname = "Unknown";
         this.personListed = personType.Grey;
         this.personCreated = LocalDate.now();
-        this.network = n;
+        if(n != null) { this.network = n; }
     }
 
     public Person(String img, String listed, Network n) {
@@ -81,13 +81,13 @@ public class Person implements Serializable {
         }
 
         this.personCreated = LocalDate.now();
-        this.network = n;
+        if(n != null) { this.network = n; }
     }
 
     public Person(String img, String name, String surname, String listed, Network n) {
         this.personImg = img;
-        this.fname = Jsoup.clean(name, Whitelist.simpleText());
-        this.lname = Jsoup.clean(surname, Whitelist.simpleText());
+        if(validateInput(name)) { this.fname = Jsoup.clean(name, Whitelist.simpleText()); }
+        if(validateInput(surname)) { this.lname = Jsoup.clean(surname, Whitelist.simpleText()); }
         this.network = n;
 
         if(listed.equalsIgnoreCase("White"))
@@ -111,12 +111,12 @@ public class Person implements Serializable {
 
     public Person(String img, String name, String surname, Network n) {
         this.personImg = img;
-        this.fname = Jsoup.clean(name, Whitelist.simpleText());
-        this.lname = Jsoup.clean(surname, Whitelist.simpleText());
+        if(validateInput(name)) { this.fname = Jsoup.clean(name, Whitelist.simpleText()); }
+        if(validateInput(surname)) {this.lname = Jsoup.clean(surname, Whitelist.simpleText()); }
         //this.personListed = "Grey";
         this.personListed = personType.Grey;
         this.personCreated = LocalDate.now();
-        this.network = n;
+        if(n != null) { this.network = n; }
     }
 
     public Long getPersonId() {
@@ -126,26 +126,25 @@ public class Person implements Serializable {
         this.id = id;
     }
 
-    // public Long getPersonImgId() { return this.personImg.getImageId(); }
     public String getPersonImg() { return this.personImg; }
-    public void setPersonImg(String img) {
-        if (img != null) {
-            this.personImg = img;
-        }
-    }
+    public void setPersonImg(String img) { this.personImg = img; }
 
     public String getFname() {
         return this.fname;
     }
     public void setFname(String name) {
-        this.fname = Jsoup.clean(name, Whitelist.simpleText());
+        if(validateInput(name)) {
+            this.fname = Jsoup.clean(name, Whitelist.simpleText());
+        }
     }
 
     public String getLname() {
         return this.lname;
     }
-    public void setLname(String name) {
-        this.lname = Jsoup.clean(name, Whitelist.simpleText());
+    public void setLname(String surname) {
+        if(validateInput(surname)) {
+            this.lname = Jsoup.clean(surname, Whitelist.simpleText());
+        }
     }
 
     public String getPersonListed() { return this.personListed.toString(); }
@@ -188,5 +187,11 @@ public class Person implements Serializable {
 
     public Long getNetworkId() { return this.network.getNetworkId(); }
     public Network getNetwork() { return this.network; }
-    public void setNetwork(Network x) { this.network = x; }
+    public void setNetwork(Network x) {
+        if(x != null) { this.network = x; }
+    }
+
+    private Boolean validateInput(String str) {
+        return str.matches("\\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+");
+    }
 }

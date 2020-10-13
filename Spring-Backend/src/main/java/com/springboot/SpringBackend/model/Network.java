@@ -5,6 +5,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +20,13 @@ public class Network implements Serializable {
     @Column(name = "network_id", nullable = false)
     private Long id;
 
+    @Size(max = 12)
     @Column(name = "netname", nullable = false)
     private String netName;
+
+    @Size(min=10, max = 12)
+    @Column(name = "securitynumber", nullable = false)
+    private String securityNumber;
 
     @OneToMany(mappedBy="network", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
@@ -41,7 +47,19 @@ public class Network implements Serializable {
     public Network() { }
 
     public Network(String name) {
-        this.netName = name;
+        if(validateInput(name)) {
+            this.netName = name;
+        }
+        this.securityNumber = "+27840763231";
+    }
+
+    public Network(String name, String phoneNum) {
+        if(validateInput(name)) {
+            this.netName = name;
+        }
+        if(validateNumber(phoneNum)) {
+            this.securityNumber = Jsoup.clean(phoneNum, Whitelist.simpleText());
+        }
     }
 
     public Long getNetworkId() {
@@ -55,7 +73,18 @@ public class Network implements Serializable {
         return this.netName;
     }
     public void setNetName(String name) {
-        this.netName = Jsoup.clean(name, Whitelist.simpleText());
+        if(validateInput(name)) {
+            this.netName = Jsoup.clean(name, Whitelist.simpleText());
+        }
+    }
+
+    public String getSecurityNumber() {
+        return this.securityNumber;
+    }
+    public void setSecurityNumber(String phoneNum) {
+        if(validateNumber(phoneNum)) {
+            this.securityNumber = Jsoup.clean(phoneNum, Whitelist.simpleText());
+        }
     }
 
     public List<Camera> getCamList() { return this.camList; }
@@ -70,4 +99,12 @@ public class Network implements Serializable {
     public List<Person> getPersonList() { return this.personList; }
     public void setPersonList(List<Person> list) { this.personList = list; }
 
+    private Boolean validateInput(String str) {
+        return str.matches("\\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+");
+    }
+
+    private Boolean validateNumber(String num)
+    {
+        return num.matches("^((?:\\+27))(=|72|82|73|83|74|84|79)(\\d{7})$");
+    }
 }

@@ -1,4 +1,6 @@
+/Argus
 /node_modules/
+
 /NeuralNetwork/.idea/
 /NeuralNetwork/data/
 /NeuralNetwork/models/

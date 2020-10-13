@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
-import {WebcamImage} from 'ngx-webcam';
-import {Observable, Subject} from 'rxjs';
+import {Observable} from 'rxjs';
 import {TitleService} from '../../title.service';
 import {PersonService} from '../../model/person.service';
 import {Person} from '../../model/person';
@@ -8,6 +7,8 @@ import * as CanvasJS from '../../../assets/js/canvasjs.min';
 import {Notification} from '../../model/notification';
 import {NotificationService} from '../../model/notification.service';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {SessionClass} from '../../model/session';
+import {AuthService} from '../../model/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,45 +16,26 @@ import {NgxSpinnerService} from 'ngx-spinner';
   styleUrls: ['./dashboard.component.css'],
 })
 
-
 export class DashboardComponent implements OnInit {
 
   constructor(private spinner: NgxSpinnerService, private appService: TitleService,
-              private personService: PersonService, private notificationService: NotificationService) {
+              private personService: PersonService, private notificationService: NotificationService,
+              private authService: AuthService) {
   }
 
+  info: SessionClass = this.authService.retrieveUserInfo();
   people: Observable<Person[]>;
   currentDate = new Date();
 
   notification: Observable<Notification[]>;
   note: Notification;
-
-  // ----------------------
   title = 'Dashboard';
-
-  // noinspection JSAnnotator
-  @ViewChild('video')
-  public webcam: ElementRef;
 
   // noinspection JSAnnotator
   @ViewChild('canvas')
   public canvas: ElementRef;
 
-  public captures: Array<any>;
-
   public showCam = true;
-
-  public camImg: WebcamImage = null;
-
-  public snapTrigger: Subject<void> = new Subject<void>();
-
-  public trigger_s(): void {
-    this.snapTrigger.next();
-  }
-
-  public handleShot(img: WebcamImage): void {
-    this.camImg = img;
-  }
 
   // ==========================================================================================
 
@@ -64,11 +46,14 @@ export class DashboardComponent implements OnInit {
       let unknown = 0;
       // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < data.length; i++) {
-        if (data[i].personListed === 'Grey' && data[i].personDeleted === null) {
+        if ((data[i].personListed === 'Grey') && (data[i].personDeleted === null)
+          && (data[i].network.netName === this.info.network)) {
           unknown++;
-        } else if (data[i].personListed === 'Black' && data[i].personDeleted === null) {
+        } else if ((data[i].personListed === 'Black') && (data[i].personDeleted === null) &&
+          (data[i].network.netName === this.info.network)) {
           threat++;
-        } else if (data[i].personListed === 'White' && data[i].personDeleted === null) {
+        } else if ((data[i].personListed === 'White') && (data[i].personDeleted === null) &&
+          (data[i].network.netName === this.info.network)) {
           cleared++;
         } else {
           // cleared++;
@@ -81,10 +66,8 @@ export class DashboardComponent implements OnInit {
   // ==========================================================================================
 
   public calculateNumberOfNotifications(): void {
+    this.note = new Notification();
     this.notificationService.getNotificationList().subscribe(data => {
-
-      // console.log(data[0].onDate);
-      // console.log( this.dayTester(0));
 
       let six = 0;
       let five = 0;
@@ -208,6 +191,7 @@ export class DashboardComponent implements OnInit {
       }]
     });
 
+    chart.class = 'chartJS';
     chart.render();
   }
 
@@ -216,22 +200,15 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.appService.setTitle('Dashboard');
-    // this.getChartDetails();
-    // this.barchart();
-    // this.pieChart();
     this.calculateNumberOfPeople();
     this.calculateNumberOfNotifications();
-    // this.getCameras();
-    this.newCam('http://192.168.0.100:5000/feed/0', '1');
-    this.newCam2('http://192.168.0.100:5000/feed/1', '2');
+    this.getCameras();
+    // this.newCam('http://192.168.0.100:5000/feed/0', '1');
+    // this.newCam2('http://192.168.0.100:5000/feed/1', '2');
   }
 
   public toggleCam(): void {
     this.showCam = !this.showCam;
-  }
-
-  public get triggerObservable(): Observable<void> {
-    return this.snapTrigger.asObservable();
   }
 
   private getCameras() {
@@ -240,7 +217,7 @@ export class DashboardComponent implements OnInit {
     let noCamMessage = false;
     const thisRef = this;
 
-    const camUrls = ['http://192.168.0.100:5000/feed'];
+    const camUrls = ['http://192.168.0.100:5000/feed/0'];
 
     function newCam(currentUrl, currentNum) {
       console.log(currentUrl);
@@ -480,5 +457,4 @@ export class DashboardComponent implements OnInit {
 
     camNum.onclick = camToggleFunc;
   }
-
 }

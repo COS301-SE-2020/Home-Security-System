@@ -1,14 +1,14 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { PersonService } from '../../model/person.service';
-import { Person } from '../../model/person';
-import { Router } from '@angular/router';
-import { TitleService } from '../../title.service';
-import { WebcamImage } from 'ngx-webcam';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { AuthService } from "../../model/auth.service";
-import { UserService } from "../../model/user.service";
-import { SessionClass } from "../../model/session";
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Observable, Subject} from 'rxjs';
+import {PersonService} from '../../model/person.service';
+import {Person} from '../../model/person';
+import {Router} from '@angular/router';
+import {TitleService} from '../../title.service';
+import {WebcamImage} from 'ngx-webcam';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {AuthService} from '../../model/auth.service';
+import {UserService} from '../../model/user.service';
+import {SessionClass} from '../../model/session';
 
 @Component({
   selector: 'app-add-person',
@@ -27,7 +27,8 @@ export class AddPersonComponent implements OnInit {
 
   constructor(private personService: PersonService, private appService: TitleService,
               private router: Router, private SpinnerService: NgxSpinnerService,
-              private authService: AuthService, private userService: UserService) {}
+              private authService: AuthService, private userService: UserService) {
+  }
 
   // noinspection JSAnnotator
   @ViewChild('video')
@@ -65,7 +66,7 @@ export class AddPersonComponent implements OnInit {
     this.appService.setTitle('Add Person');
   }
 
-  returnPersonListed(): string{
+  returnPersonListed(): string {
     const isWhite = document.getElementById('whiteList') as HTMLInputElement;
     const isBlack = document.getElementById('blackList') as HTMLInputElement;
 
@@ -76,30 +77,26 @@ export class AddPersonComponent implements OnInit {
     }
   }
 
-  addPerson(): void{
+  addPerson(): void {
     const addName = document.getElementById('fname') as HTMLInputElement;
     const addSurname = document.getElementById('lname') as HTMLInputElement;
     const photoInp = document.getElementById('submitPhoto').getAttribute('src');
     const getListed = this.returnPersonListed();
 
     if (photoInp === this.getDefaultImage() || photoInp === '/assets/Images/blank.jpg') {
-      alert('Please choose a photo to add.');
-    }
-    else {
+      this.createError('Please choose a photo to add.', 'errorMsgs');
+      // alert('Please choose a photo to add.');
+    } else {
       this.newPerson = new Person();
       this.newPerson.personImg = photoInp;
-      if (addName.value === '')
-      {
+      if (addName.value === '') {
         this.newPerson.fname = 'Unknown';
-      }
-      else{
+      } else {
         this.newPerson.fname = addName.value;
       }
-      if (addSurname.value === '')
-      {
+      if (addSurname.value === '') {
         this.newPerson.lname = 'Unknown';
-      }
-      else{
+      } else {
         this.newPerson.lname = addSurname.value;
       }
       this.newPerson.personListed = getListed;
@@ -108,33 +105,32 @@ export class AddPersonComponent implements OnInit {
       const num = Number(this.info.id);
       this.userService.getUserById(num)
         .subscribe(value => {
-          //console.log(value.network);
+          // console.log(value.network);
           this.newPerson.network = value.network;
-          this.personService.addPerson(this.newPerson).subscribe();
-        });
+          this.personService.addPerson(this.newPerson)
+            .subscribe(() => {
+              this.SpinnerService.show();
+              setTimeout(() => {
+                this.SpinnerService.hide();
+                window.location.reload();
+              }, 600);
 
-      this.gotoList();
+              this.gotoList();
+            });
+        });
     }
   }
 
   onSubmit() {
-      this.addPerson();
+    this.addPerson();
   }
 
   gotoList() {
-    if (this.newPerson.personListed === 'White')
-    {
+    if (this.newPerson.personListed === 'White') {
       this.router.navigate(['/people-cleared']);
-    }
-    else
-    {
+    } else {
       this.router.navigate(['/people-threat']);
     }
-    this.SpinnerService.show();
-    setTimeout(() => {
-      this.SpinnerService.hide();
-      window.location.reload();
-    }, 500);
   }
 
   getDefaultImage(): string {
@@ -149,12 +145,24 @@ export class AddPersonComponent implements OnInit {
     this.showCam = false;
   }
 
-  public allowSubmit(): void{
-    if( this.picCorrect === false)
-    {
+  public allowSubmit(): void {
+    if (this.picCorrect === false) {
       this.picCorrect = true;
     }
   }
 
+  createError(msg, parent) {
+    const parentEl = document.getElementById(parent);
+    const error = document.createElement('div');
+    error.className = 'alert alert-danger errorMsg';
+    error.innerText = msg;
+
+    parentEl.appendChild(error);
+    parentEl.scrollIntoView();
+  }
+
+  clearErrors() {
+    document.getElementById('errorMsgs').innerHTML = '';
+  }
 }
 

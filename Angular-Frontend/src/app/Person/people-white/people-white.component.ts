@@ -5,8 +5,8 @@ import { TitleService } from '../../title.service';
 import { Observable } from 'rxjs';
 import { Person } from '../../model/person';
 import { PersonService } from '../../model/person.service';
-import {AuthService} from "../../model/auth.service";
-import {SessionClass} from "../../model/session";
+import {AuthService} from '../../model/auth.service';
+import {SessionClass} from '../../model/session';
 
 @Component({
   selector: 'app-people-white',
@@ -39,7 +39,7 @@ export class PeopleWhiteComponent implements OnInit {
               setTimeout(() => {
                 this.SpinnerService.hide();
                 this.reloadData();
-              }, 500);
+              }, 600);
             });
         });
   }

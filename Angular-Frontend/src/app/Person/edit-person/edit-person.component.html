@@ -10,13 +10,13 @@
   <div class="card-body">
     <br>
     <div>
-      <form (ngSubmit)="onSubmit()">
+      <form #editForm="ngForm" (ngSubmit)="onSubmit()">
         <div class="row">
           <div class="col">
             <div class="form-group">
               <label for="name">First Name</label>
               <input type="text" name="name" class="form-control" id="name"
-                     required maxlength="35" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
+                     required maxlength="20" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
                      [(ngModel)]="person.fname" #name="ngModel">
               <div *ngIf="name.invalid && (name.dirty || name.touched)"
                    class="alert alert-danger">
@@ -29,7 +29,7 @@
             <div class="form-group">
               <label for="surname">Last Name</label>
               <input type="text" class="form-control" id="surname" name="surname"
-                     required maxlength="35" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
+                     required maxlength="20" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
                      [(ngModel)]="person.lname"  #lname="ngModel">
 
               <div *ngIf="lname.invalid && (lname.dirty || lname.touched)"
@@ -53,12 +53,12 @@
         </div>
         <br>
 
-        <button type="submit" class="btn btn-primary justify-content-center">Submit</button>
+        <button type="submit" class="btn btn-primary justify-content-center" [disabled]="editForm.invalid">Submit</button>
       </form>
     </div>
   </div>
 </div>
 
 <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
-  <p style="color: white">Please Wait. </p>
+  <p style="color: white">Please Wait... </p>
 </ngx-spinner>

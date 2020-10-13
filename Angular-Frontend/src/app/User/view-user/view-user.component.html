@@ -3,48 +3,75 @@
   <app-top-nav></app-top-nav>
 </div>
 
+<!--<div class="content">-->
+<!--  <div class="container-fluid">-->
+<!--    <div class="row">-->
+<!--      <div class="col-lg-12 col-md-12 col-sm-12">-->
+<!--        <div class="card">-->
+<!--          <div class="card-header card-header-primary">-->
+<!--            <h4 class="card-title">User Profile</h4>-->
+<!--            <p class="card-category"></p>-->
+<!--            <div class="image-cropper">-->
+<!--              <img class="userPic" id="viewPic" src="../../../assets/Images/blank.jpg">-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="card-body" *ngIf="user">-->
+<!--            <div class="row">-->
+<!--              <div class="col-md-6 col-sm-6 col-xs-6">-->
+<!--                <div class="form-group">-->
+<!--                  <h5 class="text-primary"><b>First Name</b></h5>-->
+<!--                  <output id="firstNameDisplay">{{user.fname}}</output>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="col-md-6 col-sm-6 col-xs-6">-->
+<!--                <div class="form-group">-->
+<!--                  <h5 class="text-primary"><b>Last Name</b></h5>-->
+<!--                  <output id="lastNameDisplay">{{user.lname}}</output>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="row">-->
+<!--              <div class="col-md-6 col-sm-6 col-xs-6">-->
+<!--                <div class="form-group">-->
+<!--                  <h5 class="text-primary"><b>Contact Number</b></h5>-->
+<!--                  <output id="numberDisplay">{{user.contactNo}}</output>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="col-md-6 col-sm-6 col-xs-6">-->
+<!--                <div class="form-group">-->
+<!--                  <h5 class="text-primary"><b>Email</b></h5>-->
+<!--                  <output id="emailDisplay">{{user.email}}</output>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <a class="btn btn-primary" (click)="back()">Back</a>-->
+<!--  </div>-->
+<!--</div>-->
+
 <div class="content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12">
-        <div class="card">
-          <div class="card-header card-header-primary">
-            <h4 class="card-title">User Profile</h4>
-            <p class="card-category"></p>
-            <div class="image-cropper">
-              <img class="userPic" id="viewPic">
-            </div>
+      <div class="card card-profile ml-auto mr-auto">
+        <div class="card-header card-header-image">
+          <div class="image-cropper">
+            <img alt="Photo" class="userPic" id="userPic" src="{{user.profilePhoto}}">
           </div>
-          <div class="card-body" *ngIf="user">
-            <div class="row">
-              <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="form-group">
-                  <h5 class="text-primary"><b>First Name</b></h5>
-                  <output id="firstNameDisplay">{{user.fname}}</output>
-                </div>
-              </div>
-              <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="form-group">
-                  <h5 class="text-primary"><b>Last Name</b></h5>
-                  <output id="lastNameDisplay">{{user.lname}}</output>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="form-group">
-                  <h5 class="text-primary"><b>Contact Number</b></h5>
-                  <output id="numberDisplay">{{user.contactNo}}</output>
-                </div>
-              </div>
-              <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="form-group">
-                  <h5 class="text-primary"><b>Email</b></h5>
-                  <output id="emailDisplay">{{user.email}}</output>
-                </div>
-              </div>
-            </div>
-          </div>
+        </div>
+
+        <div class="card-body center">
+          <br>
+          <h4 class="card-title">{{user.fname}} {{user.lname}}</h4>
+          <h6 class="card-category text-gray">{{user.userRole}} User</h6>
+          <br>
+          <i class="material-icons text-primary align-middle" title="Email">email</i> - {{user.email}} <br><br>
+          <i class="material-icons text-primary align-middle" title="Contact Number">call</i> - {{user.contactNo}}
+          <br><br>
+          <i class="material-icons text-primary align-middle" title="Username">account_box</i> - {{user.username}}
+          <br>
         </div>
       </div>
     </div>

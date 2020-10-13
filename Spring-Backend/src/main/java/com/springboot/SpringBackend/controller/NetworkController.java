@@ -49,8 +49,12 @@ public class NetworkController {
                 .orElseThrow(() -> new ResourceNotFoundException("Network not found for this id :: " + id));
 
         x.setNetworkId(details.getNetworkId());
-        x.setNetName(details.getNetName());
-
+        if(!details.getNetName().equals("")) {
+            x.setNetName(details.getNetName());
+        }
+        if(!details.getSecurityNumber().equals("")) {
+            x.setSecurityNumber(details.getSecurityNumber());
+        }
         final Network updatedNetwork = service.updateNetwork(x);
         return ResponseEntity.ok(updatedNetwork);
     }

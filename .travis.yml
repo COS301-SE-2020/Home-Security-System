@@ -1,40 +1,34 @@
-matrix:
-  include:
-    - language: java
-      jdk:
-        - openjdk14
-      env:
-        - NODE_VERSION="0.12"
-      before_install:
-        - nvm install $NODE_VERSION
-
-    - language: node_js
-      node_js: 
-         - 7
-      before_install: npm i -g npm@7
-      
-    - language: python
-      python: 
-        - 3.8
-      script:
-        - pytest
-        
 branches:
   only:
     - master
-before_install: 
-  - cd /Argus/Spring-Backend
-before_script:
-  - npm install -g @angular/cli
 
-# Deploy the app on Heroku
-deploy:
-  provider: heroku
-  api_key:
-    secure: "SHA256:X4Hs8YjYzThAXQ799MJXAb+myfbSh+MlRJCkBahC+mI chubr@DESKTOP-N1KIF7V"
-  app: sigma-argus
+addons:
+  chrome: stable
 
-# Test & Build SpringBoot app
-script:
-  - mvn test
-  - mvn clean package
+matrix:
+  include:
+    #- language: python
+    #  python: 3.8
+    #  script:
+    #    - pytest
+    #  before_script:
+    #    - cd ./NeuralNetwork/
+
+    - language: java
+      jdk: oraclejdk14
+      script:
+        - ./mvnw clean install
+      before_script:
+        - cd ./Spring-Backend/
+
+    - language: node_js
+      node_js:
+        - "12.17.0"
+      install:
+        - npm install
+      before_install:
+        - cd ./Angular-Frontend/
+      script:
+        - ng lint
+        - ng test
+        - ng build

@@ -15287,7 +15287,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 }
 
 .main-panel > .content {
-  margin-top: 0px;
+  margin-top: 0;
   padding: 75px 15px;
   min-height: calc(100vh - 123px);
 }
@@ -19332,20 +19332,19 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 }
 
 .image-cropper {
-  margin: -50px auto 0;
-  float: right;
-  width: 150px;
-  height: 150px;
+  margin: -5px auto 0;
+  width: 200px;
+  height: 200px;
   position: relative;
   overflow: hidden;
-  border-radius: 50%;
+  /*border-radius: 50%;*/
 }
 
 .userPic {
   object-fit: cover;
   margin: 0 auto;
-  height: 150px;
-  width: 150px;
+  height: 200px;
+  width: 200px;
   transition: .5s ease;
   backface-visibility: hidden;
   opacity: 1;
@@ -19394,7 +19393,7 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 }
 
 .login-panel > .content {
-  margin-top: 0px;
+  margin-top: 0;
   padding: 30px 15px;
   min-height: 100vh;
 }
@@ -20036,7 +20035,7 @@ input[type="file"] {
 
 /* Top left text */
 .top-left {
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
   padding: 5px;
   font-size: 1.5em;
@@ -20062,22 +20061,31 @@ input[type="file"] {
   /*border: 1px black solid;*/
 }
 
-.toggleCam{
+.toggleCam {
   vertical-align: middle;
   color: white;
 }
 
-.toggleCam:hover{
+.toggleCam:hover {
   color: white;
 }
 
-.camOffMsg{
+.camOffMsg {
   padding: 70px 0;
   border: 1px solid darkgray;
   text-align: center;
 }
 
-.liveCamera{
+.liveCamera {
   width: 500px;
   height: 300px;
+}
+
+.errorMsg {
+  font-size: 14px;
+}
+
+.popError{
+  padding: 10px;
+  font-size: 15px;
 }

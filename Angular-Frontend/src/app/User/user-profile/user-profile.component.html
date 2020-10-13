@@ -2,89 +2,127 @@
   <app-side-nav></app-side-nav>
   <app-top-nav></app-top-nav>
 </div>
-
-<!--Main content of page-->
 <div class="content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12">
-        <div class="card">
-          <!--Header-->
-          <div class="card-header card-header-primary">
-            <h4 class="card-title">User Profile</h4>
-            <p class="card-category">If you want to reinvent yourself, here is your chance.</p>
-            <!--Profile Picture-->
-            <div class="image-cropper">
-              <img alt="Photo" class="userPic" id="userPic" src="../../../assets/Images/blank.jpg">
-              <div class="middle">
-                <button class="btn btn-primary" data-toggle="modal" data-target="#changeProfilePicModal"
-                        onclick="openDrop()">Change
-                </button>
-              </div>
+      <div class="card card-profile ml-auto mr-auto">
+        <div class="card-header card-header-image">
+          <div class="image-cropper">
+            <img alt="Photo" class="userPic" id="userPic" src="{{user.profilePhoto}}">
+            <div class="middle">
+              <button class="btn btn-primary" data-toggle="modal" data-target="#changeProfilePicModal"
+                      onclick="openDrop()">Change
+              </button>
             </div>
           </div>
-          <!--Body-->
-          <div class="card-body">
-            <form>
-              <div class="row">
-                <div class="col-md-6 col-sm-6 col-xs-6">
-                  <div class="form-group">
-                    <h5 class="text-primary"><b>First Name</b></h5>
-                    <!-- <label class="bmd-label-floating">First Name</label> -->
-                    <output id="firstNameDisplay">
-                    </output>
-                  </div>
-                </div>
-                <div class="col-md-6 col-sm-6 col-xs-6">
-                  <div class="form-group">
-                    <h5 class="text-primary"><b>Last Name</b></h5>
-                    <!-- <label class="bmd-label-floating">Last Name</label> -->
-                    <output id="lastNameDisplay">
-                    </output>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6 col-sm-6 col-xs-6">
-                  <div class="form-group">
-                    <h5 class="text-primary"><b>Username</b></h5>
-                    <!-- <label class="bmd-label-floating">Username</label> -->
-                    <output id="usernameDisplay">
-                    </output>
-                  </div>
-                </div>
-                <div class="col-md-6 col-sm-6 col-xs-6">
-                  <div class="form-group">
-                    <h5 class="text-primary"><b>Email</b></h5>
-                    <!-- <label class="bmd-label-floating">Email address</label> -->
-                    <output id="emailDisplay">
-                    </output>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6 col-sm-6 col-xs-6">
-                  <div class="form-group">
-                    <h5 class="text-primary"><b>Contact Number</b></h5>
-                    <!-- <label class="bmd-label-floating">Username</label> -->
-                    <output id="numberDisplay">
-                    </output>
-                  </div>
-                </div>
-              </div>
-              <button class="btn btn-primary float-right" data-toggle="modal" data-target="#changeModal"
-              >Update Details
-              </button>
-              <button class="btn btn-primary float-right" data-toggle="modal" data-target="#passwordModal"
-              >Change Password
-              </button>
-            </form>
-          </div>
+        </div>
+
+        <div class="card-body center">
+           <br>
+          <h4 class="card-title">{{user.fname}} {{user.lname}}</h4>
+          <h6 class="card-category text-gray">{{user.userRole}} User</h6>
+          <br>
+          <i class="material-icons text-primary align-middle" title="Email">email</i> - {{user.email}} <br><br>
+          <i class="material-icons text-primary align-middle" title="Contact Number">call</i> - {{user.contactNo}}
+          <br><br>
+          <i class="material-icons text-primary align-middle" title="Username">account_box</i> - {{user.username}}
+          <br>
+        </div>
+        <div class="card-footer justify-content-center">
+          <button class="btn btn-primary float-right" data-toggle="modal" data-target="#changeModal">
+            Update Details
+          </button>
+          <button class="btn btn-primary float-right" data-toggle="modal" data-target="#passwordModal">
+            Change Password
+          </button>
         </div>
       </div>
     </div>
   </div>
 </div>
+<!--Main content of page-->
+<!--<div class="content">-->
+<!--  <div class="container-fluid">-->
+<!--    <div class="row">-->
+<!--      <div class="col-lg-12 col-md-12 col-sm-12">-->
+<!--        <div class="card">-->
+<!--          &lt;!&ndash;Header&ndash;&gt;-->
+<!--          <div class="card-header card-header-primary">-->
+<!--            <h4 class="card-title">User Profile</h4>-->
+<!--            <p class="card-category">Want to reinvent yourself? Here is your chance.-->
+<!--              &lt;!&ndash;Profile Picture&ndash;&gt;-->
+<!--            <div class="image-cropper">-->
+<!--              <img alt="Photo" class="userPic" id="userPic" src="../../../assets/Images/blank.jpg">-->
+<!--              <div class="middle">-->
+<!--                <button class="btn btn-primary" data-toggle="modal" data-target="#changeProfilePicModal"-->
+<!--                        onclick="openDrop()">Change-->
+<!--                </button>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            &lt;!&ndash;            <p class="card-category"> Here is your chance.</p>&ndash;&gt;-->
+<!--          </div>-->
+<!--          &lt;!&ndash;Body&ndash;&gt;-->
+<!--          <div class="card-body">-->
+<!--            <form>-->
+<!--              <div class="row">-->
+<!--                <div class="col-md-6 col-sm-6 col-xs-6">-->
+<!--                  <div class="form-group">-->
+<!--                    <h5 class="text-primary"><b>First Name</b></h5>-->
+<!--                    &lt;!&ndash; <label class="bmd-label-floating">First Name</label> &ndash;&gt;-->
+<!--                    <output id="firstNameDisplay">-->
+<!--                    </output>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="col-md-6 col-sm-6 col-xs-6">-->
+<!--                  <div class="form-group">-->
+<!--                    <h5 class="text-primary"><b>Last Name</b></h5>-->
+<!--                    &lt;!&ndash; <label class="bmd-label-floating">Last Name</label> &ndash;&gt;-->
+<!--                    <output id="lastNameDisplay">-->
+<!--                    </output>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="row">-->
+<!--                <div class="col-md-6 col-sm-6 col-xs-6">-->
+<!--                  <div class="form-group">-->
+<!--                    <h5 class="text-primary"><b>Username</b></h5>-->
+<!--                    &lt;!&ndash; <label class="bmd-label-floating">Username</label> &ndash;&gt;-->
+<!--                    <output id="usernameDisplay">-->
+<!--                    </output>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="col-md-6 col-sm-6 col-xs-6">-->
+<!--                  <div class="form-group">-->
+<!--                    <h5 class="text-primary"><b>Email</b></h5>-->
+<!--                    &lt;!&ndash; <label class="bmd-label-floating">Email address</label> &ndash;&gt;-->
+<!--                    <output id="emailDisplay">-->
+<!--                    </output>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="row">-->
+<!--                <div class="col-md-6 col-sm-6 col-xs-6">-->
+<!--                  <div class="form-group">-->
+<!--                    <h5 class="text-primary"><b>Contact Number</b></h5>-->
+<!--                    &lt;!&ndash; <label class="bmd-label-floating">Username</label> &ndash;&gt;-->
+<!--                    <output id="numberDisplay">-->
+<!--                    </output>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <button class="btn btn-primary float-right" data-toggle="modal" data-target="#changeModal"-->
+<!--              >Update Details-->
+<!--              </button>-->
+<!--              <button class="btn btn-primary float-right" data-toggle="modal" data-target="#passwordModal"-->
+<!--              >Change Password-->
+<!--              </button>-->
+<!--            </form>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
 
 
 <!--Change Profile Picture Modal-->
@@ -123,8 +161,10 @@
                   capture a photo from camera
                 </a>
               </div>
-              <button type="button" class="btn btn-primary justify-content-center" (click)="allowSubmit()" onclick="resizeAll()" >Accept Photo</button> <br>
-              <button *ngIf="picCorrect" type="submit" class="btn btn-primary justify-content-center" data-dismiss="modal" (click)="updateUserPic()">Update
+              <!--<button type="button" class="btn btn-primary justify-content-center"
+              (click)="allowSubmit()" onclick="resizeAll()" >Accept Photo</button> <br>-->
+              <button type="submit" class="btn btn-primary justify-content-center" data-dismiss="modal"
+                      (click)="updateUserPic()">Update
               </button>
             </div>
           </div>
@@ -157,7 +197,7 @@
             </div>
             <div class="snapshot" *ngIf="camImg">
               <h2>Preview:</h2>
-              <img id="confirmPic"width="300px" height="300px" [src]="camImg.imageAsDataUrl" alt="Preview"/>
+              <img id="confirmPic" width="300px" height="300px" [src]="camImg.imageAsDataUrl" alt="Preview"/>
             </div>
           </div>
         </div>
@@ -185,12 +225,14 @@
         <div class="modal-body">
           <div class="card-body">
             <form #changeForm="ngForm">
+              <div id="errorMsgs">
+              </div>
               <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-6">
                   <div class="form-group">
                     <label for="uFirstName">First Name</label>
                     <input id="uFirstName" name="fname" class="form-control"
-                           required maxlength="35" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
+                           required maxlength="20" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
                            [(ngModel)]="user.fname" #name="ngModel">
 
                     <div *ngIf="name.invalid && (name.dirty || name.touched)"
@@ -203,7 +245,7 @@
                   <div class="form-group">
                     <label for="uLastName">Last Name</label>
                     <input id="uLastName" name="lname" class="form-control"
-                           required maxlength="35" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
+                           required maxlength="20" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
                            [(ngModel)]="user.lname" #lname="ngModel">
 
                     <div *ngIf="lname.invalid && (lname.dirty || lname.touched)"
@@ -219,7 +261,7 @@
                   <div class="form-group">
                     <label for="uUsername">Username (12 Characters)</label>
                     <input id="uUsername" name="username" class="form-control"
-                           required maxlength="12"
+                           required maxlength="12" pattern="^[a-zA-Z0-9_]*$"
                            [(ngModel)]="user.username" #username="ngModel">
 
                     <div *ngIf="username.invalid && (username.dirty || username.touched)"
@@ -274,8 +316,7 @@
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal" (click)="onSubmit()"
-                  [disabled]="changeForm.invalid">
-            Save Changes
+                  [disabled]="changeForm.invalid">Save Changes
           </button>
         </div>
       </div>
@@ -296,38 +337,65 @@
         <div class="modal-body">
           <div class="card-body">
             <form #passwordForm="ngForm">
+              <div id="errorMsgsPass">
+              </div>
               <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-6">
                   <div class="form-group">
-                    <label for="passwordField1">New Password</label>
-                    <input type="password" id="passwordField1" name="uPassword" class="form-control"
-                           required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
-                           [(ngModel)]="password" #userPass="ngModel">
-                    <i *ngIf="userPass.dirty || userPass.touched" class="material-icons hoverPointer"
-                       id="passwordVisibility1" onclick="showPassword('1')">visibility_off</i>
-                    <div *ngIf="userPass.invalid && (userPass.dirty || userPass.touched)"
-                         class="alert alert-danger">
+                    <label for="passwordField1">Old Password</label>
+                    <input type="password" id="passwordField1" name="oldPassword" class="form-control"
+                           required
+                           pattern="^[a-zA-Z0-9]*(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                           [(ngModel)]="oldPassword" #oldPass="ngModel">
+                    <i class="material-icons hoverPointer" id="passwordVisibility1" onclick="showPassword('1')">visibility_off</i>
+                    <div *ngIf="oldPass.invalid && (oldPass.dirty || oldPass.touched)" class="alert alert-danger">
                       <ul>
                         <h6>Must contain:</h6>
                         <li>At least eight characters</li>
-                        <li>At least one uppercase letter</li>
-                        <li>At least one lowercase letter</li>
+                        <li>One uppercase letter</li>
+                        <li>One lowercase letter</li>
                         <li>One number</li>
                         <li>One special character</li>
+                        <li>(Cannot start with a special character)</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                  <div class="form-group">
+                    <label for="passwordField2">New Password</label>
+                    <input type="password" id="passwordField2" name="newPassword" class="form-control"
+                           required
+                           pattern="^[a-zA-Z0-9]*(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                           [(ngModel)]="newPassword" #userPass="ngModel">
+                    <i class="material-icons hoverPointer" id="passwordVisibility2" onclick="showPassword('2')">visibility_off</i>
+                    <div *ngIf="userPass.invalid && (userPass.dirty || userPass.touched)" class="alert alert-danger">
+                      <ul>
+                        <h6>Must contain:</h6>
+                        <li>At least eight characters</li>
+                        <li>One uppercase letter</li>
+                        <li>One lowercase letter</li>
+                        <li>One number</li>
+                        <li>One special character</li>
+                        <li>(Cannot start with a special character)</li>
                       </ul>
                     </div>
                   </div>
                   <br>
                 </div>
-                <div class="col-md-6 col-sm-6 col-xs-6">
-                  <div class="form-group">
-                    <label for="passwordField2">Confirm New Password</label>
-                    <input type="password" id="passwordField2" name="confirmPassword" class="form-control"
-                           [(ngModel)]="conPass" #confirm="ngModel">
-                    <i *ngIf="confirm.dirty || confirm.touched" class="material-icons hoverPointer"
-                       id="passwordVisibility2" onclick="showPassword('2')">visibility_off</i>
-                    <div *ngIf="userPass.value != conPass.valueOf()" class="alert alert-danger">
-                      Passwords do not match
+              </div>
+              <div *ngIf="userPass.dirty">
+                <div class="row">
+                  <div class="col-md-6 col-sm-6 col-xs-6"></div>
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="form-group">
+                      <label for="passwordField3">Confirm New Password</label>
+                      <input type="password" id="passwordField3" name="confirmPassword" class="form-control"
+                             [(ngModel)]="confirmPassword" #conPass="ngModel">
+                      <i class="material-icons hoverPointer" id="passwordVisibility3" onclick="showPassword('3')">visibility_off</i>
+                      <div *ngIf="(userPass.value != confirmPassword.valueOf())" class="alert alert-danger">
+                        Passwords do not match
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -336,9 +404,10 @@
               <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   <div class="form-group">
-                    <label for="uQuestion">Security Question:</label>
+                    <label for="uQuestion">Security Question: (Optional)</label>
                     <i class="material-icons float-right">keyboard_arrow_down</i>
-                    <select name="uQuestion" id="uQuestion" class="form-control custom-select-lg hoverPointer" data-style="btn btn-link">
+                    <select name="uQuestion" id="uQuestion" class="form-control custom-select-lg hoverPointer"
+                            data-style="btn btn-link">
                       <option value="One">What was the name of your first stuffed animal?</option>
                       <option value="Two">Where were you when you had your first kiss?</option>
                       <option value="Three">What street did you live on in third grade?</option>
@@ -352,7 +421,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   <div class="form-group">
                     <input id="uAnswer" name="uAnswer" class="form-control"
-                           required maxlength="35" placeholder="Answer"
+                           maxlength="20" placeholder="Answer"
                            pattern="^[a-zA-Z0-9_.-]*$">
                   </div>
                 </div>
@@ -361,7 +430,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal" (click)="updatePassword()"
+          <button type="submit" class="btn btn-primary pull-left" data-dismiss="modal" (click)="updatePassword()"
                   [disabled]="passwordForm.invalid">
             Change Password
           </button>
@@ -374,3 +443,18 @@
 <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
   <p style="color: white">Please Wait. </p>
 </ngx-spinner>
+
+<div id="noUpdate" hidden data-notify="container"
+     class="col-11 col-md-4 alert alert-danger alert-with-icon animated fadeInDown popError"
+     role="alert" data-notify-position="bottom-right"
+     style="display: inline-block; margin: 15px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 1031; bottom: 20px; right: 20px;">
+  <br>
+  <button type="button" aria-hidden="true" class="close" data-notify="dismiss"
+          style="position: absolute; right: 10px; top: 50%; margin-top: -9px; z-index: 1033;"
+          (click)="closeErrorPop('noUpdate')"><i class="material-icons">close</i>
+  </button>
+  <i data-notify="icon" class="material-icons">error_outline</i>
+  <span data-notify="title"></span>
+  <span data-notify="message">Details not updated, please try again.</span>
+  <br>
+</div>

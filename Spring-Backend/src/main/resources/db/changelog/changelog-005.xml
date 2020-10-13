@@ -7,12 +7,12 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <changeSet author="Sigma" id="005">
         <sql>
-            INSERT INTO Network(netName)
-            VALUES('SigPi');
+            INSERT INTO Network(netName,securitynumber)
+            VALUES('SigPi','+27840763231');
         </sql>
         <sql>
-            INSERT INTO Network(netName)
-            VALUES('NewNet');
+            INSERT INTO Network(netName,securitynumber)
+            VALUES('NewNet','+27840763231');
         </sql>
         <sql>
             INSERT INTO ArgusUser(profilephoto,fname,lname,contactNo,email,username,userPass,userRole,secureQuestion,secureAnswer,network_id)

@@ -8,6 +8,7 @@ import {Observable, Subject} from 'rxjs';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {AuthService} from '../../model/auth.service';
 import {SessionClass} from '../../model/session';
+import {JwtRequest} from '../../model/jwt-request';
 
 @Component({
   selector: 'app-user-profile',
@@ -18,8 +19,10 @@ export class UserProfileComponent implements OnInit {
   info: SessionClass = this.authService.retrieveUserInfo();
   id: number;
   user: User;
-  password = '';
-  answerPlaceholder = '';
+
+  oldPassword = '';
+  newPassword = '';
+  confirmPassword = '';
   picCorrect = false;
 
   constructor(private route: ActivatedRoute, private router: Router, private authService: AuthService,
@@ -30,8 +33,6 @@ export class UserProfileComponent implements OnInit {
   public get triggerObservable(): Observable<void> {
     return this.snapTrigger.asObservable();
   }
-
-  conPass = '';
 
   /* ======================================================== */
   /*         START of Camera for taking profile picture       */
@@ -54,9 +55,15 @@ export class UserProfileComponent implements OnInit {
   public snapTrigger: Subject<void> = new Subject<void>();
 
   ngOnInit(): void {
-    this.populateFields();
+    // this.populateFields();
     this.appService.setTitle('User Profile');
     this.user = new User();
+
+    const num = Number(this.info.id);
+    this.userService.getUserById(num)
+      .subscribe(data => {
+        this.user = data;
+      });
   }
 
   public trigger_s(): void {
@@ -65,32 +72,6 @@ export class UserProfileComponent implements OnInit {
 
   public handleShot(img: WebcamImage): void {
     this.camImg = img;
-  }
-
-  /* ======================================================== */
-  /*         END of Camera for taking profile picture         */
-
-  /* ======================================================== */
-
-  populateFields() {
-    const FName = document.getElementById('firstNameDisplay') as HTMLDataElement;
-    const SName = document.getElementById('lastNameDisplay') as HTMLDataElement;
-    const UName = document.getElementById('usernameDisplay') as HTMLDataElement;
-    const contact = document.getElementById('numberDisplay') as HTMLInputElement;
-    const email = document.getElementById('emailDisplay') as HTMLDataElement;
-    const uPic = document.getElementById('userPic') as HTMLImageElement;
-
-    const num = Number(this.info.id);
-    this.userService.getUserById(num)
-      .subscribe(data => {
-        FName.value = data.fname;
-        SName.value = data.lname;
-        contact.value = data.contactNo;
-        UName.value = data.username;
-        email.value = data.email;
-        uPic.src = data.profilePhoto;
-        this.user = data;
-      });
   }
 
   updateUser() {
@@ -113,25 +94,46 @@ export class UserProfileComponent implements OnInit {
   }
 
   updatePassword() {
-    const uPassword = document.getElementById('passwordField1') as HTMLInputElement;
+    const uPassword1 = document.getElementById('passwordField1') as HTMLInputElement;
+    const uPassword2 = document.getElementById('passwordField2') as HTMLInputElement;
+    const uPassword3 = document.getElementById('passwordField3') as HTMLInputElement;
     const uQuestion = document.getElementById('uQuestion') as HTMLInputElement;
     const uAnswer = document.getElementById('uAnswer') as HTMLInputElement;
 
-    if (uPassword.value != null)
-    {
-      this.user.userPass = uPassword.value;
-    }
+    if ((uPassword1.value !== '') && (uPassword2.value !== '') && (uPassword3.value !== '')) {
+      if (uPassword2.value !== uPassword3.value) {
+        this.createError('Passwords do not match.', 'errorMsgsPass');
+      } else {
+        const obj = new JwtRequest();
+        obj.username = this.info.email;
+        obj.password = uPassword1.value;
 
-    if (uAnswer.value != null)
-    {
-      this.user.secureQuestion = uQuestion.value;
-      this.user.secureAnswer = uAnswer.value;
-    }
+        this.authService.validatePassword(obj)
+          .subscribe(value => {
+            if (value.password === uPassword1.value) {
+              if (uPassword2.value === uPassword3.value) {
+                this.user.userPass = uPassword2.value;
+              }
 
-    const num = Number(this.info.id);
-    this.userService.updateUser(num, this.user).subscribe(() => {
-      this.gotoList();
-    });
+              if (uAnswer.value !== '') {
+                this.user.secureQuestion = uQuestion.value;
+                this.user.secureAnswer = uAnswer.value;
+              }
+
+              const num = Number(this.info.id);
+              this.userService.updateUser(num, this.user).subscribe(() => {
+                this.gotoList();
+              });
+            } else {
+              this.createError('The password you entered seems to be incorrect, please retry entering your password.', 'errorMsgsPass');
+              uPassword1.value = '';
+            }
+          }, () => {
+          });
+      }
+    } else {
+      this.createError('Please fill in all fields.', 'errorMsgsPass');
+    }
   }
 
   updateUserPic() {
@@ -181,13 +183,17 @@ export class UserProfileComponent implements OnInit {
           counter++;
         }
         if (email && username) {
-          alert('Email address and username are already in use. Please enter another email address and username.');
+          this.createError('Email address and username are already in use. Please enter another email address and username.', 'errorMsgs');
+          // alert('Email address and username are already in use. Please enter another email address and username.');
         } else if (email) {
-          alert('Email address is already in use. Please enter another email address.');
+          this.createError('Email address is already in use. Please enter another email address.', 'errorMsgs');
+          // alert('Email address is already in use. Please enter another email address.');
         } else if (username) {
-          alert('Username address is already in use. Please enter another username.');
+          this.createError('Username is already in use. Please enter another username.', 'errorMsgs');
+          // alert('Username address is already in use. Please enter another username.');
         }
-      }, error => { },
+      }, () => {
+      },
       () => {
         if (!exists) {
           this.updateUser();
@@ -206,7 +212,7 @@ export class UserProfileComponent implements OnInit {
     setTimeout(() => {
       this.SpinnerService.hide();
       window.location.reload();
-    }, 500);
+    }, 600);
   }
 
   getDefaultImage(): string {
@@ -221,10 +227,31 @@ export class UserProfileComponent implements OnInit {
     this.showCam = false;
   }
 
-  public allowSubmit(): void{
-    if ( this.picCorrect === false)
-    {
+  public allowSubmit(): void {
+    if (this.picCorrect === false) {
       this.picCorrect = true;
     }
+  }
+
+  createError(msg, parent) {
+    const parentEl = document.getElementById(parent);
+    const error = document.createElement('div');
+    error.className = 'alert alert-danger errorMsg';
+    error.innerText = msg;
+
+    parentEl.appendChild(error);
+    this.showErrorPop('noUpdate');
+  }
+
+  clearErrors() {
+    document.getElementById('errorMsgs').innerHTML = '';
+  }
+
+  showErrorPop(errorID) {
+    document.getElementById(errorID).hidden = false;
+  }
+
+  closeErrorPop(errorID) {
+    document.getElementById(errorID).hidden = true;
   }
 }

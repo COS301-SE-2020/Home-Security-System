@@ -55,7 +55,7 @@ export class SettingsComponent implements OnInit {
           setTimeout(() => {
             this.SpinnerService.hide();
             this.retrieveSettings();
-          }, 500);
+          }, 600);
         });
   }
 

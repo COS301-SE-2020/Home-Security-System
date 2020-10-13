@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TitleService} from '../../title.service';
 import {UserService} from '../../model/user.service';
 import {User} from '../../model/user';
@@ -17,12 +17,13 @@ import {NgxSpinnerService} from 'ngx-spinner';
 export class TopNavComponent implements OnInit {
   title: string;
   user: User;
-  profileImg: string;
   newObj: JsonObject;
   info: SessionClass = this.authService.retrieveUserInfo();
 
-  constructor(private SpinnerService: NgxSpinnerService, private noteService: NotificationService, public authService: AuthService,
-              private appService: TitleService, private userService: UserService) { }
+  constructor(private SpinnerService: NgxSpinnerService, private noteService: NotificationService,
+              public authService: AuthService, private appService: TitleService,
+              private userService: UserService) {
+  }
 
   displayProfilePic() {
       const uPic = document.getElementById('profilePic') as HTMLImageElement;
@@ -32,17 +33,19 @@ export class TopNavComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.displayProfilePic();
+    setTimeout(() => {
+      this.displayProfilePic();
+      this.retrieveSettings();
+    }, 100);
   }
 
   clearNotifications() {
     // document.getElementById('noteCnt').innerHTML = '0';
   }
 
-
   enableButton() {
     const buttonEl = document.getElementById('saveBtn') as HTMLButtonElement;
-    buttonEl.style.background = '#d4af37';
+    // buttonEl.style.background = '#d4af37';
     buttonEl.disabled = false;
   }
 
@@ -51,17 +54,16 @@ export class TopNavComponent implements OnInit {
     const smsSettings = document.getElementById('smsSlider') as HTMLInputElement;
     const emailSettings = document.getElementById('emailSlider') as HTMLInputElement;
 
-    // buttonEl.style.background = 'grey';
     buttonEl.disabled = true;
 
-    this.userService.getUserById(this.authService.retrieveUserInfo().id).subscribe(
-      data => {
-        // console.log(data);
-        smsSettings.checked = data.notifySMS;
-        emailSettings.checked = data.notifyEmail;
-        this.user = data;
-      }
-    );
+    this.userService.getUserById(this.authService.retrieveUserInfo().id)
+      .subscribe(data => {
+          // console.log(data);
+          smsSettings.checked = data.notifySMS;
+          emailSettings.checked = data.notifyEmail;
+          this.user = data;
+        }
+      );
   }
 
   setUserSettings() {
@@ -77,7 +79,19 @@ export class TopNavComponent implements OnInit {
         setTimeout(() => {
           this.SpinnerService.hide();
           this.retrieveSettings();
-        }, 500);
+        }, 600);
       });
+  }
+
+  triggerPanic() {
+    this.showPop('triggerPanicPop');
+  }
+
+  showPop(popID) {
+    document.getElementById(popID).hidden = false;
+  }
+
+  closePop(popID) {
+    document.getElementById(popID).hidden = true;
   }
 }

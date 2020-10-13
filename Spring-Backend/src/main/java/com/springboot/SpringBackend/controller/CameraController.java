@@ -25,37 +25,41 @@ public class CameraController {
         this.service = service;
     }
 
-    @GetMapping("/Cameras")
+    @GetMapping("/cameras")
     public List<Camera> getAllCameras() {
         return service.getAllCameras();
     }
 
-    @GetMapping("/Cameras/{id}")
+    @GetMapping("/cameras/{id}")
     public ResponseEntity<Camera> getCameraById(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
         Camera x = service.getCameraById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Camera not found for this id :: " + id));
         return ResponseEntity.ok().body(x);
     }
 
-    @PostMapping("/Cameras")
+    @PostMapping("/cameras")
     public Camera addCamera(@Valid @RequestBody Camera x) {
         return service.createCamera(x);
     }
 
-    @PutMapping("/Cameras/{id}")
+    @PutMapping("/cameras/{id}")
     public ResponseEntity<Camera> editCamera(@PathVariable(value = "id") Long id,
                                                @Valid @RequestBody Camera details) throws ResourceNotFoundException {
         Camera x = service.getCameraById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Camera not found for this id :: " + id));
 
         x.setCameraId(details.getCameraId());
-        x.setServerURL(details.getServerURL());
-
+        if(!details.getServerURL().equals("")) {
+            x.setServerURL(details.getServerURL());
+        }
+        if(x.getNetwork() != null) {
+            x.setNetwork(details.getNetwork());
+        }
         final Camera updatedCamera = service.updateCamera(x);
         return ResponseEntity.ok(updatedCamera);
     }
 
-    @DeleteMapping("/Cameras/{id}")
+    @DeleteMapping("/cameras/{id}")
     public Map<String, Boolean> deleteCamera(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
         Camera x = service.getCameraById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Camera not found for this id :: " + id));

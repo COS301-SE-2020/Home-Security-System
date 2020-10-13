@@ -10,13 +10,15 @@
       <div class="modal-body">
         <div class="card-body">
           <form #changeForm="ngForm">
+            <div id="errorMsgs">
+            </div>
             <div class="row">
               <!--First Name-->
               <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="form-group">
                   <label for="addFirstName">First Name</label>
                   <input id="addFirstName" name="addFirstName" class="form-control"
-                         required maxlength="35" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
+                         required maxlength="20" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
                          [(ngModel)]="namePlaceholder" #name="ngModel">
 
                   <div *ngIf="name.invalid && (name.dirty || name.touched)"
@@ -31,7 +33,7 @@
                 <div class="form-group">
                   <label for="addSurname">Last Name</label>
                   <input id="addSurname" name="addSurname" class="form-control"
-                         required maxlength="35" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
+                         required maxlength="20" pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
                          [(ngModel)]="surnamePlaceholder" #lname="ngModel">
 
                   <div *ngIf="lname.invalid && (lname.dirty || lname.touched)"
@@ -44,13 +46,13 @@
 
             <br>
 
+            <!--Username-->
             <div class="row">
-              <!--Username-->
               <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="form-group">
                   <label for="addUsername">Username (12 Characters)</label>
                   <input id="addUsername" name="addUsername" class="form-control"
-                         required maxlength="12"
+                         required maxlength="12" pattern="^[a-zA-Z0-9_]*$"
                          [(ngModel)]="usernamePlaceholder" #username="ngModel">
 
                   <div *ngIf="username.invalid && (username.dirty || username.touched)"
@@ -103,8 +105,8 @@
                 <div class="form-group">
                   <label for="passwordField1">Password</label>
                   <input type="password" id="passwordField1" name="passwordField1" class="form-control"
-                         required maxlength="35"
-                         pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                         required maxlength="20"
+                         pattern="^[a-zA-Z0-9]*(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                          [(ngModel)]="passPlaceholder" #userPass="ngModel">
                   <i class="material-icons hoverPointer" id="passwordVisibility1" onclick="showPassword('1')">visibility_off</i>
                   <div *ngIf="userPass.invalid && (userPass.dirty || userPass.touched)"
@@ -112,10 +114,11 @@
                     <ul>
                       <h6>Must contain:</h6>
                       <li>At least eight characters</li>
-                      <li>At least one uppercase letter</li>
-                      <li>At least one lowercase letter</li>
+                      <li>One uppercase letter</li>
+                      <li>One lowercase letter</li>
                       <li>One number</li>
                       <li>One special character</li>
+                      <li>(Cannot start with a special character)</li>
                     </ul>
                   </div>
                 </div>
@@ -129,10 +132,10 @@
                 <div class="col-md-6 col-sm-6 col-xs-6">
                   <div class="form-group">
                     <label for="passwordField2">Confirm Password</label>
-                    <input type="password" id="passwordField2" name="confirmPassword" class="form-control"
+                    <input type="password" id="passwordField2" name="passwordField2" class="form-control"
                            [(ngModel)]="confirmPassPlaceholder" #confirm="ngModel">
                     <i class="material-icons hoverPointer" id="passwordVisibility2" onclick="showPassword('2')">visibility_off</i>
-                    <div *ngIf="userPass.value != confirmPassPlaceholder.valueOf()"
+                    <div *ngIf="(userPass.value != confirmPassPlaceholder.valueOf())"
                          class="alert alert-danger">
                       Passwords do not match
                     </div>
@@ -162,8 +165,8 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group">
                   <input id="answerField" name="answerField" class="form-control"
-                         required maxlength="35"
-                         pattern="^[a-zA-Z0-9_.-]*$" placeholder="Answer"
+                         required maxlength="20"
+                         pattern="^[a-zA-Z0-9_]*$" placeholder="Answer"
                          [(ngModel)]="answerPlaceholder" #answer="ngModel">
                   <div *ngIf="answer.invalid && (answer.dirty || answer.touched)"
                        class="alert alert-danger">
@@ -217,11 +220,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary justify-content-center" (click)="allowSubmit()" onclick="resizeAll()" >Accept Photo</button> <br>
-        <button *ngIf="picCorrect" type="submit" class="btn btn-primary pull-right" data-dismiss="modal" (click)="onSubmit()"
-                [disabled]="changeForm.invalid">
-          Add
-        </button>
+        <!--<button type="button" class="btn btn-primary justify-content-center" (click)="allowSubmit()" onclick="resizeAll()" >Accept Photo</button><br>-->
+        <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal" (click)="onSubmit()" [disabled]="changeForm.invalid">Add</button>
       </div>
     </div>
   </div>
@@ -267,5 +267,32 @@
 
 <!--LOADING SPINNER-->
 <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
-  <p style="color: white">Please Wait. </p>
+  <p style="color: white">Updating User List... </p>
 </ngx-spinner>
+
+
+<div id="noAdd" hidden data-notify="container" class="col-11 col-md-4 alert alert-danger alert-with-icon animated fadeInDown popError"
+     role="alert" data-notify-position="bottom-right"
+     style="display: inline-block; margin: 15px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 1031; bottom: 20px; right: 20px;">
+  <br>
+  <button type="button" aria-hidden="true" class="close" data-notify="dismiss"
+          style="position: absolute; right: 10px; top: 50%; margin-top: -9px; z-index: 1033;" (click)="closeErrorPop('noAdd')"><i class="material-icons">close</i>
+  </button>
+  <i data-notify="icon" class="material-icons">error_outline</i>
+  <span data-notify="title"></span>
+  <span data-notify="message">User not added, please try again.</span>
+  <br>
+</div>
+
+<div id="succAdd" hidden data-notify="container" class="col-11 col-md-4 alert alert-success alert-with-icon animated fadeInDown popError"
+     role="alert" data-notify-position="bottom-right"
+     style="display: inline-block; margin: 15px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 1031; bottom: 20px; right: 20px;">
+  <br>
+  <button type="button" aria-hidden="true" class="close" data-notify="dismiss"
+          style="position: absolute; right: 10px; top: 50%; margin-top: -9px; z-index: 1033;" (click)="closeErrorPop('succAdd')"><i class="material-icons">close</i>
+  </button>
+  <i data-notify="icon" class="material-icons">error_outline</i>
+  <span data-notify="title"></span>
+  <span data-notify="message">User added successfully.</span>
+  <br>
+</div>

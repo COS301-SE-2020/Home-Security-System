@@ -4,8 +4,8 @@ import {Notification} from '../../model/notification';
 import {NotificationService} from '../../model/notification.service';
 import {TitleService} from '../../title.service';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {AuthService} from "../../model/auth.service";
-import {SessionClass} from "../../model/session";
+import {AuthService} from '../../model/auth.service';
+import {SessionClass} from '../../model/session';
 
 @Component({
   selector: 'app-notification',
@@ -42,7 +42,7 @@ export class NotificationComponent implements OnInit {
               setTimeout(() => {
                 this.SpinnerService.hide();
                 this.reloadData();
-              }, 500);
+              }, 600);
             });
         });
   }
@@ -72,7 +72,7 @@ export class NotificationComponent implements OnInit {
   ngOnInit(): void {
     this.appService.setTitle('Notifications');
     this.reloadData();
-    //this.deleteOld(1);
+    // this.deleteOld(1);
   }
 
   deleteAll() {
@@ -81,9 +81,11 @@ export class NotificationComponent implements OnInit {
     this.notificationService.getNotificationList()
       .subscribe(data => {
         while (data[counter] != null) {
-          this.note = data[counter];
-          this.note.notificationDeleted = new Date();
-          this.notificationService.updateNotification(data[counter].notificationId, this.note).subscribe();
+          if (data[counter].network.netName === this.info.network) {
+            this.note = data[counter];
+            this.note.notificationDeleted = new Date();
+            this.notificationService.updateNotification(data[counter].notificationId, this.note).subscribe();
+          }
           counter++;
         }
         setTimeout(() => {

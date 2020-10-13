@@ -3,85 +3,139 @@
   <app-top-nav></app-top-nav>
 </div>
 
-  <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12">
-      <div class="card">
-        <div class="card-header card-header-primary">
-          <h4 class="card-title">User List</h4>
-          <p class="card-category">All users on Argus</p>
-          <a *ngIf="info.role != 'Basic'" id="addBtn" class="material-icons open-modal listPageIcons"
-             data-toggle="modal" data-target="#addUserModal" title="Add New User" onclick="openDrop()">person_add</a>
-        </div>
-        <div class="card-body">
-          <!--Search Bar Starts Here-->
-          <div class="row">
-            <div class="col-11">
-              <div class="input-group">
-                <div class="input-group-prepend">
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">User List</h4>
+        <p class="card-category">All users on Argus</p>
+        <a *ngIf="info.role != 'Basic'" id="addBtn" class="material-icons open-modal listPageIcons"
+           data-toggle="modal" data-target="#addUserModal" title="Add New User" onclick="openDrop()">person_add</a>
+      </div>
+      <div class="card-body">
+        <!--Search Bar Starts Here-->
+        <div class="row">
+          <div class="col-11">
+            <div class="input-group">
+              <div class="input-group-prepend">
                   <span class="input-group-text">
                     <i class="material-icons">search</i>
                   </span>
-                </div>
-                <input type="text" class="form-control" id="searchInput" placeholder="Search by Name..."
-                       onkeyup="searchFunc('userListTable', 1)">
               </div>
+              <input type="text" class="form-control" id="searchInput" placeholder="Search by Name..."
+                     onkeyup="searchFunc('userListTable', 1)">
             </div>
-            <a class="dropdown-toggle btn-sm hoverPointer" data-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false">
+          </div>
+          <a class="dropdown-toggle btn-sm hoverPointer" data-toggle="dropdown"
+             aria-haspopup="true" aria-expanded="false">
+          </a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item hoverPointer"
+               onclick="changeSearchFunc('userListTable','Search by Name...', 1)">
+              Search by Name
             </a>
-            <div class="dropdown-menu dropdown-menu-right">
-              <a class="dropdown-item hoverPointer"
-                 onclick="changeSearchFunc('userListTable','Search by Name...', 1)">
-                Search by Name
-              </a>
-              <a class="dropdown-item hoverPointer"
-                 onclick="changeSearchFunc('userListTable','Search by Role...',2)">
-                Search by Role
-              </a>
-            </div>
+            <a class="dropdown-item hoverPointer"
+               onclick="changeSearchFunc('userListTable','Search by Role...',2)">
+              Search by Role
+            </a>
           </div>
-          <br>
-          <!--Table Starts Here-->
-          <div class="table-responsive table-striped">
-            <table class="table center" id="userListTable">
-              <thead class="text-primary">
-                <tr>
-                  <th> Picture</th>
-                  <th class="hoverPointer" onclick="sortTable('userListTable', 1)"> Name</th>
-                  <th class="hoverPointer" onclick="sortTable('userListTable', 2)"> Role</th>
-                  <th> Modify</th>
-                </tr>
-              </thead>
-              <tbody id="userTableBody">
-              <ng-container *ngFor="let user of users | async">
-                <tr *ngIf="(user.userDeleted == null) && (user.network.netName == info.network)">
-                  <td><img alt="Profile Picture" src="{{user.profilePhoto}}" class="listPic ImgClassName"></td>
-                  <td>{{user.fname}}&nbsp;{{user.lname}}</td>
-                  <td>{{user.userRole}}</td>
-                  <td>
-                    <a id="viewBtn" class="material-icons listPageIcons" (click)="viewUser(user.userId)" title="View User">visibility</a>
-                    <a *ngIf="info.role != 'Basic'" id="editBtn" class="material-icons listPageIcons"
-                       (click)="updateUser(user.userId)" title="Edit User">edit</a>
-                    <a *ngIf="info.role == 'Admin'" id="deleteBtn" class="material-icons listPageIcons"
-                       (click)="removeUser(user.userId)" title="Delete User">delete</a>
-                  </td>
-                </tr>
-              </ng-container>
-              </tbody>
-            </table>
-          </div>
+        </div>
+        <br>
+        <!--Table Starts Here-->
+        <div class="table-responsive table-striped">
+          <table class="table center" id="userListTable">
+            <thead class="text-primary">
+            <tr>
+              <th> Picture</th>
+              <th class="hoverPointer" onclick="sortTable('userListTable', 1)"> Name</th>
+              <th class="hoverPointer" onclick="sortTable('userListTable', 2)"> Role</th>
+              <th> Modify</th>
+            </tr>
+            </thead>
+            <tbody id="userTableBody">
+            <ng-container *ngFor="let user of users | async">
+              <tr *ngIf="(user.userDeleted == null) && (user.network.netName == info.network)">
+                <td><img alt="Profile Picture" src="{{user.profilePhoto}}" class="listPic ImgClassName"></td>
+                <td>{{user.fname}}&nbsp;{{user.lname}}</td>
+                <td>{{user.userRole}}</td>
+                <td>
+                  <a id="viewBtn" class="material-icons listPageIcons" (click)="viewUser(user.userId)"
+                     title="View User">visibility</a>
+                  <a *ngIf="info.role != 'Basic'" id="editBtn" class="material-icons listPageIcons"
+                     (click)="updateUser(user.userId)" title="Edit User">edit</a>
+                  <a *ngIf="info.role == 'Admin'" id="deleteBtn" class="material-icons listPageIcons"
+                     (click)="removeUser(user.userId)" title="Delete User">delete</a>
+                </td>
+              </tr>
+            </ng-container>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
-  <a *ngIf="info.role == 'Admin'" class="btn btn-primary float-right" (click)="restoreUser()">Restore</a>
+</div>
+<a *ngIf="info.role == 'Admin'" class="btn btn-primary float-right" (click)="restoreUser()">Restore</a>
 
 
 <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
-  <p style="color: white">Please Wait. </p>
+  <p style="color: white">Updating User List... </p>
 </ngx-spinner>
 
 <!--ADD USER MODAL-->
 <div class="container">
   <app-add-user></app-add-user>
+</div>
+
+
+<div id="selfDelete" hidden data-notify="container" class="col-11 col-md-4 alert alert-danger alert-with-icon animated fadeInDown popError"
+     role="alert" data-notify-position="bottom-right"
+     style="display: inline-block; margin: 15px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 1031; bottom: 20px; right: 20px;">
+  <br>
+  <button type="button" aria-hidden="true" class="close" data-notify="dismiss"
+          style="position: absolute; right: 10px; top: 50%; margin-top: -9px; z-index: 1033;" (click)="closeErrorPop('selfDelete')"><i class="material-icons">close</i>
+  </button>
+  <i data-notify="icon" class="material-icons">error_outline</i>
+  <span data-notify="title"></span>
+  <span data-notify="message">You cannot delete yourself</span>
+  <br>
+</div>
+
+<div id="noPriv" hidden data-notify="container" class="col-11 col-md-4 alert alert-danger alert-with-icon animated fadeInDown popError"
+     role="alert" data-notify-position="bottom-right"
+     style="display: inline-block; margin: 15px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 1031; bottom: 20px; right: 20px;">
+  <br>
+  <button type="button" aria-hidden="true" class="close" data-notify="dismiss"
+          style="position: absolute; right: 10px; top: 50%; margin-top: -9px; z-index: 1033;" (click)="closeErrorPop('noPriv')"><i class="material-icons">close</i>
+  </button>
+  <i data-notify="icon" class="material-icons">error_outline</i>
+  <span data-notify="title"></span>
+  <span data-notify="message">You cannot edit a user with more privileges than yourself.</span>
+  <br>
+</div>
+
+<div id="noEdit" hidden data-notify="container" class="col-11 col-md-4 alert alert-danger alert-with-icon animated fadeInDown popError"
+     role="alert" data-notify-position="bottom-right"
+     style="display: inline-block; margin: 15px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 1031; bottom: 20px; right: 20px;">
+  <br>
+  <button type="button" aria-hidden="true" class="close" data-notify="dismiss"
+          style="position: absolute; right: 10px; top: 50%; margin-top: -9px; z-index: 1033;" (click)="closeErrorPop('noEdit')"><i class="material-icons">close</i>
+  </button>
+  <i data-notify="icon" class="material-icons">error_outline</i>
+  <span data-notify="title"></span>
+  <span data-notify="message">You cannot edit a user on this page.</span>
+  <br>
+</div>
+
+<div id="noSelfEdit" hidden data-notify="container" class="col-11 col-md-4 alert alert-danger alert-with-icon animated fadeInDown popError"
+     role="alert" data-notify-position="bottom-right"
+     style="display: inline-block; margin: 15px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 1031; bottom: 20px; right: 20px;">
+  <br>
+  <button type="button" aria-hidden="true" class="close" data-notify="dismiss"
+          style="position: absolute; right: 10px; top: 50%; margin-top: -9px; z-index: 1033;" (click)="closeErrorPop('noSelfEdit')"><i class="material-icons">close</i>
+  </button>
+  <i data-notify="icon" class="material-icons">error_outline</i>
+  <span data-notify="title"></span>
+  <span data-notify="message">You cannot edit yourself from user list. Please view your user profile.</span>
+  <br>
 </div>
