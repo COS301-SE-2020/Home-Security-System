@@ -94,8 +94,7 @@ export class AddUserComponent implements OnInit {
           }
           counter++;
         }
-      }, () => {
-      },
+      }, () => { },
       () => {
         if (!exists) {
           this.save();
@@ -164,9 +163,8 @@ export class AddUserComponent implements OnInit {
                 setTimeout(() => {
                   this.SpinnerService.hide();
                   window.location.reload();
+                  this.gotoList();
                 }, 600);
-
-                this.gotoList();
               });
           });
       } else {
@@ -216,7 +214,7 @@ export class AddUserComponent implements OnInit {
     document.getElementById(errorID).hidden = false;
   }
 
-  closeErrorPop(errorID){
+  closeErrorPop(errorID) {
     document.getElementById(errorID).hidden = true;
   }
 }
