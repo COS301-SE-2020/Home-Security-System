@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ArgusDataSource {
     
-    /*@Bean
+    @Bean
     @Profile("heroku")
     //@LiquibaseDataSource
     public javax.sql.DataSource herokuDataSource() {
@@ -22,10 +22,9 @@ public class ArgusDataSource {
                 .username(username)
                 .password(password)
                 .build();
-    }*/
-	
+    }
     
-    @Bean
+    /*@Bean
     @Profile("local")
     @Primary
     public javax.sql.DataSource postgresqlDataSource() {
@@ -35,5 +34,5 @@ public class ArgusDataSource {
                 .username("Sigma")
                 .password("Argus")
                 .build();
-    }
+    }*/
 }
