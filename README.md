@@ -33,6 +33,10 @@ Argus is a home security system  capable of instantly identifying threats on mul
 
 <img src="https://img.icons8.com/fluent-systems-regular/24/000000/video.png"/> [Demo 4](https://drive.google.com/file/d/14zL797nATDfY3vd2i8kUvGWcfuFuDsPq/view?usp=sharing)
 
+## Final System Videos
+<img src="https://img.icons8.com/fluent-systems-regular/24/000000/video.png"/> [Core Functionality](https://drive.google.com/file/d/1wXCngEVF078hRrkpI6vbqUHSAwRlXIJr/view?usp=sharing)
+<img src="https://img.icons8.com/fluent-systems-regular/24/000000/video.png"/> [Full System]()
+
 ## Repository Layout
 This is how the branches will be laid out
 ```
