@@ -135,15 +135,16 @@ public class RabbitConsumer {
                 LOGGER.info(String.valueOf(ex));
             }
         } else {
-            if(net.isPresent()) {
-                try {
+            try {
+                if(net.isPresent()) {
                     if (alert.getType().equalsIgnoreCase("Grey")) {
                         nservice.createNotification(new Notification(alert.getImageStr(),
                                 "Suspicious", "Person: " + "Unknown", net.get()));
                     }
-                } catch (NoSuchElementException ex) {
-                    LOGGER.info(String.valueOf(ex));
                 }
+            }
+            catch (NoSuchElementException ex) {
+                LOGGER.info(String.valueOf(ex));
             }
         }
         LOGGER.info("Notification Created");
@@ -155,35 +156,40 @@ public class RabbitConsumer {
         if(psn.getPersonId() == 0) {
             Optional<Network> net = netServece.getNetworkById(psn.getNetworkId());
 
-            if(net.isPresent()) {
-                Person p = personService.createPerson(new Person(psn.getImageStr(), net.get()));
+            try {
+                if (net.isPresent()) {
+                    Person p = personService.createPerson(new Person(psn.getImageStr(), net.get()));
 
-                RabbitPerson updatePerson = new RabbitPerson(p.getPersonId(), psn.getTempId(), psn.getType(), true, psn.getImageStr(), true, psn.getNetworkId());
-                amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, updatePerson);
+                    RabbitPerson updatePerson = new RabbitPerson(p.getPersonId(), psn.getTempId(), psn.getType(), true, psn.getImageStr(), true, psn.getNetworkId());
+                    amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, updatePerson);
 
-                LOGGER.info("Grey-list Person Added");
+                    List<User> arr = userService.getAllUsers();
 
-                List<User> arr = userService.getAllUsers();
+                    for (User u : arr) {
+                        if (u.getNetwork().getNetName().equals(net.get().getNetName())) {
+                            String email = u.getEmail();
+                            Boolean notify1 = u.getNotifyEmail();
+                            Boolean notify2 = u.getNotifySMS();
+                            String date = p.getPersonCreated().toString();
+                            String time = LocalTime.now().toString();
+                            time = time.substring(0, 5);
 
-                for (User u : arr) {
-                    if (u.getNetwork().getNetName().equals(net.get().getNetName())) {
-                        String email = u.getEmail();
-                        Boolean notify1 = u.getNotifyEmail();
-                        Boolean notify2 = u.getNotifySMS();
-                        String date = p.getPersonCreated().toString();
-                        String time = LocalTime.now().toString();
-                        time = time.substring(0,5);
-
-                        if (notify1) {
-                            mailer.sendmailGrey(email,"Unknown", date, time);
-                        }
-                        if (notify2) {
-                            SmsRequest request = new SmsRequest(u.getContactNo(),"Unknown",date,time);
-                            sender.sendSmsSuspicious(request);
+                            if (notify1) {
+                                mailer.sendmailGrey(email, "Unknown", date, time);
+                            }
+                            if (notify2) {
+                                SmsRequest request = new SmsRequest(u.getContactNo(), "Unknown", date, time);
+                                sender.sendSmsSuspicious(request);
+                            }
                         }
                     }
                 }
             }
+            catch (NoSuchElementException ex) {
+                LOGGER.info(String.valueOf(ex));
+            }
+
+            LOGGER.info("Grey-list Person Added");
         }
     }
 }
