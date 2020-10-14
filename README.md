@@ -1,9 +1,12 @@
 # Argus - Home-Security-System
-<img src="Sigma_Logo.png" width=300/>
+<img src="Argus.png" width=300/>
 
 Argus is a home security system  capable of instantly identifying threats on multiple video feeds around the home of a user while notifying the user of identified threats.
 
-## Documents
+## Visit Argus
+<img src="https://img.icons8.com/fluent-systems-regular/24/000000/domain.png"/> [Argus WebApp (Heroku)](https://sigma-argus.herokuapp.com/)
+
+## Documentation
 <img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Software Requirements Specification](/Documentation/Sigma___SRS_Document(Demo4).pdf)
 
 <img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [User Manual](/Documentation/Argus_User_Manual_v3.pdf)
@@ -14,11 +17,18 @@ Argus is a home security system  capable of instantly identifying threats on mul
 
 <img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Testing Policies](/Documentation/Testing_Policies.pdf)
 
+## Project Management
+
 <img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Project Management Tool (ClickUp)](https://app.clickup.com/2535636/v/l/s/2669690)
 
 <img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Project Management Tool (Alternate link)](https://share.clickup.com/c/h/2dc6m-169/098ad26309043f3)
 
-<img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Argus Application (Heroku)](https://sigma-argus.herokuapp.com/)
+## Demo Videos
+
+<img src="https://img.icons8.com/fluent-systems-regular/24/000000/video.png"/> [Demo 1](https://drive.google.com/file/d/1QlzzfJBzulz0C5Vk_K-gsIZmKuGH15zq/view?usp=sharing)
+<img src="https://img.icons8.com/fluent-systems-regular/24/000000/video.png"/> [Demo 2](https://drive.google.com/file/d/1twylM62yNvclUM6zKJeOSxo46HInaMkH/view?usp=sharing)
+<img src="https://img.icons8.com/fluent-systems-regular/24/000000/video.png"/> [Demo 3](https://drive.google.com/file/d/1nmYSEZ-q6KomuUadqy5R1eBndgRQRk0M/view?usp=sharing)
+<img src="https://img.icons8.com/fluent-systems-regular/24/000000/video.png"/> [Demo 4](https://drive.google.com/file/d/14zL797nATDfY3vd2i8kUvGWcfuFuDsPq/view?usp=sharing)
 
 ## Repository Layout
 This is how the branches will be laid out
@@ -37,8 +47,8 @@ master
 
 ```
 
-## Server Link
- <a href="https://sigma-argus.herokuapp.com">Go to Argus</a> 
+# Meet the Team
+<img src="Sigma_Logo.png" width=300/>
 
 ## Group Members
 
