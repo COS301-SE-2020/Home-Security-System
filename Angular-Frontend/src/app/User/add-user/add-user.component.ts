@@ -153,15 +153,14 @@ export class AddUserComponent implements OnInit {
         this.newUser.secureAnswer = answerInp.value;
         this.newUser.notifyEmail = true;
         this.newUser.notifySMS = false;
-        this.newUser.network = new Network(1, "SigPi", "+27840763231");
 
-        /*const num = Number(this.info.id);
+        const num = Number(this.info.id);
         this.usersService.getUserById(num)
           .subscribe(value => {
             this.newUser.network = value.network;
-            this.SpinnerService.show();
             this.usersService.addUser(this.newUser)
               .subscribe(() => {
+                this.SpinnerService.show();
                 setTimeout(() => {
                   this.SpinnerService.hide();
                   location.reload();
@@ -169,15 +168,6 @@ export class AddUserComponent implements OnInit {
               });
 
             this.gotoList();
-          });*/
-
-        this.usersService.addUser(this.newUser)
-          .subscribe(() => {
-            this.SpinnerService.show();
-            setTimeout(() => {
-              this.SpinnerService.hide();
-              location.reload();
-            }, 600);
           });
 
       } else {
