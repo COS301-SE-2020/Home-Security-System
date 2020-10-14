@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
-    "build": "ng build --aot --prod",
+    "build": "ng build --aot",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -20,6 +20,7 @@
     "@angular/platform-browser": "~9.1.9",
     "@angular/platform-browser-dynamic": "~9.1.9",
     "@angular/router": "~9.1.9",
+    "@types/mocha": "^8.0.3",
     "angular-images-resizer": "^2.0.3",
     "bootstrap": "^4.5.2",
     "express": "^4.17.1",
