@@ -23,9 +23,14 @@ class PersonControllerTest {
     @Autowired
     private PersonRepo psnRepo;
 
+    /*private String getRootUrl() {
+        return "http://localhost:4200/api/cameras";
+        //return "http://sigma-argus.herokuapp.com/api/cameras";
+    }*/
+
     @Test
     void getPeopleList() {
-        Network net = new Network("Network1");
+        Network net = new Network("Network1", "+27833991336");
         Network savedNetwork = netRepo.save(net);
         Person psn1 = new Person("Image1",savedNetwork);
         psnRepo.save(psn1);
@@ -37,24 +42,24 @@ class PersonControllerTest {
 
     @Test
     void getPersonById() {
-        Network net = new Network("TestNetwork1");
+        Network net = new Network("TestNetwork1", "+27833991336");
         Network savedNetwork = netRepo.save(net);
         Person psn = new Person("SomeImage", savedNetwork);
         Person saved = psnRepo.save(psn);
         Optional<Person> find = psnRepo.findById(saved.getPersonId());
         assertNotNull(find);
-        if(find.isPresent()) {
-            assertEquals("SomeImage", find.get().getPersonImg());
-            assertEquals("Unknown", find.get().getFname());
-            assertEquals("Unknown", find.get().getLname());
-            assertEquals("Grey", find.get().getPersonListed());
-            assertEquals("TestNetwork1", find.get().getNetwork().getNetName());
-        }
+        find.ifPresent(person -> {
+            assertEquals("SomeImage", person.getPersonImg());
+            assertEquals("Unknown", person.getFname());
+            assertEquals("Unknown", person.getLname());
+            assertEquals("Grey", person.getPersonListed());
+            assertEquals("TestNetwork1", person.getNetwork().getNetName());
+        });
     }
 
     @Test
     void addPerson() {
-        Network net = new Network("RaspberyPi4");
+        Network net = new Network("RaspberyPi4", "+27833991336");
         Network savedNetwork = netRepo.save(net);
         Person psn = new Person("SomeImage", savedNetwork);
         Person saved = psnRepo.save(psn);
@@ -63,7 +68,7 @@ class PersonControllerTest {
 
     @Test
     void editPerson() {
-        Network net = new Network("TestNetwork3");
+        Network net = new Network("TestNetwork3", "+27833991336");
         Network savedNetwork = netRepo.save(net);
         Person psn = new Person("SomeImage", savedNetwork);
         Person saved = psnRepo.save(psn);
@@ -75,7 +80,7 @@ class PersonControllerTest {
 
     @Test
     void deletePerson() {
-        Network net = new Network("TestNetwork4");
+        Network net = new Network("TestNetwork4", "+27833991336");
         Network savedNetwork = netRepo.save(net);
         Person psn = new Person("SomeImage","SomeMessage", savedNetwork);
         Person saved = psnRepo.save(psn);
