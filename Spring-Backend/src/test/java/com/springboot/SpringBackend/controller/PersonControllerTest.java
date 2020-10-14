@@ -30,11 +30,11 @@ class PersonControllerTest {
 
     @Test
     void getPeopleList() {
-        Network net = new Network("Network1", "+27833991336");
+        Network net = new Network("TestNetwork", "+27833991336");
         Network savedNetwork = netRepo.save(net);
         Person psn1 = new Person("Image1",savedNetwork);
         psnRepo.save(psn1);
-        Person psn2 = new Person("Image1",savedNetwork);
+        Person psn2 = new Person("Image2",savedNetwork);
         psnRepo.save(psn2);
         List<Person> list = psnRepo.findAll();
         assertTrue(list.size() > 0);
@@ -42,7 +42,7 @@ class PersonControllerTest {
 
     @Test
     void getPersonById() {
-        Network net = new Network("TestNetwork1", "+27833991336");
+        Network net = new Network("TestNetwork", "+27833991336");
         Network savedNetwork = netRepo.save(net);
         Person psn = new Person("SomeImage", savedNetwork);
         Person saved = psnRepo.save(psn);
@@ -53,13 +53,13 @@ class PersonControllerTest {
             assertEquals("Unknown", person.getFname());
             assertEquals("Unknown", person.getLname());
             assertEquals("Grey", person.getPersonListed());
-            assertEquals("TestNetwork1", person.getNetwork().getNetName());
+            assertEquals("TestNetwork", person.getNetwork().getNetName());
         });
     }
 
     @Test
     void addPerson() {
-        Network net = new Network("RaspberyPi4", "+27833991336");
+        Network net = new Network("TestNetwork", "+27833991336");
         Network savedNetwork = netRepo.save(net);
         Person psn = new Person("SomeImage", savedNetwork);
         Person saved = psnRepo.save(psn);
@@ -68,7 +68,7 @@ class PersonControllerTest {
 
     @Test
     void editPerson() {
-        Network net = new Network("TestNetwork3", "+27833991336");
+        Network net = new Network("TestNetwork", "+27833991336");
         Network savedNetwork = netRepo.save(net);
         Person psn = new Person("SomeImage", savedNetwork);
         Person saved = psnRepo.save(psn);
@@ -80,9 +80,9 @@ class PersonControllerTest {
 
     @Test
     void deletePerson() {
-        Network net = new Network("TestNetwork4", "+27833991336");
+        Network net = new Network("TestNetwork", "+27833991336");
         Network savedNetwork = netRepo.save(net);
-        Person psn = new Person("SomeImage","SomeMessage", savedNetwork);
+        Person psn = new Person("SomeImage","Message", savedNetwork);
         Person saved = psnRepo.save(psn);
 
         boolean existsBeforeDelete = psnRepo.findById(saved.getPersonId()).isPresent();

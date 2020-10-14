@@ -23,7 +23,7 @@ class CameraRepoTest {
 
     @Test
     public void testPersistence() {
-        Network net = new Network("RaspberryPi4", "+27833991336");
+        Network net = new Network("TestNetwork", "+27833991336");
         netRepo.save(net);
 
         Camera cam = new Camera("SomeURL",net);
@@ -33,7 +33,7 @@ class CameraRepoTest {
         Optional<Camera> newCam = camRepo.findById(cam.getCameraId());
         newCam.ifPresent(camera -> {
             assertEquals("SomeURL", camera.getServerURL());
-            assertEquals("RaspberryPi4", camera.getNetwork().getNetName());
+            assertEquals("TestNetwork", camera.getNetwork().getNetName());
         });
     }
 }

@@ -19,11 +19,11 @@ class NetworkRepoTest {
 
     @Test
     public void testPersistence() {
-        Network net = new Network("RaspberryPi4", "+27833991336");
+        Network net = new Network("TestNetwork", "+27833991336");
         netRepo.save(net);
 
         assertNotNull(net.getNetworkId());
         Optional<Network> newNet = netRepo.findById(net.getNetworkId());
-        newNet.ifPresent(network -> assertEquals("RaspberryPi4", network.getNetName()));
+        newNet.ifPresent(network -> assertEquals("TestNetwork", network.getNetName()));
     }
 }

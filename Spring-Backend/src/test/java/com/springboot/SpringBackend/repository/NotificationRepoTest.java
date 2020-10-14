@@ -22,19 +22,19 @@ class NotificationRepoTest {
 
     @Test
     public void testPersistence() {
-        Network net = new Network("RaspberryPi4", "+27833991336");
+        Network net = new Network("TestNetwork", "+27833991336");
         netRepo.save(net);
 
-        Notification note = new Notification("TestImage","TestMessage",net);
+        Notification note = new Notification("TestImage","Message",net);
         noteRepo.save(note);
 
         assertNotNull(note.getNotificationId());
         Optional<Notification> newNote = noteRepo.findById(note.getNotificationId());
         newNote.ifPresent(notification -> {
             assertEquals("TestImage", notification.getNotificationImg());
-            assertEquals("TestMessage", notification.getMessage());
+            assertEquals("Message", notification.getMessage());
             assertEquals("Suspicious", notification.getListed());
-            assertEquals("RaspberryPi4", notification.getNetwork().getNetName());
+            assertEquals("TestNetwork", notification.getNetwork().getNetName());
         });
     }
 }

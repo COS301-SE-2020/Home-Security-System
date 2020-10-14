@@ -31,11 +31,11 @@ class NotificationControllerTest {
 
     @Test
     void getAllNotifications() {
-        Network net = new Network("Network1", "+27833991336");
+        Network net = new Network("TestNetwork", "+27833991336");
         Network savedNetwork = netRepo.save(net);
-        Notification note1 = new Notification("Image1","Message1",savedNetwork);
+        Notification note1 = new Notification("Image1","Message",savedNetwork);
         noteRepo.save(note1);
-        Notification note2 = new Notification("Image1","Message2",savedNetwork);
+        Notification note2 = new Notification("Image2","Message",savedNetwork);
         noteRepo.save(note2);
         List<Notification> list = noteRepo.findAll();
         assertTrue(list.size() > 0);
@@ -43,44 +43,44 @@ class NotificationControllerTest {
 
     @Test
     void getNotificationById() {
-        Network net = new Network("TestNetwork1", "+27833991336");
+        Network net = new Network("TestNetwork", "+27833991336");
         Network savedNetwork = netRepo.save(net);
-        Notification note = new Notification("SomeImage","SomeMessage", savedNetwork);
+        Notification note = new Notification("SomeImage","Message", savedNetwork);
         Notification savedNote = noteRepo.save(note);
         Optional<Notification> findNote = noteRepo.findById(savedNote.getNotificationId());
         assertNotNull(findNote);
         findNote.ifPresent(notification -> {
-            assertEquals("SomeMessage", notification.getMessage());
-            assertEquals("TestNetwork1", notification.getNetwork().getNetName());
+            assertEquals("Message", notification.getMessage());
+            assertEquals("TestNetwork", notification.getNetwork().getNetName());
         });
     }
 
     @Test
     void addNotification() {
-        Network net = new Network("RaspberyPi4", "+27833991336");
+        Network net = new Network("TestNetwork", "+27833991336");
         Network savedNetwork = netRepo.save(net);
-        Notification note = new Notification("SomeImage" ,"SomeMessage", savedNetwork);
+        Notification note = new Notification("SomeImage" ,"Message", savedNetwork);
         Notification savedNote = noteRepo.save(note);
         assertNotNull(savedNote);
     }
 
     @Test
     void editNotification() {
-        Network net = new Network("TestNetwork3", "+27833991336");
+        Network net = new Network("TestNetwork", "+27833991336");
         Network savedNetwork = netRepo.save(net);
-        Notification note = new Notification("SomeImage","SomeMessage", savedNetwork);
+        Notification note = new Notification("SomeImage","Message", savedNetwork);
         Notification savedNote = noteRepo.save(note);
-        assertEquals("SomeMessage", savedNote.getMessage());
-        savedNote.setMessage("UpdatedMessage");
+        assertEquals("Message", savedNote.getMessage());
+        savedNote.setMessage("Updated");
         savedNote = noteRepo.save(savedNote);
-        assertEquals("UpdatedMessage", savedNote.getMessage());
+        assertEquals("Updated", savedNote.getMessage());
     }
 
     @Test
     void deleteNotification() {
-        Network net = new Network("TestNetwork4", "+27833991336");
+        Network net = new Network("TestNetwork", "+27833991336");
         Network savedNetwork = netRepo.save(net);
-        Notification cam = new Notification("SomeImage","SomeMessage", savedNetwork);
+        Notification cam = new Notification("SomeImage","Message", savedNetwork);
         Notification savedNote = noteRepo.save(cam);
 
         boolean existsBeforeDelete = noteRepo.findById(savedNote.getNotificationId()).isPresent();

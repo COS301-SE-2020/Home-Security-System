@@ -47,16 +47,16 @@ public class Network implements Serializable {
     public Network() { }
 
     public Network(String name) {
-        if(validateInput(name)) {
+        ///if(validateInput(name)) {
             this.netName = name;
-        }
+        //}
         this.securityNumber = "+27840763231";
     }
 
     public Network(String name, String phoneNum) {
-        if(validateInput(name)) {
+        //if(validateInput(name)) {
             this.netName = name;
-        }
+        //}
         if(validateNumber(phoneNum)) {
             this.securityNumber = Jsoup.clean(phoneNum, Whitelist.simpleText());
         }
@@ -73,9 +73,9 @@ public class Network implements Serializable {
         return this.netName;
     }
     public void setNetName(String name) {
-        if(validateInput(name)) {
+        //if(validateInput(name)) {
             this.netName = Jsoup.clean(name, Whitelist.simpleText());
-        }
+        //}
     }
 
     public String getSecurityNumber() {

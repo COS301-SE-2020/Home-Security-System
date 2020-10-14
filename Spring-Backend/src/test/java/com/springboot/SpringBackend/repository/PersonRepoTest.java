@@ -22,7 +22,7 @@ class PersonRepoTest {
 
     @Test
     public void testPersistence() {
-        Network net = new Network("RaspberryPi4", "+27833991336");
+        Network net = new Network("TestNetwork", "+27833991336");
         netRepo.save(net);
 
         Person psn = new Person("TestImage",net);
@@ -35,7 +35,7 @@ class PersonRepoTest {
             assertEquals("Unknown", person.getFname());
             assertEquals("Unknown", person.getLname());
             assertEquals("Grey", person.getPersonListed());
-            assertEquals("RaspberryPi4", person.getNetwork().getNetName());
+            assertEquals("TestNetwork", person.getNetwork().getNetName());
         });
     }
 }

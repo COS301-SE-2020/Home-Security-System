@@ -32,11 +32,11 @@ class CameraControllerTest {
 
     @Test
     void getAllCameras() {
-        Network net = new Network("Network1", "+27833991336");
+        Network net = new Network("TestNetwork", "+27833991336");
         Network savedNetwork = netRepo.save(net);
-        Camera cam1 = new Camera("URL1",savedNetwork);
+        Camera cam1 = new Camera("URLOne",savedNetwork);
         camRepo.save(cam1);
-        Camera cam2 = new Camera("URL2",savedNetwork);
+        Camera cam2 = new Camera("URLTwo",savedNetwork);
         camRepo.save(cam2);
         List<Camera> list = camRepo.findAll();
         assertTrue(list.size() > 0);
@@ -44,7 +44,7 @@ class CameraControllerTest {
 
     @Test
     void getCameraById() {
-        Network net = new Network("TestNetwork1", "+27833991336");
+        Network net = new Network("TestNetwork", "+27833991336");
         Network savedNetwork = netRepo.save(net);
         Camera cam = new Camera("SomeURL", savedNetwork);
         Camera savedCamera = camRepo.save(cam);
@@ -52,13 +52,13 @@ class CameraControllerTest {
         assertNotNull(findCam);
         findCam.ifPresent(camera -> {
             assertEquals("SomeURL", camera.getServerURL());
-            assertEquals("TestNetwork1", camera.getNetwork().getNetName());
+            assertEquals("TestNetwork", camera.getNetwork().getNetName());
         });
     }
 
     @Test
     void addCamera() {
-        Network net = new Network("RaspberyPi4", "+27833991336");
+        Network net = new Network("TestNetwork", "+27833991336");
         Network savedNetwork = netRepo.save(net);
         Camera cam = new Camera("SomeURL", savedNetwork);
         Camera savedCam = camRepo.save(cam);
@@ -67,7 +67,7 @@ class CameraControllerTest {
 
     @Test
     void editCamera() {
-        Network net = new Network("TestNetwork3", "+27833991336");
+        Network net = new Network("TestNetwork", "+27833991336");
         Network savedNetwork = netRepo.save(net);
         Camera cam = new Camera("SomeURL", savedNetwork);
         Camera savedCam = camRepo.save(cam);
@@ -79,7 +79,7 @@ class CameraControllerTest {
 
     @Test
     void deleteCamera() {
-        Network net = new Network("TestNetwork4", "+27833991336");
+        Network net = new Network("TestNetwork", "+27833991336");
         Network savedNetwork = netRepo.save(net);
         Camera cam = new Camera("SomeURL", savedNetwork);
         Camera savedCam = camRepo.save(cam);

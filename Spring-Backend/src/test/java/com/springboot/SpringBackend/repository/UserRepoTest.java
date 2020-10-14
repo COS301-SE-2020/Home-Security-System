@@ -22,7 +22,7 @@ class UserRepoTest {
 
     @Test
     public void testPersistence() {
-        Network net = new Network("RaspberryPi4", "+27833991336");
+        Network net = new Network("TestNetwork", "+27833991336");
         netRepo.save(net);
 
         User user = new User("TestImage", "Brad", "Zietsman", "+27840763231",
@@ -43,7 +43,7 @@ class UserRepoTest {
             assertEquals("Admin", newUser.get().getUserRole());
             assertEquals("One", newUser.get().getSecureQuestion());
             assertEquals("Peanut", newUser.get().getSecureAnswer());
-            assertEquals("RaspberryPi4", newUser.get().getNetwork().getNetName());
+            assertEquals("TestNetwork", newUser.get().getNetwork().getNetName());
         });
     }
 }
