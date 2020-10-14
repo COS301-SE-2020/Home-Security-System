@@ -1,5 +1,5 @@
+<a href="https://github.com/COS301-SE-2020/Home-Security-System"><img src="Argus.png" title="Argus" alt="Argus" width="600"></a>
 # Argus - Home-Security-System
-<img src="Argus.png" width=300/>
 
 Argus is a home security system  capable of instantly identifying threats on multiple video feeds around the home of a user while notifying the user of identified threats.
 
@@ -55,7 +55,11 @@ master
 
 ## Group Members
 
-### Britney Chu (u18176951) [GitHub Profile](https://github.com/BritneyChu), [CV](https://britneychu.github.io/), [LinkedIn](https://www.linkedin.com/in/britney-chu-ab434a1a3/)
+### Britney Chu (u18176951) 
+
+<a href="https://github.com/BritneyChu"><img src="https://img.icons8.com/fluent-systems-filled/24/000000/github.png"/></a>
+<a href="https://britneychu.github.io/"><img src="https://img.icons8.com/fluent-systems-filled/24/000000/parse-from-clipboard.png"/></a>
+<a href="https://www.linkedin.com/in/britney-chu-ab434a1a3/"><img src="https://img.icons8.com/fluent-systems-filled/24/000000/linkedin.png"/></a>
 
 <img src="https://github.com/BritneyChu.png" width = 200/>
 
@@ -102,7 +106,11 @@ Milky Way Tutors, Computer Science
 
 </details>
 
-### Brad Zietsman - Team Leader (u15228194) [GitHub Profile](https://github.com/Bradford-700), [CV](https://bradford-700.github.io/online-cv), [LinkedIn](https://www.linkedin.com/in/brad-zietsman/)
+### Brad Zietsman (u15228194)
+#### Team Leader
+<a href="https://github.com/Bradford-700"><img src="https://img.icons8.com/fluent-systems-filled/24/000000/github.png"/></a>
+<a href="https://bradford-700.github.io/online-cv"><img src="https://img.icons8.com/fluent-systems-filled/24/000000/parse-from-clipboard.png"/></a>
+<a href="https://www.linkedin.com/in/brad-zietsman/"><img src="https://img.icons8.com/fluent-systems-filled/24/000000/linkedin.png"/></a>
 
 <img src="https://github.com/Bradford-700.png" width = 200/>
 
@@ -115,7 +123,10 @@ Milky Way Tutors, Computer Science
 
 </details>
 
-### Brett Fourie (u16024002) [GitHub Profile](https://github.com/BrettFourie), [CV](https://brettfourie.github.io/online-cv/), [LinkedIn](https://www.linkedin.com/in/brett-fourie-949021192/)
+### Brett Fourie (u16024002) 
+<a href="https://github.com/BrettFourie"><img src="https://img.icons8.com/fluent-systems-filled/24/000000/github.png"/></a>
+<a href="https://brettfourie.github.io/online-cv/"><img src="https://img.icons8.com/fluent-systems-filled/24/000000/parse-from-clipboard.png"/></a>
+<a href="https://www.linkedin.com/in/brett-fourie-949021192/"><img src="https://img.icons8.com/fluent-systems-filled/24/000000/linkedin.png"/></a>
 
 <img src="https://github.com/BrettFourie.png" width = 200/>
 
@@ -128,7 +139,10 @@ Milky Way Tutors, Computer Science
 
 </details>
 
-### Jason Lutz (u15323413) [GitHub Profile](https://github.com/jay-lutz), [CV](https://jay-lutz.github.io), [LinkedIn]()
+### Jason Lutz (u15323413)
+<a href="https://github.com/jay-lutz"><img src="https://img.icons8.com/fluent-systems-filled/24/000000/github.png"/></a>
+<a href="https://jay-lutz.github.io"><img src="https://img.icons8.com/fluent-systems-filled/24/000000/parse-from-clipboard.png"/></a>
+<a href="https://www.linkedin.com/in/jason-lutz-36058b159/"><img src="https://img.icons8.com/fluent-systems-filled/24/000000/linkedin.png"/></a>
 
 <img src="https://github.com/jay-lutz.png" width = 200/>
 
@@ -141,7 +155,10 @@ Milky Way Tutors, Computer Science
 
 </details>
 
-### Johann Stadler (u16008554) [GitHub Profile](https://github.com/JohannSS), [CV](https://johannss.github.io/my_online_CV), [LinkedIn](https://www.linkedin.com/in/johann-stadler-0064251a9/)
+### Johann Stadler (u16008554)
+<a href="https://github.com/JohannSS"><img src="https://img.icons8.com/fluent-systems-filled/24/000000/github.png"/></a>
+<a href="https://johannss.github.io/my_online_CV"><img src="https://img.icons8.com/fluent-systems-filled/24/000000/parse-from-clipboard.png"/></a>
+<a href="https://www.linkedin.com/in/johann-stadler-0064251a9/"><img src="https://img.icons8.com/fluent-systems-filled/24/000000/linkedin.png"/></a>
 
 <img src="https://github.com/JohannSS.png" width = 200/>
 
@@ -154,7 +171,10 @@ Milky Way Tutors, Computer Science
 
 </details> 
 
-### Shaun Vermeulen (u16078625) [GitHub Profile](https://github.com/ShaunVermeulen), [CV](https://shaunvermeulen.github.io), [LinkedIn](https://www.linkedin.com/in/shaun-vermeulen-a617161a4)
+### Shaun Vermeulen (u16078625)
+<a href="https://github.com/ShaunVermeulen"><img src="https://img.icons8.com/fluent-systems-filled/24/000000/github.png"/></a>
+<a href="https://shaunvermeulen.github.io"><img src="https://img.icons8.com/fluent-systems-filled/24/000000/parse-from-clipboard.png"/></a>
+<a href="https://www.linkedin.com/in/shaun-vermeulen-a617161a4"><img src="https://img.icons8.com/fluent-systems-filled/24/000000/linkedin.png"/></a>
 
 <img src="https://github.com/ShaunVermeulen.png" width = 200/>
 
