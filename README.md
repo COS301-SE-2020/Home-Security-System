@@ -7,7 +7,7 @@ Argus is a home security system  capable of instantly identifying threats on mul
 <img src="https://img.icons8.com/fluent-systems-regular/24/000000/domain.png"/> [Argus WebApp (Heroku)](https://sigma-argus.herokuapp.com/)
 
 ## Documentation
-<img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Software Requirements Specification](/Documentation/Sigma_SRS_Document (Final).pdf)
+<img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [Software Requirements Specification](/Documentation/Sigma_SRS_Document (Final).pdf
 
 <img src="https://img.icons8.com/material-outlined/24/000000/document.png"> [User Manual](/Documentation/Argus_User_Manual_v3.pdf)
 
