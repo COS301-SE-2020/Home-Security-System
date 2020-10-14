@@ -162,10 +162,11 @@ export class AddUserComponent implements OnInit {
               .subscribe(() => {
                 setTimeout(() => {
                   this.SpinnerService.hide();
-                  window.location.reload();
-                  this.gotoList();
+                  location.reload();
                 }, 600);
               });
+
+            this.gotoList();
           });
       } else {
         this.createError('Passwords do not match', 'errorMsgs');

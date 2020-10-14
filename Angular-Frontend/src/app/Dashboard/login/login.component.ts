@@ -289,7 +289,7 @@ export class LoginComponent implements OnInit {
     this.userService.getUserList()
       .subscribe(data => {
         while (data[counter] != null) {
-          if (data[counter].userDeleted == null) {
+          if (data[counter].userDeleted === null) {
             if (data[counter].email.toLowerCase() === obj.email.toLowerCase()) {
               if (obj.answer === data[counter].secureAnswer) {
                 /*
@@ -308,6 +308,10 @@ export class LoginComponent implements OnInit {
                 this.showPop('emailSent');
                 this.hideRecover();
                 loginSlide();
+
+                setTimeout(() => {
+                  location.reload();
+                }, 600);
               } else {
                 this.createError('The answer to the question is incorrect.', 'errorMsgsForgot');
                 // alert('Error, the answer to the question is incorrect');
