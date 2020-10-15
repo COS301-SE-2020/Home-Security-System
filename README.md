@@ -57,6 +57,7 @@ master
 
 # Meet the Team
 <img src="Sigma_Logo.png" width=300/>
+<img src="SigmaTeam.jpeg"/>
 
 ## Group Members
 
