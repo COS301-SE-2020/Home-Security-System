@@ -9,23 +9,22 @@ import org.springframework.stereotype.Component;
 @Component
 public class ArgusDataSource {
     
-    /*@Bean
+    @Bean
     @Profile("heroku")
     //@LiquibaseDataSource
     public javax.sql.DataSource herokuDataSource() {
-        String username = "riocmbgqjouvuc";
-        String password = "bcef84701c9baaca6d695c87eefa9f3825f0f92189104d9eb1e30848002bbea9";
-        String dbUrl = "jdbc:postgresql://ec2-54-246-89-234.eu-west-1.compute.amazonaws.com:5432/d4jldks48ld63u";
+        String username = "vppiqrbkveltmv";
+        String password = "b28603e2c0af7272d8c724ed2be5e8d044896b736d920d9056e55e41ed1b4862";
+        String dbUrl = "jdbc:postgresql://ec2-54-247-79-178.eu-west-1.compute.amazonaws.com:5432/d4pv9m5pfpvjpk";
         return DataSourceBuilder.create()
                 .driverClassName("org.postgresql.Driver")
                 .url(dbUrl)
                 .username(username)
                 .password(password)
                 .build();
-    }*/
-	
-    
-    @Bean
+    }
+
+    /*@Bean
     @Profile("local")
     @Primary
     public javax.sql.DataSource postgresqlDataSource() {
@@ -35,5 +34,5 @@ public class ArgusDataSource {
                 .username("Sigma")
                 .password("Argus")
                 .build();
-    }
+    }*/
 }

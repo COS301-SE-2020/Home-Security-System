@@ -261,12 +261,12 @@ def streaming():
 
     app = Flask(__name__)
 
-    @app.route('/feed')
-    def video_feed():
-        return Response(gen(cams[0]),
+    @app.route('/feed/<c_num>')
+    def video_feed(c_num):
+        return Response(gen(cams[int(c_num)]),
                         mimetype='multipart/x-mixed-replace; boundary=frame')
 
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port=5231)
 
 
 consumer = threading.Thread(target=rabbit_consume, daemon=True)

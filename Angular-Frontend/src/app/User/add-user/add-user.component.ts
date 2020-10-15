@@ -8,6 +8,7 @@ import {Observable, Subject} from 'rxjs';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {AuthService} from '../../model/auth.service';
 import {SessionClass} from '../../model/session';
+import {Network} from "../../model/network";
 
 @Component({
   selector: 'app-add-user',
@@ -94,8 +95,7 @@ export class AddUserComponent implements OnInit {
           }
           counter++;
         }
-      }, () => {
-      },
+      }, () => { },
       () => {
         if (!exists) {
           this.save();
@@ -158,17 +158,18 @@ export class AddUserComponent implements OnInit {
         this.usersService.getUserById(num)
           .subscribe(value => {
             this.newUser.network = value.network;
-            this.SpinnerService.show();
             this.usersService.addUser(this.newUser)
               .subscribe(() => {
+                this.SpinnerService.show();
                 setTimeout(() => {
                   this.SpinnerService.hide();
-                  window.location.reload();
+                  location.reload();
                 }, 600);
-
-                this.gotoList();
               });
+
+            this.gotoList();
           });
+
       } else {
         this.createError('Passwords do not match', 'errorMsgs');
         // alert('Passwords don\'t match');
@@ -216,7 +217,7 @@ export class AddUserComponent implements OnInit {
     document.getElementById(errorID).hidden = false;
   }
 
-  closeErrorPop(errorID){
+  closeErrorPop(errorID) {
     document.getElementById(errorID).hidden = true;
   }
 }

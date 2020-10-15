@@ -1,8 +1,11 @@
 package com.springboot.SpringBackend.config;
 
 import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.listener.RabbitListenerEndpointRegistrar;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
@@ -23,10 +26,12 @@ public class RabbitMQConfig {
     @Bean
     public ConnectionFactory connectionFactory()
     {
-        CachingConnectionFactory connectionFactory=new CachingConnectionFactory("rattlesnake.rmq.cloudamqp.com");
+        CachingConnectionFactory connectionFactory = new CachingConnectionFactory("rattlesnake.rmq.cloudamqp.com");
+        connectionFactory.setUri("amqps://ohskvfuw:***@rattlesnake.rmq.cloudamqp.com/ohskvfuw");
         connectionFactory.setUsername("ohskvfuw");
         connectionFactory.setPassword("HN8SBYNGPfuswoGySxiH0CyeC38v9oSP");
         connectionFactory.setVirtualHost("ohskvfuw");
+        //connectionFactory.setConnectionTimeout(30000);
         return connectionFactory;
     }
 
@@ -57,7 +62,6 @@ public class RabbitMQConfig {
 
     @Bean
     public Binding personBinding() {
-
         return BindingBuilder.bind(personQueue()).to(directExchange()).with(PERSON_KEY);
     }
 
@@ -67,8 +71,8 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public RabbitTemplate rabbitTemplate(final ConnectionFactory connectionFactory) {
-        final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
+    public RabbitTemplate rabbitTemplate() {
+        final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory());
         rabbitTemplate.setMessageConverter(producerJackson2MessageConverter());
         return rabbitTemplate;
     }
@@ -76,5 +80,15 @@ public class RabbitMQConfig {
     @Bean
     public Jackson2JsonMessageConverter producerJackson2MessageConverter() {
         return new Jackson2JsonMessageConverter();
+    }
+
+    @Bean
+    public SimpleRabbitListenerContainerFactory myRabbitListenerContainerFactory() {
+        SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
+        factory.setConnectionFactory(connectionFactory());
+        factory.setMaxConcurrentConsumers(5);
+        factory.setMessageConverter(producerJackson2MessageConverter());
+        factory.setAcknowledgeMode(AcknowledgeMode.MANUAL);
+        return factory;
     }
 }

@@ -30,7 +30,7 @@
       <i class="material-icons" id="passwordVisibility" onclick="showPassword('')">visibility_off</i>
     </label>
     <br>
-    <a class="loginButton" (click)="makeSession()" id="loginBtn">Login</a>
+    <a class="loginButton" (click)="clearErrors(); makeSession()" id="loginBtn">Login</a>
     <div id="remember-container">
       <span id="forgotten" (click)="unhide()" onclick="forgot()">Forgot password?</span>
     </div>
@@ -41,7 +41,8 @@
 <div id="forgotten-container">
   <i class="material-icons modal-close-btn" (click)="hideRecover()" onclick="loginSlide();">close</i>
   <h1 class="loginHead">Trouble logging in?</h1>
-  <p class="forgotExplain">Enter email and security answer and we'll send you a password to get back into your account.</p>
+  <p class="forgotExplain">Enter email and security answer and we'll send you a password to get back into your
+    account.</p>
 
   <form>
     <div id="errorMsgsForgot">
@@ -55,26 +56,55 @@
     <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
       Please enter a valid email address.
     </div>
-    <a class="loginButton" id="retrieveQ" (click)="clearErrors(); checkEmailForQuestion();">Retrieve security question</a>
+    <a class="loginButton" id="retrieveQ" (click)="clearErrors(); checkEmailForQuestion();">Retrieve security
+      question</a>
     <br>
     <p class="forgotExplain" id="recoverQuestion" hidden>Question</p>
     <label class="QuestionField" id="questionLabel" hidden>
       <input class="loginInputs" id="answerInput" type="text" name="question" placeholder="Answer" hidden>
     </label>
-    <a class="loginButton loginInputs loginButton" id="nextBtn" (click)="clearErrors(); recoverPasswordEmail()" hidden>Get Password</a>
+    <a class="loginButton loginInputs loginButton" id="nextBtn" (click)="clearErrors(); recoverPasswordEmail()" hidden>Get
+      Password</a>
   </form>
 </div>
 
 
-<div id="emailSent" hidden data-notify="container" class="col-11 col-md-4 alert alert-success alert-with-icon animated fadeInDown popError"
+<div id="emailSent" hidden data-notify="container"
+     class="col-11 col-md-4 alert alert-success alert-with-icon animated fadeInDown popError"
      role="alert" data-notify-position="bottom-right"
      style="display: inline-block; margin: 15px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 1031; bottom: 20px; right: 20px;">
   <br>
   <button type="button" aria-hidden="true" class="close" data-notify="dismiss"
-          style="position: absolute; right: 10px; top: 50%; margin-top: -9px; z-index: 1033;" (click)="closePop('emailSent')"><i class="material-icons">close</i>
+          style="position: absolute; right: 10px; top: 50%; margin-top: -9px; z-index: 1033;"
+          (click)="closePop('emailSent')"><i class="material-icons">close</i>
   </button>
   <i data-notify="icon" class="material-icons">mark_email_read</i>
   <span data-notify="title"></span>
   <span data-notify="message">Recovery email sent.</span>
   <br>
 </div>
+
+
+<footer class="footer loginFooter">
+  <div class="container-fluid">
+    <div>
+      <ul>
+        <li class="float-left">
+          <a href="https://www.epiuselabs.com/">
+            Epi-Use Labs
+          </a>
+        </li>
+        <li class="float-left">
+          <a href="https://www.epiuselabs.com/about-us">
+            About Us
+          </a>
+        </li>
+        <li class="float-right">
+          <a href="https://github.com/COS301-SE-2020/Home-Security-System">
+            &copy; Developed by Sigma
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</footer>

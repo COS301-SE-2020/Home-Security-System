@@ -25,14 +25,19 @@ class UserControllerTest {
     @Autowired
     private UserRepo userRepo;
 
+    /*private String getRootUrl() {
+        return "http://localhost:4200/api/cameras";
+        //return "http://sigma-argus.herokuapp.com/api/cameras";
+    }*/
+
     @Test
     void getAllUsers() {
-        Network net = new Network("Network1");
+        Network net = new Network("TestNetwork", "+27833991336");
         Network savedNetwork = netRepo.save(net);
-        User u1 = new User("Image1","Name1","Surname1","Contact1","Email1",
+        User u1 = new User("Image1","Brad","Zietsman","+27833991336","user@gmail.com",
                 "User1", "123qweASD!","Admin","One","Teddy",savedNetwork);
         userRepo.save(u1);
-        User u2 = new User("Image2","Name2","Surname2","Contact2","Email2",
+        User u2 = new User("Image2","John","Smiith","+27833991336","brad.zietsman@gmail.com",
                 "User2", "123qweASD!","Admin","One","Teddy",savedNetwork);
         userRepo.save(u2);
         List<User> list = userRepo.findAll();
@@ -41,31 +46,31 @@ class UserControllerTest {
 
     @Test
     void getUserById() {
-        Network net = new Network("TestNetwork1");
+        Network net = new Network("TestNetwork", "+27833991336");
         Network savedNetwork = netRepo.save(net);
-        User u = new User("SomeImage","SomeName","SomeSurname","SomeContact","SomeEmail",
+        User u = new User("SomeImage","Someone","Surname","+27833991336","user@gmail.com",
                 "SomeUser", "123qweASD!","Admin","One","Teddy",savedNetwork);
         User saved = userRepo.save(u);
         Optional<User> find = userRepo.findById(saved.getUserId());
         assertNotNull(find);
-        if(find.isPresent()) {
-            assertEquals("SomeImage", find.get().getProfilePhoto());
-            assertEquals("SomeName", find.get().getFname());
-            assertEquals("SomeSurname", find.get().getLname());
-            assertEquals("SomeContact", find.get().getContactNo());
-            assertEquals("SomeEmail", find.get().getEmail());
-            assertEquals("SomeUser", find.get().getUsername());
-            assertEquals("123qweASD!", find.get().getUserPass());
-            assertEquals("Admin", find.get().getUserRole());
-            assertEquals("TestNetwork1", find.get().getNetwork().getNetName());
-        }
+        find.ifPresent(user -> {
+            assertEquals("SomeImage", user.getProfilePhoto());
+            assertEquals("Someone", user.getFname());
+            assertEquals("Surname", user.getLname());
+            assertEquals("+27833991336", user.getContactNo());
+            assertEquals("user@gmail.com", user.getEmail());
+            assertEquals("SomeUser", user.getUsername());
+            assertEquals("123qweASD!", user.getUserPass());
+            assertEquals("Admin", user.getUserRole());
+            assertEquals("TestNetwork", user.getNetwork().getNetName());
+        });
     }
 
     @Test
     void addUser() {
-        Network net = new Network("RaspberyPi4");
+        Network net = new Network("TestNetwork", "+27833991336");
         Network savedNetwork = netRepo.save(net);
-        User u = new User("SomeImage","SomeName","SomeSurname","SomeContact","SomeEmail",
+        User u = new User("SomeImage","Someone","Surname","+27833991336","user@gmail.com",
                 "SomeUser", "123qweASD!","Admin","One","Teddy",savedNetwork);
         User saved = userRepo.save(u);
         assertNotNull(saved);
@@ -73,12 +78,12 @@ class UserControllerTest {
 
     @Test
     void editUser() {
-        Network net = new Network("TestNetwork3");
+        Network net = new Network("TestNetwork", "+27833991336");
         Network savedNetwork = netRepo.save(net);
-        User u = new User("SomeImage","SomeName","SomeSurname","SomeContact","SomeEmail",
+        User u = new User("SomeImage","Someone","Surname","+27833991336","user@gmail.com",
                 "SomeUser", "123qweASD!","Admin","One","Teddy",savedNetwork);
         User saved = userRepo.save(u);
-        assertEquals("SomeName", saved.getFname());
+        assertEquals("Someone", saved.getFname());
         saved.setFname("Brad");
         saved = userRepo.save(saved);
         assertEquals("Brad", saved.getFname());
@@ -86,9 +91,9 @@ class UserControllerTest {
 
     @Test
     void deleteUser() {
-        Network net = new Network("TestNetwork4");
+        Network net = new Network("TestNetwork", "+27833991336");
         Network savedNetwork = netRepo.save(net);
-        User u = new User("SomeImage","SomeName","SomeSurname","SomeContact","SomeEmail",
+        User u = new User("SomeImage","Someone","Surname","+27833991336","user@gmail.com",
                 "SomeUser", "123qweASD!","Admin","One","Teddy",savedNetwork);
         User saved = userRepo.save(u);
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TitleService} from '../../title.service';
 import {UserService} from '../../model/user.service';
 import {User} from '../../model/user';
@@ -22,7 +22,8 @@ export class TopNavComponent implements OnInit {
 
   constructor(private SpinnerService: NgxSpinnerService, private noteService: NotificationService,
               public authService: AuthService, private appService: TitleService,
-              private userService: UserService) { }
+              private userService: UserService) {
+  }
 
   displayProfilePic() {
       const uPic = document.getElementById('profilePic') as HTMLImageElement;
@@ -42,10 +43,9 @@ export class TopNavComponent implements OnInit {
     // document.getElementById('noteCnt').innerHTML = '0';
   }
 
-
   enableButton() {
     const buttonEl = document.getElementById('saveBtn') as HTMLButtonElement;
-    buttonEl.style.background = '#d4af37';
+    // buttonEl.style.background = '#d4af37';
     buttonEl.disabled = false;
   }
 
@@ -58,12 +58,12 @@ export class TopNavComponent implements OnInit {
 
     this.userService.getUserById(this.authService.retrieveUserInfo().id)
       .subscribe(data => {
-        // console.log(data);
-        smsSettings.checked = data.notifySMS;
-        emailSettings.checked = data.notifyEmail;
-        this.user = data;
-      }
-    );
+          // console.log(data);
+          smsSettings.checked = data.notifySMS;
+          emailSettings.checked = data.notifyEmail;
+          this.user = data;
+        }
+      );
   }
 
   setUserSettings() {
@@ -83,7 +83,7 @@ export class TopNavComponent implements OnInit {
       });
   }
 
-  triggerPanic(){
+  triggerPanic() {
     this.showPop('triggerPanicPop');
   }
 
@@ -91,7 +91,7 @@ export class TopNavComponent implements OnInit {
     document.getElementById(popID).hidden = false;
   }
 
-  closePop(popID){
+  closePop(popID) {
     document.getElementById(popID).hidden = true;
   }
 }

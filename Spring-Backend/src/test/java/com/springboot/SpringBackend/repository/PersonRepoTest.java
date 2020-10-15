@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
@@ -20,19 +22,20 @@ class PersonRepoTest {
 
     @Test
     public void testPersistence() {
-        Network net = new Network("RaspberryPi4");
+        Network net = new Network("TestNetwork", "+27833991336");
         netRepo.save(net);
 
         Person psn = new Person("TestImage",net);
         psnRepo.save(psn);
 
         assertNotNull(psn.getPersonId());
-        Person newPsn = psnRepo.findById(psn.getPersonId()).orElse(null);
-        assert newPsn != null;
-        assertEquals("TestImage", newPsn.getPersonImg());
-        assertEquals("Unknown", newPsn.getFname());
-        assertEquals("Unknown", newPsn.getLname());
-        assertEquals("Grey", newPsn.getPersonListed());
-        assertEquals("RaspberryPi4", newPsn.getNetwork().getNetName());
+        Optional<Person> newPsn= psnRepo.findById(psn.getPersonId());
+        newPsn.ifPresent(person -> {
+            assertEquals("TestImage", person.getPersonImg());
+            assertEquals("Unknown", person.getFname());
+            assertEquals("Unknown", person.getLname());
+            assertEquals("Grey", person.getPersonListed());
+            assertEquals("TestNetwork", person.getNetwork().getNetName());
+        });
     }
 }

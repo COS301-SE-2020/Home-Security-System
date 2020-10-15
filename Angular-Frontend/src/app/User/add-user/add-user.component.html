@@ -239,7 +239,7 @@
         <div class="modal-body center">
           <div id="app">
             <div>
-              <webcam [width]="400" [imageQuality]="0.92" [trigger]="triggerObservable"
+              <webcam [width]="300" [height]="300" [imageQuality]="0.92" [trigger]="triggerObservable"
                       *ngIf="showCam"
                       (imageCapture)="handleShot($event)">
               </webcam>

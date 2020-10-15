@@ -1,5 +1,6 @@
 package com.springboot.SpringBackend.rabbit;
 
+import com.rabbitmq.client.Channel;
 import com.springboot.SpringBackend.config.RabbitMQConfig;
 import com.springboot.SpringBackend.controller.MailerController;
 import com.springboot.SpringBackend.model.*;
@@ -8,9 +9,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.AmqpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -42,7 +46,7 @@ public class RabbitConsumer {
     }
 
     @RabbitListener(queues = {"alertQueue"})
-    public void receivedAlert(RabbitAlert alert) {
+    public void receivedAlert(RabbitAlert alert, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws Exception {
         List<User> arr = userService.getAllUsers();
         Optional<Network> net = netServece.getNetworkById(alert.getNetworkId());
       
@@ -75,7 +79,7 @@ public class RabbitConsumer {
                                         String name = p.get().getFname() + " " + p.get().getLname();
                                         String date = note.getOnDate().toString();
                                         String time = note.getAtTime().toString();
-                                        time = time.substring(0,7);
+                                        time = time.substring(0,5);
 
                                         if (notify1) {
                                             mailer.sendmailBlack(email,name,date,time);
@@ -103,7 +107,7 @@ public class RabbitConsumer {
                                         String name = p.get().getFname() + " " + p.get().getLname();
                                         String date = note.getOnDate().toString();
                                         String time = note.getAtTime().toString();
-                                        time = time.substring(0,7);
+                                        time = time.substring(0,5);
 
                                         if (notify1) {
                                             mailer.sendmailBlack(email,name,date,time);
@@ -131,58 +135,82 @@ public class RabbitConsumer {
                                 "Person: " + psn.getFname(), net.get()));
                     }
                 }*/
-            } catch (NoSuchElementException ex) {
+
+
+                LOGGER.info("Notification Created");
+            }
+            catch (NoSuchElementException ex) {
                 LOGGER.info(String.valueOf(ex));
+                //channel.basicNack(tag, false, true);
+            }
+            finally {
+                channel.basicAck(tag, true);
             }
         } else {
-            if(net.isPresent()) {
-                try {
+            try {
+                if(net.isPresent()) {
                     if (alert.getType().equalsIgnoreCase("Grey")) {
                         nservice.createNotification(new Notification(alert.getImageStr(),
                                 "Suspicious", "Person: " + "Unknown", net.get()));
                     }
-                } catch (NoSuchElementException ex) {
-                    LOGGER.info(String.valueOf(ex));
                 }
+
+                LOGGER.info("Notification Created");
+            }
+            catch (NoSuchElementException ex) {
+                LOGGER.info(String.valueOf(ex));
+                //channel.basicNack(tag, false, true);
+            }
+            finally {
+                channel.basicAck(tag, true);
             }
         }
-        LOGGER.info("Notification Created");
     }
 
     @RabbitListener(queues = {"personQueue"})
-    public void receivePerson(RabbitPerson psn) {
+    public void receivePerson(RabbitPerson psn, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws Exception {
         // Creating a Grey-list person from Python
         if(psn.getPersonId() == 0) {
             Optional<Network> net = netServece.getNetworkById(psn.getNetworkId());
 
-            if(net.isPresent()) {
-                Person p = personService.createPerson(new Person(psn.getImageStr(), net.get()));
+            try {
+                if (net.isPresent()) {
+                    Thread.sleep(1000);
+                    Person p = personService.createPerson(new Person(psn.getImageStr(), net.get()));
 
-                RabbitPerson updatePerson = new RabbitPerson(p.getPersonId(), psn.getTempId(), psn.getType(), true, psn.getImageStr(), true, psn.getNetworkId());
-                amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, updatePerson);
+                    RabbitPerson updatePerson = new RabbitPerson(p.getPersonId(), psn.getTempId(), psn.getType(), true, psn.getImageStr(), true, psn.getNetworkId());
+                    amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, updatePerson);
 
-                LOGGER.info("Grey-list Person Added");
+                    List<User> arr = userService.getAllUsers();
 
-                List<User> arr = userService.getAllUsers();
+                    for (User u : arr) {
+                        if (u.getNetwork().getNetName().equals(net.get().getNetName())) {
+                            String email = u.getEmail();
+                            Boolean notify1 = u.getNotifyEmail();
+                            Boolean notify2 = u.getNotifySMS();
+                            String date = p.getPersonCreated().toString();
+                            String time = LocalTime.now().toString();
+                            time = time.substring(0, 5);
 
-                for (User u : arr) {
-                    if (u.getNetwork().getNetName().equals(net.get().getNetName())) {
-                        String email = u.getEmail();
-                        Boolean notify1 = u.getNotifyEmail();
-                        Boolean notify2 = u.getNotifySMS();
-                        String date = p.getPersonCreated().toString();
-                        String time = LocalTime.now().toString();
-                        time = time.substring(0,7);
-
-                        if (notify1) {
-                            mailer.sendmailGrey(email,"Unknown", date, time);
-                        }
-                        if (notify2) {
-                            SmsRequest request = new SmsRequest(u.getContactNo(),"Unknown",date,time);
-                            sender.sendSmsSuspicious(request);
+                            if (notify1) {
+                                mailer.sendmailGrey(email, "Unknown", date, time);
+                            }
+                            if (notify2) {
+                                SmsRequest request = new SmsRequest(u.getContactNo(), "Unknown", date, time);
+                                sender.sendSmsSuspicious(request);
+                            }
                         }
                     }
                 }
+
+                LOGGER.info("Grey-list Person Added");
+            }
+            catch (NoSuchElementException ex) {
+                LOGGER.info(String.valueOf(ex));
+                //channel.basicNack(tag, false, true);
+            }
+            finally {
+                channel.basicAck(tag, true);
             }
         }
     }

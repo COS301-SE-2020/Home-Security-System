@@ -19,13 +19,18 @@ class NetworkControllerTest {
     @Autowired
     private NetworkRepo netRepo;
 
+    /*private String getRootUrl() {
+        return "http://localhost:4200/api/cameras";
+        //return "http://sigma-argus.herokuapp.com/api/cameras";
+    }*/
+
     @Test
     void getAllNetworks() {
-        Network net1 = new Network("Network1");
+        Network net1 = new Network("NetworkOne", "+27833991336");
         netRepo.save(net1);
-        Network net2 = new Network("Network2");
+        Network net2 = new Network("NetworkTwo", "+27833991336");
         netRepo.save(net2);
-        Network net3 = new Network("Network3");
+        Network net3 = new Network("NetworkThree", "+27833991336");
         netRepo.save(net3);
         List<Network> list = netRepo.findAll();
         assertTrue(list.size() > 0);
@@ -33,33 +38,33 @@ class NetworkControllerTest {
 
     @Test
     void getNetworkById() {
-        Network net = new Network("TestNetwork1");
+        Network net = new Network("TestNetwork", "+27833991336");
         Network savedNetwork = netRepo.save(net);
         Optional<Network> findNetwork = netRepo.findById(savedNetwork.getNetworkId());
         assertNotNull(findNetwork);
-        findNetwork.ifPresent(network -> assertEquals("TestNetwork1", network.getNetName()));
+        findNetwork.ifPresent(network -> assertEquals("TestNetwork", network.getNetName()));
     }
 
     @Test
     void addNetwork() {
-        Network net = new Network("TestNetwork2");
+        Network net = new Network("TestNetwork", "+27833991336");
         Network savedNetwork = netRepo.save(net);
         assertNotNull(savedNetwork);
     }
 
     @Test
     void editNetwork() {
-        Network net = new Network("TestNetwork3");
+        Network net = new Network("TestNetwork", "+27833991336");
         Network savedNetwork = netRepo.save(net);
-        assertEquals("TestNetwork3", savedNetwork.getNetName());
-        savedNetwork.setNetName("UpdatedNetwork");
+        assertEquals("TestNetwork", savedNetwork.getNetName());
+        savedNetwork.setNetName("Updated");
         savedNetwork = netRepo.save(savedNetwork);
-        assertEquals("UpdatedNetwork", savedNetwork.getNetName());
+        assertEquals("Updated", savedNetwork.getNetName());
     }
 
     @Test
     void deleteNetwork() {
-        Network net = new Network("TestNetwork4");
+        Network net = new Network("TestNetwork", "+27833991336");
         Network savedNetwork = netRepo.save(net);
         boolean existsBeforeDelete = netRepo.findById(savedNetwork.getNetworkId()).isPresent();
         assertTrue(existsBeforeDelete);

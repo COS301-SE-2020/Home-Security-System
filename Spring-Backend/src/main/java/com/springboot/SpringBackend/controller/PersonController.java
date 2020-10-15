@@ -5,8 +5,11 @@ import com.springboot.SpringBackend.config.RabbitMQConfig;
 import com.springboot.SpringBackend.exception.ResourceNotFoundException;
 import com.springboot.SpringBackend.model.Person;
 import com.springboot.SpringBackend.model.RabbitPerson;
+import com.springboot.SpringBackend.rabbit.RabbitConsumer;
 import com.springboot.SpringBackend.service.PersonService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,15 +19,16 @@ import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api")
-//@CrossOrigin(origins = "http://localhost:8080")
-@CrossOrigin(origins = "http://localhost:4200")
-//@CrossOrigin(origins = "https://sigma-argus.herokuapp.com")
+// @CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://sigma-argus.herokuapp.com")
 public class PersonController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PersonController.class);
     private final PersonService service;
-    private RabbitTemplate amqpTemplate;
+    private final RabbitTemplate amqpTemplate;
 
     @Autowired
     public PersonController(PersonService service, RabbitTemplate template) {
@@ -47,9 +51,14 @@ public class PersonController {
     @PostMapping("/people")
     public Person addPerson(@Valid @RequestBody Person x) {
         Person p = service.createPerson(x);
-        RabbitPerson rabbitPsn = new RabbitPerson(p.getPersonId(), "0", p.getPersonListed(), true, p.getPersonImg(), false, p.getNetworkId());
-        amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, rabbitPsn);
-        System.out.println("Person Created");
+        try {
+            RabbitPerson rabbitPsn = new RabbitPerson(p.getPersonId(), "0", p.getPersonListed(), true, p.getPersonImg(), false, p.getNetworkId());
+            amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, rabbitPsn);
+            LOGGER.info("Person Created");
+        }
+        catch (NoSuchElementException ex) {
+            LOGGER.info(String.valueOf(ex));
+        }
         return p;
     }
 
@@ -80,15 +89,19 @@ public class PersonController {
 
         final Person updatedPerson = service.updatePerson(x);
 
-        if(details.getPersonDeleted() == null) {
-            RabbitPerson p = new RabbitPerson(updatedPerson.getPersonId(), "0", updatedPerson.getPersonListed(), true, updatedPerson.getPersonImg(), true, updatedPerson.getNetworkId());
-            amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, p);
-            System.out.println("Person Updated");
+        try {
+            if (details.getPersonDeleted() == null) {
+                RabbitPerson p = new RabbitPerson(updatedPerson.getPersonId(), "0", updatedPerson.getPersonListed(), true, updatedPerson.getPersonImg(), true, updatedPerson.getNetworkId());
+                amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, p);
+                LOGGER.info("Person Updated");
+            } else if (details.getPersonDeleted() != null) {
+                RabbitPerson p = new RabbitPerson(updatedPerson.getPersonId(), "0", updatedPerson.getPersonListed(), false, updatedPerson.getPersonImg(), true, updatedPerson.getNetworkId());
+                amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, p);
+                LOGGER.info("Person Deleted");
+            }
         }
-        else if(details.getPersonDeleted() != null) {
-            RabbitPerson p = new RabbitPerson(updatedPerson.getPersonId(), "0", updatedPerson.getPersonListed(), false, updatedPerson.getPersonImg(), true, updatedPerson.getNetworkId());
-            amqpTemplate.convertAndSend(RabbitMQConfig.DIRECT_EXCHANGE, RabbitMQConfig.UPDATE_PERSON_KEY, p);
-            System.out.println("Person Deleted");
+        catch (NoSuchElementException ex) {
+            LOGGER.info(String.valueOf(ex));
         }
 
         return ResponseEntity.ok(updatedPerson);

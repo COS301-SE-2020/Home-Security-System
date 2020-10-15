@@ -20085,7 +20085,71 @@ input[type="file"] {
   font-size: 14px;
 }
 
-.popError{
+.popError {
   padding: 10px;
   font-size: 15px;
+}
+
+.triggerIcon {
+  padding: 10px;
+}
+
+.reportIcon {
+  padding: 5px;
+  transform: scale(1.5);
+}
+
+.triggerIcon .triggerWords {
+  max-width: 0;
+  -webkit-transition: max-width 1s;
+  transition: max-width 1s;
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.triggerIcon:hover .triggerWords {
+  max-width: 7rem;
+}
+
+.navIcon {
+  transition: 0.5s;
+}
+
+.navIcon:hover {
+  transform: scale(1.4);
+}
+
+.loginFooter {
+  background-color: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  color: white;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+}
+
+.normalFooter{
+  height: 20px;
+}
+
+.sidebar .reportIcon{
+  display: none;
+}
+
+.sidebar .triggerIcon .triggerWords {
+  max-width: fit-content;
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+  overflow: visible;
+}
+
+.sidebar .triggerIcon:hover .triggerWords {
+  max-width: 7rem;
+}
+
+.sidebar .sidebar-wrapper{
+  overflow: hidden;
 }

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
@@ -21,16 +23,17 @@ class CameraRepoTest {
 
     @Test
     public void testPersistence() {
-        Network net = new Network("RaspberryPi4");
+        Network net = new Network("TestNetwork", "+27833991336");
         netRepo.save(net);
 
         Camera cam = new Camera("SomeURL",net);
         camRepo.save(cam);
 
         assertNotNull(cam.getCameraId());
-        Camera newCam = camRepo.findById(cam.getCameraId()).orElse(null);
-        assert newCam != null;
-        assertEquals("SomeURL", newCam.getServerURL());
-        assertEquals("RaspberryPi4", newCam.getNetwork().getNetName());
+        Optional<Camera> newCam = camRepo.findById(cam.getCameraId());
+        newCam.ifPresent(camera -> {
+            assertEquals("SomeURL", camera.getServerURL());
+            assertEquals("TestNetwork", camera.getNetwork().getNetName());
+        });
     }
 }

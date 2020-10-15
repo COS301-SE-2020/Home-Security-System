@@ -7,12 +7,12 @@ addons:
 
 matrix:
   include:
-    - language: python
-      python: 3.8
-      script:
-        - pytest
-      before_script:
-        - cd ./NeuralNetwork/
+    #- language: python
+    #  python: 3.8
+    #  script:
+    #    - pytest
+    #  before_script:
+    #    - cd ./NeuralNetwork/
 
     - language: java
       jdk: oraclejdk14
@@ -22,8 +22,8 @@ matrix:
         - cd ./Spring-Backend/
 
     - language: node_js
-      node_js: 
-         - "12.17.0"
+      node_js:
+        - "12.17.0"
       install:
         - npm install
       before_install:
