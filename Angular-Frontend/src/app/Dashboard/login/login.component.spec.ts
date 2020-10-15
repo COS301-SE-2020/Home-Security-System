@@ -6,8 +6,11 @@ import {Observable} from 'rxjs';
 import {User} from '../../model/user';
 
 describe('LoginComponent', () => {
-  const component: LoginComponent;
-  const fixture: ComponentFixture<LoginComponent>;
+  // tslint:disable-next-line:
+  let component: LoginComponent;
+  // tslint:disable-next-line:
+  let fixture: ComponentFixture<LoginComponent>;
+  // tslint:disable-next-line:
   // let users: Observable<User[]>;
 
   beforeEach(async(() => {
