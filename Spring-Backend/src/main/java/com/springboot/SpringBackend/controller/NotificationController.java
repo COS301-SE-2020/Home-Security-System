@@ -14,8 +14,8 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api")
-// @CrossOrigin(origins = "http://localhost:4200")
-@CrossOrigin(origins = "https://sigma-argus.herokuapp.com")
+ @CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "https://sigma-argus.herokuapp.com")
 public class NotificationController {
     private final NotificationService service;
     private final UserRepo repo;
