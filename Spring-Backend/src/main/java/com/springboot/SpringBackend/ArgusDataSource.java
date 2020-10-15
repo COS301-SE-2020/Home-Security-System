@@ -13,9 +13,9 @@ public class ArgusDataSource {
     @Profile("heroku")
     //@LiquibaseDataSource
     public javax.sql.DataSource herokuDataSource() {
-        String username = "axcbwlyplqglzb";
-        String password = "d82d8c9d290b821033d9bd59e3a65ab15273113317e68784beed29d46cdd32f9";
-        String dbUrl = "jdbc:postgresql://ec2-54-246-87-132.eu-west-1.compute.amazonaws.com:5432/ddpbd232fd4gmg";
+        String username = "vppiqrbkveltmv";
+        String password = "b28603e2c0af7272d8c724ed2be5e8d044896b736d920d9056e55e41ed1b4862";
+        String dbUrl = "jdbc:postgresql://ec2-54-247-79-178.eu-west-1.compute.amazonaws.com:5432/d4pv9m5pfpvjpk";
         return DataSourceBuilder.create()
                 .driverClassName("org.postgresql.Driver")
                 .url(dbUrl)

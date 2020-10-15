@@ -28,7 +28,7 @@ import java.util.NoSuchElementException;
 public class PersonController {
     private static final Logger LOGGER = LoggerFactory.getLogger(PersonController.class);
     private final PersonService service;
-    private RabbitTemplate amqpTemplate;
+    private final RabbitTemplate amqpTemplate;
 
     @Autowired
     public PersonController(PersonService service, RabbitTemplate template) {

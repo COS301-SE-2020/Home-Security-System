@@ -1,5 +1,6 @@
 package com.springboot.SpringBackend.rabbit;
 
+import com.rabbitmq.client.Channel;
 import com.springboot.SpringBackend.config.RabbitMQConfig;
 import com.springboot.SpringBackend.controller.MailerController;
 import com.springboot.SpringBackend.model.*;
@@ -8,9 +9,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.AmqpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -42,7 +46,7 @@ public class RabbitConsumer {
     }
 
     @RabbitListener(queues = {"alertQueue"})
-    public void receivedAlert(RabbitAlert alert) {
+    public void receivedAlert(RabbitAlert alert, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws Exception {
         List<User> arr = userService.getAllUsers();
         Optional<Network> net = netServece.getNetworkById(alert.getNetworkId());
       
@@ -131,8 +135,16 @@ public class RabbitConsumer {
                                 "Person: " + psn.getFname(), net.get()));
                     }
                 }*/
-            } catch (NoSuchElementException ex) {
+
+
+                LOGGER.info("Notification Created");
+            }
+            catch (NoSuchElementException ex) {
                 LOGGER.info(String.valueOf(ex));
+                //channel.basicNack(tag, false, true);
+            }
+            finally {
+                channel.basicAck(tag, true);
             }
         } else {
             try {
@@ -142,22 +154,28 @@ public class RabbitConsumer {
                                 "Suspicious", "Person: " + "Unknown", net.get()));
                     }
                 }
+
+                LOGGER.info("Notification Created");
             }
             catch (NoSuchElementException ex) {
                 LOGGER.info(String.valueOf(ex));
+                //channel.basicNack(tag, false, true);
+            }
+            finally {
+                channel.basicAck(tag, true);
             }
         }
-        LOGGER.info("Notification Created");
     }
 
     @RabbitListener(queues = {"personQueue"})
-    public void receivePerson(RabbitPerson psn) {
+    public void receivePerson(RabbitPerson psn, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws Exception {
         // Creating a Grey-list person from Python
         if(psn.getPersonId() == 0) {
             Optional<Network> net = netServece.getNetworkById(psn.getNetworkId());
 
             try {
                 if (net.isPresent()) {
+                    Thread.sleep(1000);
                     Person p = personService.createPerson(new Person(psn.getImageStr(), net.get()));
 
                     RabbitPerson updatePerson = new RabbitPerson(p.getPersonId(), psn.getTempId(), psn.getType(), true, psn.getImageStr(), true, psn.getNetworkId());
@@ -184,12 +202,16 @@ public class RabbitConsumer {
                         }
                     }
                 }
+
+                LOGGER.info("Grey-list Person Added");
             }
             catch (NoSuchElementException ex) {
                 LOGGER.info(String.valueOf(ex));
+                //channel.basicNack(tag, false, true);
             }
-
-            LOGGER.info("Grey-list Person Added");
+            finally {
+                channel.basicAck(tag, true);
+            }
         }
     }
 }
