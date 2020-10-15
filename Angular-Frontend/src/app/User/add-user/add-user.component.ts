@@ -8,7 +8,6 @@ import {Observable, Subject} from 'rxjs';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {AuthService} from '../../model/auth.service';
 import {SessionClass} from '../../model/session';
-import {Network} from "../../model/network";
 
 @Component({
   selector: 'app-add-user',

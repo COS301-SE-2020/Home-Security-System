@@ -6,8 +6,8 @@ import {Observable} from 'rxjs';
 import {User} from '../../model/user';
 
 describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+  const component: LoginComponent;
+  const fixture: ComponentFixture<LoginComponent>;
   // let users: Observable<User[]>;
 
   beforeEach(async(() => {
