@@ -116,6 +116,8 @@ public class RabbitConsumer {
                                             SmsRequest request = new SmsRequest(u.getContactNo(),name,date,time);
                                             sender.sendSmsThreat(request);
                                         }
+
+                                        LOGGER.info("SMS or Email sent");
                                     }
                                 }
                             }
@@ -199,6 +201,8 @@ public class RabbitConsumer {
                                 SmsRequest request = new SmsRequest(u.getContactNo(), "Unknown", date, time);
                                 sender.sendSmsSuspicious(request);
                             }
+
+                            LOGGER.info("SMS or Email sent");
                         }
                     }
                 }
