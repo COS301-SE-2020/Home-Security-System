@@ -74,7 +74,7 @@ public class UserController {
 
     @PostMapping("/users")
     public User addUser(@Valid @RequestBody User x) {
-        mailer.sendRegistration(x.getEmail());
+        //mailer.sendRegistration(x.getEmail());
         String passEncrypt = hash.encode(x.getUserPass());
         x.setUserPass(passEncrypt);
         return service.createUser(x);

@@ -7,7 +7,7 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <changeSet author="Sigma" id="001">
         <sql>
-            CREATE SEQUENCE hibernate_sequence START 2 INCREMENT 1;
+            CREATE SEQUENCE hibernate_sequence START 1 INCREMENT 1;
         </sql>
     </changeSet>
 </databaseChangeLog>
