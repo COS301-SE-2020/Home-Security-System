@@ -152,30 +152,28 @@ export class AddUserComponent implements OnInit {
         this.newUser.secureAnswer = answerInp.value;
         this.newUser.notifyEmail = true;
         this.newUser.notifySMS = false;
+        this.newUser.network = null;
 
         const num = Number(this.info.id);
         this.usersService.getUserById(num)
           .subscribe(value => {
             this.newUser.network = value.network;
-            this.usersService.addUser(this.newUser)
-              .subscribe(() => {
-                this.SpinnerService.show();
-                setTimeout(() => {
-                  this.SpinnerService.hide();
-                  location.reload();
-                }, 600);
-              });
-
-            this.gotoList();
+            if(this.newUser.network != null) {
+              this.usersService.addUser(this.newUser)
+                .subscribe(() => {
+                  this.SpinnerService.show();
+                  setTimeout(() => {
+                    this.SpinnerService.hide();
+                    location.reload();
+                  }, 600);
+                });
+            }
           });
-
       } else {
         this.createError('Passwords do not match', 'errorMsgs');
-        // alert('Passwords don\'t match');
       }
     } else {
       this.createError('Please fill in all fields', 'errorMsgs');
-      // alert('Cannot add a new user. Not all the fields are filled in.');
     }
   }
 
