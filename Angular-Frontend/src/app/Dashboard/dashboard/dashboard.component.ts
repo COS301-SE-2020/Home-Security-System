@@ -203,8 +203,25 @@ export class DashboardComponent implements OnInit {
     this.calculateNumberOfPeople();
     this.calculateNumberOfNotifications();
     // this.getCameras();
-    this.newCam('http://102.132.160.185:5231/feed/0', '1');
-    this.newCam2('http://102.132.160.185:5231/feed/1', '2');
+    // this.newCam('http://102.132.160.185:5231/feed/0', '1');
+    // this.newCam2('http://102.132.160.185:5231/feed/1', '2');
+
+    this.noCamOnline();
+    this.newCam('', '1');
+    this.newCam2('', '2');
+  }
+
+  public noCamOnline(): void {
+    const liveFeedDiv = document.getElementById('liveFeedDiv');
+    const noCam = document.createElement('div');
+    noCam.innerHTML = 'Currently no cameras detected! Please check that your Raspberry Pi is online.';
+
+    const noCamIcon = document.createElement('i');
+    noCamIcon.setAttribute('class', 'material-icons');
+    noCamIcon.innerHTML = 'videocam_off';
+
+    liveFeedDiv.appendChild(noCamIcon);
+    liveFeedDiv.appendChild(noCam);
   }
 
   public toggleCam(): void {
@@ -217,10 +234,10 @@ export class DashboardComponent implements OnInit {
     let noCamMessage = false;
     const thisRef = this;
 
-    const camUrls = ['http://192.168.0.100:5000/feed/0'];
+    const camUrls = ['http://102.132.160.185:5231/feed/0', 'http://102.132.160.185:5231/feed/1'];
 
     function newCam(currentUrl, currentNum) {
-      console.log(currentUrl);
+      // console.log(currentUrl);
       const liveFeedDiv = document.getElementById('liveFeedDiv');
       const newCamFeed = document.createElement('iframe');
       newCamFeed.src = currentUrl;
