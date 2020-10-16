@@ -24,7 +24,7 @@ import java.util.NoSuchElementException;
 @RestController
 @RequestMapping("/api")
 // @CrossOrigin(origins = "http://localhost:4200")
-@CrossOrigin(origins = "https://sigma-argus.herokuapp.com")
+@CrossOrigin(origins = "https://sigma-argus1.herokuapp.com")
 public class PersonController {
     private static final Logger LOGGER = LoggerFactory.getLogger(PersonController.class);
     private final PersonService service;

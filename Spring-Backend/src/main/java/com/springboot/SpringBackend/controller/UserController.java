@@ -18,7 +18,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 // @CrossOrigin(origins = "http://localhost:4200")
-@CrossOrigin(origins = "https://sigma-argus.herokuapp.com")
+@CrossOrigin(origins = "https://sigma-argus1.herokuapp.com")
 public class UserController {
     private final UserService service;
     private final UserRepo repo;
