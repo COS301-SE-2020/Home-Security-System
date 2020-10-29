@@ -46,12 +46,11 @@ master
 └── postgreCRUD
     └── springSessions
     └── smtpBackend
-    └── herokuServer
 └── firebase-Master
-└── firebaseFrontEnd
-└── testion
-└── deploy
+    └── firebaseFrontEnd
+└── testing
 └── deployables
+    └── deploy
 
 ```
 
@@ -69,13 +68,13 @@ master
 
 <img src="https://github.com/BritneyChu.png" width = 200/>
 
-Previous Team Leader, unfortunately she had to drop out of the degree due to medical reasons.
+Previous Team Leader, unfortunately she had to drop out of the degree due to medical/health reasons.
 
 <details><summary>Expand details</summary>
 <div class="right">
 
 **Interests:**
-    - Programming       - Project management        - Business
+    - Programming       - Project management
     
     - System analysis   - Website design
 
@@ -103,11 +102,9 @@ Milky Way Tutors, Computer Science
 
 **Attitudes:**
 
-    - Adventurous        - Team-driven       - Passionate
+    - Adventurous        - Passionate        - Artistic
     
     - Creative           - Experimental      - Logical
-    
-    - Artistic           - Amiable
 </div>
 
 </details>
@@ -122,10 +119,10 @@ Milky Way Tutors, Computer Science
 
 <details><summary>Expand details</summary>
 
-- __Interests__: Dancing, Fishing, Gaming, Gambling, Gym, Photography, Snooker.
-- __Skills__: C++, C#, Java, x86 Assembly, JavaScript, PHP, HTNL/CSS, MySQL, Postgre, MongoDB, Neo4j.
+- __Interests__: Chess, Coding, Dancing, Gym, Gaming, Rugby, Traveling.
+- __Skills__: C++, C#, Java, Python, x86 Assembly, PHP, JavaScript, HTNL/CSS, MySQL, Postgre, MongoDB, Neo4j.
 - __Previous work experience__: Tutor for COS212 at the University of Pretoria.
-- __Attitudes__: Confident, Attention to Detail, Hard Worker.
+- __Attitudes__: Confident, Attention to Detail, Enjoys Challenges, Hard Worker, Logical, Problem Solving, Team-driven.
 
 </details>
 
@@ -141,7 +138,7 @@ Milky Way Tutors, Computer Science
 - __Interests__: Gym, Gaming, Technology and Reading
 - __Skills__:  Java, C++, x86 Assembly, HTML, CSS, JavaScript, PHP, Android Development and UI/UX Design
 - __Previous Work Experience__: No formal work experience
-- __Attitudes__: Hard working, positive, dedicated and punctual
+- __Attitudes__: Hard working, positive, dedicated and punctual, 
 
 </details>
 
@@ -173,7 +170,7 @@ Milky Way Tutors, Computer Science
 - __Interests__: Trail running, Motor sports, CNC machining, 3D printing
 - __Skills__: Java, C++, Assembler, HTML, CSS, JavaScript, Android and MySQL
 - __Previous work experience__: No formal work experience, 5 years of University level programming experience.
-- __Attitudes__: Dedicated, hard worker, perfectionist, creative and positive.
+- __Attitudes__: Dedicated, Hard Worker, Perfectionist, Creative and Positive.
 
 </details> 
 
@@ -192,3 +189,72 @@ Milky Way Tutors, Computer Science
 - __Attitudes__: Determinated, Positive, Hard Working, Dedicated 
 
 </details> 
+
+# Contributions
+
+## Brad Zietsman (u15228194)
+<details>
+- Team management and Intergration
+- Backend (Springboot)
+    - CRUD Operations
+    - Logic Operations
+    - Security
+    - RabbitMQ/CloudAMQP
+    - Liquibase
+    - Database Managemnet (PostgreSQL)
+    - Unit/Intergrations tests
+- Frontend (Angular)
+    - Security
+    - CRUD Operations
+- Neural Network (Python)
+    - Facial Detection
+    - Video Capture
+- Server Setup/Configuration (Heroku)
+</details>    
+    
+## Shaun Vermeulen (u16078625)
+<details>
+- Backend (Springboot)
+    - Sending Email's (SMTP)
+    - Sending SMS's (Twilio)
+- Frontend (Angular)
+    - CRUD operations
+    - Logic Operations
+    - Session Management
+    - Sending Email's (SMTP)
+    - Password Recovery
+    - Graphs
+    - Unit/Intergration Tests
+- Risk Management (Firebase)
+</details>
+    
+## Brett Fourie (u16024002)
+<details>
+- Frontend (Angular)
+    - CRUD Operations
+    - Logic Operations
+    - Cross-platform implementation (Desktop, Tablet, Mobile)
+    - UI Design
+</details>
+
+## Johann Stadler (u16008554)
+<details>
+- Frontend (Angular)
+    - CRUD Operations
+    - Logic Operations
+    - Graphs
+    - UI Design
+</details>
+    
+## Jason Lutz (u15323413)
+<details>
+- Neural Network (Python)
+    - Facial Detection
+    - Facial Classification
+    - Facial Recognition
+    - RabbitMQ/CloudAMQP (Pika)
+    - Camera feed to Server
+    - Port forwarding
+    - Unit/Intergration Tests
+</details>
+    
