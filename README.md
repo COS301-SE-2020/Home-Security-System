@@ -190,10 +190,9 @@ Milky Way Tutors, Computer Science
 
 </details> 
 
-# Contributions
+## Contributions
 
-## Brad Zietsman (u15228194)
-<details>
+### Brad Zietsman (u15228194)
 - Team management and Intergration
 - Backend (Springboot)
     - CRUD Operations
@@ -210,10 +209,8 @@ Milky Way Tutors, Computer Science
     - Facial Detection
     - Video Capture
 - Server Setup/Configuration (Heroku)
-</details>    
     
-## Shaun Vermeulen (u16078625)
-<details>
+### Shaun Vermeulen (u16078625)
 - Backend (Springboot)
     - Sending Email's (SMTP)
     - Sending SMS's (Twilio)
@@ -226,28 +223,22 @@ Milky Way Tutors, Computer Science
     - Graphs
     - Unit/Intergration Tests
 - Risk Management (Firebase)
-</details>
     
-## Brett Fourie (u16024002)
-<details>
+### Brett Fourie (u16024002)
 - Frontend (Angular)
     - CRUD Operations
     - Logic Operations
     - Cross-platform implementation (Desktop, Tablet, Mobile)
     - UI Design
-</details>
 
-## Johann Stadler (u16008554)
-<details>
+### Johann Stadler (u16008554)
 - Frontend (Angular)
     - CRUD Operations
     - Logic Operations
     - Graphs
     - UI Design
-</details>
     
-## Jason Lutz (u15323413)
-<details>
+### Jason Lutz (u15323413)
 - Neural Network (Python)
     - Facial Detection
     - Facial Classification
@@ -256,5 +247,4 @@ Milky Way Tutors, Computer Science
     - Camera feed to Server
     - Port forwarding
     - Unit/Intergration Tests
-</details>
     
