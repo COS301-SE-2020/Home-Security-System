@@ -1,7 +1,8 @@
 <a href="https://github.com/COS301-SE-2020/Home-Security-System"><img src="Argus.png" title="Argus" alt="Argus" width="600"></a>
 # Argus - Home-Security-System
 
-Argus is a home security system  capable of instantly identifying threats on multiple video feeds around the home of a user while notifying the user of identified threats.
+Our Clients at EPI-USE Labs tasked us (Team Sigma, a group of 5 students) with designing a Home Security System called Argus.
+Argus is a multi-platform web application capable of instantly identifying threats on multiple camera feeds around a one's home whilst also notifying them in real time either via Email or SMS of any potential threats picked up by the system. As a constraint, our clients wanted us to run the the facial detection on a Raspberry Pi. This ensured that if a new home owner wanting to use the web application would only be required to purchase a Raspberry Pi along with "X" number of Camera's to set up around his/her home. Argus uses only open source software and is loosely coupled so that any component of the system could be replaced relatively easily if so desired. We as Team Sigma accomplished all of this using an Agile methodology with daily stand-ups and biweekly sprints.
 
 ## Visit Argus
 <img src="https://img.icons8.com/fluent-systems-regular/24/000000/domain.png"/> [Argus WebApp (Heroku)](https://sigma-argus.herokuapp.com/)
@@ -39,7 +40,6 @@ Argus is a home security system  capable of instantly identifying threats on mul
 <img src="https://img.icons8.com/fluent-systems-regular/24/000000/video.png"/> [Full System](https://drive.google.com/file/d/1WjClfpGbzwVZtbOzLiPzTJDouzFqa5kg/view?usp=sharing)
 
 ## Repository Layout
-This is how the branches will be laid out
 ```
 master 
 └── neuralnetwork
@@ -51,8 +51,17 @@ master
 └── testing
 └── deployables
     └── deploy
-
+    └── heroku
 ```
+
+## Technologies Used: 
+
+- Heroku Server (Free Tier)
+- Angular for frontend development with a combination of JavaScript and TypeScript backend
+- Spring Boot for backend development
+- Python for the Neural Network facial detection, which ran on a Raspberry Pi4 Model B
+- RabbitMQ/CloudAMQL as the Message Broker
+- PostgreSQL as the Database
 
 # Meet the Team
 <img src="Sigma_Logo.png" width=300/>
@@ -194,27 +203,24 @@ Milky Way Tutors, Computer Science
 
 ### Brad Zietsman (u15228194)
 - Team management and Intergration
-- Backend (Springboot)
+- Frontend (Angular)
+    - Security
+    - CRUD Operations
+- Backend (Spring Boot)
     - CRUD Operations
     - Logic Operations
     - Security
     - RabbitMQ/CloudAMQP
-    - Liquibase
-    - Database Managemnet (PostgreSQL)
     - Unit/Intergrations tests
-- Frontend (Angular)
-    - Security
-    - CRUD Operations
 - Neural Network (Python)
     - Facial Detection
     - Video Capture
+- Database Management (PostgreSQL)
+    - Liquibase
 - Server Setup/Configuration (Heroku)
     
 ### Shaun Vermeulen (u16078625)
-- Backend (Springboot)
-    - Sending Email's (SMTP)
-    - Sending SMS's (Twilio)
-- Frontend (Angular)
+Frontend (Angular)
     - CRUD operations
     - Logic Operations
     - Session Management
@@ -222,12 +228,15 @@ Milky Way Tutors, Computer Science
     - Password Recovery
     - Graphs
     - Unit/Intergration Tests
+- Backend (Spring Boot)
+    - Sending Email's (SMTP)
+    - Sending SMS's (Twilio)
 - Risk Management (Firebase)
     
 ### Brett Fourie (u16024002)
 - Frontend (Angular)
     - CRUD Operations
-    - Logic Operations
+    - Security
     - Cross-platform implementation (Desktop, Tablet, Mobile)
     - UI Design
 
