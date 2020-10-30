@@ -206,9 +206,9 @@ Milky Way Tutors, Computer Science
 - Frontend (Angular)
     - Security
     - CRUD Operations
+    - Logic Operations
 - Backend (Spring Boot)
     - CRUD Operations
-    - Logic Operations
     - Security
     - RabbitMQ/CloudAMQP
     - Unit/Intergrations tests
